@@ -1,0 +1,17 @@
+---
+description: Core project rules for Yofai.
+alwaysApply: true
+---
+
+# Core Rules
+
+- App name is Yofai.
+- Bundle ID is com.shawnwright.yofai.
+- App type code word is Mosaic.
+- Keep changes small.
+- Inspect files before editing.
+- Do not refactor unrelated files.
+- Do not add backend, accounts, payments, ads, or AI API calls unless approved.
+- Report changed files, build result, and next needed approval.
+- Use short, simple explanations.
+

@@ -1,0 +1,16 @@
+DerivedData/
+.build/
+build/
+*.xcarchive
+*.ipa
+*.dSYM
+*.log
+*.tmp
+.DS_Store
+xcuserdata/
+*.xcuserstate
+*.moved-aside
+Pods/
+Carthage/
+.swiftpm/
+

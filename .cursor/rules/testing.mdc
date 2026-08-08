@@ -1,0 +1,14 @@
+---
+description: Build and test rules for Yofai.
+alwaysApply: false
+---
+
+# Build And Test Rules
+
+- Use Xcode build/test commands when possible.
+- Run one focused iPhone simulator only.
+- Do not test many devices unless approved.
+- If a build fails, report the exact error and the likely file.
+- Do not hide build failures.
+- Do not make unrelated fixes during test cleanup.
+

@@ -1,0 +1,16 @@
+---
+description: SwiftUI rules for Yofai source files.
+globs: ["**/*.swift"]
+alwaysApply: false
+---
+
+# SwiftUI Rules
+
+- Use SwiftUI for screens.
+- Keep views small and readable.
+- Use SwiftData for local storage when persistence is needed.
+- Put business logic outside large views when it grows.
+- Do not create duplicate models.
+- Keep names clear and simple.
+- Add comments only when the code is not obvious.
+
