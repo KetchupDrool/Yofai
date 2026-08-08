@@ -17,6 +17,8 @@ enum PhotoSaveError: LocalizedError {
     case renderFailed
     case saveFailed
     case loadFailed
+    case localSaveFailed
+    case missingLocalFile
 
     var errorDescription: String? {
         switch self {
@@ -28,6 +30,10 @@ enum PhotoSaveError: LocalizedError {
             return "Could not save the photo. Please try again."
         case .loadFailed:
             return "Could not load that photo. Try choosing a different image."
+        case .localSaveFailed:
+            return "Could not save a local History copy on this device."
+        case .missingLocalFile:
+            return "This History item’s full image is missing. The Photos copy was not deleted."
         }
     }
 }
@@ -35,16 +41,29 @@ enum PhotoSaveError: LocalizedError {
 enum ImageEditing {
     private static let context = CIContext(options: nil)
 
-    static func render(source: UIImage, filter: PhotoFilter, quarterTurns: Int) -> UIImage? {
-        let turns = ((quarterTurns % 4) + 4) % 4
+    static func render(source: UIImage, state: PhotoEditState) -> UIImage? {
+        let turns = state.normalizedTurns
         guard let rotated = rotate(source, quarterTurns: turns),
-              let ciImage = CIImage(image: rotated) else {
+              var ciImage = CIImage(image: rotated) else {
             return nil
         }
 
-        let filtered = apply(filter, to: ciImage)
-        let extent = filtered.extent.integral
-        guard let cgImage = context.createCGImage(filtered, from: extent) else {
+        if let crop = state.cropRect {
+            ciImage = cropImage(ciImage, normalizedRect: crop)
+        }
+
+        ciImage = applyAdjustments(
+            to: ciImage,
+            brightness: Float(state.brightness),
+            contrast: Float(state.contrast),
+            saturation: Float(state.saturation)
+        )
+
+        ciImage = apply(state.filter, to: ciImage)
+
+        let extent = ciImage.extent.integral
+        guard extent.width > 1, extent.height > 1,
+              let cgImage = context.createCGImage(ciImage, from: extent) else {
             return nil
         }
         return UIImage(cgImage: cgImage, scale: rotated.scale, orientation: .up)
@@ -65,6 +84,34 @@ enum ImageEditing {
         }
     }
 
+    private static func cropImage(_ image: CIImage, normalizedRect: CGRect) -> CIImage {
+        let extent = image.extent
+        let rect = CGRect(
+            x: extent.minX + normalizedRect.minX * extent.width,
+            y: extent.minY + (1 - normalizedRect.maxY) * extent.height,
+            width: normalizedRect.width * extent.width,
+            height: normalizedRect.height * extent.height
+        ).integral
+        return image.cropped(to: rect).transformed(by: CGAffineTransform(
+            translationX: -rect.origin.x,
+            y: -rect.origin.y
+        ))
+    }
+
+    private static func applyAdjustments(
+        to image: CIImage,
+        brightness: Float,
+        contrast: Float,
+        saturation: Float
+    ) -> CIImage {
+        let controls = CIFilter.colorControls()
+        controls.inputImage = image
+        controls.brightness = brightness
+        controls.contrast = contrast
+        controls.saturation = saturation
+        return controls.outputImage ?? image
+    }
+
     private static func apply(_ filter: PhotoFilter, to image: CIImage) -> CIImage {
         switch filter {
         case .original:
@@ -81,9 +128,9 @@ enum ImageEditing {
         case .vivid:
             let controls = CIFilter.colorControls()
             controls.inputImage = image
-            controls.contrast = 1.2
-            controls.saturation = 1.35
-            controls.brightness = 0.02
+            controls.contrast = 1.15
+            controls.saturation = 1.25
+            controls.brightness = 0.01
             return controls.outputImage ?? image
         }
     }

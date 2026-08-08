@@ -7,17 +7,27 @@ final class SavedEdit {
     var savedAt: Date
     var filterName: String
     var quarterTurns: Int
+    var didCrop: Bool
+    var adjustmentSummary: String
+    /// File name inside app Application Support/SavedEdits (not Photos).
+    var localFileName: String?
     @Attribute(.externalStorage) var thumbnailData: Data?
 
     init(
         savedAt: Date = .now,
         filterName: String,
         quarterTurns: Int,
+        didCrop: Bool = false,
+        adjustmentSummary: String = "None",
+        localFileName: String? = nil,
         thumbnailData: Data? = nil
     ) {
         self.savedAt = savedAt
         self.filterName = filterName
         self.quarterTurns = quarterTurns
+        self.didCrop = didCrop
+        self.adjustmentSummary = adjustmentSummary
+        self.localFileName = localFileName
         self.thumbnailData = thumbnailData
     }
 
@@ -29,6 +39,10 @@ final class SavedEdit {
     var thumbnailImage: UIImage? {
         guard let thumbnailData else { return nil }
         return UIImage(data: thumbnailData)
+    }
+
+    var fullLocalImage: UIImage? {
+        LocalEditStore.loadImage(fileName: localFileName)
     }
 
     static func makeThumbnailData(from image: UIImage, maxDimension: CGFloat = 240) -> Data? {

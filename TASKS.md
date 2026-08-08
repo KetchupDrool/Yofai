@@ -1,22 +1,18 @@
 # Tasks
 
-## Deadline
-Upload by **2026-08-13**.
+## Status
+App Store upload paused. Building beyond-MVP local features.
 
 ## Current Phase
-App Store Connect assets + archive.
+Phase 7 — Edit Again from History.
 
 ## Done
-- Polished App Store MVP UI (Home, Import, Edit, History, Settings)
-- Recent saves on Home, Reset on Edit, load/save/permission errors
-- Metadata, privacy notes, release checklist, placeholder icon
+- MVP + Phases 4–6
+- Phase 7: History detail Edit Again → EditView with full local image; Save Copy makes a new record
 
-## Blockers Before Archive/Upload
-- [ ] Host privacy policy URL (update Settings placeholders)
-- [ ] Host support URL (update Settings placeholders)
-- [ ] Screenshots (6.7" + 6.1")
-- [ ] Optional final AppIcon
-- [ ] Archive + upload
+## Next Ideas
+- Freeform drag crop
+- Home open-from-history detail
 
 ## Do Not Do
-- Crop (deferred), backend, login, payments, ads, AI API
+- Backend, login, payments, ads, AI, subscriptions

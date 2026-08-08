@@ -18,7 +18,11 @@ struct HistoryView: View {
                 } else {
                     List {
                         ForEach(savedEdits) { edit in
-                            HistoryRow(edit: edit)
+                            NavigationLink {
+                                HistoryDetailView(edit: edit)
+                            } label: {
+                                HistoryRow(edit: edit)
+                            }
                         }
                         .onDelete(perform: deleteEdits)
                     }
@@ -36,7 +40,9 @@ struct HistoryView: View {
 
     private func deleteEdits(at offsets: IndexSet) {
         for index in offsets {
-            modelContext.delete(savedEdits[index])
+            let edit = savedEdits[index]
+            LocalEditStore.deleteFile(fileName: edit.localFileName)
+            modelContext.delete(edit)
         }
     }
 }
@@ -66,7 +72,10 @@ private struct HistoryRow: View {
                 Text("Filter: \(edit.filterName)")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
-                Text("Rotation: \(edit.rotationDegrees)°")
+                Text("Rotation: \(edit.rotationDegrees)° · Crop: \(edit.didCrop ? "Yes" : "No")")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                Text("Adjust: \(edit.adjustmentSummary)")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }

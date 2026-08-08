@@ -86,9 +86,14 @@ private struct RecentEditCard: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(edit.savedAt, format: .dateTime.month().day().hour().minute())
                     .font(.headline)
-                Text("\(edit.filterName) · \(edit.rotationDegrees)°")
+                Text("\(edit.filterName) · \(edit.rotationDegrees)° · Crop \(edit.didCrop ? "Yes" : "No")")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
+                if edit.adjustmentSummary != "None" {
+                    Text(edit.adjustmentSummary)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             }
 
             Spacer(minLength: 0)
