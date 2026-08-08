@@ -20,7 +20,16 @@
   - Facebook post: 1200 × 630
   - Marketplace: 1600 × 1600
 - Defaults: Etsy square + white
-- Deferred: transparent export, watermark, border/shadow frames
+- Deferred: transparent export, border/shadow frames
+
+## Phase 21 — Watermark (locked)
+- Simple text watermark on listing exports only
+- State: watermarkEnabled (default false), watermarkText (default "", max 32)
+- Draw after contain + pad; bottom-trailing; font scales with canvas
+- Text color follows background (light on black, dark on white/soft gray)
+- History stores optional didWatermark Bool? (Yes/No); nil = older rows
+- Share architecture unchanged (ShareFileItem + temp JPEG + .sheet(item:))
+- Deferred: logo watermark, opacity/position pickers, multi-line
 
 ## Not Approved Yet
 - Backend

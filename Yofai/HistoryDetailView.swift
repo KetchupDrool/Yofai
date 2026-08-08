@@ -62,6 +62,11 @@ struct HistoryDetailView: View {
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(DarkroomTheme.accent.opacity(0.9))
                 }
+                if let watermarkSummary = edit.watermarkSummary {
+                    Text(watermarkSummary)
+                        .font(.caption)
+                        .foregroundStyle(DarkroomTheme.textSecondary)
+                }
                 if edit.adjustmentSummary != "None" {
                     Text(edit.adjustmentSummary)
                         .font(.caption)

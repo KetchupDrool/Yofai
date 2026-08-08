@@ -15,6 +15,19 @@ struct PhotoEditState: Equatable {
     /// Listing-ready export canvas (contain + pad).
     var exportPreset: ListingExportPreset = .etsySquare
     var exportBackground: ListingExportBackground = .white
+    /// Seller watermark drawn on listing canvas after pad.
+    var watermarkEnabled: Bool = false
+    var watermarkText: String = ""
+
+    static let watermarkMaxLength = 32
+
+    var trimmedWatermarkText: String {
+        watermarkText.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    var willDrawWatermark: Bool {
+        watermarkEnabled && !trimmedWatermarkText.isEmpty
+    }
 
     var normalizedTurns: Int {
         ((quarterTurns % 4) + 4) % 4
@@ -37,6 +50,8 @@ struct PhotoEditState: Equatable {
             || hasAdjustments
             || exportPreset != .etsySquare
             || exportBackground != .white
+            || watermarkEnabled
+            || !trimmedWatermarkText.isEmpty
     }
 
     var adjustmentSummary: String {

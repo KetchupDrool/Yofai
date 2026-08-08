@@ -13,6 +13,8 @@ final class SavedEdit {
     var exportPresetName: String?
     /// Listing background display name. nil/empty on older history rows.
     var exportBackgroundName: String?
+    /// Whether a watermark was drawn. nil on older history rows.
+    var didWatermark: Bool?
     /// File name inside app Application Support/SavedEdits (not Photos).
     var localFileName: String?
     @Attribute(.externalStorage) var thumbnailData: Data?
@@ -25,6 +27,7 @@ final class SavedEdit {
         adjustmentSummary: String = "None",
         exportPresetName: String? = nil,
         exportBackgroundName: String? = nil,
+        didWatermark: Bool? = nil,
         localFileName: String? = nil,
         thumbnailData: Data? = nil
     ) {
@@ -35,6 +38,7 @@ final class SavedEdit {
         self.adjustmentSummary = adjustmentSummary
         self.exportPresetName = exportPresetName
         self.exportBackgroundName = exportBackgroundName
+        self.didWatermark = didWatermark
         self.localFileName = localFileName
         self.thumbnailData = thumbnailData
     }
@@ -51,6 +55,12 @@ final class SavedEdit {
             return nil
         }
         return "\(preset) · \(background)"
+    }
+
+    /// Watermark Yes/No when Phase 21+ field is present.
+    var watermarkSummary: String? {
+        guard let didWatermark else { return nil }
+        return didWatermark ? "Watermark Yes" : "Watermark No"
     }
 
     var thumbnailImage: UIImage? {

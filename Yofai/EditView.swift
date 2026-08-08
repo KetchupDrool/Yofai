@@ -16,6 +16,7 @@ struct EditView: View {
     @State private var statusIsError = false
     @State private var edgeCropAmount: Double = 0
     @State private var didPushSliderUndo = false
+    @State private var didPushWatermarkTextUndo = false
     @State private var shareItem: ShareFileItem?
     @State private var shareFileURLToCleanup: URL?
     @State private var showFreeformCrop = false
@@ -181,12 +182,66 @@ struct EditView: View {
                         Text(editState.listingSummary)
                             .font(.caption2)
                             .foregroundStyle(DarkroomTheme.textTertiary)
+
+                        Toggle(isOn: Binding(
+                            get: { editState.watermarkEnabled },
+                            set: { newValue in
+                                guard editState.watermarkEnabled != newValue else { return }
+                                undoStack.append(editState)
+                                editState.watermarkEnabled = newValue
+                                commitChange()
+                            }
+                        )) {
+                            Text("Watermark")
+                                .font(.caption.weight(.semibold))
+                                .foregroundStyle(DarkroomTheme.textSecondary)
+                        }
+                        .tint(DarkroomTheme.accent)
+
+                        if editState.watermarkEnabled {
+                            TextField(
+                                "Shop name",
+                                text: Binding(
+                                    get: { editState.watermarkText },
+                                    set: { newValue in
+                                        let clipped = String(newValue.prefix(PhotoEditState.watermarkMaxLength))
+                                        guard clipped != editState.watermarkText else { return }
+                                        if !didPushWatermarkTextUndo {
+                                            undoStack.append(editState)
+                                            didPushWatermarkTextUndo = true
+                                        }
+                                        editState.watermarkText = clipped
+                                        clearStatus()
+                                        schedulePreviewRefresh()
+                                    }
+                                )
+                            )
+                            .textInputAutocapitalization(.words)
+                            .autocorrectionDisabled()
+                            .font(.subheadline)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 8)
+                            .background(DarkroomTheme.surfaceRaised, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                    .stroke(DarkroomTheme.stroke, lineWidth: 1)
+                            )
+                            .onSubmit {
+                                didPushWatermarkTextUndo = false
+                                commitChange()
+                            }
+                            .onChange(of: editState.watermarkEnabled) { _, enabled in
+                                if !enabled {
+                                    didPushWatermarkTextUndo = false
+                                }
+                            }
+                        }
                     }
                 }
                 .padding(.horizontal, 10)
                 .padding(.bottom, 4)
             }
-            .frame(maxHeight: 300)
+            .frame(maxHeight: 320)
 
             VStack(spacing: 6) {
                 HStack(spacing: 8) {
@@ -417,6 +472,7 @@ struct EditView: View {
         guard let previous = undoStack.popLast() else { return }
         editState = previous
         syncEdgeCropAmount(from: previous)
+        didPushWatermarkTextUndo = false
         commitChange()
     }
 
@@ -441,6 +497,7 @@ struct EditView: View {
         }
         editState = PhotoEditState()
         edgeCropAmount = 0
+        didPushWatermarkTextUndo = false
         commitChange()
     }
 
@@ -499,6 +556,7 @@ struct EditView: View {
                 adjustmentSummary: editState.adjustmentSummary,
                 exportPresetName: editState.exportPreset.rawValue,
                 exportBackgroundName: editState.exportBackground.rawValue,
+                didWatermark: editState.willDrawWatermark,
                 localFileName: localFileName,
                 thumbnailData: SavedEdit.makeThumbnailData(from: finalImage)
             )

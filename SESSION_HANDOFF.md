@@ -1,33 +1,33 @@
 # Session Handoff
 
 ## Status
-Phase 20 listing export complete. **Share sheet black/blank bug fixed.** Build succeeded on iPhone 16e. Local-only. App Store upload paused.
+Phase 21 complete. **Save rotation bug fixed** (EXIF orientation normalize). Build succeeded on iPhone 16e. Share architecture unchanged. Local-only. App Store upload paused.
 
 ## Facts
 - Yofai / `com.shawnwright.yofai` / iPhone-only
-- Pages: https://ketchupdrool.github.io/Yofai/
-- Listing presets + contain/pad backgrounds unchanged
-- Share uses temporary JPEG file URL via `ShareFileItem` + `.sheet(item:)`
+- Listing presets + watermark unchanged
+- `ImageEditing.normalizedOrientation()` bakes EXIF into pixels before pipeline
+- Share still uses ShareFileItem + temp JPEG + `.sheet(item:)`
 
 ## Last Completed
-- Debugged Share: blank sheet from `isPresented` + optional `if let` content, raw large `UIImage` items, and `presentationDetents` on `UIActivityViewController`
-- Fix: render listing image first → write temp JPEG → present only when `ShareFileItem` exists → remove file on dismiss
-- Same stable share path on Edit + History Detail
-- Save Listing Copy unchanged
+- Debugged Save vs Preview rotation mismatch
+- Root cause: preview often downscaled (draw normalizes orientation); full Save used oriented UIImage with `rotate(0)` passthrough into CIImage
+- Fix: `normalizedOrientation()` at start of `renderPipeline`, `downscaled`, and `imageForCropping`
+- User quarter-turn rotate behavior unchanged
 
 ## Flow Verified (code paths + build)
-Import → Edit → render share JPEG → Share sheet (item-based) → dismiss cleans temp file
+Import → Edit preview → Save Listing Copy / Share use same normalized base orientation
 
 ## Remaining Rough Spots
-- Device/simulator retest of Share still needed (manual)
-- Edit tool panel may scroll with Export section
-- Full listing canvases cost more on Save/Share
+- Manual retest with phone camera photos (EXIF .right / .left) still needed
+- Edit panel may scroll with watermark field open
 - Import re-picks still create another Original (no dedupe)
 
 ## Next Recommended
-Manual Share retest on iPhone 16e, then listing export smoke-test or App Store prep.
+Manual Save orientation retest on iPhone 16e, then App Store prep when ready.
 
 ## Rules
 - No backend/login/payments/ads/AI/subscriptions
-- No transparent / watermark / frames unless approved
+- No transparent / frames / logo watermark unless approved
+- Keep ShareFileItem path stable
 - One simulator unless approved

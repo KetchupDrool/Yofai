@@ -54,6 +54,8 @@ enum ImageEditing {
             edited,
             preset: state.exportPreset,
             background: state.exportBackground,
+            watermarkEnabled: state.watermarkEnabled,
+            watermarkText: state.watermarkText,
             maxDimension: nil
         )
     }
@@ -66,19 +68,37 @@ enum ImageEditing {
             edited,
             preset: state.exportPreset,
             background: state.exportBackground,
+            watermarkEnabled: state.watermarkEnabled,
+            watermarkText: state.watermarkText,
             maxDimension: previewMaxDimension
         )
     }
 
     /// Rotated source for freeform crop UI; downscaled so large photos stay responsive.
     static func imageForCropping(source: UIImage, quarterTurns: Int) -> UIImage? {
+        let normalized = normalizedOrientation(source)
         let turns = ((quarterTurns % 4) + 4) % 4
-        guard let rotated = rotate(source, quarterTurns: turns) else { return nil }
+        guard let rotated = rotate(normalized, quarterTurns: turns) else { return nil }
         return downscaled(rotated, maxDimension: previewMaxDimension)
     }
 
-    /// Returns `image` unchanged when already within `maxDimension`.
+    /// Bakes `imageOrientation` into pixel data so preview and full Save/Share match.
+    /// Does not apply user quarter-turn edits — call before rotate/crop/filter.
+    static func normalizedOrientation(_ image: UIImage) -> UIImage {
+        guard image.imageOrientation != .up else { return image }
+
+        let format = UIGraphicsImageRendererFormat.default()
+        format.scale = image.scale
+        format.opaque = false
+        let renderer = UIGraphicsImageRenderer(size: image.size, format: format)
+        return renderer.image { _ in
+            image.draw(in: CGRect(origin: .zero, size: image.size))
+        }
+    }
+
+    /// Returns `image` unchanged when already within `maxDimension` (after orientation normalize).
     static func downscaled(_ image: UIImage, maxDimension: CGFloat) -> UIImage {
+        let image = normalizedOrientation(image)
         let pixelWidth = image.size.width * image.scale
         let pixelHeight = image.size.height * image.scale
         let longest = max(pixelWidth, pixelHeight)
@@ -103,6 +123,9 @@ enum ImageEditing {
     }
 
     private static func renderPipeline(source: UIImage, state: PhotoEditState) -> UIImage? {
+        // Full Save uses the original import UIImage; preview often already drew via downscale.
+        // Normalize first so EXIF orientation cannot diverge between those paths.
+        let source = normalizedOrientation(source)
         let turns = state.normalizedTurns
         guard let rotated = rotate(source, quarterTurns: turns),
               var ciImage = CIImage(image: rotated) else {
@@ -135,10 +158,13 @@ enum ImageEditing {
     }
 
     /// Contain + pad onto locked listing canvas. Optional `maxDimension` caps preview canvases.
+    /// Watermark is drawn after pad when enabled with non-empty trimmed text.
     static func applyListingFrame(
         _ image: UIImage,
         preset: ListingExportPreset,
         background: ListingExportBackground,
+        watermarkEnabled: Bool,
+        watermarkText: String,
         maxDimension: CGFloat?
     ) -> UIImage? {
         let canvas = listingCanvasSize(for: preset, maxDimension: maxDimension)
@@ -164,11 +190,58 @@ enum ImageEditing {
         format.scale = 1
         format.opaque = true
         let renderer = UIGraphicsImageRenderer(size: canvas, format: format)
-        return renderer.image { ctx in
+        return renderer.image { _ in
             background.uiColor.setFill()
-            ctx.fill(CGRect(origin: .zero, size: canvas))
+            UIRectFill(CGRect(origin: .zero, size: canvas))
             image.draw(in: CGRect(origin: origin, size: drawSize))
+            drawWatermarkIfNeeded(
+                text: watermarkText,
+                enabled: watermarkEnabled,
+                background: background,
+                canvas: canvas
+            )
         }
+    }
+
+    private static func drawWatermarkIfNeeded(
+        text: String,
+        enabled: Bool,
+        background: ListingExportBackground,
+        canvas: CGSize
+    ) {
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard enabled, !trimmed.isEmpty else { return }
+
+        let limited: String
+        if trimmed.count > PhotoEditState.watermarkMaxLength {
+            limited = String(trimmed.prefix(PhotoEditState.watermarkMaxLength))
+        } else {
+            limited = trimmed
+        }
+
+        let side = min(canvas.width, canvas.height)
+        let fontSize = max(12, (side * 0.028).rounded())
+        let margin = max(8, (side * 0.03).rounded())
+        let color: UIColor = {
+            switch background {
+            case .black:
+                return UIColor.white.withAlphaComponent(0.92)
+            case .white, .softGray:
+                return UIColor.black.withAlphaComponent(0.72)
+            }
+        }()
+
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: fontSize, weight: .semibold),
+            .foregroundColor: color
+        ]
+        let nsText = limited as NSString
+        let textSize = nsText.size(withAttributes: attributes)
+        let point = CGPoint(
+            x: max(margin, canvas.width - textSize.width - margin),
+            y: max(margin, canvas.height - textSize.height - margin)
+        )
+        nsText.draw(at: point, withAttributes: attributes)
     }
 
     static func listingCanvasSize(for preset: ListingExportPreset, maxDimension: CGFloat?) -> CGSize {

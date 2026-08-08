@@ -28,9 +28,16 @@ struct HistoryView: View {
                                     title: edit.savedAt.formatted(.dateTime.month().day().year().hour().minute()),
                                     subtitle: edit.listingSummary
                                         ?? "\(edit.filterName) · \(edit.rotationDegrees)° · Crop \(edit.didCrop ? "Yes" : "No")",
-                                    detail: edit.listingSummary == nil
-                                        ? (edit.adjustmentSummary == "None" ? nil : edit.adjustmentSummary)
-                                        : "\(edit.filterName) · \(edit.rotationDegrees)°",
+                                    detail: {
+                                        if let listing = edit.listingSummary {
+                                            let wm = edit.watermarkSummary.map { " · \($0)" } ?? ""
+                                            return "\(edit.filterName) · \(edit.rotationDegrees)°\(wm)"
+                                        }
+                                        if let wm = edit.watermarkSummary {
+                                            return edit.adjustmentSummary == "None" ? wm : "\(edit.adjustmentSummary) · \(wm)"
+                                        }
+                                        return edit.adjustmentSummary == "None" ? nil : edit.adjustmentSummary
+                                    }(),
                                     showsChevron: true,
                                     isCompact: true
                                 )

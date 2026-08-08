@@ -11,23 +11,22 @@ Yofai
 
 ## 4. Current app status
 - iPhone-only SwiftUI + SwiftData
-- Local-only listing / photo-prep tool (seller-oriented export)
-- Phases 1–20 complete
-- Phase 20: listing-ready export presets + solid backgrounds
-- Premium Glass UI + icon/launch
+- Local-only listing / photo-prep tool
+- Phases 1–21 complete
+- Phase 20: listing export presets + solid backgrounds
+- Phase 21: simple seller watermark text on listing exports
+- Share uses stable temp JPEG + `.sheet(item:)`
 - Last build: succeeded on iPhone 16e
 - App Store upload paused
 - GitHub Pages: https://ketchupdrool.github.io/Yofai/
 
-## 5. Completed phases 1–20
-1–14. MVP editor + originals/history/crop/perf/polish
-15–17. Darkroom → Premium Glass UI
-18. App icon + launch screen
-19. Edit compact tool layout
+## 5. Completed phases 1–21
+1–19. MVP editor + Premium Glass UI + icon/launch + compact Edit
 20. Listing export presets (contain + pad; white/black/soft gray)
+21. Listing watermark text (toggle + field; History Yes/No)
 
-## 6. Phase 20 result
-**Listing-ready export complete.** Locked presets and solid backgrounds. Save Listing Copy + Share use framed export. History stores/shows preset · background. Old history rows still load. Build succeeded on iPhone 16e.
+## 6. Phase 21 result
+**Watermark complete.** Optional text drawn after listing pad. Save/Share include watermark when enabled with non-empty text. History stores optional didWatermark. Share architecture unchanged. Build succeeded on iPhone 16e.
 
 ## 7. Current models/files
 **Models / storage:** `SavedEdit.swift`, `ImportedOriginal.swift`, `LocalEditStore.swift`, `PhotoEditState.swift`, `ImageEditing.swift`, `ListingExport.swift`
@@ -41,27 +40,26 @@ Yofai
 **Project:** `Yofai.xcodeproj`, `project.yml`
 
 ## 8. Current working features
-- Import → Edit → listing Export (preset + background)
-- Edit: rotate, filters, B/C/S, crop, Undo/Reset
-- Save Listing Copy → Photos + History (framed)
-- Share → framed export when editing with preset (always on; default Etsy square)
-- History/Home show listing summary when present
+- Import → Edit → listing Export (preset + background + optional watermark)
+- Save Listing Copy → Photos + History (framed, watermark baked in when on)
+- Share → framed JPEG via ShareFileItem
+- History/Home show listing summary + Watermark Yes/No when set
 - Originals library; Settings; Premium Glass UI
 
 ## 9. Current rules/constraints
 - Local-only; free
 - No backend, login, payments, ads, AI API, subscription, one-time payment
-- No transparent export / watermark / frames unless approved
+- No transparent export / frames / logo watermark unless approved
+- Keep ShareFileItem architecture stable
 - No unrelated refactors
 - One iPhone simulator unless approved
 
 ## 10. Known risks/limits
-- Edit tools may scroll more with Export section
-- Full export canvases (esp. 3000×2400) cost more on Save/Share
+- Edit tools may scroll more with Export + watermark field
+- Full export canvases cost more on Save/Share
+- Manual Share retest with watermark still needed
 - Import re-picks create another Original (no dedupe)
-- Freeform crop uses rotated image before filters/adjustments
 - Preview uses capped listing canvas; Save/Share full locked pixels
-- Visual smoke-test still needed
 
 ## 11. Exact first prompt for the next Cursor chat
 
@@ -72,14 +70,15 @@ Read NEW_CHAT_HANDOFF.md, PROJECT.md, DECISIONS.md, TASKS.md, and SESSION_HANDOF
 
 App: Yofai
 Bundle ID: com.shawnwright.yofai
-Status: Phases 1–20 done. Listing-ready export presets live (contain + pad; white/black/soft gray). Local-only. Last build succeeded on iPhone 16e. App Store upload paused.
+Status: Phases 1–21 done. Listing export + watermark live. Share uses ShareFileItem temp JPEG. Local-only. Last build succeeded on iPhone 16e. App Store upload paused.
 
 Do not guess. Inspect files before coding.
 Do not add backend, login, payments, ads, AI API, subscription, or one-time payment.
-Do not add transparent export, watermark, or frames unless newly approved.
+Do not change Share sheet architecture unless fixing a proven bug.
+Do not add transparent export, frames, or logo watermarks unless newly approved.
 Do not refactor unrelated files.
 Build once on iPhone 16e when you change code.
 
-Next: visual smoke-test of listing export flow, or App Store upload prep.
+Next: visual smoke-test of Share + watermark, or App Store upload prep.
 If that is blocked, report why and recommend the safest alternative.
 ```
