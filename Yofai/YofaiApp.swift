@@ -3,10 +3,20 @@ import SwiftData
 
 @main
 struct YofaiApp: App {
+    private let modelContainer: ModelContainer = {
+        let schema = Schema([SavedEdit.self, ImportedOriginal.self])
+        let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        do {
+            return try ModelContainer(for: schema, configurations: [configuration])
+        } catch {
+            fatalError("Could not create ModelContainer: \(error)")
+        }
+    }()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: SavedEdit.self)
+        .modelContainer(modelContainer)
     }
 }

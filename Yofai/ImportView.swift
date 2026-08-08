@@ -1,8 +1,11 @@
 import SwiftUI
 import PhotosUI
+import SwiftData
 import UIKit
 
 struct ImportView: View {
+    @Environment(\.modelContext) private var modelContext
+
     @State private var selectedItem: PhotosPickerItem?
     @State private var selectedUIImage: UIImage?
     @State private var showEdit = false
@@ -10,66 +13,84 @@ struct ImportView: View {
     @State private var isLoading = false
 
     var body: some View {
-        VStack(spacing: 20) {
-            Group {
+        VStack(spacing: 14) {
+            DarkroomCanvas {
                 if isLoading {
                     ProgressView("Loading photo…")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .tint(DarkroomTheme.accent)
+                        .foregroundStyle(DarkroomTheme.textSecondary)
                 } else if let selectedUIImage {
                     Image(uiImage: selectedUIImage)
                         .resizable()
                         .scaledToFit()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .padding(4)
                 } else {
-                    ContentUnavailableView(
-                        "Choose a Photo",
-                        systemImage: "photo.on.rectangle",
-                        description: Text("Pick an image from your library to rotate, filter, and save a copy.")
-                    )
+                    VStack(spacing: 14) {
+                        ZStack {
+                            Circle()
+                                .fill(
+                                    RadialGradient(
+                                        colors: [DarkroomTheme.accent.opacity(0.35), Color.clear],
+                                        center: .center,
+                                        startRadius: 2,
+                                        endRadius: 44
+                                    )
+                                )
+                                .frame(width: 88, height: 88)
+                            Image(systemName: "photo.on.rectangle")
+                                .font(.system(size: 34, weight: .light))
+                                .foregroundStyle(DarkroomTheme.accent)
+                        }
+                        Text("Choose a Photo")
+                            .font(.title3.weight(.bold))
+                            .foregroundStyle(DarkroomTheme.textPrimary)
+                        Text("Pick a photo to edit. Yofai keeps a local original on this device.")
+                            .font(.subheadline)
+                            .foregroundStyle(DarkroomTheme.textSecondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 28)
+                    }
                 }
             }
-            .padding(.horizontal, 20)
+            .padding(.horizontal, 12)
 
             if let loadError {
                 Text(loadError)
                     .font(.subheadline)
-                    .foregroundStyle(.red)
+                    .foregroundStyle(DarkroomTheme.danger)
                     .multilineTextAlignment(.center)
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal, 16)
             }
 
-            VStack(spacing: 12) {
+            VStack(spacing: 10) {
+                let chooseTitle = selectedUIImage == nil ? "Choose Photo" : "Choose Different Photo"
                 PhotosPicker(selection: $selectedItem, matching: .images) {
-                    Label(
-                        selectedUIImage == nil ? "Choose Photo" : "Choose Different Photo",
+                    DarkroomPrimaryButtonLabel(
+                        title: chooseTitle,
                         systemImage: "photo.on.rectangle"
                     )
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.plain)
                 .disabled(isLoading)
 
                 if selectedUIImage != nil {
                     Button {
                         showEdit = true
                     } label: {
-                        Text("Edit Photo")
-                            .font(.headline)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 14)
+                        DarkroomSecondaryButtonLabel(title: "Edit Photo", systemImage: "slider.horizontal.3")
                     }
-                    .buttonStyle(.bordered)
+                    .buttonStyle(.plain)
                 }
             }
-            .padding(.horizontal, 20)
-            .padding(.bottom, 16)
+            .padding(.horizontal, 16)
+            .padding(.bottom, 14)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .darkroomScreen()
         .navigationTitle("Import")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
         .navigationDestination(isPresented: $showEdit) {
             if let selectedUIImage {
                 EditView(sourceImage: selectedUIImage)
@@ -101,10 +122,23 @@ struct ImportView: View {
                 return
             }
             selectedUIImage = uiImage
+            try saveImportedOriginal(uiImage)
+        } catch let error as PhotoSaveError {
+            // Still allow editing this session if local library save fails.
+            loadError = error.localizedDescription
         } catch {
             selectedUIImage = nil
             loadError = PhotoSaveError.loadFailed.localizedDescription
         }
+    }
+
+    private func saveImportedOriginal(_ image: UIImage) throws {
+        let fileName = try LocalEditStore.saveOriginalImage(image)
+        let record = ImportedOriginal(
+            localFileName: fileName,
+            thumbnailData: SavedEdit.makeThumbnailData(from: image)
+        )
+        modelContext.insert(record)
     }
 }
 
@@ -112,4 +146,12 @@ struct ImportView: View {
     NavigationStack {
         ImportView()
     }
+    .modelContainer(importPreviewContainer)
 }
+
+@MainActor
+private let importPreviewContainer: ModelContainer = {
+    let schema = Schema([SavedEdit.self, ImportedOriginal.self])
+    let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+    return try! ModelContainer(for: schema, configurations: [configuration])
+}()

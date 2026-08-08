@@ -9,27 +9,48 @@ struct HistoryView: View {
         NavigationStack {
             Group {
                 if savedEdits.isEmpty {
-                    ContentUnavailableView(
-                        "No saved edits yet.",
-                        systemImage: "clock",
-                        description: Text("Save a copy from Edit to see it here. Photos stay in your library; this list is only app history.")
-                    )
-                    .padding(.horizontal, 20)
+                    ScrollView {
+                        DarkroomEmptyPanel(
+                            title: "No Saved Edits Yet",
+                            systemImage: "clock",
+                            message: "Tap Save Listing Copy on Edit to add history. App files only — Photos stays untouched."
+                        )
+                        .padding(.top, 40)
+                    }
                 } else {
                     List {
                         ForEach(savedEdits) { edit in
                             NavigationLink {
                                 HistoryDetailView(edit: edit)
                             } label: {
-                                HistoryRow(edit: edit)
+                                DarkroomThumbRow(
+                                    thumbnail: edit.thumbnailImage,
+                                    title: edit.savedAt.formatted(.dateTime.month().day().year().hour().minute()),
+                                    subtitle: edit.listingSummary
+                                        ?? "\(edit.filterName) · \(edit.rotationDegrees)° · Crop \(edit.didCrop ? "Yes" : "No")",
+                                    detail: edit.listingSummary == nil
+                                        ? (edit.adjustmentSummary == "None" ? nil : edit.adjustmentSummary)
+                                        : "\(edit.filterName) · \(edit.rotationDegrees)°",
+                                    showsChevron: true,
+                                    isCompact: true
+                                )
                             }
+                            .buttonStyle(.plain)
+                            .navigationLinkIndicatorVisibility(.hidden)
+                            .listRowInsets(EdgeInsets(top: 4, leading: 14, bottom: 4, trailing: 14))
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
                         }
                         .onDelete(perform: deleteEdits)
                     }
-                    .listStyle(.insetGrouped)
+                    .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
                 }
             }
+            .darkroomScreen()
             .navigationTitle("History")
+            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 if !savedEdits.isEmpty {
                     EditButton()
@@ -44,46 +65,6 @@ struct HistoryView: View {
             LocalEditStore.deleteFile(fileName: edit.localFileName)
             modelContext.delete(edit)
         }
-    }
-}
-
-private struct HistoryRow: View {
-    let edit: SavedEdit
-
-    var body: some View {
-        HStack(spacing: 14) {
-            Group {
-                if let thumbnail = edit.thumbnailImage {
-                    Image(uiImage: thumbnail)
-                        .resizable()
-                        .scaledToFill()
-                } else {
-                    Image(systemName: "photo")
-                        .foregroundStyle(.secondary)
-                }
-            }
-            .frame(width: 64, height: 64)
-            .background(Color.secondary.opacity(0.12))
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text(edit.savedAt, format: .dateTime.month().day().year().hour().minute())
-                    .font(.headline)
-                Text("Filter: \(edit.filterName)")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                Text("Rotation: \(edit.rotationDegrees)° · Crop: \(edit.didCrop ? "Yes" : "No")")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                Text("Adjust: \(edit.adjustmentSummary)")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-            }
-
-            Spacer(minLength: 0)
-        }
-        .padding(.vertical, 6)
-        .accessibilityElement(children: .combine)
     }
 }
 

@@ -4,15 +4,24 @@
 App Store upload paused. Building beyond-MVP local features.
 
 ## Current Phase
-Phase 7 — Edit Again from History.
+Phase 20 — listing-ready export. Complete (Share sheet bug fixed).
 
 ## Done
-- MVP + Phases 4–6
-- Phase 7: History detail Edit Again → EditView with full local image; Save Copy makes a new record
+- MVP + Phases 4–19
+- Phase 20: export presets + solid backgrounds + Save Listing Copy + History metadata
+- Share sheet fix: render first → temp JPEG URL → `.sheet(item:)` → cleanup on dismiss
+- Build succeeded on iPhone 16e
+
+## Remaining Polish
+- Edit tools may still need light scroll (Export section added)
+- Visual smoke-test of Share + Save Listing Copy still needed
+- Transparent / watermark / frames still deferred
 
 ## Next Ideas
-- Freeform drag crop
-- Home open-from-history detail
+- Retest Share sheet (black/blank should be gone)
+- Visual smoke-test of listing export flow
+- App Store upload prep (when ready)
 
 ## Do Not Do
 - Backend, login, payments, ads, AI, subscriptions
+- Transparent export / watermark / frames unless newly approved

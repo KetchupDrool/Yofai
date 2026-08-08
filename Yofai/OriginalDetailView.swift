@@ -2,18 +2,16 @@ import SwiftUI
 import SwiftData
 import UIKit
 
-struct HistoryDetailView: View {
+struct OriginalDetailView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
 
-    let edit: SavedEdit
+    let original: ImportedOriginal
 
     @State private var fullImage: UIImage?
     @State private var loadFailed = false
-    @State private var shareItem: ShareFileItem?
-    @State private var shareFileURLToCleanup: URL?
+    @State private var showEdit = false
     @State private var showDeleteConfirm = false
-    @State private var showEditAgain = false
 
     var body: some View {
         VStack(spacing: 12) {
@@ -38,7 +36,7 @@ struct HistoryDetailView: View {
                             .padding(.horizontal, 24)
                     }
                 } else {
-                    ProgressView("Loading saved image…")
+                    ProgressView("Loading original…")
                         .tint(DarkroomTheme.accent)
                         .foregroundStyle(DarkroomTheme.textSecondary)
                 }
@@ -47,29 +45,16 @@ struct HistoryDetailView: View {
             .padding(.top, 6)
 
             VStack(alignment: .leading, spacing: 4) {
-                Text("SAVED")
+                Text("IMPORTED")
                     .font(.caption2.weight(.bold))
                     .tracking(1.1)
                     .foregroundStyle(DarkroomTheme.textTertiary)
-                Text(edit.savedAt, format: .dateTime.month().day().year().hour().minute())
+                Text(original.importedAt, format: .dateTime.month().day().year().hour().minute())
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(DarkroomTheme.textPrimary)
-                Text("\(edit.filterName) · \(edit.rotationDegrees)° · Crop \(edit.didCrop ? "Yes" : "No")")
-                    .font(.caption)
-                    .foregroundStyle(DarkroomTheme.textSecondary)
-                if let listingSummary = edit.listingSummary {
-                    Text(listingSummary)
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(DarkroomTheme.accent.opacity(0.9))
-                }
-                if edit.adjustmentSummary != "None" {
-                    Text(edit.adjustmentSummary)
-                        .font(.caption)
-                        .foregroundStyle(DarkroomTheme.textSecondary)
-                }
 
                 if loadFailed {
-                    Text("Edit Again needs the local image file.")
+                    Text("Editing needs the local image file.")
                         .font(.subheadline)
                         .foregroundStyle(DarkroomTheme.danger)
                         .fixedSize(horizontal: false, vertical: true)
@@ -82,18 +67,9 @@ struct HistoryDetailView: View {
 
             VStack(spacing: 10) {
                 Button {
-                    showEditAgain = true
+                    showEdit = true
                 } label: {
-                    DarkroomPrimaryButtonLabel(title: "Edit Again", systemImage: "slider.horizontal.3")
-                }
-                .buttonStyle(.plain)
-                .disabled(fullImage == nil)
-                .opacity(fullImage == nil ? 0.5 : 1)
-
-                Button {
-                    shareSavedImage()
-                } label: {
-                    DarkroomSecondaryButtonLabel(title: "Share", systemImage: "square.and.arrow.up")
+                    DarkroomPrimaryButtonLabel(title: "Edit Photo", systemImage: "slider.horizontal.3")
                 }
                 .buttonStyle(.plain)
                 .disabled(fullImage == nil)
@@ -102,7 +78,7 @@ struct HistoryDetailView: View {
                 Button(role: .destructive) {
                     showDeleteConfirm = true
                 } label: {
-                    DarkroomSecondaryButtonLabel(title: "Delete History", isDestructive: true)
+                    DarkroomSecondaryButtonLabel(title: "Delete Original", isDestructive: true)
                 }
                 .buttonStyle(.plain)
             }
@@ -110,41 +86,34 @@ struct HistoryDetailView: View {
             .padding(.bottom, 14)
         }
         .darkroomScreen()
-        .navigationTitle("Saved Edit")
+        .navigationTitle("Original")
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .onAppear {
             loadImage()
         }
-        .navigationDestination(isPresented: $showEditAgain) {
+        .navigationDestination(isPresented: $showEdit) {
             if let fullImage {
                 EditView(sourceImage: fullImage)
             }
         }
-        .sheet(item: $shareItem, onDismiss: {
-            ShareExport.removeTemporaryFile(at: shareFileURLToCleanup)
-            shareFileURLToCleanup = nil
-            shareItem = nil
-        }) { item in
-            ActivityShareView(items: [item.url])
-        }
         .confirmationDialog(
-            "Delete this History item?",
+            "Delete this original from Yofai?",
             isPresented: $showDeleteConfirm,
             titleVisibility: .visible
         ) {
-            Button("Delete History", role: .destructive) {
-                deleteHistoryItem()
+            Button("Delete Original", role: .destructive) {
+                deleteOriginal()
             }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text("Removes this History item and its local file. The Photos library copy stays.")
+            Text("Removes the local original from Yofai only. Photos library copies stay.")
         }
     }
 
     private func loadImage() {
-        if let image = edit.fullLocalImage {
+        if let image = original.fullLocalImage {
             fullImage = image
             loadFailed = false
         } else {
@@ -153,36 +122,23 @@ struct HistoryDetailView: View {
         }
     }
 
-    private func shareSavedImage() {
-        guard let fullImage else {
-            loadFailed = true
-            return
-        }
-        do {
-            ShareExport.removeTemporaryFile(at: shareFileURLToCleanup)
-            shareFileURLToCleanup = nil
-            shareItem = nil
-
-            let url = try ShareExport.writeTemporaryJPEG(fullImage)
-            shareFileURLToCleanup = url
-            shareItem = ShareFileItem(url: url)
-        } catch {
-            loadFailed = true
-        }
-    }
-
-    private func deleteHistoryItem() {
-        LocalEditStore.deleteFile(fileName: edit.localFileName)
-        modelContext.delete(edit)
+    private func deleteOriginal() {
+        LocalEditStore.deleteOriginalFile(fileName: original.localFileName)
+        modelContext.delete(original)
         dismiss()
     }
 }
 
 #Preview {
     NavigationStack {
-        HistoryDetailView(
-            edit: SavedEdit(filterName: "Original", quarterTurns: 0)
-        )
+        OriginalDetailView(original: ImportedOriginal())
     }
-    .modelContainer(for: SavedEdit.self, inMemory: true)
+    .modelContainer(originalPreviewContainer)
 }
+
+@MainActor
+private let originalPreviewContainer: ModelContainer = {
+    let schema = Schema([SavedEdit.self, ImportedOriginal.self])
+    let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+    return try! ModelContainer(for: schema, configurations: [configuration])
+}()

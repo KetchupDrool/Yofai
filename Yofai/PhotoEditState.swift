@@ -12,6 +12,9 @@ struct PhotoEditState: Equatable {
     var saturation: Double = 1
     /// Normalized crop after rotation (x, y, width, height in 0...1). nil = no crop.
     var cropRect: CGRect?
+    /// Listing-ready export canvas (contain + pad).
+    var exportPreset: ListingExportPreset = .etsySquare
+    var exportBackground: ListingExportBackground = .white
 
     var normalizedTurns: Int {
         ((quarterTurns % 4) + 4) % 4
@@ -28,7 +31,12 @@ struct PhotoEditState: Equatable {
     }
 
     var hasEdits: Bool {
-        filter != .original || normalizedTurns != 0 || didCrop || hasAdjustments
+        filter != .original
+            || normalizedTurns != 0
+            || didCrop
+            || hasAdjustments
+            || exportPreset != .etsySquare
+            || exportBackground != .white
     }
 
     var adjustmentSummary: String {
@@ -37,6 +45,10 @@ struct PhotoEditState: Equatable {
         let c = Int(((contrast - 1) * 100).rounded())
         let s = Int(((saturation - 1) * 100).rounded())
         return "B\(b) C\(c) S\(s)"
+    }
+
+    var listingSummary: String {
+        "\(exportPreset.rawValue) · \(exportBackground.rawValue)"
     }
 
     static func centerSquareCrop() -> CGRect {

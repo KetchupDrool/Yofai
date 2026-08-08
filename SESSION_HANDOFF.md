@@ -1,20 +1,33 @@
 # Session Handoff
 
 ## Status
-Phase 7 complete. Build succeeded on iPhone 16e. Local-only. App Store upload paused.
+Phase 20 listing export complete. **Share sheet black/blank bug fixed.** Build succeeded on iPhone 16e. Local-only. App Store upload paused.
 
 ## Facts
 - Yofai / `com.shawnwright.yofai` / iPhone-only
 - Pages: https://ketchupdrool.github.io/Yofai/
+- Listing presets + contain/pad backgrounds unchanged
+- Share uses temporary JPEG file URL via `ShareFileItem` + `.sheet(item:)`
 
 ## Last Completed
-- History detail: Edit Again loads full local image into EditView
-- Save Copy still creates a new Photos copy + new History item (does not overwrite)
-- Share / Delete History unchanged; Edit Again disabled if local file missing
+- Debugged Share: blank sheet from `isPresented` + optional `if let` content, raw large `UIImage` items, and `presentationDetents` on `UIActivityViewController`
+- Fix: render listing image first → write temp JPEG → present only when `ShareFileItem` exists → remove file on dismiss
+- Same stable share path on Edit + History Detail
+- Save Listing Copy unchanged
+
+## Flow Verified (code paths + build)
+Import → Edit → render share JPEG → Share sheet (item-based) → dismiss cleans temp file
+
+## Remaining Rough Spots
+- Device/simulator retest of Share still needed (manual)
+- Edit tool panel may scroll with Export section
+- Full listing canvases cost more on Save/Share
+- Import re-picks still create another Original (no dedupe)
 
 ## Next Recommended
-Freeform drag-to-crop, or open History detail from Home recent cards.
+Manual Share retest on iPhone 16e, then listing export smoke-test or App Store prep.
 
 ## Rules
 - No backend/login/payments/ads/AI/subscriptions
+- No transparent / watermark / frames unless approved
 - One simulator unless approved

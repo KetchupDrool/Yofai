@@ -14,6 +14,20 @@ targets:
     platform: iOS
     sources:
       - path: Yofai
+        excludes:
+          - Info.plist
+    info:
+      path: Yofai/Info.plist
+      properties:
+        UILaunchScreen:
+          UIColorName: LaunchBackground
+          UIImageName: LaunchMark
+          UIImageRespectsSafeAreaInsets: false
+        CFBundleDisplayName: Yofai
+        UIApplicationSceneManifest_Generation: true
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        NSPhotoLibraryAddUsageDescription: Yofai saves a listing-ready photo copy to Photos only when you tap Save Listing Copy.
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.shawnwright.yofai
       PRODUCT_NAME: Yofai
@@ -23,12 +37,6 @@ targets:
       SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
       SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: NO
       GENERATE_INFOPLIST_FILE: YES
-      INFOPLIST_KEY_CFBundleDisplayName: Yofai
-      INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
-      INFOPLIST_KEY_UILaunchScreen_Generation: YES
-      INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
-      INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
-      INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription: Yofai saves a copy of your edited photo to Photos only when you tap Save Copy.
       ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
       ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
       SWIFT_STRICT_CONCURRENCY: complete
