@@ -48,15 +48,15 @@ Yofai is built for quick, private edits on your device.
 photo,editor,filter,rotate,local,privacy,simple,edit,mono,sepia
 
 ## Support URL
-https://YOUR-GITHUB-USERNAME.github.io/Yofai/support.html
+https://ketchupdrool.github.io/Yofai/support.html
 
 ## Privacy Policy URL
-https://YOUR-GITHUB-USERNAME.github.io/Yofai/privacy-policy.html
+https://ketchupdrool.github.io/Yofai/privacy-policy.html
 
 ## EULA
 https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 
-Legal pages live in `docs/` for GitHub Pages. See also: `PRIVACY_NOTES.md`.
+Legal pages live in `docs/` (GitHub Pages). See also: `PRIVACY_NOTES.md`.
 
 ## Copyright
 © 2026 Shawn Wright

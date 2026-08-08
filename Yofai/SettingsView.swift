@@ -1,10 +1,8 @@
 import SwiftUI
 
 enum AppStoreLinks {
-    /// Replace before App Store submission.
-    static let support = URL(string: "https://example.com/yofai/support")!
-    /// Replace before App Store submission.
-    static let privacyPolicy = URL(string: "https://example.com/yofai/privacy")!
+    static let support = URL(string: "https://ketchupdrool.github.io/Yofai/support.html")!
+    static let privacyPolicy = URL(string: "https://ketchupdrool.github.io/Yofai/privacy-policy.html")!
 }
 
 struct SettingsView: View {
@@ -26,9 +24,6 @@ struct SettingsView: View {
                 Section("Links") {
                     Link("Support", destination: AppStoreLinks.support)
                     Link("Privacy Policy", destination: AppStoreLinks.privacyPolicy)
-                    Text("Replace placeholder URLs before App Store upload.")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
                 }
             }
             .navigationTitle("Settings")
