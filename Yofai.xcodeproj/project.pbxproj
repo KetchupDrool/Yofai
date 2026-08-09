@@ -71,6 +71,8 @@
 		F544B5403F50164293B87F83 /* YofaiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013F0E7F2A74F2FCDBB01476 /* YofaiApp.swift */; };
 		F786C905F860BFCE15CD77F8 /* BulkEditSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B9C85A8EDD77D3B1F7922 /* BulkEditSupport.swift */; };
 		FADF9F3019C73426C062D788 /* ProjectBatchExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0FED065E54BEA3BC57F39B /* ProjectBatchExporter.swift */; };
+		E35A0B1C7D4E9021F6A85C35 /* SellerNavigationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35A0B1C7D4E9021F6A85C35 /* SellerNavigationSupport.swift */; };
+		F1A35B2D8E5C0132A7B96D46 /* Phase35SellerFirstNavigationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A35B2D8E5C0132A7B96D46 /* Phase35SellerFirstNavigationTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +126,8 @@
 		8A72562DFA79CD8E3BAF2377 /* Phase32ProductIntakeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase32ProductIntakeTests.swift; sourceTree = "<group>"; };
 		B7E4D91A2C5F8046E1A93D20 /* Phase33SellerExportPresetClarityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase33SellerExportPresetClarityTests.swift; sourceTree = "<group>"; };
 		D4C34E0C9D2B7A815E604C33 /* Phase34ExportCanvasCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase34ExportCanvasCheckTests.swift; sourceTree = "<group>"; };
+		D1A35B2D8E5C0132A7B96D46 /* Phase35SellerFirstNavigationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase35SellerFirstNavigationTests.swift; sourceTree = "<group>"; };
+		C35A0B1C7D4E9021F6A85C35 /* SellerNavigationSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerNavigationSupport.swift; sourceTree = "<group>"; };
 		97EEA04BA7B6FA559052DC45 /* ItemProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemProject.swift; sourceTree = "<group>"; };
 		9CE183516F25380F56C12048 /* Phase27ListingWorkspaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase27ListingWorkspaceTests.swift; sourceTree = "<group>"; };
 		A10B75773A5CCD794585AA14 /* ImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportView.swift; sourceTree = "<group>"; };
@@ -212,6 +216,7 @@
 				2A2F3F0328410ACBFCBFED4A /* SavedEdit.swift */,
 				BFBCC2E77ABF1EFB4C8F41FE /* SellerDefaults.swift */,
 				5C627738D775232976F1DA7E /* SellerDefaultsSettingsSection.swift */,
+				C35A0B1C7D4E9021F6A85C35 /* SellerNavigationSupport.swift */,
 				EFD55D6B6CE4D9FE8FCDC00D /* SettingsView.swift */,
 				CB010C324DDD0EC29CAAB723 /* StubEtsyConnectionService.swift */,
 				013F0E7F2A74F2FCDBB01476 /* YofaiApp.swift */,
@@ -245,6 +250,7 @@
 				8A72562DFA79CD8E3BAF2377 /* Phase32ProductIntakeTests.swift */,
 				B7E4D91A2C5F8046E1A93D20 /* Phase33SellerExportPresetClarityTests.swift */,
 				D4C34E0C9D2B7A815E604C33 /* Phase34ExportCanvasCheckTests.swift */,
+				D1A35B2D8E5C0132A7B96D46 /* Phase35SellerFirstNavigationTests.swift */,
 			);
 			path = YofaiTests;
 			sourceTree = "<group>";
@@ -381,6 +387,7 @@
 				83EB9B6BBDED5974EADABE43 /* SavedEdit.swift in Sources */,
 				3A41044C5E734D54DAD3B1EA /* SellerDefaults.swift in Sources */,
 				7E16A03B764012C42482C6F9 /* SellerDefaultsSettingsSection.swift in Sources */,
+				E35A0B1C7D4E9021F6A85C35 /* SellerNavigationSupport.swift in Sources */,
 				46F08E9EC63C9510FA8487A7 /* SettingsView.swift in Sources */,
 				8382F30329CA249C13D7C767 /* StubEtsyConnectionService.swift in Sources */,
 				F544B5403F50164293B87F83 /* YofaiApp.swift in Sources */,
@@ -405,6 +412,7 @@
 				434BCC956070908A35127B78 /* Phase32ProductIntakeTests.swift in Sources */,
 				46A91C2E8F0B4D1A9C7E3B55 /* Phase33SellerExportPresetClarityTests.swift in Sources */,
 				A1F34E0C9D2B7A815E604C33 /* Phase34ExportCanvasCheckTests.swift in Sources */,
+				F1A35B2D8E5C0132A7B96D46 /* Phase35SellerFirstNavigationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

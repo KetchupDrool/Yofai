@@ -1,7 +1,7 @@
 # Tasks
 
 ## Status
-Phase 34 — Local Export Canvas Check complete.
+Phase 35 — Seller-First Navigation Simplification complete.
 App Store upload remains paused.
 
 ## Product direction
@@ -10,19 +10,19 @@ Core functionality is local-first/on-device.
 Marketplaces (Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, similar) are **local export targets only**.
 
 ## Current Phase
-Phase 34 — Local Export Canvas Check. Complete.
+Phase 35 — Seller-First Navigation Simplification. Complete.
 
 ## Done
-- MVP + Phases 4–33
-- Phase 34: source-vs-export-canvas Photo Check facts, Intake/Workspace notes, tests
-- Build + unit tests succeeded on iPhone 16e (108 tests)
+- MVP + Phases 4–34
+- Phase 35: seller-first Home/Products navigation, secondary Import/Originals/History, Project Detail path labels, tests
+- Build + unit tests succeeded on iPhone 16e (113 tests)
 
 ## Remaining Polish
 - Edit tools may scroll with Export + watermark
 
 ## Next (when explicitly approved)
 - Multi-marketplace **local** export presets only after verified pixel sizes are supplied (do not invent)
-- Optional later: cover/crop export fit mode; seller-first navigation simplify
+- Optional later: cover/crop export fit mode
 - Do not treat live AI, OAuth, or marketplace upload as the default next step
 
 ## Abandoned from the active roadmap

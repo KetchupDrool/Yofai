@@ -42,8 +42,12 @@ These may be added later where they support the product:
 
 They are not immediate implementation tasks. Core photo preparation stays local-first/on-device even if some of these arrive later.
 
+## Primary workflow
+Home → Start / Continue Product → Item Project → Capture & Check Photos → Prepare Listing & Export → local export.
+Import, Originals, and History remain available as secondary tools.
+
 ## Status
-- Phases 1–34 technical history complete (see `DECISIONS.md`)
+- Phases 1–35 technical history complete (see `DECISIONS.md`)
 - App Store upload remains paused
 - Old framing (“general photo editor MVP within 6 days”) is no longer the main goal
 

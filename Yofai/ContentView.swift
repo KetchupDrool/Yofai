@@ -2,32 +2,54 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    var body: some View {
-        TabView {
-            HomeView()
-                .tabItem {
-                    Label("Home", systemImage: "house")
-                }
+    @State private var selectedTab: YofaiAppTab = .defaultTab
+    @State private var presentNewProduct = false
 
-            ProjectsView()
-                .tabItem {
-                    Label("Projects", systemImage: "folder")
+    var body: some View {
+        TabView(selection: $selectedTab) {
+            HomeView(
+                onStartProduct: {
+                    presentNewProduct = true
+                    selectedTab = .products
+                },
+                onOpenProducts: {
+                    selectedTab = .products
+                },
+                onOpenOriginals: {
+                    selectedTab = .originals
+                },
+                onOpenHistory: {
+                    selectedTab = .history
                 }
+            )
+            .tabItem {
+                Label(YofaiAppTab.home.title, systemImage: YofaiAppTab.home.systemImage)
+            }
+            .tag(YofaiAppTab.home)
+
+            ProjectsView(presentNewProduct: $presentNewProduct)
+                .tabItem {
+                    Label(YofaiAppTab.products.title, systemImage: YofaiAppTab.products.systemImage)
+                }
+                .tag(YofaiAppTab.products)
 
             OriginalsView()
                 .tabItem {
-                    Label("Originals", systemImage: "photo.on.rectangle")
+                    Label(YofaiAppTab.originals.title, systemImage: YofaiAppTab.originals.systemImage)
                 }
+                .tag(YofaiAppTab.originals)
 
             HistoryView()
                 .tabItem {
-                    Label("History", systemImage: "clock")
+                    Label(YofaiAppTab.history.title, systemImage: YofaiAppTab.history.systemImage)
                 }
+                .tag(YofaiAppTab.history)
 
             SettingsView()
                 .tabItem {
-                    Label("Settings", systemImage: "gearshape")
+                    Label(YofaiAppTab.settings.title, systemImage: YofaiAppTab.settings.systemImage)
                 }
+                .tag(YofaiAppTab.settings)
         }
         .darkroomScreen()
         .toolbarBackground(.ultraThinMaterial, for: .tabBar)

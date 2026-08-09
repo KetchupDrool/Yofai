@@ -7,6 +7,11 @@ struct ProjectsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \ItemProject.modifiedAt, order: .reverse) private var projects: [ItemProject]
     @State private var showCreate = false
+    @Binding var presentNewProduct: Bool
+
+    init(presentNewProduct: Binding<Bool> = .constant(false)) {
+        _presentNewProduct = presentNewProduct
+    }
 
     var body: some View {
         NavigationStack {
@@ -15,17 +20,21 @@ struct ProjectsView: View {
                     ScrollView {
                         VStack(spacing: 16) {
                             DarkroomEmptyPanel(
-                                title: "No Projects Yet",
-                                systemImage: "folder.badge.plus",
-                                message: "Create an item project to photograph, organize, and export listing-ready product photos on this device."
+                                title: "No Products Yet",
+                                systemImage: "shippingbox",
+                                message: "Start a product to photograph, organize, check, edit, and export listing-ready photos on this device."
                             )
                             Button {
                                 showCreate = true
                             } label: {
-                                DarkroomPrimaryButtonLabel(title: "New Project", systemImage: "plus")
+                                DarkroomPrimaryButtonLabel(
+                                    title: SellerNavigationSupport.startProductTitle,
+                                    systemImage: "plus"
+                                )
                             }
                             .buttonStyle(.plain)
                             .padding(.horizontal, 20)
+                            .accessibilityLabel(SellerNavigationSupport.startProductTitle)
                         }
                         .padding(.top, 40)
                     }
@@ -42,6 +51,7 @@ struct ProjectsView: View {
                             .listRowInsets(EdgeInsets(top: 6, leading: 14, bottom: 6, trailing: 14))
                             .listRowBackground(Color.clear)
                             .listRowSeparator(.hidden)
+                            .accessibilityLabel(project.name)
                         }
                     }
                     .listStyle(.plain)
@@ -49,7 +59,7 @@ struct ProjectsView: View {
                 }
             }
             .darkroomScreen()
-            .navigationTitle("Projects")
+            .navigationTitle(SellerNavigationSupport.productsListTitle)
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
@@ -59,7 +69,7 @@ struct ProjectsView: View {
                     } label: {
                         Image(systemName: "list.bullet.rectangle")
                     }
-                    .accessibilityLabel("Listing Queue")
+                    .accessibilityLabel(SellerNavigationSupport.listingQueueAccessibilityLabel)
                 }
                 ToolbarItem(placement: .primaryAction) {
                     Button {
@@ -67,11 +77,22 @@ struct ProjectsView: View {
                     } label: {
                         Image(systemName: "plus")
                     }
-                    .accessibilityLabel("New Project")
+                    .accessibilityLabel(SellerNavigationSupport.newProductAccessibilityLabel)
                 }
             }
             .sheet(isPresented: $showCreate) {
                 CreateProjectView()
+            }
+            .onChange(of: presentNewProduct) { _, shouldPresent in
+                guard shouldPresent else { return }
+                showCreate = true
+                presentNewProduct = false
+            }
+            .onAppear {
+                if presentNewProduct {
+                    showCreate = true
+                    presentNewProduct = false
+                }
             }
         }
     }
@@ -228,7 +249,7 @@ struct CreateProjectView: View {
                 Button {
                     Task { await createProject() }
                 } label: {
-                    DarkroomPrimaryButtonLabel(title: "Create Project", isLoading: isSaving)
+                    DarkroomPrimaryButtonLabel(title: "Create Product", isLoading: isSaving)
                 }
                 .buttonStyle(.plain)
                 .disabled(!canCreate)
@@ -236,7 +257,7 @@ struct CreateProjectView: View {
             }
             .padding(20)
             .darkroomScreen()
-            .navigationTitle("New Project")
+            .navigationTitle("New Product")
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
@@ -251,7 +272,7 @@ struct CreateProjectView: View {
     private var defaultsPreviewText: String {
         let d = savedDefaults
         if d.isEmpty && !sellerDefaultsStore.hasSavedDefaults {
-            return "No seller defaults saved yet. You can set them in Settings — this project will still be created with empty listing fields."
+            return "No seller defaults saved yet. You can set them in Settings — this product will still be created with empty listing fields."
         }
         return "Will prefill category, materials, shipping, processing time, export preset/background, and watermark text. You can edit everything after create."
     }

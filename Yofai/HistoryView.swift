@@ -13,7 +13,7 @@ struct HistoryView: View {
                         DarkroomEmptyPanel(
                             title: "No Saved Edits Yet",
                             systemImage: "clock",
-                            message: "Tap Save Listing Copy on Edit to add history. App files only — Photos stays untouched."
+                            message: "History keeps Save Listing Copy results. Prefer Products for listing sets. App files only — Photos stays untouched."
                         )
                         .padding(.top, 40)
                     }

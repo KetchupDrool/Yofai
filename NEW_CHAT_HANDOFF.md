@@ -13,27 +13,27 @@ Yofai
 - iPhone-only SwiftUI + SwiftData
 - **Product purpose:** local-first marketplace product photo preparation for online sellers
 - Core functionality is local-first/on-device
-- Phases 1–34 complete
-- Phase 34: Local Export Canvas Check
-- Last build/tests: succeeded on iPhone 16e (108 tests)
+- Phases 1–35 complete
+- Phase 35: Seller-First Navigation Simplification
+- Last build/tests: succeeded on iPhone 16e (113 tests)
 - App Store upload paused
 - Primary local path: `/Volumes/CombatMedic/Yofai`
 - GitHub Pages: https://ketchupdrool.github.io/Yofai/
 
-## 5. Completed phases 1–34
-1–33. Local listing prep, intake/capture, disconnected AI foundation, export preset clarity
-34. Local export canvas check (source vs project listing preset facts)
+## 5. Completed phases 1–35
+1–34. Local listing prep, intake/capture, export clarity, export canvas check
+35. Seller-first navigation (Home Start/Continue Product; Products tab; secondary Import/Originals/History)
 
-## 6. Phase 34 result
-**Local Export Canvas Check complete.** Photo Check shows project export canvas, whether source file is smaller than canvas, and whether aspect differs (padding expected under contain+pad). Product Intake and Listing Workspace surface local canvas notes. Never affects Phase 25 readiness. Build + 108 unit tests passed on iPhone 16e.
+## 6. Phase 35 result
+**Seller-First Navigation complete.** Home primary path is Start Product / Continue Product. Projects tab labeled Products. Import, Originals, and History remain available as secondary tools. Project Detail leads with Capture & Check Photos then Prepare Listing & Export. No data deleted. Build + 113 unit tests passed on iPhone 16e.
 
 ## 7. Current models/files
-**Canvas check:** `PhotoPlanSupport.swift` (`PhotoTechnicalFacts` export fields, helpers); UI in `ProductIntakeView.swift`, `ListingWorkspaceView.swift`
+**Nav:** `SellerNavigationSupport.swift`, `ContentView.swift`, `HomeView.swift`, `ProjectsView.swift`, `ProjectDetailView.swift`
 
-**Tests:** Phase22–34
+**Tests:** Phase22–35
 
 ## 8. Working features
-- Product intake/capture, export canvas Photo Check notes, disconnected AI foundation, listing information, bulk edit, packages, defaults, duplicate, workspace, queue, batch export, clarified seller export presets, Etsy connection stub (no live OAuth)
+- Seller-first Home/Products path, product intake/capture, export canvas Photo Check, disconnected AI foundation, listing information, bulk edit, packages, defaults, duplicate, workspace, queue, batch export, clarified seller export presets, Etsy connection stub (no live OAuth)
 
 ## 9. Rules/constraints
 - Core photo preparation: local-first/on-device
@@ -53,7 +53,7 @@ App: Yofai
 Bundle ID: com.shawnwright.yofai
 Purpose: local-first marketplace product photo preparation for online sellers.
 Core functionality is local-first/on-device.
-Status: Phases 1–34 done. Local export canvas check complete. Last build/tests succeeded on iPhone 16e (108 tests). App Store upload paused.
+Status: Phases 1–35 done. Seller-first navigation complete. Last build/tests succeeded on iPhone 16e (113 tests). App Store upload paused.
 Marketplaces are local export targets only. Do not invent new preset pixel sizes.
 Abandoned from active roadmap: paid/live AI APIs; OAuth marketplace publishing; direct marketplace uploads.
 Future capability (not next work): backend, accounts, cloud sync, subscriptions, ads.
@@ -65,6 +65,6 @@ Do not invent fake AI listing copy, fake camera captures, marketplace category t
 Do not change Share sheet architecture unless fixing a proven bug.
 Build once on iPhone 16e when you change code.
 
-Next: only an explicitly approved local photo-prep phase (e.g. verified multi-marketplace local export sizes, cover/crop fit when approved, or seller-nav simplify). Not live AI / OAuth / upload by default.
+Next: only an explicitly approved local photo-prep phase (e.g. verified multi-marketplace local export sizes, or cover/crop fit when approved). Not live AI / OAuth / upload by default.
 If blocked, report why and the safest alternative.
 ```

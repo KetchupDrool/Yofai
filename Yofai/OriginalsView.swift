@@ -13,7 +13,7 @@ struct OriginalsView: View {
                         DarkroomEmptyPanel(
                             title: "No Originals Yet",
                             systemImage: "photo.on.rectangle",
-                            message: "Import a photo from Home to store a local original here. Photos library is not changed."
+                            message: "Originals are a secondary library for single-photo imports. Prefer Start Product on Home for listing photo sets. Photos library is not changed."
                         )
                         .padding(.top, 40)
                     }

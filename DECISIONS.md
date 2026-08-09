@@ -169,6 +169,13 @@
 - Fit mode remains contain + pad; no new marketplace sizes; no cover/crop unlock
 - Out of scope: nav merge, cover/crop fit, inventing marketplace sizes, OAuth/AI/upload
 
+## Phase 35 — Seller-First Navigation Simplification (locked)
+- Primary path: Home → Start/Continue Product → Item Project → Capture & Check → Prepare Listing & Export
+- Tab labels: Projects → Products; Home primary CTA Start Product (switches to Products + new-product sheet)
+- Continue Product shows recent Item Projects; Import / Originals / History remain secondary under More Tools
+- Project Detail: Capture & Check Photos before Prepare Listing & Export; no data deletion; no SwiftData migration
+- Out of scope: deleting features, cover/crop, new marketplace sizes, OAuth/AI/upload, backend/accounts
+
 ## Future capability (approved direction — not next work)
 May be added later where they support the product; core photo preparation remains local-first/on-device:
 - Backend services

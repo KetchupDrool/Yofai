@@ -51,20 +51,25 @@ struct ProjectDetailView: View {
                     }
 
                 NavigationLink {
-                    ListingWorkspaceView(project: project)
-                } label: {
-                    Text("Listing Workspace")
-                        .foregroundStyle(DarkroomTheme.accent)
-                }
-
-                NavigationLink {
                     ProductIntakeView(project: project)
                 } label: {
-                    Text("Product Intake / Capture Photos")
+                    Text(SellerNavigationSupport.projectIntakeLinkTitle)
                         .foregroundStyle(DarkroomTheme.accent)
                 }
+                .accessibilityLabel(SellerNavigationSupport.projectIntakeLinkTitle)
+
+                NavigationLink {
+                    ListingWorkspaceView(project: project)
+                } label: {
+                    Text(SellerNavigationSupport.projectWorkspaceLinkTitle)
+                        .foregroundStyle(DarkroomTheme.accent)
+                }
+                .accessibilityLabel(SellerNavigationSupport.projectWorkspaceLinkTitle)
             } header: {
                 Text("Item")
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+            } footer: {
+                Text("Seller path: capture & check photos, then prepare listing and local export.")
                     .foregroundStyle(DarkroomTheme.textTertiary)
             }
             .listRowBackground(sectionBackground)
