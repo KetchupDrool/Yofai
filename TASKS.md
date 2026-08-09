@@ -1,7 +1,7 @@
 # Tasks
 
 ## Status
-Phase 33 — Seller Export Preset Clarity complete.
+Phase 34 — Local Export Canvas Check complete.
 App Store upload remains paused.
 
 ## Product direction
@@ -10,12 +10,12 @@ Core functionality is local-first/on-device.
 Marketplaces (Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, similar) are **local export targets only**.
 
 ## Current Phase
-Phase 33 — Seller Export Preset Clarity. Complete.
+Phase 34 — Local Export Canvas Check. Complete.
 
 ## Done
-- MVP + Phases 4–32
-- Phase 33: seller export preset display metadata, grouping, pixel labels, Home/Projects copy, disclaimer, tests
-- Build + unit tests succeeded on iPhone 16e (100 tests)
+- MVP + Phases 4–33
+- Phase 34: source-vs-export-canvas Photo Check facts, Intake/Workspace notes, tests
+- Build + unit tests succeeded on iPhone 16e (108 tests)
 
 ## Remaining Polish
 - Edit tools may scroll with Export + watermark

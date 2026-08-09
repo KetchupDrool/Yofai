@@ -161,6 +161,14 @@
 - Fit mode remains contain + pad; no new marketplace sizes invented
 - Out of scope: cover/crop fit, eBay/Poshmark/Mercari/FB Marketplace sized presets, OAuth/AI/upload, nav merge
 
+## Phase 34 — Local Export Canvas Check (locked)
+- Photo Check compares source file pixels to the project’s listing export preset canvas (batch-export canvas)
+- Facts: canvas picker label/size, source smaller than canvas, aspect differs (contain+pad padding expected)
+- Product Intake progress + Export Canvas Notes section; Listing Workspace intake summary line
+- Local facts only — not marketplace compliance; never changes Phase 25 queue readiness
+- Fit mode remains contain + pad; no new marketplace sizes; no cover/crop unlock
+- Out of scope: nav merge, cover/crop fit, inventing marketplace sizes, OAuth/AI/upload
+
 ## Future capability (approved direction — not next work)
 May be added later where they support the product; core photo preparation remains local-first/on-device:
 - Backend services

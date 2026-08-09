@@ -25,6 +25,7 @@ struct ProductIntakeView: View {
             photoPlanSection
             photosSection
             reviewNeededSection
+            exportCanvasNotesSection
             if let statusMessage {
                 Section {
                     Text(statusMessage)
@@ -86,6 +87,13 @@ struct ProductIntakeView: View {
             Text("\(PhotoPlanSupport.photosNeedingSellerReview(in: project).count) photo\(PhotoPlanSupport.photosNeedingSellerReview(in: project).count == 1 ? "" : "s") needing seller review")
                 .font(.caption)
                 .foregroundStyle(DarkroomTheme.textSecondary)
+            let canvasNotes = PhotoTechnicalCheck.photosWithSourceSmallerThanExportCanvas(in: project).count
+            Text("\(canvasNotes) photo\(canvasNotes == 1 ? "" : "s") smaller than export canvas or unreadable")
+                .font(.caption)
+                .foregroundStyle(DarkroomTheme.textSecondary)
+            Text("Export canvas: \(project.listingExportPreset.pickerLabel)")
+                .font(.caption)
+                .foregroundStyle(DarkroomTheme.textTertiary)
             Text("Photo-plan goals are local guidance only — not Etsy requirements.")
                 .font(.caption)
                 .foregroundStyle(DarkroomTheme.textTertiary)
@@ -284,6 +292,50 @@ struct ProductIntakeView: View {
         .listRowBackground(sectionBackground)
     }
 
+    private var exportCanvasNotesSection: some View {
+        Section {
+            let smaller = PhotoTechnicalCheck.photosWithSourceSmallerThanExportCanvas(in: project)
+            let aspect = PhotoTechnicalCheck.photosWithAspectDifferingFromExportCanvas(in: project)
+            Text("Project export canvas: \(project.listingExportPreset.pickerLabel)")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(DarkroomTheme.textPrimary)
+            if smaller.isEmpty && aspect.isEmpty {
+                Text("No export-canvas size or aspect notes for readable photos.")
+                    .foregroundStyle(DarkroomTheme.textSecondary)
+            } else {
+                if !smaller.isEmpty {
+                    Text("\(smaller.count) photo\(smaller.count == 1 ? "" : "s") smaller than canvas or unreadable")
+                        .font(.caption)
+                        .foregroundStyle(DarkroomTheme.textSecondary)
+                    ForEach(smaller, id: \.stableID) { photo in
+                        Button("Check Photo \(photo.sortOrder + 1)") {
+                            photoForCheck = photo
+                        }
+                        .foregroundStyle(DarkroomTheme.accent)
+                    }
+                }
+                if !aspect.isEmpty {
+                    Text("\(aspect.count) photo\(aspect.count == 1 ? "" : "s") with aspect different from canvas (padding expected)")
+                        .font(.caption)
+                        .foregroundStyle(DarkroomTheme.textSecondary)
+                    ForEach(aspect, id: \.stableID) { photo in
+                        Button("Check Photo \(photo.sortOrder + 1)") {
+                            photoForCheck = photo
+                        }
+                        .foregroundStyle(DarkroomTheme.accent)
+                    }
+                }
+            }
+        } header: {
+            Text("Export Canvas Notes")
+                .foregroundStyle(DarkroomTheme.textTertiary)
+        } footer: {
+            Text("Compares source file pixels to the project listing export preset. Local facts only — not marketplace compliance. Does not change queue readiness.")
+                .foregroundStyle(DarkroomTheme.textTertiary)
+        }
+        .listRowBackground(sectionBackground)
+    }
+
     private func attachPhotoSheet(goal: PhotoPlanGoal) -> some View {
         NavigationStack {
             List {
@@ -400,6 +452,34 @@ struct PhotoCheckView: View {
                 Text("Photo Check (Local Facts)")
             } footer: {
                 Text("These are measurable local facts only. This screen does not claim quality, Etsy compliance, or publish readiness.")
+            }
+
+            Section {
+                labeled("Export canvas", facts.exportCanvasPreset.pickerLabel)
+                labeled(
+                    "Source vs canvas size",
+                    {
+                        switch facts.sourceSmallerThanExportCanvas {
+                        case true: return "Source file is smaller than canvas on at least one side"
+                        case false: return "Source file meets or exceeds canvas on both sides"
+                        case nil: return "Unavailable"
+                        }
+                    }()
+                )
+                labeled(
+                    "Aspect vs canvas",
+                    {
+                        switch facts.sourceAspectDiffersFromCanvas {
+                        case true: return "Differs — contain + pad will add padding"
+                        case false: return "Matches (within tolerance)"
+                        case nil: return "Unavailable"
+                        }
+                    }()
+                )
+            } header: {
+                Text("Export Canvas (Local)")
+            } footer: {
+                Text("Compares source file pixels to this project’s listing export preset (\(facts.exportCanvasPreset.pixelSizeLabel)). Local facts only — not marketplace compliance. Does not change queue readiness.")
             }
 
             Section {

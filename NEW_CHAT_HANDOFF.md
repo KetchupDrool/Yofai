@@ -13,27 +13,27 @@ Yofai
 - iPhone-only SwiftUI + SwiftData
 - **Product purpose:** local-first marketplace product photo preparation for online sellers
 - Core functionality is local-first/on-device
-- Phases 1–33 complete
-- Phase 33: Seller Export Preset Clarity
-- Last build/tests: succeeded on iPhone 16e (100 tests)
+- Phases 1–34 complete
+- Phase 34: Local Export Canvas Check
+- Last build/tests: succeeded on iPhone 16e (108 tests)
 - App Store upload paused
 - Primary local path: `/Volumes/CombatMedic/Yofai`
 - GitHub Pages: https://ketchupdrool.github.io/Yofai/
 
-## 5. Completed phases 1–33
-1–32. Local listing prep, intake/capture, disconnected AI foundation
-33. Seller export preset clarity (display titles, Listing vs Other canvas groups, pixel labels, Home copy)
+## 5. Completed phases 1–34
+1–33. Local listing prep, intake/capture, disconnected AI foundation, export preset clarity
+34. Local export canvas check (source vs project listing preset facts)
 
-## 6. Phase 33 result
-**Seller Export Preset Clarity complete.** Stored raw values and pixel sizes unchanged. Marketplace displays as “Square 1600”; presets grouped Listing vs Other canvas; pickers show W×H; local-export disclaimer on Edit / Project Detail / Seller Defaults; Home + Projects empty copy match north star. Build + 100 unit tests passed on iPhone 16e.
+## 6. Phase 34 result
+**Local Export Canvas Check complete.** Photo Check shows project export canvas, whether source file is smaller than canvas, and whether aspect differs (padding expected under contain+pad). Product Intake and Listing Workspace surface local canvas notes. Never affects Phase 25 readiness. Build + 108 unit tests passed on iPhone 16e.
 
 ## 7. Current models/files
-**Export clarity:** `ListingExport.swift` (`displayTitle`, `pickerLabel`, `sellerGroup`, `localExportDisclaimer`)
+**Canvas check:** `PhotoPlanSupport.swift` (`PhotoTechnicalFacts` export fields, helpers); UI in `ProductIntakeView.swift`, `ListingWorkspaceView.swift`
 
-**Tests:** Phase22–33
+**Tests:** Phase22–34
 
 ## 8. Working features
-- Product intake/capture, disconnected AI preparation/review (local foundation only), listing information, bulk edit, packages, defaults, duplicate, workspace, queue, batch export, clarified seller export presets, Etsy connection stub (no live OAuth)
+- Product intake/capture, export canvas Photo Check notes, disconnected AI foundation, listing information, bulk edit, packages, defaults, duplicate, workspace, queue, batch export, clarified seller export presets, Etsy connection stub (no live OAuth)
 
 ## 9. Rules/constraints
 - Core photo preparation: local-first/on-device
@@ -53,7 +53,7 @@ App: Yofai
 Bundle ID: com.shawnwright.yofai
 Purpose: local-first marketplace product photo preparation for online sellers.
 Core functionality is local-first/on-device.
-Status: Phases 1–33 done. Seller export preset clarity complete. Last build/tests succeeded on iPhone 16e (100 tests). App Store upload paused.
+Status: Phases 1–34 done. Local export canvas check complete. Last build/tests succeeded on iPhone 16e (108 tests). App Store upload paused.
 Marketplaces are local export targets only. Do not invent new preset pixel sizes.
 Abandoned from active roadmap: paid/live AI APIs; OAuth marketplace publishing; direct marketplace uploads.
 Future capability (not next work): backend, accounts, cloud sync, subscriptions, ads.
@@ -65,6 +65,6 @@ Do not invent fake AI listing copy, fake camera captures, marketplace category t
 Do not change Share sheet architecture unless fixing a proven bug.
 Build once on iPhone 16e when you change code.
 
-Next: only an explicitly approved local photo-prep phase (e.g. verified multi-marketplace local export sizes, or cover/crop fit when approved). Not live AI / OAuth / upload by default.
+Next: only an explicitly approved local photo-prep phase (e.g. verified multi-marketplace local export sizes, cover/crop fit when approved, or seller-nav simplify). Not live AI / OAuth / upload by default.
 If blocked, report why and the safest alternative.
 ```

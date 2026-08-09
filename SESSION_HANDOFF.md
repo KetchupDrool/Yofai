@@ -1,7 +1,7 @@
 # Session Handoff
 
 ## Status
-Phase 33 complete — Seller Export Preset Clarity. Build + unit tests succeeded on iPhone 16e (100 tests). App Store upload paused.
+Phase 34 complete — Local Export Canvas Check. Build + unit tests succeeded on iPhone 16e (108 tests). App Store upload paused.
 
 ## Product purpose
 Local-first marketplace product photo preparation for online sellers.
@@ -10,13 +10,15 @@ Export targets only: Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and si
 
 ## Facts
 - Yofai / `com.shawnwright.yofai` / iPhone-only
-- Phase 33: display-only preset clarity; raw values + pixel sizes unchanged; Marketplace UI title “Square 1600”
+- Phase 34: Photo Check compares source file pixels to project listing export preset; Intake/Workspace show local canvas notes
+- Does not change Phase 25 readiness; no marketplace compliance claims
 - Fit mode remains contain + pad
 - Git: `/Volumes/CombatMedic/Yofai` on `main`
 
 ## Last Completed
-- ListingExport display metadata, grouped pickers, Home/Projects copy, export disclaimer
-- Phase33SellerExportPresetClarityTests; Phases 22–32 still pass (100 total)
+- Export canvas facts on `PhotoTechnicalFacts` / `PhotoTechnicalCheck`
+- Photo Check section, Product Intake notes, Listing Workspace summary
+- Phase34ExportCanvasCheckTests; Phases 22–33 still pass (108 total)
 
 ## Abandoned from the active roadmap
 - Paid/live AI APIs
@@ -27,7 +29,7 @@ Export targets only: Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and si
 Backend, accounts, cloud sync, subscriptions, ads may be added later where they support the product; core photo prep stays local-first/on-device.
 
 ## Next Recommended
-Wait for verified marketplace pixel sizes before adding named eBay / FB Marketplace / Poshmark / Mercari presets. Optional later: cover/crop fit mode or seller-nav simplify. Do not default to live AI, OAuth, or upload.
+Wait for verified marketplace pixel sizes before named eBay / FB Marketplace / Poshmark / Mercari presets. Optional later: cover/crop fit mode or seller-nav simplify. Do not default to live AI, OAuth, or upload.
 
 ## Rules
 - Core photo preparation: local-first/on-device

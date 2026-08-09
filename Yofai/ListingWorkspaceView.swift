@@ -257,6 +257,11 @@ struct ListingWorkspaceView: View {
             Text("Guided photo plan and camera capture for this project.")
                 .font(.caption)
                 .foregroundStyle(DarkroomTheme.textSecondary)
+            let canvasNotes = PhotoTechnicalCheck.photosWithSourceSmallerThanExportCanvas(in: project).count
+            Text("\(canvasNotes) photo\(canvasNotes == 1 ? "" : "s") smaller than export canvas (\(project.listingExportPreset.pickerLabel)) or unreadable")
+                .font(.caption)
+                .foregroundStyle(DarkroomTheme.textTertiary)
+                .fixedSize(horizontal: false, vertical: true)
             NavigationLink {
                 ProductIntakeView(project: project)
             } label: {
@@ -267,7 +272,7 @@ struct ListingWorkspaceView: View {
             Text("Product Intake")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
-            Text("Uses existing project photos. Photo-plan goals are local guidance only.")
+            Text("Uses existing project photos. Photo-plan goals and export-canvas notes are local guidance only.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)

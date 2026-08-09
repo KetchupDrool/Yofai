@@ -139,9 +139,20 @@ struct PhotoTechnicalFacts: Equatable {
     var hasSavedEdit: Bool
     var altTextStatus: PhotoAltTextStatus
     var attachedGoalName: String?
+    /// Project listing export canvas used for batch export (Phase 34).
+    var exportCanvasPreset: ListingExportPreset
+    var exportCanvasWidth: Int
+    var exportCanvasHeight: Int
+    /// True when source file width or height is below the export canvas (local fact only).
+    var sourceSmallerThanExportCanvas: Bool?
+    /// True when source aspect differs from canvas enough that contain+pad will add padding.
+    var sourceAspectDiffersFromCanvas: Bool?
 }
 
 enum PhotoTechnicalCheck {
+    /// Aspect ratios within this relative difference are treated as matching.
+    static let aspectMatchTolerance: Double = 0.02
+
     /// Measurable local facts only. Never claims quality, compliance, or publish readiness.
     static func facts(for photo: ItemProjectPhoto, project: ItemProject) -> PhotoTechnicalFacts {
         let present = LocalEditStore.projectFileExists(fileName: photo.localFileName)
@@ -159,6 +170,11 @@ enum PhotoTechnicalCheck {
             altStatus = .present
         }
 
+        let canvas = project.listingExportPreset
+        let canvasW = Int(canvas.pixelSize.width)
+        let canvasH = Int(canvas.pixelSize.height)
+        let canvasCompare = compareSourceToCanvas(width: width, height: height, canvas: canvas)
+
         return PhotoTechnicalFacts(
             pixelWidth: width,
             pixelHeight: height,
@@ -167,8 +183,49 @@ enum PhotoTechnicalCheck {
             fileReadable: readable,
             hasSavedEdit: photo.savedEditState != nil,
             altTextStatus: altStatus,
-            attachedGoalName: PhotoPlanSupport.goal(attachedTo: photo, in: project)?.name
+            attachedGoalName: PhotoPlanSupport.goal(attachedTo: photo, in: project)?.name,
+            exportCanvasPreset: canvas,
+            exportCanvasWidth: canvasW,
+            exportCanvasHeight: canvasH,
+            sourceSmallerThanExportCanvas: canvasCompare?.sourceSmaller,
+            sourceAspectDiffersFromCanvas: canvasCompare?.aspectDiffers
         )
+    }
+
+    /// Photos whose source file is smaller than the project export canvas on either axis.
+    /// Missing/unreadable files are included so sellers can open Photo Check.
+    static func photosWithSourceSmallerThanExportCanvas(in project: ItemProject) -> [ItemProjectPhoto] {
+        project.sortedPhotos.filter { photo in
+            let facts = facts(for: photo, project: project)
+            if facts.sourceSmallerThanExportCanvas == true { return true }
+            if !facts.filePresent || !facts.fileReadable { return true }
+            return false
+        }
+    }
+
+    /// Photos where source aspect differs from the export canvas (padding expected under contain+pad).
+    static func photosWithAspectDifferingFromExportCanvas(in project: ItemProject) -> [ItemProjectPhoto] {
+        project.sortedPhotos.filter { photo in
+            facts(for: photo, project: project).sourceAspectDiffersFromCanvas == true
+        }
+    }
+
+    private static func compareSourceToCanvas(
+        width: Int?,
+        height: Int?,
+        canvas: ListingExportPreset
+    ) -> (sourceSmaller: Bool, aspectDiffers: Bool)? {
+        guard let width, let height, width > 0, height > 0 else { return nil }
+        let canvasW = canvas.pixelSize.width
+        let canvasH = canvas.pixelSize.height
+        guard canvasW > 0, canvasH > 0 else { return nil }
+
+        let sourceSmaller = Double(width) < canvasW || Double(height) < canvasH
+        let sourceAspect = Double(width) / Double(height)
+        let canvasAspect = canvasW / canvasH
+        let relativeDiff = abs(sourceAspect - canvasAspect) / canvasAspect
+        let aspectDiffers = relativeDiff > aspectMatchTolerance
+        return (sourceSmaller, aspectDiffers)
     }
 
     private static func orientationLabel(for image: UIImage?) -> String {
