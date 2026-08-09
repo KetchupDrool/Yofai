@@ -103,6 +103,19 @@
 - Seller Defaults may prefill only item type, condition, who made, when made, return policy (plus prior defaults) on new-project create; never overwrite existing projects
 - Deferred: AI suggestions, Etsy API, OAuth, upload, guessed marketplace limits/IDs
 
+## Phase 31 — AI Listing Assistant Foundation (locked)
+- Listing Workspace → AI Listing Assistant; status “AI is not connected yet”; no photos/listing data leave the device
+- `AIPreparationRecord` in SwiftData: selected photo stable IDs, suggestion types, included/excluded context fields, editable suggestions, status, safe error message
+- Statuses: Draft, Ready for AI, Awaiting Review, Applied, Failed
+- Provider protocol: `DisconnectedAIListingProvider` (production), `MockAIListingProvider` (tests/previews only)
+- Never invents fake AI copy in production; manual placeholders allowed; mock suggestions only via mock provider
+- Apply only seller-approved suggestions to title/description/tags/category/materials/alt text; photo order needs explicit confirmation and preserves per-photo alt text
+- Never changes price, quantity, shipping, processing, returns, variations, personalization, SKU, condition, item type, who/when made, export settings, or queue state
+- Never auto-applies; no History/export/package/queue/Etsy completed side effects
+- Cascade-delete with project; duplicate draft does not copy AI preparations; Seller Defaults store no AI data
+- Listing Information Review and Phase 25 readiness unchanged
+- Deferred: live AI networking, API keys, OpenAI/Etsy clients, backend
+
 ## Not Approved Yet
 - Backend
 - User accounts

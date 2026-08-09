@@ -54,6 +54,7 @@ struct ListingWorkspaceView: View {
             overviewSection
             readinessSection
             listingInformationSection
+            aiAssistantSection
             photosSection
             exportSection
             packageSection
@@ -216,6 +217,35 @@ struct ListingWorkspaceView: View {
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
             Text("Local listing fields and review only. Does not invent Etsy-ready status or change queue readiness.")
+                .foregroundStyle(DarkroomTheme.textTertiary)
+        }
+        .listRowBackground(sectionBackground)
+    }
+
+    private var aiAssistantSection: some View {
+        Section {
+            Text(DisconnectedAIListingProvider.shared.statusMessage)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(DarkroomTheme.accent)
+            Text("No photos or listing data leave this device in this phase.")
+                .font(.caption)
+                .foregroundStyle(DarkroomTheme.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
+            Text("\(project.sortedAIPreparations.count) preparation\(project.sortedAIPreparations.count == 1 ? "" : "s")")
+                .font(.caption)
+                .foregroundStyle(DarkroomTheme.textTertiary)
+
+            NavigationLink {
+                AIListingAssistantView(project: project)
+            } label: {
+                Text("Open AI Listing Assistant")
+                    .foregroundStyle(DarkroomTheme.accent)
+            }
+        } header: {
+            Text("AI Listing Assistant")
+                .foregroundStyle(DarkroomTheme.textTertiary)
+        } footer: {
+            Text("Local preparation and suggestion review only. AI is not connected yet.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)

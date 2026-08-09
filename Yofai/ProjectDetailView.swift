@@ -372,7 +372,7 @@ struct ProjectDetailView: View {
 
                 Section {
                     Text("Copies listing details, listing information, and export settings only.")
-                    Text("Does not copy photos, local image files, saved edits, export batches, packages, queue entries, History, or Originals.")
+                    Text("Does not copy photos, local image files, saved edits, export batches, packages, queue entries, AI preparations, History, or Originals.")
                     Text("The new project starts outside the Listing Queue.")
                 } header: {
                     Text("What is copied")

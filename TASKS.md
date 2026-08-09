@@ -4,25 +4,26 @@
 App Store upload paused. Building beyond-MVP local features.
 
 ## Current Phase
-Phase 30 — Complete Local Listing Information. Complete.
+Phase 31 — AI Listing Assistant Foundation. Complete.
 
 ## Done
-- MVP + Phases 4–29
-- Phase 30: Listing Information (item type, condition, who/when made, SKU, personalization, variations, attributes, return policy, photo alt text), Listing Information Review, Seller Defaults extensions, duplicate copies new fields
-- Build + unit tests succeeded on iPhone 16e (70 tests)
+- MVP + Phases 4–30
+- Phase 31: AI Preparation records, disconnected provider, suggestion review/apply, photo-order confirmation, tests
+- Build + unit tests succeeded on iPhone 16e (81 tests)
 
 ## Remaining Polish
 - Edit tools may scroll with Export + watermark
-- Live Etsy OAuth / backend / publish / upload still deferred
+- Live AI / Etsy OAuth / backend / publish / upload still deferred
 
 ## Next Ideas
 - App Store upload prep (when ready)
-- Live OAuth/upload only after backend + real Etsy credentials are supplied
-- Future AI suggestions only when approved
+- Approved live-AI provider only with credentials + policy
+- Live OAuth/upload only after backend + real Etsy credentials
 
 ## Do Not Do
-- Backend, login, payments, ads, AI, subscriptions (unless newly approved)
+- Backend, login, payments, ads, AI networking, subscriptions (unless newly approved)
 - Etsy client secret on iPhone
 - Live Etsy HTTP / upload unless newly approved
 - Invent Etsy category trees, IDs, scopes, or marketplace limits
+- Fake AI-generated listing copy in production
 - Do not change ShareFileItem / ShareBatchItem sheet architecture

@@ -15,6 +15,8 @@ final class ItemProject {
     var exportBatches: [ProjectExportBatch] = []
     @Relationship(deleteRule: .cascade, inverse: \ListingPackage.project)
     var listingPackages: [ListingPackage] = []
+    @Relationship(deleteRule: .cascade, inverse: \AIPreparationRecord.project)
+    var aiPreparations: [AIPreparationRecord] = []
 
     // Local Etsy listing draft fields (Phase 23). No API/upload.
     var listingTitle: String = ""
@@ -93,6 +95,10 @@ final class ItemProject {
 
     var sortedListingPackages: [ListingPackage] {
         listingPackages.sorted { $0.createdAt > $1.createdAt }
+    }
+
+    var sortedAIPreparations: [AIPreparationRecord] {
+        aiPreparations.sorted { $0.createdAt > $1.createdAt }
     }
 
     var sortedPhotos: [ItemProjectPhoto] {
@@ -217,6 +223,8 @@ final class ItemProjectPhoto {
     var sortOrder: Int
     var addedAt: Date
     var project: ItemProject?
+    /// Stable identity for AI preparation photo selection; survives reorder.
+    var stableID: UUID = UUID()
     /// Optional Codable `PhotoEditState` from Edit (when saved). Nil = unedited original.
     var savedEditStateData: Data?
     /// Local alt text for this photo. Stays on the photo through reorder/delete.
@@ -228,13 +236,15 @@ final class ItemProjectPhoto {
         thumbnailData: Data? = nil,
         sortOrder: Int = 0,
         addedAt: Date = .now,
-        project: ItemProject? = nil
+        project: ItemProject? = nil,
+        stableID: UUID = UUID()
     ) {
         self.localFileName = localFileName
         self.thumbnailData = thumbnailData
         self.sortOrder = sortOrder
         self.addedAt = addedAt
         self.project = project
+        self.stableID = stableID
     }
 
     var thumbnailImage: UIImage? {
