@@ -22,6 +22,8 @@
 	<string>1</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Yofai saves a listing-ready photo copy to Photos only when you tap Save Listing Copy.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Yofai uses the camera to capture product photos into your local Item Project.</string>
 	<key>UIApplicationSceneManifest_Generation</key>
 	<true/>
 	<key>UILaunchScreen</key>

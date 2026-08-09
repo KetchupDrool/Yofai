@@ -55,6 +55,7 @@ struct ListingWorkspaceView: View {
             readinessSection
             listingInformationSection
             aiAssistantSection
+            productIntakeSection
             photosSection
             exportSection
             packageSection
@@ -246,6 +247,27 @@ struct ListingWorkspaceView: View {
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
             Text("Local preparation and suggestion review only. AI is not connected yet.")
+                .foregroundStyle(DarkroomTheme.textTertiary)
+        }
+        .listRowBackground(sectionBackground)
+    }
+
+    private var productIntakeSection: some View {
+        Section {
+            Text("Guided photo plan and camera capture for this project.")
+                .font(.caption)
+                .foregroundStyle(DarkroomTheme.textSecondary)
+            NavigationLink {
+                ProductIntakeView(project: project)
+            } label: {
+                Text("Product Intake / Capture Photos")
+                    .foregroundStyle(DarkroomTheme.accent)
+            }
+        } header: {
+            Text("Product Intake")
+                .foregroundStyle(DarkroomTheme.textTertiary)
+        } footer: {
+            Text("Uses existing project photos. Photo-plan goals are local guidance only.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)

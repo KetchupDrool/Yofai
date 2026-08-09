@@ -56,6 +56,13 @@ struct ProjectDetailView: View {
                     Text("Listing Workspace")
                         .foregroundStyle(DarkroomTheme.accent)
                 }
+
+                NavigationLink {
+                    ProductIntakeView(project: project)
+                } label: {
+                    Text("Product Intake / Capture Photos")
+                        .foregroundStyle(DarkroomTheme.accent)
+                }
             } header: {
                 Text("Item")
                     .foregroundStyle(DarkroomTheme.textTertiary)
@@ -371,8 +378,8 @@ struct ProjectDetailView: View {
                 }
 
                 Section {
-                    Text("Copies listing details, listing information, and export settings only.")
-                    Text("Does not copy photos, local image files, saved edits, export batches, packages, queue entries, AI preparations, History, or Originals.")
+                    Text("Does not copy photos, local image files, saved edits, export batches, packages, queue entries, AI preparations, goal completion/attachments, History, or Originals.")
+                    Text("Copies listing details, listing information, export settings, and photo-plan goal names/order only.")
                     Text("The new project starts outside the Listing Queue.")
                 } header: {
                     Text("What is copied")
@@ -626,6 +633,7 @@ struct ProjectDetailView: View {
         let ordered = sortedPhotos
         for index in offsets {
             let photo = ordered[index]
+            PhotoPlanSupport.clearAttachments(referencing: photo.stableID, in: project)
             LocalEditStore.deleteProjectFile(fileName: photo.localFileName)
             modelContext.delete(photo)
         }
@@ -681,7 +689,7 @@ struct ProjectDetailView: View {
 }
 
 /// Loads the full project photo only when navigating to Edit (not while rendering the list).
-private struct ProjectPhotoEditDestination: View {
+struct ProjectPhotoEditDestination: View {
     let photo: ItemProjectPhoto
 
     var body: some View {

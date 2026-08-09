@@ -14,6 +14,7 @@
 		1C3DCE8327B605606DDDAD99 /* ListingQueueEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE44C1F5D51637762E22557 /* ListingQueueEntry.swift */; };
 		20C0DB8564D9A4846982AD22 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71AA6F7AE79A72B0BD6E5E4 /* HistoryView.swift */; };
 		2177950BC7FA894C3B3ACBDB /* ImportedOriginal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9C86933ACBA56343122F69 /* ImportedOriginal.swift */; };
+		2973872DBEDFF649CA9E828F /* PhotoPlanSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1B330994CDA7B6764522D4 /* PhotoPlanSupport.swift */; };
 		2CA9E2EF9EB2ADD3996498D3 /* Phase25ListingQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABACC088E89419079F48CBD /* Phase25ListingQueueTests.swift */; };
 		2DBB1B09450A8BE6BF50DBB2 /* DarkroomTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE8B55FC24105A0D6D9E30C /* DarkroomTheme.swift */; };
 		33D8915A5A3DEF67AF15FB51 /* Phase31AIListingAssistantTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345AE1E4F9A1186FDB551B4E /* Phase31AIListingAssistantTests.swift */; };
@@ -22,11 +23,13 @@
 		3A41044C5E734D54DAD3B1EA /* SellerDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBCC2E77ABF1EFB4C8F41FE /* SellerDefaults.swift */; };
 		41AD913F4814BE8021B5754A /* ActivityShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E1C2043B1047520D68D7F /* ActivityShareView.swift */; };
 		42CB7915D48665E9ECD06B44 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9E95DE5571028873EC4AF /* HomeView.swift */; };
+		434BCC956070908A35127B78 /* Phase32ProductIntakeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72562DFA79CD8E3BAF2377 /* Phase32ProductIntakeTests.swift */; };
 		46F08E9EC63C9510FA8487A7 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD55D6B6CE4D9FE8FCDC00D /* SettingsView.swift */; };
 		5D17450C661960970907DB91 /* ListingExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF84D49672B068C0B6DCB6C /* ListingExport.swift */; };
 		6120911F9FEA18ADFC924D81 /* EtsyCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F229036218D3F74F3E5E6A3 /* EtsyCredentials.swift */; };
 		62D1568666E7DDA1F7A1A305 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A2BBD4AE031D21A7AEFEED /* ProjectDetailView.swift */; };
 		6723677C989976B29DD63F74 /* AIListingAssistantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348D440EDC63C0DBBA483372 /* AIListingAssistantView.swift */; };
+		681E3CE88EB8305436BDDF11 /* ProjectCameraCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A94BD4FA56A0BA330EAC11 /* ProjectCameraCaptureView.swift */; };
 		68B2E3CE1F17E60737386845 /* EtsyOAuthConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC8E29E5727D563671A025E /* EtsyOAuthConfig.swift */; };
 		697A57C8E81EA9212186273D /* ListingPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6485F76F5CDD0A11BF183D6D /* ListingPackage.swift */; };
 		6AB2C52EDC7BCAE31F103407 /* ImageEditing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FF14417E2842656688CB66 /* ImageEditing.swift */; };
@@ -53,6 +56,7 @@
 		AD9AE07102BD7F5E5CDC19F0 /* OriginalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B8427BE901DB4798F39B72 /* OriginalDetailView.swift */; };
 		B492C2E931E3CA51E4936D28 /* MockEtsyConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C102A8BE99576F4E682AB5 /* MockEtsyConnectionService.swift */; };
 		B5431083A4397055CD778A0D /* ListingWorkspaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7E07AA3165CE87450949A /* ListingWorkspaceView.swift */; };
+		C29C38D08CF8024286B00AB9 /* ProductIntakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA21B8B16095F02340C96B /* ProductIntakeView.swift */; };
 		C3B6FAB768E66AA2D4DC7AB0 /* YofaiModelSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51C5326458F9E10E5524213 /* YofaiModelSchema.swift */; };
 		C68CBDA02767C26AE4ACF140 /* ListingQueueSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F37C5BE7AD5640A0A18BF3E /* ListingQueueSupport.swift */; };
 		D9C0F377A1F4F73F3C76293C /* EtsyConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BC0E9FA7F11A894BE8A892 /* EtsyConnectionState.swift */; };
@@ -109,15 +113,19 @@
 		60678C8A0E19EFB9ED12A39B /* Phase26BatchExportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase26BatchExportTests.swift; sourceTree = "<group>"; };
 		632185323A43BD606EFD9DD4 /* AIListingProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIListingProvider.swift; sourceTree = "<group>"; };
 		6485F76F5CDD0A11BF183D6D /* ListingPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingPackage.swift; sourceTree = "<group>"; };
+		71A94BD4FA56A0BA330EAC11 /* ProjectCameraCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCameraCaptureView.swift; sourceTree = "<group>"; };
 		73CCB463D9F8954A41B30389 /* KeychainEtsyCredentialStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainEtsyCredentialStore.swift; sourceTree = "<group>"; };
 		78FF14417E2842656688CB66 /* ImageEditing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditing.swift; sourceTree = "<group>"; };
 		7A0073A2C74962620DD93245 /* ListingInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingInformationView.swift; sourceTree = "<group>"; };
 		7AE5A580A0135FC74238334A /* ListingQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingQueueView.swift; sourceTree = "<group>"; };
+		81FA21B8B16095F02340C96B /* ProductIntakeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductIntakeView.swift; sourceTree = "<group>"; };
+		8A72562DFA79CD8E3BAF2377 /* Phase32ProductIntakeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase32ProductIntakeTests.swift; sourceTree = "<group>"; };
 		97EEA04BA7B6FA559052DC45 /* ItemProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemProject.swift; sourceTree = "<group>"; };
 		9CE183516F25380F56C12048 /* Phase27ListingWorkspaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase27ListingWorkspaceTests.swift; sourceTree = "<group>"; };
 		A10B75773A5CCD794585AA14 /* ImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportView.swift; sourceTree = "<group>"; };
 		A71AA6F7AE79A72B0BD6E5E4 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		ACF84D49672B068C0B6DCB6C /* ListingExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingExport.swift; sourceTree = "<group>"; };
+		BA1B330994CDA7B6764522D4 /* PhotoPlanSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPlanSupport.swift; sourceTree = "<group>"; };
 		BA91391F1DC702D2DEE14F4A /* Yofai.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Yofai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFBCC2E77ABF1EFB4C8F41FE /* SellerDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerDefaults.swift; sourceTree = "<group>"; };
 		C0B8427BE901DB4798F39B72 /* OriginalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginalDetailView.swift; sourceTree = "<group>"; };
@@ -190,7 +198,10 @@
 				C0B8427BE901DB4798F39B72 /* OriginalDetailView.swift */,
 				5C68E38A2BCFD243B657D1D5 /* OriginalsView.swift */,
 				C4A655C173817CF80C2BE2CE /* PhotoEditState.swift */,
+				BA1B330994CDA7B6764522D4 /* PhotoPlanSupport.swift */,
+				81FA21B8B16095F02340C96B /* ProductIntakeView.swift */,
 				EB0FED065E54BEA3BC57F39B /* ProjectBatchExporter.swift */,
+				71A94BD4FA56A0BA330EAC11 /* ProjectCameraCaptureView.swift */,
 				D9A2BBD4AE031D21A7AEFEED /* ProjectDetailView.swift */,
 				F483BF5F43BC4B35DFF1DDB9 /* ProjectExportBatch.swift */,
 				1A454A110D2B0140A35901E3 /* ProjectsView.swift */,
@@ -227,6 +238,7 @@
 				DE196A020E7CCA6FD2305243 /* Phase29BulkEditAndPackageTests.swift */,
 				F1656D4924593F22F330434F /* Phase30ListingInformationTests.swift */,
 				345AE1E4F9A1186FDB551B4E /* Phase31AIListingAssistantTests.swift */,
+				8A72562DFA79CD8E3BAF2377 /* Phase32ProductIntakeTests.swift */,
 			);
 			path = YofaiTests;
 			sourceTree = "<group>";
@@ -353,7 +365,10 @@
 				AD9AE07102BD7F5E5CDC19F0 /* OriginalDetailView.swift in Sources */,
 				F37541F4B0D0AE123620B14F /* OriginalsView.swift in Sources */,
 				6E1C48CD52304058FDDF0E3D /* PhotoEditState.swift in Sources */,
+				2973872DBEDFF649CA9E828F /* PhotoPlanSupport.swift in Sources */,
+				C29C38D08CF8024286B00AB9 /* ProductIntakeView.swift in Sources */,
 				FADF9F3019C73426C062D788 /* ProjectBatchExporter.swift in Sources */,
+				681E3CE88EB8305436BDDF11 /* ProjectCameraCaptureView.swift in Sources */,
 				62D1568666E7DDA1F7A1A305 /* ProjectDetailView.swift in Sources */,
 				EBC5B8BE765326802B1DCCF7 /* ProjectExportBatch.swift in Sources */,
 				9B36B7A23DFC2D3A45812F6B /* ProjectsView.swift in Sources */,
@@ -381,6 +396,7 @@
 				EA1720C3543EA076667F02FF /* Phase29BulkEditAndPackageTests.swift in Sources */,
 				34F526F95E691946E58EB149 /* Phase30ListingInformationTests.swift in Sources */,
 				33D8915A5A3DEF67AF15FB51 /* Phase31AIListingAssistantTests.swift in Sources */,
+				434BCC956070908A35127B78 /* Phase32ProductIntakeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

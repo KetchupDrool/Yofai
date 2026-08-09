@@ -10,7 +10,8 @@ enum YofaiModelSchema {
         ListingQueueEntry.self,
         ProjectExportBatch.self,
         ListingPackage.self,
-        AIPreparationRecord.self
+        AIPreparationRecord.self,
+        PhotoPlanGoal.self
     ]
 
     static var schema: Schema {

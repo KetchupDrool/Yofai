@@ -17,6 +17,8 @@ final class ItemProject {
     var listingPackages: [ListingPackage] = []
     @Relationship(deleteRule: .cascade, inverse: \AIPreparationRecord.project)
     var aiPreparations: [AIPreparationRecord] = []
+    @Relationship(deleteRule: .cascade, inverse: \PhotoPlanGoal.project)
+    var photoPlanGoals: [PhotoPlanGoal] = []
 
     // Local Etsy listing draft fields (Phase 23). No API/upload.
     var listingTitle: String = ""
@@ -99,6 +101,10 @@ final class ItemProject {
 
     var sortedAIPreparations: [AIPreparationRecord] {
         aiPreparations.sorted { $0.createdAt > $1.createdAt }
+    }
+
+    var sortedPhotoPlanGoals: [PhotoPlanGoal] {
+        photoPlanGoals.sorted { $0.sortOrder < $1.sortOrder }
     }
 
     var sortedPhotos: [ItemProjectPhoto] {
@@ -230,6 +236,11 @@ final class ItemProjectPhoto {
     /// Local alt text for this photo. Stays on the photo through reorder/delete.
     var altText: String = ""
     var altTextNotApplicable: Bool = false
+    /// Seller-controlled local review only. Never affects Phase 25 readiness.
+    var reviewProductClearlyVisible: Bool = false
+    var reviewBackgroundAcceptable: Bool = false
+    var reviewColorAccurate: Bool = false
+    var reviewNoPrivateInfoVisible: Bool = false
 
     init(
         localFileName: String? = nil,

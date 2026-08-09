@@ -116,6 +116,18 @@
 - Listing Information Review and Phase 25 readiness unchanged
 - Deferred: live AI networking, API keys, OpenAI/Etsy clients, backend
 
+## Phase 32 — Product Intake + Guided Photo Capture (locked)
+- Entry from Project Detail and Listing Workspace → Product Intake / Capture Photos
+- Reuses existing project-photo storage/order/edit/alt-text/export/delete paths — no second photo library
+- Editable local photo plan with optional starter goals; not Etsy requirements
+- Goals: add/rename/reorder/delete/complete; attach at most one project photo; clear attachment without deleting photo
+- Photo delete clears matching goal attachment; reorder keeps attachment + alt text on the photo
+- System camera capture via UIImagePickerController; permission denial messaging; rear camera; flash when supported; confirm/retake; optional goal attach; append-only via `LocalEditStore.saveProjectImage`
+- Simulator/unavailable camera fails safely; production never fakes capture; tests use `InjectedTestCaptureSource` only
+- Photo Check reports measurable local facts only; seller review checkboxes never affect Phase 25 readiness
+- Duplicate draft copies goal names/order only; cascade-delete goals with project; Seller Defaults store no photo-plan/camera/review data
+- Deferred: live AI, Etsy API/OAuth/upload, marketplace compliance claims
+
 ## Not Approved Yet
 - Backend
 - User accounts

@@ -121,9 +121,9 @@ final class SellerDefaultsStore {
 }
 
 extension ItemProject {
-    /// Copies listing details + export settings + listing information only into a new project.
+    /// Copies listing details + export settings + listing information + photo-plan goal names/order only.
     /// Does not copy photos, files, edits, batches, packages, queue entries, AI preparations,
-    /// History, or Originals.
+    /// goal completion, attached photo references, History, or Originals.
     func duplicateListingDraft(newName: String) -> ItemProject {
         let copy = ItemProject(name: newName.trimmingCharacters(in: .whitespacesAndNewlines))
         copy.listingTitle = listingTitle
@@ -164,6 +164,18 @@ extension ItemProject {
         copy.listingAttributesData = listingAttributesData
         copy.listingReturnPolicy = listingReturnPolicy
         copy.listingReturnPolicyNotApplicable = listingReturnPolicyNotApplicable
+
+        for goal in sortedPhotoPlanGoals {
+            copy.photoPlanGoals.append(
+                PhotoPlanGoal(
+                    name: goal.name,
+                    sortOrder: goal.sortOrder,
+                    isComplete: false,
+                    attachedPhotoStableID: nil,
+                    project: copy
+                )
+            )
+        }
         return copy
     }
 }
