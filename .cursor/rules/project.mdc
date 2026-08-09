@@ -8,10 +8,13 @@ alwaysApply: true
 - App name is Yofai.
 - Bundle ID is com.shawnwright.yofai.
 - App type code word is Mosaic.
+- Product purpose: local-first marketplace product photo preparation for online sellers.
+- Core photo preparation is local-first/on-device.
+- Marketplaces are local export targets only — not live publishing destinations.
 - Keep changes small.
 - Inspect files before editing.
 - Do not refactor unrelated files.
-- Do not add backend, accounts, payments, ads, or AI API calls unless approved.
+- Do not implement paid/live AI APIs, OAuth marketplace publishing, or direct marketplace uploads unless explicitly re-approved.
+- Backend, accounts, cloud sync, subscriptions, and ads are future-capability only — not current work unless newly approved as a phase.
 - Report changed files, build result, and next needed approval.
 - Use short, simple explanations.
-

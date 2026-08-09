@@ -1,7 +1,12 @@
 # Session Handoff
 
 ## Status
-Phase 32 complete — Product Intake + Guided Photo Capture. Build + unit tests succeeded on iPhone 16e (92 tests). App Store upload paused.
+Product pivot documented (2026-08-09). Phase 32 remains the last completed technical phase. No new feature coding until an explicit next phase is approved. Last build + unit tests succeeded on iPhone 16e (92 tests). App Store upload paused.
+
+## Product purpose
+Local-first marketplace product photo preparation for online sellers.
+Core functionality is local-first/on-device.
+Export targets only: Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and similar.
 
 ## Facts
 - Yofai / `com.shawnwright.yofai` / iPhone-only
@@ -13,17 +18,21 @@ Phase 32 complete — Product Intake + Guided Photo Capture. Build + unit tests 
 ## Last Completed
 - Photo plan, capture flow, Photo Check, intake UI entry points
 - Phase32ProductIntakeTests; Phases 22–31 still pass
+- Direction docs updated for product pivot (PROJECT, DECISIONS, TASKS, handoffs, project rules)
 
-## Remaining Before Live AI / Upload
-- Approved live-AI provider + policy/credentials
-- Backend + real Etsy OAuth credentials for upload
+## Abandoned from the active roadmap
+- Paid/live AI APIs
+- OAuth marketplace publishing
+- Direct Etsy publishing / direct publishing to any marketplace
+
+## Future capability (approved direction — not next work)
+Backend, accounts, cloud sync, subscriptions, ads may be added later where they support the product; core photo prep stays local-first/on-device.
 
 ## Next Recommended
-App Store upload prep, or approved live-AI / live-OAuth/upload phase with credentials supplied.
+Wait for an explicit approved local photo-prep phase (e.g. multi-marketplace local export presets). Do not default to live AI, OAuth, or marketplace upload.
 
 ## Rules
-- No client secret on iPhone
-- No live AI / Etsy HTTP until approved
+- Core photo preparation: local-first/on-device
 - Do not fake AI copy or camera captures in production
-- Do not invent Etsy category trees, IDs, scopes, or marketplace limits
+- Do not invent marketplace category trees, IDs, scopes, or compliance limits
 - Keep share architecture stable
