@@ -47,7 +47,9 @@ Home → Start / Continue Product → Item Project → Capture & Check Photos �
 Import, Originals, and History remain available as secondary tools.
 
 ## Status
-- Phases 1–35 technical history complete (see `DECISIONS.md`)
+- Phases 1–36 technical history complete (see `DECISIONS.md`)
+- Verified local export canvases include Etsy sizes, eBay 1600×1600, Poshmark 1000×1000 (recommended; not compliance claims)
+- Facebook Marketplace and Mercari named pixel presets deferred until verified
 - App Store upload remains paused
 - Old framing (“general photo editor MVP within 6 days”) is no longer the main goal
 

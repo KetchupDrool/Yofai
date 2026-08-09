@@ -11,12 +11,15 @@ enum ListingExportPresetGroup: String, CaseIterable, Identifiable, Equatable {
 }
 
 enum ListingExportPreset: String, CaseIterable, Identifiable, Equatable, Codable {
-    /// Stored raw value — do not change (persistence).
+    /// Stored raw value — do not change existing cases (persistence).
     case etsySquare = "Etsy square"
     case etsyListing = "Etsy listing"
     case instagramSquare = "Instagram square"
     case facebookPost = "Facebook post"
     case marketplace = "Marketplace"
+    /// Phase 36 — verified recommended local canvases (new raw values only).
+    case ebay = "eBay"
+    case poshmark = "Poshmark"
 
     var id: String { rawValue }
 
@@ -28,6 +31,8 @@ enum ListingExportPreset: String, CaseIterable, Identifiable, Equatable, Codable
         case .instagramSquare: return CGSize(width: 1080, height: 1080)
         case .facebookPost: return CGSize(width: 1200, height: 630)
         case .marketplace: return CGSize(width: 1600, height: 1600)
+        case .ebay: return CGSize(width: 1600, height: 1600)
+        case .poshmark: return CGSize(width: 1000, height: 1000)
         }
     }
 
@@ -39,6 +44,8 @@ enum ListingExportPreset: String, CaseIterable, Identifiable, Equatable, Codable
         case .instagramSquare: return "Instagram square"
         case .facebookPost: return "Facebook post"
         case .marketplace: return "Square 1600"
+        case .ebay: return "eBay"
+        case .poshmark: return "Poshmark"
         }
     }
 
@@ -54,12 +61,16 @@ enum ListingExportPreset: String, CaseIterable, Identifiable, Equatable, Codable
             return "\(pixelSizeLabel) · social post canvas, not Marketplace product"
         case .marketplace:
             return "\(pixelSizeLabel) · generic square canvas"
+        case .ebay:
+            return "\(pixelSizeLabel) · recommended local canvas (not a compliance guarantee)"
+        case .poshmark:
+            return "\(pixelSizeLabel) · recommended local canvas (not a compliance guarantee)"
         }
     }
 
     var sellerGroup: ListingExportPresetGroup {
         switch self {
-        case .etsySquare, .etsyListing, .marketplace:
+        case .etsySquare, .etsyListing, .marketplace, .ebay, .poshmark:
             return .listing
         case .instagramSquare, .facebookPost:
             return .otherCanvas
@@ -79,6 +90,8 @@ enum ListingExportPreset: String, CaseIterable, Identifiable, Equatable, Codable
         case .instagramSquare: return "IG □"
         case .facebookPost: return "FB post"
         case .marketplace: return "1600 □"
+        case .ebay: return "eBay □"
+        case .poshmark: return "Posh □"
         }
     }
 
@@ -88,6 +101,11 @@ enum ListingExportPreset: String, CaseIterable, Identifiable, Equatable, Codable
 
     static let localExportDisclaimer =
         "Local export canvases only. Sizes shown are app presets — not marketplace compliance claims."
+
+    /// Original five Phase 20/33 canvases (raw values and sizes locked).
+    static let legacyPhase33Presets: [ListingExportPreset] = [
+        .etsySquare, .etsyListing, .instagramSquare, .facebookPost, .marketplace
+    ]
 
     static func presets(in group: ListingExportPresetGroup) -> [ListingExportPreset] {
         allCases.filter { $0.sellerGroup == group }

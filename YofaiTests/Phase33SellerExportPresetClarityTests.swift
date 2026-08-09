@@ -20,11 +20,13 @@ final class Phase33SellerExportPresetClarityTests: XCTestCase {
     }
 
     func testCaseIterableStillReturnsFivePresets() {
-        XCTAssertEqual(ListingExportPreset.allCases.count, 5)
+        // Phase 36 appended eBay + Poshmark; legacy five raw values remain first and unchanged.
+        XCTAssertEqual(ListingExportPreset.legacyPhase33Presets.count, 5)
         XCTAssertEqual(
-            ListingExportPreset.allCases.map(\.rawValue),
+            ListingExportPreset.legacyPhase33Presets.map(\.rawValue),
             ["Etsy square", "Etsy listing", "Instagram square", "Facebook post", "Marketplace"]
         )
+        XCTAssertEqual(ListingExportPreset.allCases.count, 7)
     }
 
     func testDisplayTitlesClarifyMarketplaceWithoutChangingRawValue() {
@@ -56,7 +58,7 @@ final class Phase33SellerExportPresetClarityTests: XCTestCase {
 
         XCTAssertEqual(
             ListingExportPreset.presets(in: .listing).map(\.rawValue),
-            ["Etsy square", "Etsy listing", "Marketplace"]
+            ["Etsy square", "Etsy listing", "Marketplace", "eBay", "Poshmark"]
         )
         XCTAssertEqual(
             ListingExportPreset.presets(in: .otherCanvas).map(\.rawValue),
@@ -70,11 +72,13 @@ final class Phase33SellerExportPresetClarityTests: XCTestCase {
             .joined(separator: " | ")
             .lowercased()
 
-        XCTAssertFalse(joined.contains("ebay"))
-        XCTAssertFalse(joined.contains("poshmark"))
         XCTAssertFalse(joined.contains("mercari"))
         XCTAssertFalse(joined.contains("facebook marketplace"))
-        XCTAssertFalse(joined.contains("compliance"))
+        // Allowed: eBay / Poshmark as named recommended canvases; must not claim compliance.
+        XCTAssertTrue(joined.contains("ebay"))
+        XCTAssertTrue(joined.contains("poshmark"))
+        XCTAssertTrue(ListingExportPreset.ebay.displaySubtitle.lowercased().contains("not a compliance guarantee"))
+        XCTAssertTrue(ListingExportPreset.poshmark.displaySubtitle.lowercased().contains("not a compliance guarantee"))
 
         XCTAssertTrue(ListingExportPreset.facebookPost.displaySubtitle.lowercased().contains("not marketplace product"))
         XCTAssertTrue(ListingExportPreset.marketplace.displaySubtitle.lowercased().contains("generic square"))

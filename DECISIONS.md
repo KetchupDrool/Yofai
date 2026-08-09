@@ -176,6 +176,14 @@
 - Project Detail: Capture & Check Photos before Prepare Listing & Export; no data deletion; no SwiftData migration
 - Out of scope: deleting features, cover/crop, new marketplace sizes, OAuth/AI/upload, backend/accounts
 
+## Phase 36 — Verified Marketplace Local Export Presets (locked)
+- Added ListingExportPreset cases: eBay (`"eBay"`, 1600×1600) and Poshmark (`"Poshmark"`, 1000×1000) in Listing group
+- Existing five Phase 33 raw values and pixel sizes unchanged; old stored selections still decode
+- Square 1600 / Instagram / Facebook post remain; not relabeled as Facebook Marketplace or Mercari
+- Recommended local canvases only — not marketplace compliance guarantees
+- Photo Check / batch export / Seller Defaults / Edit pickers use CaseIterable (includes new presets)
+- Deferred named presets: Facebook Marketplace, Mercari (pending verified specific canvas)
+
 ## Future capability (approved direction — not next work)
 May be added later where they support the product; core photo preparation remains local-first/on-device:
 - Backend services
