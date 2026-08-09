@@ -28,6 +28,11 @@ targets:
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
         NSPhotoLibraryAddUsageDescription: Yofai saves a listing-ready photo copy to Photos only when you tap Save Listing Copy.
+        CFBundleURLTypes:
+          - CFBundleTypeRole: Editor
+            CFBundleURLName: com.shawnwright.yofai.etsy-oauth
+            CFBundleURLSchemes:
+              - yofai
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.shawnwright.yofai
       PRODUCT_NAME: Yofai
@@ -40,3 +45,26 @@ targets:
       ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
       ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
       SWIFT_STRICT_CONCURRENCY: complete
+      ENABLE_TESTABILITY: YES
+  YofaiTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: YofaiTests
+    dependencies:
+      - target: Yofai
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.shawnwright.yofai.tests
+      GENERATE_INFOPLIST_FILE: YES
+      TARGETED_DEVICE_FAMILY: "1"
+      TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Yofai.app/Yofai"
+      BUNDLE_LOADER: "$(TEST_HOST)"
+schemes:
+  Yofai:
+    build:
+      targets:
+        Yofai: all
+        YofaiTests: [test]
+    test:
+      targets:
+        - YofaiTests

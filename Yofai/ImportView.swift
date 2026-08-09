@@ -151,7 +151,7 @@ struct ImportView: View {
 
 @MainActor
 private let importPreviewContainer: ModelContainer = {
-    let schema = Schema([SavedEdit.self, ImportedOriginal.self])
+    let schema = YofaiModelSchema.schema
     let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
     return try! ModelContainer(for: schema, configurations: [configuration])
 }()

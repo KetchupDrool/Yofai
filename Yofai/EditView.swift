@@ -4,6 +4,8 @@ import UIKit
 
 struct EditView: View {
     let sourceImage: UIImage
+    /// When set, loads/saves edit settings on this project photo (batch export uses them).
+    var projectPhoto: ItemProjectPhoto? = nil
 
     @Environment(\.modelContext) private var modelContext
     @State private var editState = PhotoEditState()
@@ -22,6 +24,7 @@ struct EditView: View {
     @State private var showFreeformCrop = false
     @State private var cropCanvasImage: UIImage?
     @State private var previewRefreshTask: Task<Void, Never>?
+    @State private var didLoadProjectEditState = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -288,10 +291,12 @@ struct EditView: View {
         .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .onAppear {
+            loadProjectEditStateIfNeeded()
             preparePreviewSourceIfNeeded()
             refreshPreview()
         }
         .onDisappear {
+            persistProjectEditStateIfNeeded()
             previewRefreshTask?.cancel()
             previewRefreshTask = nil
             ShareExport.removeTemporaryFile(at: shareFileURLToCleanup)
@@ -561,6 +566,7 @@ struct EditView: View {
                 thumbnailData: SavedEdit.makeThumbnailData(from: finalImage)
             )
             modelContext.insert(record)
+            persistProjectEditStateIfNeeded()
             statusMessage = "Saved listing-ready copy to Photos. Added to History."
             statusIsError = false
         } catch let error as PhotoSaveError {
@@ -570,6 +576,22 @@ struct EditView: View {
             statusMessage = PhotoSaveError.saveFailed.localizedDescription
             statusIsError = true
         }
+    }
+
+    private func loadProjectEditStateIfNeeded() {
+        guard !didLoadProjectEditState, let projectPhoto else { return }
+        if let saved = projectPhoto.savedEditState {
+            editState = saved
+        } else if let project = projectPhoto.project {
+            editState = PhotoEditState().applyingProjectExportSettings(from: project)
+        }
+        syncEdgeCropAmount(from: editState)
+        didLoadProjectEditState = true
+    }
+
+    private func persistProjectEditStateIfNeeded() {
+        guard let projectPhoto else { return }
+        projectPhoto.savedEditState = editState
     }
 }
 

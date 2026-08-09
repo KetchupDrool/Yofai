@@ -4,26 +4,23 @@
 App Store upload paused. Building beyond-MVP local features.
 
 ## Current Phase
-Phase 21 — listing watermark text. Complete (save orientation bug fixed).
+Phase 29 — Bulk Photo Editing + Listing Package. Complete.
 
 ## Done
-- MVP + Phases 4–20
-- Phase 20: listing export + Share sheet fix
-- Phase 21: watermark toggle/text; drawn on listing canvas; History Yes/No
-- Fix: normalize UIImage orientation before edit/render so Save matches preview
-- Build succeeded on iPhone 16e
+- MVP + Phases 4–28
+- Phase 29: Bulk Edit Photos, undo, Listing Package create/share/delete, tests
+- Build + unit tests succeeded on iPhone 16e
 
 ## Remaining Polish
-- Edit tools may scroll more with Export + watermark field
-- Visual smoke-test of Share + Save orientation still needed
-- Transparent / frames still deferred
+- Edit tools may scroll with Export + watermark
+- Live Etsy OAuth / backend / publish / upload still deferred
 
 ## Next Ideas
-- Retest Save Listing Copy orientation (phone photos with EXIF rotation)
-- Retest Share with watermark
 - App Store upload prep (when ready)
+- Live OAuth/upload only after backend + real Etsy credentials are supplied
 
 ## Do Not Do
-- Backend, login, payments, ads, AI, subscriptions
-- Transparent export / frames / logo watermark unless newly approved
-- Do not change ShareFileItem sheet architecture
+- Backend, login, payments, ads, AI, subscriptions (unless newly approved)
+- Etsy client secret on iPhone
+- Live Etsy HTTP / upload unless newly approved
+- Do not change ShareFileItem / ShareBatchItem sheet architecture

@@ -3,7 +3,7 @@ import CoreImage
 import CoreImage.CIFilterBuiltins
 import Photos
 
-enum PhotoFilter: String, CaseIterable, Identifiable {
+enum PhotoFilter: String, CaseIterable, Identifiable, Codable {
     case original = "Original"
     case mono = "Mono"
     case sepia = "Sepia"

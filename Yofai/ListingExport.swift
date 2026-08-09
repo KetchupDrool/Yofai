@@ -2,7 +2,7 @@ import Foundation
 import CoreGraphics
 import UIKit
 
-enum ListingExportPreset: String, CaseIterable, Identifiable, Equatable {
+enum ListingExportPreset: String, CaseIterable, Identifiable, Equatable, Codable {
     case etsySquare = "Etsy square"
     case etsyListing = "Etsy listing"
     case instagramSquare = "Instagram square"
@@ -33,7 +33,7 @@ enum ListingExportPreset: String, CaseIterable, Identifiable, Equatable {
     }
 }
 
-enum ListingExportBackground: String, CaseIterable, Identifiable, Equatable {
+enum ListingExportBackground: String, CaseIterable, Identifiable, Equatable, Codable {
     case white = "White"
     case black = "Black"
     case softGray = "Soft gray"

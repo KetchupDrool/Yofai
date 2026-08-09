@@ -1,0 +1,306 @@
+import SwiftUI
+import SwiftData
+import PhotosUI
+import UIKit
+
+struct ProjectsView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query(sort: \ItemProject.modifiedAt, order: .reverse) private var projects: [ItemProject]
+    @State private var showCreate = false
+
+    var body: some View {
+        NavigationStack {
+            Group {
+                if projects.isEmpty {
+                    ScrollView {
+                        VStack(spacing: 16) {
+                            DarkroomEmptyPanel(
+                                title: "No Projects Yet",
+                                systemImage: "folder.badge.plus",
+                                message: "Create an item project to keep listing photos together on this device."
+                            )
+                            Button {
+                                showCreate = true
+                            } label: {
+                                DarkroomPrimaryButtonLabel(title: "New Project", systemImage: "plus")
+                            }
+                            .buttonStyle(.plain)
+                            .padding(.horizontal, 20)
+                        }
+                        .padding(.top, 40)
+                    }
+                } else {
+                    List {
+                        ForEach(projects) { project in
+                            NavigationLink {
+                                ProjectDetailView(project: project)
+                            } label: {
+                                ProjectCardRow(project: project)
+                            }
+                            .buttonStyle(.plain)
+                            .navigationLinkIndicatorVisibility(.hidden)
+                            .listRowInsets(EdgeInsets(top: 6, leading: 14, bottom: 6, trailing: 14))
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                        }
+                    }
+                    .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
+                }
+            }
+            .darkroomScreen()
+            .navigationTitle("Projects")
+            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    NavigationLink {
+                        ListingQueueView()
+                    } label: {
+                        Image(systemName: "list.bullet.rectangle")
+                    }
+                    .accessibilityLabel("Listing Queue")
+                }
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
+                        showCreate = true
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    .accessibilityLabel("New Project")
+                }
+            }
+            .sheet(isPresented: $showCreate) {
+                CreateProjectView()
+            }
+        }
+    }
+}
+
+private struct ProjectCardRow: View {
+    let project: ItemProject
+
+    var body: some View {
+        HStack(spacing: 14) {
+            Group {
+                if let cover = project.coverThumbnail {
+                    Image(uiImage: cover)
+                        .resizable()
+                        .scaledToFill()
+                } else {
+                    Image(systemName: "photo.on.rectangle.angled")
+                        .foregroundStyle(DarkroomTheme.textTertiary)
+                }
+            }
+            .frame(width: 72, height: 72)
+            .background(DarkroomTheme.canvas)
+            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .stroke(DarkroomTheme.strokeBright.opacity(0.55), lineWidth: 1)
+            )
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(project.name)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(DarkroomTheme.textPrimary)
+                    .lineLimit(1)
+                Text("\(project.photoCount) photo\(project.photoCount == 1 ? "" : "s")")
+                    .font(.caption)
+                    .foregroundStyle(DarkroomTheme.textSecondary)
+                Text("Updated \(project.modifiedAt.formatted(.dateTime.month().day().hour().minute()))")
+                    .font(.caption2)
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+            }
+
+            Spacer(minLength: 0)
+
+            Image(systemName: "chevron.right")
+                .font(.caption.weight(.bold))
+                .foregroundStyle(DarkroomTheme.accent.opacity(0.8))
+                .frame(width: 28, height: 44, alignment: .trailing)
+        }
+        .padding(12)
+        .glassPanel()
+        .contentShape(RoundedRectangle(cornerRadius: DarkroomTheme.cornerRadius, style: .continuous))
+    }
+}
+
+struct CreateProjectView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
+
+    enum StartMode: String, CaseIterable, Identifiable {
+        case blank = "Start Blank"
+        case useDefaults = "Use Seller Defaults"
+
+        var id: String { rawValue }
+    }
+
+    @State private var name = ""
+    @State private var startMode: StartMode = .blank
+    @State private var pickerItems: [PhotosPickerItem] = []
+    @State private var isSaving = false
+    @State private var errorMessage: String?
+
+    private let sellerDefaultsStore = SellerDefaultsStore()
+
+    private var trimmedName: String {
+        name.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    private var canCreate: Bool {
+        !trimmedName.isEmpty && !pickerItems.isEmpty && !isSaving
+    }
+
+    private var savedDefaults: SellerDefaults {
+        sellerDefaultsStore.load()
+    }
+
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 16) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("ITEM NAME")
+                        .font(.caption2.weight(.bold))
+                        .tracking(1.0)
+                        .foregroundStyle(DarkroomTheme.textTertiary)
+                    TextField("e.g. Vintage lamp", text: $name)
+                        .textInputAutocapitalization(.words)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 10)
+                        .background(DarkroomTheme.surfaceRaised, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .stroke(DarkroomTheme.stroke, lineWidth: 1)
+                        )
+                }
+
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("LISTING START")
+                        .font(.caption2.weight(.bold))
+                        .tracking(1.0)
+                        .foregroundStyle(DarkroomTheme.textTertiary)
+                    Picker("Listing start", selection: $startMode) {
+                        ForEach(StartMode.allCases) { mode in
+                            Text(mode.rawValue).tag(mode)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+
+                    if startMode == .useDefaults {
+                        Text(defaultsPreviewText)
+                            .font(.caption)
+                            .foregroundStyle(DarkroomTheme.textSecondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    } else {
+                        Text("Blank project — seller defaults are not applied.")
+                            .font(.caption)
+                            .foregroundStyle(DarkroomTheme.textSecondary)
+                    }
+                }
+
+                let selectedCount = pickerItems.count
+                let chooseTitle = selectedCount == 0
+                    ? "Choose Photos"
+                    : "\(selectedCount) photo\(selectedCount == 1 ? "" : "s") selected"
+                PhotosPicker(
+                    selection: $pickerItems,
+                    maxSelectionCount: 20,
+                    matching: .images
+                ) {
+                    DarkroomSecondaryButtonLabel(
+                        title: chooseTitle,
+                        systemImage: "photo.on.rectangle"
+                    )
+                }
+                .buttonStyle(.plain)
+
+                if let errorMessage {
+                    Text(errorMessage)
+                        .font(.caption)
+                        .foregroundStyle(DarkroomTheme.danger)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+
+                Spacer(minLength: 0)
+
+                Button {
+                    Task { await createProject() }
+                } label: {
+                    DarkroomPrimaryButtonLabel(title: "Create Project", isLoading: isSaving)
+                }
+                .buttonStyle(.plain)
+                .disabled(!canCreate)
+                .opacity(canCreate ? 1 : 0.5)
+            }
+            .padding(20)
+            .darkroomScreen()
+            .navigationTitle("New Project")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                }
+            }
+        }
+    }
+
+    private var defaultsPreviewText: String {
+        let d = savedDefaults
+        if d.isEmpty && !sellerDefaultsStore.hasSavedDefaults {
+            return "No seller defaults saved yet. You can set them in Settings — this project will still be created with empty listing fields."
+        }
+        return "Will prefill category, materials, shipping, processing time, export preset/background, and watermark text. You can edit everything after create."
+    }
+
+    private func createProject() async {
+        guard canCreate else { return }
+        isSaving = true
+        errorMessage = nil
+        defer { isSaving = false }
+
+        do {
+            var photos: [ItemProjectPhoto] = []
+            photos.reserveCapacity(pickerItems.count)
+            for (index, item) in pickerItems.enumerated() {
+                guard let data = try await item.loadTransferable(type: Data.self),
+                      let uiImage = UIImage(data: data) else {
+                    throw PhotoSaveError.loadFailed
+                }
+                let fileName = try LocalEditStore.saveProjectImage(uiImage)
+                let photo = ItemProjectPhoto(
+                    localFileName: fileName,
+                    thumbnailData: SavedEdit.makeThumbnailData(from: ImageEditing.normalizedOrientation(uiImage)),
+                    sortOrder: index
+                )
+                photos.append(photo)
+            }
+
+            let project = ItemProject(name: trimmedName, photos: photos)
+            if startMode == .useDefaults {
+                savedDefaults.apply(to: project)
+            }
+            modelContext.insert(project)
+            dismiss()
+        } catch let error as PhotoSaveError {
+            errorMessage = error.localizedDescription
+        } catch {
+            errorMessage = PhotoSaveError.loadFailed.localizedDescription
+        }
+    }
+}
+
+#Preview {
+    ProjectsView()
+        .modelContainer(projectsPreviewContainer)
+}
+
+@MainActor
+private let projectsPreviewContainer: ModelContainer = {
+    let schema = YofaiModelSchema.schema
+    let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+    return try! ModelContainer(for: schema, configurations: [configuration])
+}()

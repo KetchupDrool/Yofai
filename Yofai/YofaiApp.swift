@@ -4,7 +4,7 @@ import SwiftData
 @main
 struct YofaiApp: App {
     private let modelContainer: ModelContainer = {
-        let schema = Schema([SavedEdit.self, ImportedOriginal.self])
+        let schema = YofaiModelSchema.schema
         let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
         do {
             return try ModelContainer(for: schema, configurations: [configuration])

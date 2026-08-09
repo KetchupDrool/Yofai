@@ -1,7 +1,7 @@
 import Foundation
 import CoreGraphics
 
-struct PhotoEditState: Equatable {
+struct PhotoEditState: Equatable, Codable {
     var filter: PhotoFilter = .original
     var quarterTurns: Int = 0
     /// -0.5 ... 0.5
@@ -64,6 +64,16 @@ struct PhotoEditState: Equatable {
 
     var listingSummary: String {
         "\(exportPreset.rawValue) · \(exportBackground.rawValue)"
+    }
+
+    /// Applies project-level listing frame / watermark on top of photo edits (or defaults).
+    func applyingProjectExportSettings(from project: ItemProject) -> PhotoEditState {
+        var copy = self
+        copy.exportPreset = project.listingExportPreset
+        copy.exportBackground = project.listingExportBackground
+        copy.watermarkEnabled = project.listingWatermarkEnabled
+        copy.watermarkText = project.listingWatermarkText
+        return copy
     }
 
     static func centerSquareCrop() -> CGRect {

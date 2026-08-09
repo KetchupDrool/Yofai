@@ -11,55 +11,38 @@ Yofai
 
 ## 4. Current app status
 - iPhone-only SwiftUI + SwiftData
-- Local-only listing / photo-prep tool
-- Phases 1–21 complete
-- Phase 20: listing export presets + solid backgrounds
-- Phase 21: simple seller watermark text on listing exports
-- Share uses stable temp JPEG + `.sheet(item:)`
-- Last build: succeeded on iPhone 16e
+- Local-first listing / photo-prep tool
+- Phases 1–29 complete
+- Phase 29: Bulk Photo Editing + Listing Package
+- Last build/tests: succeeded on iPhone 16e
 - App Store upload paused
 - GitHub Pages: https://ketchupdrool.github.io/Yofai/
 
-## 5. Completed phases 1–21
-1–19. MVP editor + Premium Glass UI + icon/launch + compact Edit
-20. Listing export presets (contain + pad; white/black/soft gray)
-21. Listing watermark text (toggle + field; History Yes/No)
+## 5. Completed phases 1–29
+1–28. Prior local listing prep features
+29. Bulk Edit Photos + Listing Package
 
-## 6. Phase 21 result
-**Watermark complete.** Optional text drawn after listing pad. Save/Share include watermark when enabled with non-empty text. History stores optional didWatermark. Share architecture unchanged. Build succeeded on iPhone 16e.
+## 6. Phase 29 result
+**Bulk edit + Listing Package complete.** Bulk Edit Photos (Project Detail + Workspace) copies selectable edit recipe fields to targets without touching source image files or History; per-project undo restores prior edit settings. Create Listing Package builds a shareable folder with `listing-details.txt` + ordered JPEGs from the newest successful export batch (requires export first). Packages stored under Application Support/ListingPackages. Build + 60 unit tests passed on iPhone 16e.
 
 ## 7. Current models/files
-**Models / storage:** `SavedEdit.swift`, `ImportedOriginal.swift`, `LocalEditStore.swift`, `PhotoEditState.swift`, `ImageEditing.swift`, `ListingExport.swift`
+**Bulk edit:** `BulkEditSupport.swift`, `BulkEditPhotosView.swift`; `ItemProject.lastBulkEditUndoData`
 
-**Theme / UI helpers:** `DarkroomTheme.swift`
+**Packages:** `ListingPackage.swift`; LocalEditStore ListingPackages folder
 
-**Views:** `YofaiApp.swift`, `ContentView.swift`, `HomeView.swift`, `ImportView.swift`, `EditView.swift`, `FreeformCropView.swift`, `HistoryView.swift`, `HistoryDetailView.swift`, `OriginalsView.swift`, `OriginalDetailView.swift`, `SettingsView.swift`, `ActivityShareView.swift`
+**Tests:** Phase22–29
 
-**Assets:** AppIcon, LaunchMark, LaunchBackground; `Info.plist`
+## 8. Working features
+- Bulk edit/undo, listing packages, seller defaults, duplicate drafts, workspace, queue, batch export, Etsy foundation (no live OAuth)
 
-**Project:** `Yofai.xcodeproj`, `project.yml`
+## 9. Rules/constraints
+- No live Etsy HTTP / OAuth / backend / AI / publishing / uploads
+- Keep share architecture stable
 
-## 8. Current working features
-- Import → Edit → listing Export (preset + background + optional watermark)
-- Save Listing Copy → Photos + History (framed, watermark baked in when on)
-- Share → framed JPEG via ShareFileItem
-- History/Home show listing summary + Watermark Yes/No when set
-- Originals library; Settings; Premium Glass UI
-
-## 9. Current rules/constraints
-- Local-only; free
-- No backend, login, payments, ads, AI API, subscription, one-time payment
-- No transparent export / frames / logo watermark unless approved
-- Keep ShareFileItem architecture stable
-- No unrelated refactors
-- One iPhone simulator unless approved
-
-## 10. Known risks/limits
-- Edit tools may scroll more with Export + watermark field
-- Full export canvases cost more on Save/Share
-- Manual Share retest with watermark still needed
-- Import re-picks create another Original (no dedupe)
-- Preview uses capped listing canvas; Save/Share full locked pixels
+## 10. Required before live OAuth / upload
+- Backend for token exchange; client secret server-side only
+- Real Etsy credentials, scopes, approval (do not invent)
+- Register redirect `yofai://etsy-oauth-callback` with Etsy
 
 ## 11. Exact first prompt for the next Cursor chat
 
@@ -70,15 +53,14 @@ Read NEW_CHAT_HANDOFF.md, PROJECT.md, DECISIONS.md, TASKS.md, and SESSION_HANDOF
 
 App: Yofai
 Bundle ID: com.shawnwright.yofai
-Status: Phases 1–21 done. Listing export + watermark live. Share uses ShareFileItem temp JPEG. Local-only. Last build succeeded on iPhone 16e. App Store upload paused.
+Status: Phases 1–29 done. Bulk edit + listing packages + local workspace/queue/export. No live OAuth/upload. Last build/tests succeeded on iPhone 16e. App Store upload paused.
 
 Do not guess. Inspect files before coding.
-Do not add backend, login, payments, ads, AI API, subscription, or one-time payment.
+Do not add Etsy client secret to the iPhone app.
+Do not make live Etsy requests unless newly approved with real credentials + backend plan.
 Do not change Share sheet architecture unless fixing a proven bug.
-Do not add transparent export, frames, or logo watermarks unless newly approved.
-Do not refactor unrelated files.
 Build once on iPhone 16e when you change code.
 
-Next: visual smoke-test of Share + watermark, or App Store upload prep.
-If that is blocked, report why and recommend the safest alternative.
+Next: App Store upload prep, or approved live-OAuth/backend/upload phase with credentials supplied.
+If blocked, report why and the safest alternative.
 ```

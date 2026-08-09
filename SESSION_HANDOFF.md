@@ -1,33 +1,28 @@
 # Session Handoff
 
 ## Status
-Phase 21 complete. **Save rotation bug fixed** (EXIF orientation normalize). Build succeeded on iPhone 16e. Share architecture unchanged. Local-only. App Store upload paused.
+Phase 29 complete — Bulk Photo Editing + Listing Package. Build + unit tests succeeded on iPhone 16e. App Store upload paused.
 
 ## Facts
 - Yofai / `com.shawnwright.yofai` / iPhone-only
-- Listing presets + watermark unchanged
-- `ImageEditing.normalizedOrientation()` bakes EXIF into pixels before pipeline
-- Share still uses ShareFileItem + temp JPEG + `.sheet(item:)`
+- Bulk edit copies `PhotoEditState` fields only; undo via `lastBulkEditUndoData`
+- Packages: Application Support/ListingPackages; require newest successful export batch
+- Fit mode remains locked contain + pad
 
 ## Last Completed
-- Debugged Save vs Preview rotation mismatch
-- Root cause: preview often downscaled (draw normalizes orientation); full Save used oriented UIImage with `rotate(0)` passthrough into CIImage
-- Fix: `normalizedOrientation()` at start of `renderPipeline`, `downscaled`, and `imageForCropping`
-- User quarter-turn rotate behavior unchanged
+- Bulk Edit Photos UI + undo
+- Create/Share/Delete Listing Package
+- Phase 29 tests; Phases 22–28 still pass (60 total)
 
-## Flow Verified (code paths + build)
-Import → Edit preview → Save Listing Copy / Share use same normalized base orientation
-
-## Remaining Rough Spots
-- Manual retest with phone camera photos (EXIF .right / .left) still needed
-- Edit panel may scroll with watermark field open
-- Import re-picks still create another Original (no dedupe)
+## Remaining Before Live Upload
+- Backend + real Etsy OAuth credentials
+- Actual Etsy publish/upload pipeline
 
 ## Next Recommended
-Manual Save orientation retest on iPhone 16e, then App Store prep when ready.
+App Store upload prep, or approved backend/live-OAuth/upload phase with credentials supplied.
 
 ## Rules
-- No backend/login/payments/ads/AI/subscriptions
-- No transparent / frames / logo watermark unless approved
-- Keep ShareFileItem path stable
-- One simulator unless approved
+- No client secret on iPhone
+- No live Etsy HTTP until approved
+- No AI / publishing / uploads unless newly approved
+- Keep share architecture stable

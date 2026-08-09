@@ -6,9 +6,17 @@ enum AppStoreLinks {
 }
 
 struct SettingsView: View {
+    @StateObject private var etsyConnection = StubEtsyConnectionService()
+
     var body: some View {
         NavigationStack {
             List {
+                EtsyShopSettingsSection(connection: etsyConnection)
+                    .listRowBackground(settingsRowBackground)
+
+                SellerDefaultsSettingsSection()
+                    .listRowBackground(settingsRowBackground)
+
                 Section {
                     LabeledContent("App", value: "Yofai")
                     LabeledContent("Version", value: appVersion)
@@ -21,7 +29,7 @@ struct SettingsView: View {
                 .listRowBackground(settingsRowBackground)
 
                 Section {
-                    Text("Yofai is local-only. Photos stay on your device. No account, no backend, no ads, and no tracking in this version. Save Listing Copy writes a framed export to Photos only when you choose. Deleting History or Originals removes app files only.")
+                    Text("Yofai keeps photos and listing drafts on your device. No ads or tracking in this version. Save Listing Copy writes a framed export to Photos only when you choose. An optional Etsy Shop connection stores tokens in Keychain only; live Etsy OAuth is not enabled yet. Deleting History, Originals, or Projects removes app files only.")
                         .font(.subheadline)
                         .foregroundStyle(DarkroomTheme.textSecondary)
                         .fixedSize(horizontal: false, vertical: true)
@@ -51,6 +59,9 @@ struct SettingsView: View {
             .navigationTitle("Settings")
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+            .onAppear {
+                etsyConnection.refreshStatus()
+            }
         }
     }
 
@@ -71,6 +82,25 @@ struct SettingsView: View {
     }
 }
 
-#Preview {
+#Preview("Settings") {
     SettingsView()
+}
+
+#Preview("Etsy Mock Connected") {
+    PreviewEtsyMockConnected()
+}
+
+private struct PreviewEtsyMockConnected: View {
+    @StateObject private var mock = MockEtsyConnectionService(
+        connectBehavior: .succeed(shopDisplayName: "Preview Shop")
+    )
+
+    var body: some View {
+        List {
+            EtsyShopConnectionPreviewSection(connection: mock)
+        }
+        .task {
+            await mock.connect()
+        }
+    }
 }

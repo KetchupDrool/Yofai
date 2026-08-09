@@ -12,6 +12,17 @@ struct ShareFileItem: Identifiable, Equatable {
     }
 }
 
+/// Multi-file share payload for export batches (actual JPEG file URLs).
+struct ShareBatchItem: Identifiable, Equatable {
+    let id: UUID
+    let urls: [URL]
+
+    init(urls: [URL]) {
+        self.id = UUID()
+        self.urls = urls
+    }
+}
+
 enum ShareExport {
     /// Writes a temporary JPEG for UIActivityViewController (more reliable than raw UIImage).
     static func writeTemporaryJPEG(_ image: UIImage) throws -> URL {

@@ -71,7 +71,7 @@ struct OriginalsView: View {
 
 @MainActor
 private let originalsPreviewContainer: ModelContainer = {
-    let schema = Schema([SavedEdit.self, ImportedOriginal.self])
+    let schema = YofaiModelSchema.schema
     let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
     return try! ModelContainer(for: schema, configurations: [configuration])
 }()
