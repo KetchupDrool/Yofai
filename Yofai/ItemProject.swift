@@ -28,6 +28,34 @@ final class ItemProject {
     var listingShippingProfile: String = ""
     var listingProcessingTime: String = ""
 
+    // Local listing information (Phase 30). Not Etsy-ready certification.
+    var listingItemTypeRaw: String = ""
+    var listingItemTypeNotApplicable: Bool = false
+    var listingCondition: String = ""
+    var listingConditionNotApplicable: Bool = false
+    var listingWhoMadeIt: String = ""
+    var listingWhoMadeItNotApplicable: Bool = false
+    var listingWhenMade: String = ""
+    var listingWhenMadeNotApplicable: Bool = false
+    var listingSKU: String = ""
+    var listingSKUNotApplicable: Bool = false
+
+    var listingPersonalizationEnabled: Bool = false
+    var listingPersonalizationNotApplicable: Bool = false
+    var listingPersonalizationInstructions: String = ""
+    var listingPersonalizationInstructionsNotApplicable: Bool = false
+    var listingPersonalizationCharacterLimitText: String = ""
+    var listingPersonalizationRequired: Bool = false
+
+    var listingVariationsNotApplicable: Bool = false
+    var listingVariationsData: Data?
+
+    var listingAttributesNotApplicable: Bool = false
+    var listingAttributesData: Data?
+
+    var listingReturnPolicy: String = ""
+    var listingReturnPolicyNotApplicable: Bool = false
+
     // Project-level listing export settings (Phase 26 batch export).
     var listingExportPresetRaw: String = ListingExportPreset.etsySquare.rawValue
     var listingExportBackgroundRaw: String = ListingExportBackground.white.rawValue
@@ -147,6 +175,39 @@ final class ItemProject {
     var listingTagsRawText: String {
         listingTags.joined(separator: ", ")
     }
+
+    var listingItemType: ListingItemType? {
+        get { ListingItemType(rawValue: listingItemTypeRaw) }
+        set { listingItemTypeRaw = newValue?.rawValue ?? "" }
+    }
+
+    var listingVariations: [ListingVariation] {
+        get {
+            guard let listingVariationsData else { return [] }
+            return (try? JSONDecoder().decode([ListingVariation].self, from: listingVariationsData)) ?? []
+        }
+        set {
+            listingVariationsData = try? JSONEncoder().encode(newValue)
+        }
+    }
+
+    var listingAttributes: [ListingCategoryAttribute] {
+        get {
+            guard let listingAttributesData else { return [] }
+            return (try? JSONDecoder().decode([ListingCategoryAttribute].self, from: listingAttributesData)) ?? []
+        }
+        set {
+            listingAttributesData = try? JSONEncoder().encode(newValue)
+        }
+    }
+
+    var listingInformationReview: ListingInformationReview {
+        ListingInformationSupport.review(for: self)
+    }
+
+    var listingInformationValidationIssues: [String] {
+        ListingInformationSupport.validationIssues(for: self)
+    }
 }
 
 @Model
@@ -158,6 +219,9 @@ final class ItemProjectPhoto {
     var project: ItemProject?
     /// Optional Codable `PhotoEditState` from Edit (when saved). Nil = unedited original.
     var savedEditStateData: Data?
+    /// Local alt text for this photo. Stays on the photo through reorder/delete.
+    var altText: String = ""
+    var altTextNotApplicable: Bool = false
 
     init(
         localFileName: String? = nil,

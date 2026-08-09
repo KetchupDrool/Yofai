@@ -14,6 +14,21 @@ struct SellerDefaultsSettingsSection: View {
             TextField("Shipping profile", text: $defaults.shippingProfile)
             TextField("Processing time", text: $defaults.processingTime)
 
+            Picker("Item type", selection: Binding(
+                get: { defaults.itemType },
+                set: { defaults.itemType = $0 }
+            )) {
+                Text("None").tag(Optional<ListingItemType>.none)
+                ForEach(ListingItemType.allCases) { type in
+                    Text(type.rawValue).tag(Optional(type))
+                }
+            }
+            TextField("Condition", text: $defaults.condition)
+            TextField("Who made it", text: $defaults.whoMadeIt)
+            TextField("When it was made", text: $defaults.whenMade)
+            TextField("Return policy text", text: $defaults.returnPolicy, axis: .vertical)
+                .lineLimit(2...5)
+
             Picker("Export preset", selection: Binding(
                 get: { defaults.exportPreset },
                 set: { defaults.exportPreset = $0 }

@@ -16,6 +16,8 @@
 		2177950BC7FA894C3B3ACBDB /* ImportedOriginal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9C86933ACBA56343122F69 /* ImportedOriginal.swift */; };
 		2CA9E2EF9EB2ADD3996498D3 /* Phase25ListingQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABACC088E89419079F48CBD /* Phase25ListingQueueTests.swift */; };
 		2DBB1B09450A8BE6BF50DBB2 /* DarkroomTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE8B55FC24105A0D6D9E30C /* DarkroomTheme.swift */; };
+		34F526F95E691946E58EB149 /* Phase30ListingInformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1656D4924593F22F330434F /* Phase30ListingInformationTests.swift */; };
+		38274EE9F9337528E8075207 /* ListingInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0073A2C74962620DD93245 /* ListingInformationView.swift */; };
 		3A41044C5E734D54DAD3B1EA /* SellerDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBCC2E77ABF1EFB4C8F41FE /* SellerDefaults.swift */; };
 		41AD913F4814BE8021B5754A /* ActivityShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E1C2043B1047520D68D7F /* ActivityShareView.swift */; };
 		42CB7915D48665E9ECD06B44 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9E95DE5571028873EC4AF /* HomeView.swift */; };
@@ -36,6 +38,7 @@
 		853A21D5167D96CAE1517B09 /* LocalEditStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DD5976E6D94F16895084C6 /* LocalEditStore.swift */; };
 		92A428B73276C887EE16D2AE /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E39DEAD9D7FB54BC862B66 /* EditView.swift */; };
 		93BB959091B7B796D23C25B2 /* Phase23ListingDraftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D43552851F89D8B06BDE18 /* Phase23ListingDraftTests.swift */; };
+		989330557265DF546AB548A8 /* ListingInformationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1940B653A73AF144809FD83E /* ListingInformationSupport.swift */; };
 		9B36B7A23DFC2D3A45812F6B /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A454A110D2B0140A35901E3 /* ProjectsView.swift */; };
 		A05E5607B533CDC8750C3345 /* EtsyConnecting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71020D97DFB91E252E64BE5 /* EtsyConnecting.swift */; };
 		A18D69787D889F99178B30B0 /* ItemProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EEA04BA7B6FA559052DC45 /* ItemProject.swift */; };
@@ -76,6 +79,7 @@
 		02DD5976E6D94F16895084C6 /* LocalEditStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalEditStore.swift; sourceTree = "<group>"; };
 		0ABACC088E89419079F48CBD /* Phase25ListingQueueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase25ListingQueueTests.swift; sourceTree = "<group>"; };
 		0DBDA711F6AF00A20CECD692 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1940B653A73AF144809FD83E /* ListingInformationSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingInformationSupport.swift; sourceTree = "<group>"; };
 		1A454A110D2B0140A35901E3 /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		1F229036218D3F74F3E5E6A3 /* EtsyCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtsyCredentials.swift; sourceTree = "<group>"; };
 		28C1784212753AA8E4F70C92 /* FreeformCropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeformCropView.swift; sourceTree = "<group>"; };
@@ -99,6 +103,7 @@
 		6485F76F5CDD0A11BF183D6D /* ListingPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingPackage.swift; sourceTree = "<group>"; };
 		73CCB463D9F8954A41B30389 /* KeychainEtsyCredentialStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainEtsyCredentialStore.swift; sourceTree = "<group>"; };
 		78FF14417E2842656688CB66 /* ImageEditing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditing.swift; sourceTree = "<group>"; };
+		7A0073A2C74962620DD93245 /* ListingInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingInformationView.swift; sourceTree = "<group>"; };
 		7AE5A580A0135FC74238334A /* ListingQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingQueueView.swift; sourceTree = "<group>"; };
 		97EEA04BA7B6FA559052DC45 /* ItemProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemProject.swift; sourceTree = "<group>"; };
 		9CE183516F25380F56C12048 /* Phase27ListingWorkspaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase27ListingWorkspaceTests.swift; sourceTree = "<group>"; };
@@ -120,6 +125,7 @@
 		EAF7E07AA3165CE87450949A /* ListingWorkspaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingWorkspaceView.swift; sourceTree = "<group>"; };
 		EB0FED065E54BEA3BC57F39B /* ProjectBatchExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectBatchExporter.swift; sourceTree = "<group>"; };
 		EFD55D6B6CE4D9FE8FCDC00D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		F1656D4924593F22F330434F /* Phase30ListingInformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase30ListingInformationTests.swift; sourceTree = "<group>"; };
 		F483BF5F43BC4B35DFF1DDB9 /* ProjectExportBatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectExportBatch.swift; sourceTree = "<group>"; };
 		F611824C3BEDC74D21636341 /* Phase22PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase22PersistenceTests.swift; sourceTree = "<group>"; };
 		F71020D97DFB91E252E64BE5 /* EtsyConnecting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtsyConnecting.swift; sourceTree = "<group>"; };
@@ -161,6 +167,8 @@
 				97EEA04BA7B6FA559052DC45 /* ItemProject.swift */,
 				73CCB463D9F8954A41B30389 /* KeychainEtsyCredentialStore.swift */,
 				ACF84D49672B068C0B6DCB6C /* ListingExport.swift */,
+				1940B653A73AF144809FD83E /* ListingInformationSupport.swift */,
+				7A0073A2C74962620DD93245 /* ListingInformationView.swift */,
 				6485F76F5CDD0A11BF183D6D /* ListingPackage.swift */,
 				2FE44C1F5D51637762E22557 /* ListingQueueEntry.swift */,
 				4F37C5BE7AD5640A0A18BF3E /* ListingQueueSupport.swift */,
@@ -206,6 +214,7 @@
 				9CE183516F25380F56C12048 /* Phase27ListingWorkspaceTests.swift */,
 				CD44AB8EAAA06AFD83F0AC72 /* Phase28SellerDefaultsTests.swift */,
 				DE196A020E7CCA6FD2305243 /* Phase29BulkEditAndPackageTests.swift */,
+				F1656D4924593F22F330434F /* Phase30ListingInformationTests.swift */,
 			);
 			path = YofaiTests;
 			sourceTree = "<group>";
@@ -317,6 +326,8 @@
 				A18D69787D889F99178B30B0 /* ItemProject.swift in Sources */,
 				186A9D494D39DE24C0A2F064 /* KeychainEtsyCredentialStore.swift in Sources */,
 				5D17450C661960970907DB91 /* ListingExport.swift in Sources */,
+				989330557265DF546AB548A8 /* ListingInformationSupport.swift in Sources */,
+				38274EE9F9337528E8075207 /* ListingInformationView.swift in Sources */,
 				697A57C8E81EA9212186273D /* ListingPackage.swift in Sources */,
 				1C3DCE8327B605606DDDAD99 /* ListingQueueEntry.swift in Sources */,
 				C68CBDA02767C26AE4ACF140 /* ListingQueueSupport.swift in Sources */,
@@ -353,6 +364,7 @@
 				147F5BFD6741CAF308020B15 /* Phase27ListingWorkspaceTests.swift in Sources */,
 				7A34D33F1A52A53428C6FB53 /* Phase28SellerDefaultsTests.swift in Sources */,
 				EA1720C3543EA076667F02FF /* Phase29BulkEditAndPackageTests.swift in Sources */,
+				34F526F95E691946E58EB149 /* Phase30ListingInformationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

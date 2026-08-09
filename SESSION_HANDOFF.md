@@ -1,28 +1,29 @@
 # Session Handoff
 
 ## Status
-Phase 29 complete — Bulk Photo Editing + Listing Package. Build + unit tests succeeded on iPhone 16e. App Store upload paused.
+Phase 30 complete — Complete Local Listing Information. Build + unit tests succeeded on iPhone 16e (70 tests). App Store upload paused.
 
 ## Facts
 - Yofai / `com.shawnwright.yofai` / iPhone-only
-- Bulk edit copies `PhotoEditState` fields only; undo via `lastBulkEditUndoData`
-- Packages: Application Support/ListingPackages; require newest successful export batch
-- Fit mode remains locked contain + pad
+- Listing Information lives in Listing Workspace; core Phase 23 fields remain in Project Detail
+- Alt text is per `ItemProjectPhoto` (survives reorder/delete)
+- Listing Information Review is separate from Phase 25 queue readiness
+- Git: local tree at `/Volumes/CombatMedic/Yofai` on `main` (Phases 22–29 pushed as `dac0a93`)
 
 ## Last Completed
-- Bulk Edit Photos UI + undo
-- Create/Share/Delete Listing Package
-- Phase 29 tests; Phases 22–28 still pass (60 total)
+- Phase 30 models, validation, UI, Seller Defaults extensions, duplicate copy
+- Phase30ListingInformationTests; Phases 22–29 still pass
 
 ## Remaining Before Live Upload
 - Backend + real Etsy OAuth credentials
 - Actual Etsy publish/upload pipeline
 
 ## Next Recommended
-App Store upload prep, or approved backend/live-OAuth/upload phase with credentials supplied.
+App Store upload prep, or approved AI-suggestions / backend/live-OAuth/upload phase with credentials supplied.
 
 ## Rules
 - No client secret on iPhone
 - No live Etsy HTTP until approved
 - No AI / publishing / uploads unless newly approved
+- Do not invent Etsy category trees, IDs, scopes, or marketplace limits
 - Keep share architecture stable

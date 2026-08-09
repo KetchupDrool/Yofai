@@ -53,6 +53,7 @@ struct ListingWorkspaceView: View {
         List {
             overviewSection
             readinessSection
+            listingInformationSection
             photosSection
             exportSection
             packageSection
@@ -125,6 +126,9 @@ struct ListingWorkspaceView: View {
                                 ? DarkroomTheme.accent
                                 : DarkroomTheme.textSecondary
                         )
+                    Text(project.listingInformationReview.summaryLine)
+                        .font(.caption)
+                        .foregroundStyle(DarkroomTheme.textSecondary)
                     Text("Queue: \(queueStatusLabel)")
                         .font(.caption)
                         .foregroundStyle(DarkroomTheme.textSecondary)
@@ -188,6 +192,30 @@ struct ListingWorkspaceView: View {
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
             Text("Uses Phase 25 rules only: photo file, title, price, quantity, ≤13 tags.")
+                .foregroundStyle(DarkroomTheme.textTertiary)
+        }
+        .listRowBackground(sectionBackground)
+    }
+
+    private var listingInformationSection: some View {
+        Section {
+            let review = project.listingInformationReview
+            Text(review.summaryLine)
+                .font(.subheadline)
+                .foregroundStyle(DarkroomTheme.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
+
+            NavigationLink {
+                ListingInformationView(project: project)
+            } label: {
+                Text("Open Listing Information")
+                    .foregroundStyle(DarkroomTheme.accent)
+            }
+        } header: {
+            Text("Listing Information")
+                .foregroundStyle(DarkroomTheme.textTertiary)
+        } footer: {
+            Text("Local listing fields and review only. Does not invent Etsy-ready status or change queue readiness.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)

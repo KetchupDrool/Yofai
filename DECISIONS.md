@@ -91,6 +91,18 @@
 - Listing Package: local folder with `listing-details.txt` + ordered JPEGs from newest successful export batch
 - Requires export batch first; packages separate from photos/Originals/History/export batches; share/delete package files only
 
+## Phase 30 — Complete Local Listing Information (locked)
+- Listing Workspace → Listing Information grouped editors; reuses Phase 23 core draft fields (no duplicate title/price/etc. editors)
+- New local SwiftData fields: item type, condition, who/when made, SKU, personalization, variations, category attributes, return policy, per-photo alt text
+- Optional fields support explicit Not Applicable
+- Listing Information Review: filled / missing / N/A / needs review — local only; never labels a draft Etsy-ready
+- Phase 25 queue readiness rules unchanged
+- Validation: enabled variation name/options/SKU; personalization character limit positive when enabled; blank attributes/options/alt text removed on sanitize
+- Alt text stored on `ItemProjectPhoto` so reorder/delete keep matching text
+- Duplicate Listing Draft copies all new listing-information fields; still no photos/files/edits/batches/packages/queue/History/Originals
+- Seller Defaults may prefill only item type, condition, who made, when made, return policy (plus prior defaults) on new-project create; never overwrite existing projects
+- Deferred: AI suggestions, Etsy API, OAuth, upload, guessed marketplace limits/IDs
+
 ## Not Approved Yet
 - Backend
 - User accounts

@@ -10,6 +10,13 @@ struct SellerDefaults: Codable, Equatable {
     var exportBackgroundRaw: String = ListingExportBackground.white.rawValue
     var watermarkText: String = ""
 
+    // Phase 30 — safe reusable listing-information defaults only.
+    var itemTypeRaw: String = ""
+    var condition: String = ""
+    var whoMadeIt: String = ""
+    var whenMade: String = ""
+    var returnPolicy: String = ""
+
     var exportPreset: ListingExportPreset {
         get { ListingExportPreset(rawValue: exportPresetRaw) ?? .etsySquare }
         set { exportPresetRaw = newValue.rawValue }
@@ -18,6 +25,11 @@ struct SellerDefaults: Codable, Equatable {
     var exportBackground: ListingExportBackground {
         get { ListingExportBackground(rawValue: exportBackgroundRaw) ?? .white }
         set { exportBackgroundRaw = newValue.rawValue }
+    }
+
+    var itemType: ListingItemType? {
+        get { ListingItemType(rawValue: itemTypeRaw) }
+        set { itemTypeRaw = newValue?.rawValue ?? "" }
     }
 
     var trimmedWatermarkText: String {
@@ -32,6 +44,11 @@ struct SellerDefaults: Codable, Equatable {
             && exportPreset == .etsySquare
             && exportBackground == .white
             && trimmedWatermarkText.isEmpty
+            && itemTypeRaw.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            && condition.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            && whoMadeIt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            && whenMade.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            && returnPolicy.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
     /// Prefills only the allowed new-project listing/export fields. Never touches photos or queue.
@@ -44,6 +61,31 @@ struct SellerDefaults: Codable, Equatable {
         project.listingExportBackground = exportBackground
         project.listingWatermarkText = String(trimmedWatermarkText.prefix(PhotoEditState.watermarkMaxLength))
         project.listingWatermarkEnabled = !project.listingWatermarkText.isEmpty
+
+        if let itemType {
+            project.listingItemType = itemType
+            project.listingItemTypeNotApplicable = false
+        }
+        let trimmedCondition = condition.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !trimmedCondition.isEmpty {
+            project.listingCondition = trimmedCondition
+            project.listingConditionNotApplicable = false
+        }
+        let trimmedWho = whoMadeIt.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !trimmedWho.isEmpty {
+            project.listingWhoMadeIt = trimmedWho
+            project.listingWhoMadeItNotApplicable = false
+        }
+        let trimmedWhen = whenMade.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !trimmedWhen.isEmpty {
+            project.listingWhenMade = trimmedWhen
+            project.listingWhenMadeNotApplicable = false
+        }
+        let trimmedReturn = returnPolicy.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !trimmedReturn.isEmpty {
+            project.listingReturnPolicy = trimmedReturn
+            project.listingReturnPolicyNotApplicable = false
+        }
     }
 }
 
@@ -79,8 +121,8 @@ final class SellerDefaultsStore {
 }
 
 extension ItemProject {
-    /// Copies listing details + export settings only into a new project with the given name.
-    /// Does not copy photos, files, edits, batches, queue entries, History, or Originals.
+    /// Copies listing details + export settings + listing information only into a new project.
+    /// Does not copy photos, files, edits, batches, packages, queue entries, History, or Originals.
     func duplicateListingDraft(newName: String) -> ItemProject {
         let copy = ItemProject(name: newName.trimmingCharacters(in: .whitespacesAndNewlines))
         copy.listingTitle = listingTitle
@@ -96,6 +138,31 @@ extension ItemProject {
         copy.listingExportBackgroundRaw = listingExportBackgroundRaw
         copy.listingWatermarkEnabled = listingWatermarkEnabled
         copy.listingWatermarkText = listingWatermarkText
+
+        copy.listingItemTypeRaw = listingItemTypeRaw
+        copy.listingItemTypeNotApplicable = listingItemTypeNotApplicable
+        copy.listingCondition = listingCondition
+        copy.listingConditionNotApplicable = listingConditionNotApplicable
+        copy.listingWhoMadeIt = listingWhoMadeIt
+        copy.listingWhoMadeItNotApplicable = listingWhoMadeItNotApplicable
+        copy.listingWhenMade = listingWhenMade
+        copy.listingWhenMadeNotApplicable = listingWhenMadeNotApplicable
+        copy.listingSKU = listingSKU
+        copy.listingSKUNotApplicable = listingSKUNotApplicable
+
+        copy.listingPersonalizationEnabled = listingPersonalizationEnabled
+        copy.listingPersonalizationNotApplicable = listingPersonalizationNotApplicable
+        copy.listingPersonalizationInstructions = listingPersonalizationInstructions
+        copy.listingPersonalizationInstructionsNotApplicable = listingPersonalizationInstructionsNotApplicable
+        copy.listingPersonalizationCharacterLimitText = listingPersonalizationCharacterLimitText
+        copy.listingPersonalizationRequired = listingPersonalizationRequired
+
+        copy.listingVariationsNotApplicable = listingVariationsNotApplicable
+        copy.listingVariationsData = listingVariationsData
+        copy.listingAttributesNotApplicable = listingAttributesNotApplicable
+        copy.listingAttributesData = listingAttributesData
+        copy.listingReturnPolicy = listingReturnPolicy
+        copy.listingReturnPolicyNotApplicable = listingReturnPolicyNotApplicable
         return copy
     }
 }
