@@ -174,7 +174,7 @@ enum BulkEditSupport {
             case .saturation:
                 return "\(setting.displayName): \(Int(((state.saturation - 1) * 100).rounded()))"
             case .exportPreset:
-                return "\(setting.displayName): \(state.exportPreset.rawValue)"
+                return "\(setting.displayName): \(state.exportPreset.pickerLabel)"
             case .background:
                 return "\(setting.displayName): \(state.exportBackground.rawValue)"
             case .fitMode:

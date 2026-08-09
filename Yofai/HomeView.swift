@@ -29,11 +29,11 @@ struct HomeView: View {
                                     endPoint: .trailing
                                 )
                             )
-        Text("Local photo edits. No account. No cloud.")
+        Text("Local-first product photo prep for online sellers.")
                             .font(.subheadline.weight(.medium))
                             .foregroundStyle(DarkroomTheme.textSecondary)
                             .fixedSize(horizontal: false, vertical: true)
-                        Text("Prep listing-ready exports for Etsy, Instagram, Facebook, and Marketplace.")
+                        Text("Photograph, organize, check, edit, and export listing-ready images on device for Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and similar — export targets only.")
                             .font(.caption)
                             .foregroundStyle(DarkroomTheme.textTertiary)
                             .fixedSize(horizontal: false, vertical: true)

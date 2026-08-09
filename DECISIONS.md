@@ -152,6 +152,15 @@
 - Duplicate draft copies goal names/order only; cascade-delete goals with project; Seller Defaults store no photo-plan/camera/review data
 - Abandoned from the active roadmap: paid/live AI, Etsy API/OAuth/upload; do not claim marketplace compliance
 
+## Phase 33 — Seller Export Preset Clarity (locked)
+- Seller-facing display metadata on `ListingExportPreset` only; stored `rawValue` and pixel sizes unchanged
+- Display: Marketplace → “Square 1600”; groups Listing vs Other canvas; picker labels include W×H
+- Facebook post subtitle clarifies social post canvas, not Marketplace product
+- Local export disclaimer on Edit, Project Detail export, Seller Defaults
+- Home + Projects empty copy aligned to marketplace product photo-prep north star
+- Fit mode remains contain + pad; no new marketplace sizes invented
+- Out of scope: cover/crop fit, eBay/Poshmark/Mercari/FB Marketplace sized presets, OAuth/AI/upload, nav merge
+
 ## Future capability (approved direction — not next work)
 May be added later where they support the product; core photo preparation remains local-first/on-device:
 - Backend services

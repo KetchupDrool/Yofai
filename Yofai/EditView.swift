@@ -154,7 +154,7 @@ struct EditView: View {
                                         )
                                     }
                                     .buttonStyle(.plain)
-                                    .accessibilityLabel(preset.rawValue)
+                                    .accessibilityLabel(preset.accessibilityLabel)
                                     .accessibilityAddTraits(editState.exportPreset == preset ? .isSelected : [])
                                 }
                             }
@@ -185,6 +185,11 @@ struct EditView: View {
                         Text(editState.listingSummary)
                             .font(.caption2)
                             .foregroundStyle(DarkroomTheme.textTertiary)
+
+                        Text(ListingExportPreset.localExportDisclaimer)
+                            .font(.caption2)
+                            .foregroundStyle(DarkroomTheme.textTertiary)
+                            .fixedSize(horizontal: false, vertical: true)
 
                         Toggle(isOn: Binding(
                             get: { editState.watermarkEnabled },

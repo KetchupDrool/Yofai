@@ -33,10 +33,23 @@ struct SellerDefaultsSettingsSection: View {
                 get: { defaults.exportPreset },
                 set: { defaults.exportPreset = $0 }
             )) {
-                ForEach(ListingExportPreset.allCases) { preset in
-                    Text(preset.rawValue).tag(preset)
+                ForEach(ListingExportPresetGroup.allCases) { group in
+                    Section(group.rawValue) {
+                        ForEach(ListingExportPreset.presets(in: group)) { preset in
+                            Text(preset.pickerLabel).tag(preset)
+                        }
+                    }
                 }
             }
+
+            Text(defaults.exportPreset.displaySubtitle)
+                .font(.caption)
+                .foregroundStyle(DarkroomTheme.textTertiary)
+
+            Text(ListingExportPreset.localExportDisclaimer)
+                .font(.caption2)
+                .foregroundStyle(DarkroomTheme.textTertiary)
+                .fixedSize(horizontal: false, vertical: true)
 
             Picker("Export background", selection: Binding(
                 get: { defaults.exportBackground },

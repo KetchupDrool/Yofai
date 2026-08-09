@@ -1,7 +1,7 @@
 # Tasks
 
 ## Status
-Product pivot documented (2026-08-09). No new feature coding until an explicit next phase is approved.
+Phase 33 — Seller Export Preset Clarity complete.
 App Store upload remains paused.
 
 ## Product direction
@@ -10,19 +10,19 @@ Core functionality is local-first/on-device.
 Marketplaces (Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, similar) are **local export targets only**.
 
 ## Current Phase
-Phase 32 — Product Intake + Guided Photo Capture. Complete (last technical phase before pivot docs).
+Phase 33 — Seller Export Preset Clarity. Complete.
 
 ## Done
-- MVP + Phases 4–31
-- Phase 32: Product Intake, photo plan, system camera capture, Photo Check, seller review checkboxes, tests
-- Build + unit tests succeeded on iPhone 16e (92 tests)
-- Direction docs updated for product pivot (no feature coding)
+- MVP + Phases 4–32
+- Phase 33: seller export preset display metadata, grouping, pixel labels, Home/Projects copy, disclaimer, tests
+- Build + unit tests succeeded on iPhone 16e (100 tests)
 
 ## Remaining Polish
 - Edit tools may scroll with Export + watermark
 
-## Next (docs-aligned planning only — not coding yet)
-- When approved: multi-marketplace **local** export presets (eBay, Facebook Marketplace, Poshmark, Mercari, similar)
+## Next (when explicitly approved)
+- Multi-marketplace **local** export presets only after verified pixel sizes are supplied (do not invent)
+- Optional later: cover/crop export fit mode; seller-first navigation simplify
 - Do not treat live AI, OAuth, or marketplace upload as the default next step
 
 ## Abandoned from the active roadmap

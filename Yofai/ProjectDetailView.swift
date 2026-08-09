@@ -423,10 +423,18 @@ struct ProjectDetailView: View {
                     project.touchModified()
                 }
             )) {
-                ForEach(ListingExportPreset.allCases) { preset in
-                    Text(preset.rawValue).tag(preset)
+                ForEach(ListingExportPresetGroup.allCases) { group in
+                    Section(group.rawValue) {
+                        ForEach(ListingExportPreset.presets(in: group)) { preset in
+                            Text(preset.pickerLabel).tag(preset)
+                        }
+                    }
                 }
             }
+
+            Text(project.listingExportPreset.displaySubtitle)
+                .font(.caption)
+                .foregroundStyle(DarkroomTheme.textTertiary)
 
             Picker("Background", selection: Binding(
                 get: { project.listingExportBackground },
@@ -466,7 +474,7 @@ struct ProjectDetailView: View {
             Text("Listing Export")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
-            Text("Used when exporting listing images for this project. Per-photo edits apply when saved from Edit.")
+            Text("Used when exporting listing images for this project. Per-photo edits apply when saved from Edit. \(ListingExportPreset.localExportDisclaimer)")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)

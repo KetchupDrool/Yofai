@@ -11,6 +11,7 @@ alwaysApply: true
 - Product purpose: local-first marketplace product photo preparation for online sellers.
 - Core photo preparation is local-first/on-device.
 - Marketplaces are local export targets only — not live publishing destinations.
+- Export preset pixel sizes must not be invented; use verified sizes only.
 - Keep changes small.
 - Inspect files before editing.
 - Do not refactor unrelated files.

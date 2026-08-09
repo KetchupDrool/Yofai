@@ -13,36 +13,32 @@ Yofai
 - iPhone-only SwiftUI + SwiftData
 - **Product purpose:** local-first marketplace product photo preparation for online sellers
 - Core functionality is local-first/on-device
-- Phases 1–32 complete (last technical phase: Product Intake + Guided Photo Capture)
-- Product pivot documented 2026-08-09 — **no new feature coding until an explicit next phase is approved**
-- Last build/tests: succeeded on iPhone 16e (92 tests)
+- Phases 1–33 complete
+- Phase 33: Seller Export Preset Clarity
+- Last build/tests: succeeded on iPhone 16e (100 tests)
 - App Store upload paused
 - Primary local path: `/Volumes/CombatMedic/Yofai`
 - GitHub Pages: https://ketchupdrool.github.io/Yofai/
 
-## 5. Completed phases 1–32
-1–31. Prior local listing prep + disconnected AI assistant foundation
-32. Product Intake + guided photo plan + system camera capture + Photo Check
+## 5. Completed phases 1–33
+1–32. Local listing prep, intake/capture, disconnected AI foundation
+33. Seller export preset clarity (display titles, Listing vs Other canvas groups, pixel labels, Home copy)
 
-## 6. Product pivot (2026-08-09)
-Yofai is no longer positioned as a general photo editor. Primary purpose is seller product photo prep: photograph, organize sets, quality check, edit, resize/crop, listing-ready **local** exports for Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and similar (**export targets only**).
-
-**Abandoned from the active roadmap:** paid/live AI APIs; OAuth marketplace publishing; direct Etsy or any marketplace publishing.
-
-**Future capability (not next work):** backend, accounts, cloud sync, subscriptions, ads — may be added later where they support the product; core photo prep stays local-first/on-device.
+## 6. Phase 33 result
+**Seller Export Preset Clarity complete.** Stored raw values and pixel sizes unchanged. Marketplace displays as “Square 1600”; presets grouped Listing vs Other canvas; pickers show W×H; local-export disclaimer on Edit / Project Detail / Seller Defaults; Home + Projects empty copy match north star. Build + 100 unit tests passed on iPhone 16e.
 
 ## 7. Current models/files
-**Intake:** `PhotoPlanSupport.swift` (`PhotoPlanGoal`), `ProductIntakeView.swift`, `ProjectCameraCaptureView.swift`; review fields on `ItemProjectPhoto`
+**Export clarity:** `ListingExport.swift` (`displayTitle`, `pickerLabel`, `sellerGroup`, `localExportDisclaimer`)
 
-**Tests:** Phase22–32
+**Tests:** Phase22–33
 
 ## 8. Working features
-- Product intake/capture, disconnected AI preparation/review (local foundation only), listing information, bulk edit, packages, defaults, duplicate, workspace, queue, batch export, Etsy connection stub (no live OAuth)
+- Product intake/capture, disconnected AI preparation/review (local foundation only), listing information, bulk edit, packages, defaults, duplicate, workspace, queue, batch export, clarified seller export presets, Etsy connection stub (no live OAuth)
 
 ## 9. Rules/constraints
 - Core photo preparation: local-first/on-device
+- Do not invent marketplace pixel sizes or compliance claims
 - Do not implement abandoned-roadmap items (paid AI, OAuth publish, direct marketplace upload) unless re-approved
-- Do not invent fake AI copy, fake camera captures, marketplace IDs, category trees, scopes, or compliance limits
 - Keep share architecture stable
 - Prefer `/Volumes/CombatMedic/Yofai` on main
 
@@ -57,19 +53,18 @@ App: Yofai
 Bundle ID: com.shawnwright.yofai
 Purpose: local-first marketplace product photo preparation for online sellers.
 Core functionality is local-first/on-device.
-Status: Phases 1–32 done. Product pivot documented 2026-08-09. No new feature coding until an explicit next phase is approved.
-Marketplaces (Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, similar) are local export targets only.
+Status: Phases 1–33 done. Seller export preset clarity complete. Last build/tests succeeded on iPhone 16e (100 tests). App Store upload paused.
+Marketplaces are local export targets only. Do not invent new preset pixel sizes.
 Abandoned from active roadmap: paid/live AI APIs; OAuth marketplace publishing; direct marketplace uploads.
 Future capability (not next work): backend, accounts, cloud sync, subscriptions, ads.
-Last build/tests succeeded on iPhone 16e (92 tests). App Store upload paused.
 Work in /Volumes/CombatMedic/Yofai on main.
 
 Do not guess. Inspect files before coding.
 Do not add paid AI APIs, OAuth marketplace publishing, or direct marketplace uploads unless newly re-approved.
-Do not invent fake AI listing copy, fake camera captures, marketplace category trees, IDs, scopes, or compliance limits.
+Do not invent fake AI listing copy, fake camera captures, marketplace category trees, IDs, scopes, sizes, or compliance limits.
 Do not change Share sheet architecture unless fixing a proven bug.
 Build once on iPhone 16e when you change code.
 
-Next: only an explicitly approved local photo-prep phase (e.g. multi-marketplace local export presets when approved). Not live AI / OAuth / upload by default.
+Next: only an explicitly approved local photo-prep phase (e.g. verified multi-marketplace local export sizes, or cover/crop fit when approved). Not live AI / OAuth / upload by default.
 If blocked, report why and the safest alternative.
 ```

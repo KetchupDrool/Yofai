@@ -17,7 +17,7 @@ struct ProjectsView: View {
                             DarkroomEmptyPanel(
                                 title: "No Projects Yet",
                                 systemImage: "folder.badge.plus",
-                                message: "Create an item project to keep listing photos together on this device."
+                                message: "Create an item project to photograph, organize, and export listing-ready product photos on this device."
                             )
                             Button {
                                 showCreate = true

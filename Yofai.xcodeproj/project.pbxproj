@@ -24,6 +24,7 @@
 		41AD913F4814BE8021B5754A /* ActivityShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E1C2043B1047520D68D7F /* ActivityShareView.swift */; };
 		42CB7915D48665E9ECD06B44 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9E95DE5571028873EC4AF /* HomeView.swift */; };
 		434BCC956070908A35127B78 /* Phase32ProductIntakeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72562DFA79CD8E3BAF2377 /* Phase32ProductIntakeTests.swift */; };
+		46A91C2E8F0B4D1A9C7E3B55 /* Phase33SellerExportPresetClarityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E4D91A2C5F8046E1A93D20 /* Phase33SellerExportPresetClarityTests.swift */; };
 		46F08E9EC63C9510FA8487A7 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD55D6B6CE4D9FE8FCDC00D /* SettingsView.swift */; };
 		5D17450C661960970907DB91 /* ListingExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF84D49672B068C0B6DCB6C /* ListingExport.swift */; };
 		6120911F9FEA18ADFC924D81 /* EtsyCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F229036218D3F74F3E5E6A3 /* EtsyCredentials.swift */; };
@@ -120,6 +121,7 @@
 		7AE5A580A0135FC74238334A /* ListingQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingQueueView.swift; sourceTree = "<group>"; };
 		81FA21B8B16095F02340C96B /* ProductIntakeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductIntakeView.swift; sourceTree = "<group>"; };
 		8A72562DFA79CD8E3BAF2377 /* Phase32ProductIntakeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase32ProductIntakeTests.swift; sourceTree = "<group>"; };
+		B7E4D91A2C5F8046E1A93D20 /* Phase33SellerExportPresetClarityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase33SellerExportPresetClarityTests.swift; sourceTree = "<group>"; };
 		97EEA04BA7B6FA559052DC45 /* ItemProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemProject.swift; sourceTree = "<group>"; };
 		9CE183516F25380F56C12048 /* Phase27ListingWorkspaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase27ListingWorkspaceTests.swift; sourceTree = "<group>"; };
 		A10B75773A5CCD794585AA14 /* ImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportView.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				F1656D4924593F22F330434F /* Phase30ListingInformationTests.swift */,
 				345AE1E4F9A1186FDB551B4E /* Phase31AIListingAssistantTests.swift */,
 				8A72562DFA79CD8E3BAF2377 /* Phase32ProductIntakeTests.swift */,
+				B7E4D91A2C5F8046E1A93D20 /* Phase33SellerExportPresetClarityTests.swift */,
 			);
 			path = YofaiTests;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				34F526F95E691946E58EB149 /* Phase30ListingInformationTests.swift in Sources */,
 				33D8915A5A3DEF67AF15FB51 /* Phase31AIListingAssistantTests.swift in Sources */,
 				434BCC956070908A35127B78 /* Phase32ProductIntakeTests.swift in Sources */,
+				46A91C2E8F0B4D1A9C7E3B55 /* Phase33SellerExportPresetClarityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

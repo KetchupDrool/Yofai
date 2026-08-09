@@ -43,7 +43,7 @@ These may be added later where they support the product:
 They are not immediate implementation tasks. Core photo preparation stays local-first/on-device even if some of these arrive later.
 
 ## Status
-- Phases 1–32 technical history complete (see `DECISIONS.md`)
+- Phases 1–33 technical history complete (see `DECISIONS.md`)
 - App Store upload remains paused
 - Old framing (“general photo editor MVP within 6 days”) is no longer the main goal
 

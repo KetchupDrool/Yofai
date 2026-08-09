@@ -63,7 +63,7 @@ struct PhotoEditState: Equatable, Codable {
     }
 
     var listingSummary: String {
-        "\(exportPreset.rawValue) · \(exportBackground.rawValue)"
+        "\(exportPreset.pickerLabel) · \(exportBackground.rawValue)"
     }
 
     /// Applies project-level listing frame / watermark on top of photo edits (or defaults).
