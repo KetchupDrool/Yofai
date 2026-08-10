@@ -13,27 +13,27 @@ Yofai
 - iPhone-only SwiftUI + SwiftData
 - **Product purpose:** local-first marketplace product photo preparation for online sellers
 - Core functionality is local-first/on-device
-- Phases 1–42 complete
-- Phase 42: seller export readiness checklist (computed from local state)
-- Last build/tests: succeeded on iPhone 16e (213 tests)
+- Phases 1–43 complete
+- Phase 43: one-tap prep tips from readiness (manual, computed)
+- Last build/tests: succeeded on iPhone 16e (228 tests)
 - App Store upload paused
 - Primary local path: `/Volumes/CombatMedic/Yofai`
 - GitHub Pages: https://ketchupdrool.github.io/Yofai/
 
-## 5. Completed phases 1–42
-1–41. Local listing prep, fit modes, reposition, marketplace vs canvas, export history filters/compare
-42. Export Readiness checklist on Project Detail (compact) and Listing Workspace (full)
+## 5. Completed phases 1–43
+1–42. Local listing prep through export readiness checklist
+43. Prep tips that route sellers to existing photo/fit/export controls without auto-fixes
 
-## 6. Phase 42 result
-**Seller Export Readiness Checklist complete.** Sellers see Ready to export / Review before export / Needs attention from Photos, Marketplace, Export size, Fit, Photo Check, and optional Watermark. Reuses Photo Check facts; not persisted; no compliance claims. Build + 213 unit tests passed on iPhone 16e.
+## 6. Phase 43 result
+**Seller One-Tap Prep Tips complete.** Up to 3 prioritized local tips (blocking → review → framing → optional) with actions into Capture & Check Photos, Photo Check, Fit/Export size scroll, Reposition, or Listing Workspace. No auto-mutations, AI, or compliance claims. Build + 228 unit tests passed on iPhone 16e.
 
 ## 7. Current models/files
-**Export:** `ExportReadiness` (+ checklist items), `ExportReadinessChecklistSection.swift`, `MarketplaceExportSettingsBlock`, `ExportHistorySupport.swift`
+**Export:** `ExportPrepTipSupport.swift`, `ExportPrepTipsSection.swift`, `ExportReadiness*`, `ExportHistorySupport.swift`
 
-**Tests:** Phase22–42
+**Tests:** Phase22–43
 
 ## 8. Working features
-- Export readiness checklist, marketplace filters/compare, Export Again, marketplace target switching, Contain+Pad / Fill+Crop + reposition, verified eBay/Poshmark/Etsy canvases, FB Marketplace/Mercari guidance without fake sizes, listing prep, bulk edit, packages, defaults, queue, batch export
+- Prep tips, export readiness checklist, marketplace filters/compare, Export Again, fit modes + reposition, verified canvases, FB/Mercari guidance, listing prep, bulk edit, packages, defaults, queue, batch export
 
 ## 9. Rules/constraints
 - Core photo preparation: local-first/on-device
@@ -53,7 +53,7 @@ App: Yofai
 Bundle ID: com.shawnwright.yofai
 Purpose: local-first marketplace product photo preparation for online sellers.
 Core functionality is local-first/on-device.
-Status: Phases 1–42 done. Export readiness checklist is computed locally. Last build/tests succeeded on iPhone 16e (213 tests). App Store upload paused.
+Status: Phases 1–43 done. Prep tips guide sellers to existing controls. Last build/tests succeeded on iPhone 16e (228 tests). App Store upload paused.
 Marketplaces are local export targets only. Do not invent new preset pixel sizes.
 Abandoned from active roadmap: paid/live AI APIs; OAuth marketplace publishing; direct marketplace uploads.
 Future capability (not next work): backend, accounts, cloud sync, subscriptions, ads.

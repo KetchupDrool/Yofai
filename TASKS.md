@@ -1,7 +1,7 @@
 # Tasks
 
 ## Status
-Phase 42 — Seller Export Readiness Checklist complete.
+Phase 43 — Seller One-Tap Prep Tips complete.
 App Store upload remains paused.
 
 ## Product direction
@@ -10,12 +10,12 @@ Core functionality is local-first/on-device.
 Marketplaces (Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, similar) are **local export targets only**.
 
 ## Current Phase
-Phase 42 — Seller Export Readiness Checklist. Complete.
+Phase 43 — Seller One-Tap Prep Tips. Complete.
 
 ## Done
-- MVP + Phases 4–41
-- Phase 42: export readiness checklist (computed), Photo Check reuse, compact/full UI; Phase42ExportReadinessChecklistTests (15); total 213
-- Build + unit tests succeeded on iPhone 16e (213 tests)
+- MVP + Phases 4–42
+- Phase 43: computed prep tips (max 3), manual actions to existing controls; Phase43ExportPrepTipsTests (15); total 228
+- Build + unit tests succeeded on iPhone 16e (228 tests)
 
 ## Remaining Polish
 - Edit tools may scroll with Export + watermark

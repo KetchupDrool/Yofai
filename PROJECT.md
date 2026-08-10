@@ -47,11 +47,11 @@ Home → Start / Continue Product → Item Project → Capture & Check Photos �
 Import, Originals, and History remain available as secondary tools.
 
 ## Status
-- Phases 1–42 technical history complete (see `DECISIONS.md`)
+- Phases 1–43 technical history complete (see `DECISIONS.md`)
 - Marketplace target (destination) is separate from export size (pixel canvas)
 - Local export history records what was **exported for** a marketplace — never publish/upload status
 - Export history supports transient marketplace filters and metadata-only compare of the two newest exports (no pixel compare)
-- Export Readiness checklist is computed from local project/photo/export state (not persisted); watermark is optional; no compliance claims
+- Export Readiness checklist and Prep Tips are computed from local state (not persisted); tips never auto-change fit/crop/size; watermark is optional; no compliance claims
 - Export fit modes: Contain + Pad (default) and Fill + Crop with optional per-photo reposition
 - Verified local export canvases include Etsy sizes, eBay 1600×1600, Poshmark 1000×1000 (recommended; not compliance claims)
 - Facebook Marketplace and Mercari intentionally have no named Yofai pixel presets until an exact first-party canvas is verified

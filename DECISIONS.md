@@ -263,6 +263,17 @@
 - Language: local export readiness only — never compliant / approved / marketplace-ready / publish readiness
 - Intentionally NOT added: compliance claims, upload status, new marketplace dimensions, readiness persistence
 
+## Phase 43 — Seller One-Tap Prep Tips (locked)
+- Computed `ExportPrepTip` rows from the same local readiness/Photo Check facts — **not persisted**
+- Max 2–3 visible tips (priority: blocking → photo review → framing → optional); hide section when empty (Ready may show one Preview tip)
+- Actions point at existing controls only: Capture & Check Photos, Photo Check, scroll to Export size/Fit/Preview, Reposition (Edit), Listing Workspace
+- Manual only: never auto-switches fit, crop, size, or exports; never invents marketplace rules
+- Guidance-only FB Marketplace / Mercari: no tip solely for guidance-only when a valid canvas is selected
+- Adjusted Phase 38 crop is informational (“Check crop position”), not an error
+- Watermark off creates no tip
+- Project Detail: compact single top tip near readiness; Listing Workspace: Prep Tips after Export Readiness, before Preview
+- Intentionally NOT added: AI, auto-fixes, face/object detection, tip persistence, new marketplace dimensions
+
 ## Future capability (approved direction — not next work)
 May be added later where they support the product; core photo preparation remains local-first/on-device:
 - Backend services

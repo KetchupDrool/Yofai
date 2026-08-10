@@ -20,6 +20,7 @@ struct ListingWorkspaceView: View {
     @State private var packageStatusIsError = false
     @State private var sharePackageItem: ShareBatchItem?
     @State private var packageToDelete: ListingPackage?
+    @State private var exportScrollTarget: String?
 
     private var queueEntry: ListingQueueEntry? {
         ListingQueueSupport.queueEntry(for: project, in: modelContext)
@@ -46,7 +47,8 @@ struct ListingWorkspaceView: View {
     }
 
     var body: some View {
-        List {
+        ScrollViewReader { proxy in
+            List {
             overviewSection
             readinessSection
             listingInformationSection
@@ -56,7 +58,12 @@ struct ListingWorkspaceView: View {
             MarketplaceExportSettingsBlock(
                 project: project,
                 showPreview: true,
-                readinessStyle: .full
+                readinessStyle: .full,
+                prepTipsStyle: .full,
+                showWorkspaceLinkInPrepTips: false,
+                onFocusAnchor: { anchor in
+                    exportScrollTarget = anchor.rawValue
+                }
             )
             exportSection
             ExportHistorySection(
@@ -95,6 +102,13 @@ struct ListingWorkspaceView: View {
         .onAppear {
             refreshQueueReadiness()
         }
+        .onChange(of: exportScrollTarget) { _, target in
+            guard let target else { return }
+            withAnimation {
+                proxy.scrollTo(target, anchor: .top)
+            }
+            exportScrollTarget = nil
+        }
         .sheet(item: $shareBatchItem) { item in
             ActivityShareView(items: item.urls)
         }
@@ -121,6 +135,7 @@ struct ListingWorkspaceView: View {
         } message: {
             Text("Removes only this package’s local files. Export batches and project photos stay.")
         }
+        } // ScrollViewReader
     }
 
     private var sectionBackground: some View {

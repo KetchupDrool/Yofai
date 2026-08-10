@@ -1,7 +1,7 @@
 # Session Handoff
 
 ## Status
-Phase 42 complete — Seller Export Readiness Checklist. Build + unit tests succeeded on iPhone 16e (213 tests). App Store upload paused.
+Phase 43 complete — Seller One-Tap Prep Tips. Build + unit tests succeeded on iPhone 16e (228 tests). App Store upload paused.
 
 ## Product purpose
 Local-first marketplace product photo preparation for online sellers.
@@ -10,13 +10,13 @@ Export targets only: Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and si
 
 ## Facts
 - Yofai / `com.shawnwright.yofai` / iPhone-only
-- Phase 42: computed Export Readiness checklist (Photos, Marketplace, Export size, Fit, Photo Check, Watermark); not persisted
-- Watermark optional; guidance-only markets can still be Ready with a valid canvas; no compliance claims
-- Seven export preset raw values/sizes unchanged; Phases 37–41 preserved
+- Phase 43: computed prep tips (max 3) guide sellers to existing controls; manual only; not persisted
+- No auto-fit/crop/size/export; no guidance-only false warnings; watermark off creates no tip
+- Seven export preset raw values/sizes unchanged; Phases 37–42 preserved
 - Git: `/Volumes/CombatMedic/Yofai` on `main`
 
 ## Last Completed
-- Expanded `ExportReadiness` + `ExportReadinessChecklistSection`; Phase42ExportReadinessChecklistTests (15); total 213
+- `ExportPrepTipSupport.swift`, `ExportPrepTipsSection.swift`; Phase43ExportPrepTipsTests (15); total 228
 
 ## Abandoned from the active roadmap
 - Paid/live AI APIs

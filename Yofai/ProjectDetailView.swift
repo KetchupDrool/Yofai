@@ -37,13 +37,15 @@ struct ProjectDetailView: View {
     @State private var showDuplicateSheet = false
     @State private var duplicateName = ""
     @State private var duplicateError: String?
+    @State private var exportScrollTarget: String?
 
     private var sortedPhotos: [ItemProjectPhoto] {
         project.sortedPhotos
     }
 
     var body: some View {
-        List {
+        ScrollViewReader { proxy in
+            List {
             Section {
                 TextField("Item name", text: $project.name)
                     .onChange(of: project.name) { _, _ in
@@ -179,6 +181,13 @@ struct ProjectDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
+        .onChange(of: exportScrollTarget) { _, target in
+            guard let target else { return }
+            withAnimation {
+                proxy.scrollTo(target, anchor: .top)
+            }
+            exportScrollTarget = nil
+        }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 EditButton()
@@ -245,6 +254,7 @@ struct ProjectDetailView: View {
         .sheet(item: $shareBatchItem) { item in
             ActivityShareView(items: item.urls)
         }
+        } // ScrollViewReader
     }
 
     private var sectionBackground: some View {
@@ -445,7 +455,12 @@ struct ProjectDetailView: View {
             project: project,
             showPreview: true,
             readinessStyle: .compact,
-            showWorkspaceLinkInReadiness: true
+            showWorkspaceLinkInReadiness: true,
+            prepTipsStyle: .compact,
+            showWorkspaceLinkInPrepTips: true,
+            onFocusAnchor: { anchor in
+                exportScrollTarget = anchor.rawValue
+            }
         )
     }
 

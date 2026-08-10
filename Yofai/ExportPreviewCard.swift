@@ -60,13 +60,17 @@ struct ExportPreviewCard: View {
     }
 }
 
-/// Shared Phase 39/42 marketplace → canvas → fit controls for Project Detail / Listing Workspace.
+/// Shared Phase 39/42/43 marketplace → canvas → fit controls for Project Detail / Listing Workspace.
 struct MarketplaceExportSettingsBlock: View {
     @Bindable var project: ItemProject
     var showPreview: Bool = true
     /// Compact on Project Detail; full checklist on Listing Workspace.
     var readinessStyle: ExportReadinessChecklistSection.Style = .full
     var showWorkspaceLinkInReadiness: Bool = false
+    /// Full prep tips on Listing Workspace; compact single tip on Project Detail.
+    var prepTipsStyle: ExportPrepTipsSection.Style? = .full
+    var showWorkspaceLinkInPrepTips: Bool = true
+    var onFocusAnchor: ((ExportPrepScrollAnchor) -> Void)? = nil
 
     private var previewPhoto: ItemProjectPhoto? {
         project.sortedPhotos.first
@@ -95,6 +99,18 @@ struct MarketplaceExportSettingsBlock: View {
                 showWorkspaceLink: showWorkspaceLinkInReadiness
             )
             .listRowBackground(sectionBackground)
+            .id(ExportPrepScrollAnchor.readiness.rawValue)
+
+            if let prepTipsStyle {
+                ExportPrepTipsSection(
+                    project: project,
+                    style: prepTipsStyle,
+                    onFocus: onFocusAnchor,
+                    showWorkspaceLinkActions: showWorkspaceLinkInPrepTips
+                )
+                .listRowBackground(sectionBackground)
+            }
+
             if showPreview, let photo = previewPhoto, let source = photo.fullLocalImage, let state = previewState {
                 Section {
                     ExportPreviewCard(sourceImage: source, state: state)
@@ -106,6 +122,7 @@ struct MarketplaceExportSettingsBlock: View {
                         .foregroundStyle(DarkroomTheme.textTertiary)
                 }
                 .listRowBackground(sectionBackground)
+                .id(ExportPrepScrollAnchor.preview.rawValue)
             }
         }
     }
@@ -194,6 +211,7 @@ struct MarketplaceExportSettingsBlock: View {
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)
+        .id(ExportPrepScrollAnchor.exportSize.rawValue)
     }
 
     private var fitSection: some View {
@@ -261,6 +279,7 @@ struct MarketplaceExportSettingsBlock: View {
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)
+        .id(ExportPrepScrollAnchor.fit.rawValue)
     }
 
     private var photoCheckSummarySection: some View {
@@ -285,6 +304,7 @@ struct MarketplaceExportSettingsBlock: View {
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)
+        .id(ExportPrepScrollAnchor.photoCheck.rawValue)
     }
 
     private func labeled(_ title: String, _ value: String) -> some View {
