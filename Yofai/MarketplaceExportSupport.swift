@@ -96,7 +96,7 @@ extension ListingExportPreset {
     }
 }
 
-/// Phase 39/42 — deterministic local export readiness (not AI, not marketplace compliance).
+/// Phase 39/42 — deterministic local export readiness (not marketplace compliance).
 enum ExportReadinessStatus: String, Equatable {
     case ready = "Ready"
     case review = "Review"

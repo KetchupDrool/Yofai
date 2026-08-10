@@ -10,7 +10,7 @@ Short checklist for App Store / TestFlight upload of freemium Local Export Mode.
 - [ ] Settings → Privacy matches local-only behavior
 - [ ] Settings → Yofai Pro: Free plan; Pro not available; no purchase charged
 - [ ] Settings → Etsy Shop: connection not available (no Connect button)
-- [ ] Listing Assistant labeled Not Available / offline
+- [ ] No AI assistant / AI-powered claims in UI
 - [ ] Support + Privacy Policy URLs open (GitHub Pages)
 - [ ] `APP_STORE_METADATA.md` claims still factual
 - [ ] No StoreKit buy/restore UI

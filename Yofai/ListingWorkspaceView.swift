@@ -55,7 +55,6 @@ struct ListingWorkspaceView: View {
             overviewSection
             readinessSection
             listingInformationSection
-            aiAssistantSection
             productIntakeSection
             photosSection
             MarketplaceExportSettingsBlock(
@@ -269,36 +268,6 @@ struct ListingWorkspaceView: View {
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
             Text("Local listing fields and review only. Does not invent Etsy-ready status or change queue readiness.")
-                .foregroundStyle(DarkroomTheme.textTertiary)
-        }
-        .listRowBackground(sectionBackground)
-    }
-
-    private var aiAssistantSection: some View {
-        Section {
-            Text(DisconnectedAIListingProvider.shared.statusMessage)
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(DarkroomTheme.accent)
-            Text(AppStoreLaunchSupport.listingAssistantUnavailableDetail)
-                .font(.caption)
-                .foregroundStyle(DarkroomTheme.textSecondary)
-                .fixedSize(horizontal: false, vertical: true)
-            Text("\(project.sortedAIPreparations.count) preparation\(project.sortedAIPreparations.count == 1 ? "" : "s")")
-                .font(.caption)
-                .foregroundStyle(DarkroomTheme.textTertiary)
-
-            NavigationLink {
-                AIListingAssistantView(project: project)
-            } label: {
-                Text("Open Offline Listing Assistant")
-                    .foregroundStyle(DarkroomTheme.accent)
-            }
-            .accessibilityLabel("Open Offline Listing Assistant. AI is not connected.")
-        } header: {
-            Text(AppStoreLaunchSupport.listingAssistantUnavailableTitle)
-                .foregroundStyle(DarkroomTheme.textTertiary)
-        } footer: {
-            Text("Offline suggestion review only. No AI API. No network. Local Export Mode is unchanged.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)

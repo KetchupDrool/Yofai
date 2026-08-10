@@ -41,7 +41,7 @@ Keep Local Export Mode solid. Do not start Direct Upload Mode coding until a mar
 
 ## Constraints (active)
 - Core photo preparation remains local-first/on-device
-- No paid/live AI APIs on the active roadmap (none required for export/upload)
+- **Yofai does not use AI.** Photo Check, Export Readiness, and Prep Tips are deterministic/local. No OpenAI / AI APIs / AI listing assistant.
 - Direct marketplace upload is **not implemented**; do not claim it exists
 - No browser automation / unofficial APIs / marketplace password storage for upload
 
@@ -56,12 +56,15 @@ These may be added later where they support the product:
 
 Core photo preparation stays local-first/on-device even if some of these arrive later.
 
+**Not on the roadmap:** AI listing assistant, OpenAI integration, paid AI APIs, AI caption generation, AI photo evaluation, AI auto-crop.
+
 ## Primary workflow
 Home → Start / Continue Product → Item Project → Capture & Check Photos → Prepare Listing & Export → local export.
 Import, Originals, and History remain available as secondary tools.
 
 ## Status
-- Phases 1–50 technical history complete (see `DECISIONS.md`, `APP_STORE_PREP.md`)
+- Phases 1–51 technical history complete (see `DECISIONS.md`, `APP_STORE_PREP.md`)
+- **Phase 51:** no-AI positioning cleanup — AI Listing Assistant UI/providers removed; dormant `AIPreparationRecord` shell kept for store compatibility only
 - Freemium-first if monetized: Free keeps core local export; Pro is additive (Phase 49). No StoreKit purchases yet.
 - App Store prep docs and review-safe copy for Local Export Mode launch (Phase 50)
 - Marketplace target (destination) is separate from export size (pixel canvas)
@@ -81,4 +84,5 @@ Import, Originals, and History remain available as secondary tools.
 ## Rules
 - Keep changes small. Do not refactor unrelated files.
 - Inspect files before editing.
-- Do not implement Direct Upload Mode or paid/live AI unless explicitly re-approved.
+- Do not implement Direct Upload Mode unless explicitly re-approved.
+- Do not add AI.

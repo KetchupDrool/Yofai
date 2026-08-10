@@ -186,8 +186,8 @@ final class SellerDefaultsStore {
 
 extension ItemProject {
     /// Copies listing details + export settings + listing information + photo-plan goal names/order only.
-    /// Does not copy photos, files, edits, batches, packages, queue entries, AI preparations,
-    /// goal completion, attached photo references, History, or Originals.
+    /// Does not copy photos, files, edits, batches, packages, queue entries,
+    /// legacy dormant listing-prep records, goal completion/attachments, History, or Originals.
     func duplicateListingDraft(newName: String) -> ItemProject {
         let copy = ItemProject(name: newName.trimmingCharacters(in: .whitespacesAndNewlines))
         copy.listingTitle = listingTitle

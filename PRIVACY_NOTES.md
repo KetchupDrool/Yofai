@@ -21,7 +21,7 @@ Yofai is a local-first iPhone app for marketplace product photo preparation and 
 - No ads
 - No tracking or analytics SDKs
 - No selling of personal data
-- No AI API calls in this version
+- No AI service receives user photos or listing data; Yofai uses deterministic local checks, not AI
 - No marketplace upload or publish
 - No live marketplace OAuth in this version
 - No Yofai Pro purchase in this version (Pro is planned only)

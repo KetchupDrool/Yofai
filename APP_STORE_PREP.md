@@ -16,7 +16,9 @@ One-line: *Marketplace product photo prep that exports local JPEGs for manual up
 
 ## Privacy / data (current)
 - Photos, projects, edits, export batches, history, and notes stay on device
-- No backend account, no AI API, no analytics SDK, no ads
+- No account, cloud, or AI service is required for the core local export workflow
+- Yofai uses deterministic local checks (Photo Check, Export Readiness, Prep Tips), not AI
+- No analytics SDK, no ads
 - No marketplace upload / publish
 - No live marketplace login
 - Camera: capture product photos into a local Item Project
@@ -31,7 +33,7 @@ One-line: *Marketplace product photo prep that exports local JPEGs for manual up
 | Marketplace names | Framed as local export targets + manual upload |
 | Compliance / partnership claims | Forbidden in Local Export Mode helpers |
 | Etsy OAuth stub | Connect button removed; status “not available” |
-| AI Listing Assistant | Labeled Not Available / offline; no AI API |
+| AI claims | No AI UI; positioning states Yofai does not use AI |
 | Photos permission | Usage strings describe seller photo prep / Save Listing Copy |
 
 ## Screenshot plan
@@ -52,7 +54,7 @@ Capture on iPhone (6.7" required set + 6.1" as needed):
 6. **History view/share** — Export History + View Exported Files  
    Message: “Review and share exported files”
 
-Avoid screenshots that imply live upload, Pro purchase, AI connected, or marketplace approval.
+Avoid screenshots that imply live upload, Pro purchase, AI features, or marketplace approval.
 
 ## Related docs
 - `APP_STORE_METADATA.md` — subtitle, description, keywords, release notes  

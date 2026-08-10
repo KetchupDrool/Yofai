@@ -1,6 +1,6 @@
 import Foundation
 
-/// Phase 44 — local optional export-batch notes. Not publish status; not AI-generated.
+/// Phase 44 — local optional export-batch notes. Not publish status; seller-authored only.
 enum ExportBatchNoteSupport {
     /// Practical hard limit for seller memory notes (between 200–300).
     static let maxLength = 240

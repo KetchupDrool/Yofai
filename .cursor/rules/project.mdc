@@ -10,6 +10,8 @@ alwaysApply: true
 - App type code word is Mosaic.
 - Product purpose: local-first marketplace product photo preparation for online sellers.
 - Core photo preparation is local-first/on-device.
+- **Yofai is a no-AI app.** Do not add AI APIs, AI listing generation, AI photo analysis, prompt flows, or AI provider abstractions.
+- Existing Photo Check, Export Readiness, and Prep Tips must remain deterministic/local.
 - **Local Export Mode** is current production behavior: prepare/save/share local JPEGs; seller uploads manually.
 - **Direct Upload Mode** is not implemented. It may be added later only after marketplace-specific official API/OAuth feasibility is verified and a phase is explicitly approved.
 - Do not implement upload by guessing endpoints, browser automation, unofficial APIs, or storing marketplace passwords.
@@ -19,11 +21,10 @@ alwaysApply: true
 - **Freemium-first if monetized:** Free keeps the core local export workflow from launch; Pro must be additive. Do not launch fully free and later lock existing core Free features behind payment.
 - Do not delete seller data to enforce Free limits; over-limit existing products remain viewable/editable.
 - Real StoreKit purchases are not implemented until an approved payments phase; do not fake purchase success.
-- App Store launch claims must stay factual: local JPEG export for manual upload; no Direct Upload / compliance / partnership claims.
+- App Store launch claims must stay factual: local JPEG export for manual upload; no Direct Upload / compliance / partnership / AI claims.
 - Keep changes small.
 - Inspect files before editing.
 - Do not refactor unrelated files.
-- Do not implement paid/live AI APIs unless explicitly re-approved. No AI API is required for export or future upload.
 - Backend, accounts, cloud sync, subscriptions, and ads are future-capability only — not current work unless newly approved as a phase.
 - Report changed files, build result, and next needed approval.
 - Use short, simple explanations.

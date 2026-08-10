@@ -16,6 +16,7 @@ final class ItemProject {
     @Relationship(deleteRule: .cascade, inverse: \ListingPackage.project)
     var listingPackages: [ListingPackage] = []
     @Relationship(deleteRule: .cascade, inverse: \AIPreparationRecord.project)
+    /// Legacy dormant records only (no UI). Kept for store compatibility.
     var aiPreparations: [AIPreparationRecord] = []
     @Relationship(deleteRule: .cascade, inverse: \PhotoPlanGoal.project)
     var photoPlanGoals: [PhotoPlanGoal] = []
@@ -111,10 +112,6 @@ final class ItemProject {
 
     var sortedListingPackages: [ListingPackage] {
         listingPackages.sorted { $0.createdAt > $1.createdAt }
-    }
-
-    var sortedAIPreparations: [AIPreparationRecord] {
-        aiPreparations.sorted { $0.createdAt > $1.createdAt }
     }
 
     var sortedPhotoPlanGoals: [PhotoPlanGoal] {
@@ -243,7 +240,7 @@ final class ItemProjectPhoto {
     var sortOrder: Int
     var addedAt: Date
     var project: ItemProject?
-    /// Stable identity for AI preparation photo selection; survives reorder.
+    /// Stable identity for photo references; survives reorder.
     var stableID: UUID = UUID()
     /// Optional Codable `PhotoEditState` from Edit (when saved). Nil = unedited original.
     var savedEditStateData: Data?

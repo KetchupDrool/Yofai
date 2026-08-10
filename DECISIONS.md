@@ -17,8 +17,8 @@
 - **Local Export Mode** is current production behavior and remains permanent fallback
 - **Direct Upload Mode** is future-only: official API/OAuth per marketplace after verification + explicit approval; not implemented
 - Abandoned from the active near-term roadmap (inactive unless explicitly re-approved later):
-  - Paid/live AI APIs
   - Browser automation / unofficial marketplace APIs / marketplace password storage
+- **Hard product constraint:** Yofai does not use AI (no OpenAI, no AI listing assistant, no AI photo analysis, no AI roadmap)
 - Future-capability / approved-direction (not immediate tasks; may be added later where they support the product):
   - Backend services
   - User accounts
@@ -122,21 +122,14 @@
 - Alt text stored on `ItemProjectPhoto` so reorder/delete keep matching text
 - Duplicate Listing Draft copies all new listing-information fields; still no photos/files/edits/batches/packages/queue/History/Originals
 - Seller Defaults may prefill only item type, condition, who made, when made, return policy (plus prior defaults) on new-project create; never overwrite existing projects
-- Abandoned from the active roadmap: paid/live AI suggestions, Etsy API, OAuth, upload; also do not invent marketplace limits/IDs
+- Do not invent marketplace limits/IDs; Etsy API/OAuth/upload remain out of scope here
 
-## Phase 31 — AI Listing Assistant Foundation (locked; paid/live AI abandoned from active roadmap)
-- Listing Workspace → AI Listing Assistant; status “AI is not connected yet”; no photos/listing data leave the device
-- `AIPreparationRecord` in SwiftData: selected photo stable IDs, suggestion types, included/excluded context fields, editable suggestions, status, safe error message
-- Statuses: Draft, Ready for AI, Awaiting Review, Applied, Failed
-- Provider protocol: `DisconnectedAIListingProvider` (production), `MockAIListingProvider` (tests/previews only)
-- Never invents fake AI copy in production; manual placeholders allowed; mock suggestions only via mock provider
-- Apply only seller-approved suggestions to title/description/tags/category/materials/alt text; photo order needs explicit confirmation and preserves per-photo alt text
-- Never changes price, quantity, shipping, processing, returns, variations, personalization, SKU, condition, item type, who/when made, export settings, or queue state
-- Never auto-applies; no History/export/package/queue/Etsy completed side effects
-- Cascade-delete with project; duplicate draft does not copy AI preparations; Seller Defaults store no AI data
+## Phase 31 — Listing prep foundation history (superseded by Phase 51)
+- Historical: disconnected listing-prep assistant UI + provider stubs existed in earlier builds
+- **Phase 51:** AI Listing Assistant UI, providers, and Phase 31 tests removed
+- `AIPreparationRecord` SwiftData shell retained only so existing on-device stores continue to load; no UI; no provider; no AI product roadmap
+- Duplicate draft still does not copy dormant listing-prep records; Seller Defaults store none of that data
 - Listing Information Review and Phase 25 readiness unchanged
-- Completed disconnected/local AI foundation history preserved
-- **Abandoned from the active roadmap:** paid/live AI API use (networking, API keys, OpenAI/Etsy AI clients). Inactive unless explicitly re-approved later.
 
 ## Phase 32 — Product Intake + Guided Photo Capture (locked)
 - Entry from Project Detail and Listing Workspace → Product Intake / Capture Photos
@@ -148,7 +141,7 @@
 - Simulator/unavailable camera fails safely; production never fakes capture; tests use `InjectedTestCaptureSource` only
 - Photo Check reports measurable local facts only; seller review checkboxes never affect Phase 25 readiness
 - Duplicate draft copies goal names/order only; cascade-delete goals with project; Seller Defaults store no photo-plan/camera/review data
-- Abandoned from the active roadmap: paid/live AI, Etsy API/OAuth/upload; do not claim marketplace compliance
+- Etsy API/OAuth/upload out of scope; do not claim marketplace compliance
 
 ## Phase 33 — Seller Export Preset Clarity (locked)
 - Seller-facing display metadata on `ListingExportPreset` only; stored `rawValue` and pixel sizes unchanged
@@ -316,7 +309,7 @@
 - History action order: View + Share primary; More = Share with Note → Copy Note → Add/Edit Note → Use These → Export Again → Delete
 - Dynamic Type / accessibility pass on export summary, history, viewer, readiness (status not color-only)
 - Wording cleanup remains local JPEGs / exported for / manual upload — no publish/Direct Upload claims
-- No new product scope: no upload, OAuth, backend, AI, analytics, subscriptions, ads, or new presets
+- No new product scope: no upload, OAuth, backend, analytics, subscriptions, ads, or new presets
 
 ## Phase 49 — Freemium Foundation & Entitlement Planning (locked)
 - Freemium-first if monetized: Free keeps Capture → Organize → Photo Check → Edit → Prepare → Local Export
@@ -331,9 +324,17 @@
 ## Phase 50 — App Store Prep for Freemium Local Export Launch (locked)
 - Launch positioning: marketplace product photo prep + local JPEG export for manual upload
 - Docs: `APP_STORE_PREP.md`, updated `APP_STORE_METADATA.md`, `RELEASE_CHECKLIST.md`, privacy/support pages aligned to Local Export Mode
-- Review mitigations: Etsy Connect button removed while OAuth incomplete; Listing Assistant labeled Not Available / offline
+- Review mitigations: Etsy Connect button removed while OAuth incomplete
 - Freemium copy remains Free-core + Pro planned / no purchase charged; no StoreKit
 - No Direct Upload, no fake paywall, no compliance claims
+
+## Phase 51 — Remove AI References & Final No-AI Positioning Cleanup (locked)
+- **Yofai is a no-AI app** — hard product constraint, not a temporary deferral
+- Removed user-facing Listing Assistant section, `AIListingAssistantView`, `AIListingProvider`, and Phase 31 tests
+- Retained minimal `AIPreparationRecord` SwiftData shell (+ legacy status raw values) so existing stores load; no UI; no providers; no “future AI” roadmap
+- Photo Check, Export Readiness, and Prep Tips remain deterministic/local
+- App Store / privacy / handoff / Cursor rules updated: no AI-powered claims; no OpenAI; no AI roadmap
+- Preferred privacy wording: no account, cloud, or AI service required for the core local export workflow
 
 ## Future StoreKit phase requirements (not started)
 - Choose subscription vs lifetime (or both) and App Store Connect product IDs
@@ -351,9 +352,11 @@ May be added later where they support the product; core photo preparation remain
 - Ads
 - Direct Upload Mode for verified marketplaces only
 
+## Not on the product roadmap
+- AI listing assistant / OpenAI / paid AI APIs / AI caption or photo evaluation / AI auto-crop
+
 ## Abandoned from the active near-term roadmap
 Inactive unless explicitly re-approved later:
-- Paid/live AI APIs
 - Browser automation / unofficial marketplace APIs / marketplace password storage
 
 ## Still out of scope unless newly approved

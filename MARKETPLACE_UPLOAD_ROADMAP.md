@@ -61,7 +61,7 @@ Yofai will **not** implement upload via:
 
 Only official APIs/OAuth are considered.
 
-No AI API is required for Direct Upload Mode.
+Yofai does not use AI; Direct Upload Mode (if approved later) also does not require AI.
 
 ## Marketplace feasibility matrix
 
@@ -107,11 +107,11 @@ Keep local / on-device:
 
 - Photos, edits, rendering, Photo Check, Local Export Mode, local export history/notes
 
-**This phase does not add** Firebase, Supabase, AWS, VPS, paid image storage, OpenAI, or analytics SDKs.
+**This phase does not add** Firebase, Supabase, AWS, VPS, paid image storage, AI services, or analytics SDKs.
 
-## AI
+## No AI
 
-No AI API is required for Local Export Mode or Direct Upload Mode.
+Yofai does not use AI for Local Export Mode or any future Direct Upload Mode.
 
 ## Phase status
 

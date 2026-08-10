@@ -105,7 +105,7 @@ struct ProjectCameraCaptureFlow: View {
                             .foregroundStyle(DarkroomTheme.danger)
                             .fixedSize(horizontal: false, vertical: true)
                     } else {
-                        Text("Uses the system rear camera. No filters, AI enhancement, or network calls.")
+                        Text("Uses the system rear camera. No filters or network calls.")
                             .font(.subheadline)
                             .foregroundStyle(DarkroomTheme.textSecondary)
                             .fixedSize(horizontal: false, vertical: true)

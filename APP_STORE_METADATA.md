@@ -1,7 +1,7 @@
 # App Store Metadata — Yofai
 
-**Phase 50 — freemium Local Export Mode launch draft**  
-Do not claim Direct Upload, Pro purchases, AI APIs, compliance, or marketplace partnership.
+**Phase 50/51 — freemium Local Export Mode launch draft**  
+Do not claim Direct Upload, Pro purchases, AI features, compliance, or marketplace partnership.
 
 ## App Name
 Yofai
@@ -50,11 +50,11 @@ The Free plan keeps the core local export workflow. Yofai Pro is planned for lat
 • Does not upload or publish listings to marketplaces  
 • Does not claim marketplace compliance or official approval  
 • Does not require an account or cloud sync for local export  
-• Does not include live AI features in this version  
+• Does not use AI — Photo Check and readiness tips are deterministic local tools  
 • Does not charge for Pro in this version  
 
 **Privacy**
-Photos, projects, edits, export history, and notes stay on your device. No ads. No tracking SDKs.
+Photos, projects, edits, export history, and notes stay on your device. No ads. No tracking SDKs. No AI service receives your photos or listing data.
 
 ## Keywords (≤100 characters, draft)
 marketplace,photo,seller,export,etsy,ebay,listing,jpeg,product,local,prep,crop

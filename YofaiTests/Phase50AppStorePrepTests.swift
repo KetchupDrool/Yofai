@@ -57,7 +57,7 @@ final class Phase50AppStorePrepTests: XCTestCase {
             LocalExportShareSupport.packageSummaryLine(for: batch),
             LocalExportPostExportSupport.nextStepHint,
             AppStoreLaunchSupport.etsyConnectionUnavailableDetail,
-            AppStoreLaunchSupport.listingAssistantUnavailableDetail,
+            AppStoreLaunchSupport.privacySummary,
             FreemiumCopy.proPlannedSummary
         ]
         for text in samples {
