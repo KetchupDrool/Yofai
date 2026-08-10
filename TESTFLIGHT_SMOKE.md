@@ -86,7 +86,10 @@ Do not expect: login, Pro purchase, Direct Upload, AI assistant, marketplace Con
 3. Open Upgrade/Manage paywall.
 4. If products load: prices from StoreKit; purchase buttons; Restore Purchases.
 5. If products unavailable: “Purchases are not available right now.” Free still works.
-6. Confirm no fake purchase success without StoreKit.
+6. Confirm **Terms of Use** and **Privacy Statement** links are visible.
+7. Confirm no fake purchase success without StoreKit.
+
+For full purchase verification see `STOREKIT_SANDBOX_TESTING.md`.
 
 ### 17. Etsy Shop
 1. Settings → Etsy Shop.

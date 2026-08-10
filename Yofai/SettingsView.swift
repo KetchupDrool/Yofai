@@ -3,6 +3,8 @@ import SwiftUI
 enum AppStoreLinks {
     static let support = URL(string: "https://ketchupdrool.github.io/Yofai/support.html")!
     static let privacyPolicy = URL(string: "https://ketchupdrool.github.io/Yofai/privacy-policy.html")!
+    /// Apple Standard EULA — required Terms of Use for auto-renewable subscriptions.
+    static let termsOfUse = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!
 }
 
 struct SettingsView: View {
@@ -32,7 +34,7 @@ struct SettingsView: View {
                 .listRowBackground(settingsRowBackground)
 
                 Section {
-                    Text("Yofai keeps product photos, edits, listing drafts, export history, and notes on this device. Local JPEG export is for manual marketplace upload. No ads, no tracking SDKs, no account, no backend, and no marketplace upload in this version. Camera is used to capture product photos. Photos permission is used when you choose photos or save a listing copy. Live Etsy OAuth is not enabled. Yofai Pro is planned and does not charge yet.")
+                    Text("Yofai keeps product photos, edits, listing drafts, export history, and notes on this device. Local JPEG export is for manual marketplace upload. No ads, no tracking SDKs, no account, no backend, and no marketplace upload in this version. Camera is used to capture product photos. Photos permission is used when you choose photos or save a listing copy. Live Etsy OAuth is not enabled. Yofai Pro is an optional Apple subscription; Free keeps the core local export workflow.")
                         .font(.subheadline)
                         .foregroundStyle(DarkroomTheme.textSecondary)
                         .fixedSize(horizontal: false, vertical: true)
@@ -48,6 +50,7 @@ struct SettingsView: View {
                 Section {
                     Link("Support", destination: AppStoreLinks.support)
                     Link("Privacy Policy", destination: AppStoreLinks.privacyPolicy)
+                    Link("Terms of Use", destination: AppStoreLinks.termsOfUse)
                 } header: {
                     Text("Links")
                         .font(.caption2.weight(.bold))

@@ -357,9 +357,17 @@
 - No lifetime SKU this phase; no backend; no Direct Upload; no AI; no data deletion on Free demotion
 - Over-limit Free products remain viewable/editable; create blocked until under limit or Pro restored
 
+## Phase 54 — App Store Connect Subscriptions & Sandbox Purchase Verification (locked)
+- Documentation + App Review readiness for real Connect subscriptions; **Connect setup not claimed complete**
+- Expanded `APP_STORE_CONNECT_SUBSCRIPTIONS.md` (exact checkbox steps)
+- Added `STOREKIT_SANDBOX_TESTING.md` (local StoreKit config + TestFlight sandbox scripts)
+- Paywall always shows **Terms of Use** (Apple Standard EULA) + **Privacy Statement** (GitHub Pages privacy URL)
+- Settings privacy copy updated (Pro is optional StoreKit subscription; Free keeps core export)
+- No new product features; no Direct Upload; no AI; no backend
+
 ## Future StoreKit follow-ups (manual / not claimed done)
 - Create/verify subscription group + products in App Store Connect
-- Sandbox / TestFlight purchase verification
+- Sandbox / TestFlight purchase verification (`STOREKIT_SANDBOX_TESTING.md`)
 - Optional lifetime product if later approved
 - Paid-apps privacy nutrition label updates when IAP goes live
 

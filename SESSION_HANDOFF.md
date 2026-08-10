@@ -1,30 +1,27 @@
 # Session Handoff
 
 ## Status
-Phase 53 complete — StoreKit 2 / Yofai Pro payments foundation.  
-**295 tests passed; build on iPhone 16e.** Freemium-first; Free keeps core local export.  
-App Store Connect subscription products are **not** claimed created — see `APP_STORE_CONNECT_SUBSCRIPTIONS.md`.  
-No Direct Upload. No AI. No backend. Do not submit until Connect IAP + checklist are done.
+Phase 54 complete — Connect subscription checklist + sandbox verification plan + paywall legal links.  
+**301 tests passed; build on iPhone 16e.** StoreKit 2 Pro foundation (Phase 53) remains. **Connect products not claimed created.**  
+Do not submit until `APP_STORE_CONNECT_SUBSCRIPTIONS.md` and `STOREKIT_SANDBOX_TESTING.md` are manually completed.
 
-## Product purpose
-Marketplace product photo prep → local JPEG export for manual upload.  
-Pro via StoreKit monthly/yearly (additive). Free limit 12 products (over-limit stay usable).
+## Legal links (verified in code)
+- Terms of Use: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+- Privacy Statement: https://ketchupdrool.github.io/Yofai/privacy-policy.html
 
-## StoreKit facts
-- IDs: `com.shawnwright.yofai.pro.monthly`, `com.shawnwright.yofai.pro.yearly`
-- Intended prices (docs): $4.99/mo, $39.99/yr — UI uses StoreKit display prices
-- Files: `StoreKitSupport.swift`, paywall in `YofaiProPlaceholderView.swift`, `Yofai.storekit`
-- Unavailable products → “Purchases are not available right now.” Free still works
+## Product IDs
+- `com.shawnwright.yofai.pro.monthly` ($4.99 intended)
+- `com.shawnwright.yofai.pro.yearly` ($39.99 intended)
 
 ## Last Completed
-- Phase 53 StoreKit Pro + Phase53StoreKitProPaymentsTests (16)
+- Phase 54 readiness docs + paywall Terms/Privacy + Phase54 tests
 
 ## Next Recommended
-1. Create Connect subscription group/products (`APP_STORE_CONNECT_SUBSCRIPTIONS.md`)
-2. Attach `Yofai.storekit` in scheme for local testing
-3. Sandbox purchase + restore smoke
-4. Then `RELEASE_CHECKLIST.md` screenshots/archive/submit
+1. Create Connect subscription group/products (manual)
+2. Run `STOREKIT_SANDBOX_TESTING.md` (StoreKit config, then TestFlight sandbox)
+3. Then `RELEASE_CHECKLIST.md` submit path
 
 ## Rules
-- Freemium-first; never fake purchases; never delete data for Free limits
-- No AI; Local Export Mode only; one simulator for unit tests: iPhone 16e
+- Freemium-first; no fake purchases; Free keeps core local export
+- No AI / Direct Upload / backend unless approved
+- Unit tests: iPhone 16e

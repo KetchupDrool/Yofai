@@ -95,13 +95,13 @@ Yofai 1.0 helps sellers prepare marketplace product photos on device and export 
 ```text
 Yofai does not require a login or account.
 
-Purchases: Yofai Pro is an optional auto-renewable subscription (monthly and yearly) via StoreKit 2. Free users keep the full core local export workflow without purchasing. Restore Purchases is available in Settings → Yofai Pro and on the paywall.
+Purchases: Yofai Pro is an optional auto-renewable subscription (monthly and yearly) via StoreKit 2. Free users keep the full core local export workflow without purchasing. Restore Purchases is available in Settings → Yofai Pro and on the paywall. The paywall includes Terms of Use (Apple Standard EULA) and Privacy Statement (https://ketchupdrool.github.io/Yofai/privacy-policy.html).
 
 Product IDs:
 - com.shawnwright.yofai.pro.monthly
 - com.shawnwright.yofai.pro.yearly
 
-If subscription products are not yet available in this build’s environment, the paywall shows “Purchases are not available right now.” and Free remains fully usable. Do not treat that state as a broken app.
+If subscription products are not yet available in this build’s environment, the paywall shows “Purchases are not available right now.” Legal links remain visible. Free remains fully usable.
 
 What the app does: sellers capture/import product photos, check and edit them on device, then export local JPEG files for manual upload in marketplace apps/websites.
 
@@ -118,7 +118,11 @@ Demo path (Pro): Settings → Yofai Pro → purchase or Restore Purchases (sandb
 ```
 
 ## Subscriptions / IAP
-See `APP_STORE_CONNECT_SUBSCRIPTIONS.md` for manual Connect setup. Intended tiers: $4.99/month, $39.99/year (live price from StoreKit).
+See `APP_STORE_CONNECT_SUBSCRIPTIONS.md` + `STOREKIT_SANDBOX_TESTING.md`.  
+Product IDs: `com.shawnwright.yofai.pro.monthly`, `com.shawnwright.yofai.pro.yearly`.  
+Intended tiers: $4.99/month, $39.99/year (live price from StoreKit).  
+Paywall legal links: **Terms of Use** (Apple Standard EULA) + **Privacy Statement** (https://ketchupdrool.github.io/Yofai/privacy-policy.html).  
+Connect product creation and sandbox purchase verification are **manual** and not claimed complete by this repo alone.
 ## Build settings (current project)
 - Display name: Yofai  
 - Bundle ID: `com.shawnwright.yofai`  

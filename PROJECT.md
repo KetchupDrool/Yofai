@@ -63,10 +63,10 @@ Home → Start / Continue Product → Item Project → Capture & Check Photos �
 Import, Originals, and History remain available as secondary tools.
 
 ## Status
-- Phases 1–53 technical history complete (see `DECISIONS.md`, `APP_STORE_CONNECT_SUBSCRIPTIONS.md`)
+- Phases 1–54 technical history complete (see `DECISIONS.md`, `APP_STORE_CONNECT_SUBSCRIPTIONS.md`, `STOREKIT_SANDBOX_TESTING.md`)
+- **Phase 54:** Connect subscription checklist + sandbox verification plan; paywall Terms of Use + Privacy Statement
 - **Phase 53:** StoreKit 2 Yofai Pro monthly/yearly foundation — Connect product creation still manual
-- **Phase 52:** App Store submit-path package (metadata, privacy answers, screenshots plan, TestFlight smoke, release checklist)
-- **Phase 51:** no-AI positioning cleanup — dormant `AIPreparationRecord` shell for store compatibility only
+- **Phase 52:** App Store submit-path package
 - Freemium-first: Free keeps core local export; Pro additive via StoreKit when products exist. No Direct Upload.
 - Marketplace target (destination) is separate from export size (pixel canvas)
 - Local export history records what was **exported for** a marketplace — never publish/upload status

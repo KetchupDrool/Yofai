@@ -171,6 +171,22 @@ enum FreemiumCopy {
     static let proBenefitsIntro = "Yofai Pro is additive. Free keeps the core local export workflow."
     static let manageSubscriptionsHint = "Manage or cancel subscriptions in your Apple ID App Store settings."
     static let restorePurchases = "Restore Purchases"
+    static let termsOfUseTitle = "Terms of Use"
+    static let privacyStatementTitle = "Privacy Statement"
+    static let subscriptionTermsFooter =
+        "Subscription terms apply. Manage or cancel subscriptions in App Store settings."
+}
+
+/// Phase 54 — legal URLs required on the Pro paywall (Apple Standard EULA + hosted privacy).
+enum YofaiProLegalLinks {
+    static let termsOfUseTitle = FreemiumCopy.termsOfUseTitle
+    static let privacyStatementTitle = FreemiumCopy.privacyStatementTitle
+    static let termsOfUseURL = AppStoreLinks.termsOfUse
+    static let privacyStatementURL = AppStoreLinks.privacyPolicy
+    static let restorePurchasesTitle = FreemiumCopy.restorePurchases
+
+    static var termsOfUseURLString: String { termsOfUseURL.absoluteString }
+    static var privacyStatementURLString: String { privacyStatementURL.absoluteString }
 }
 
 /// Plan store. Shipping app writes `.pro` only after verified StoreKit entitlement.

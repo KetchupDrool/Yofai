@@ -16,7 +16,8 @@ One-line: *Marketplace product photo prep that exports local JPEGs for manual up
 - Settings → Yofai Pro: current plan, Upgrade/Manage, Restore Purchases
 - If products cannot load: “Purchases are not available right now.” — Free stays usable
 - Do not show fake prices when StoreKit products fail to load
-- See `APP_STORE_CONNECT_SUBSCRIPTIONS.md`
+- See `APP_STORE_CONNECT_SUBSCRIPTIONS.md` for Connect setup and legal URLs
+- See `STOREKIT_SANDBOX_TESTING.md` for local StoreKit config + TestFlight sandbox scripts
 
 ## Privacy / data (current)
 - Photos, projects, edits, export batches, history, and notes stay on device

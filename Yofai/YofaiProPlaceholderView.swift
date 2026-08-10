@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Phase 53 — StoreKit-backed Yofai Pro paywall. Prices come from StoreKit when loaded.
+/// Phase 53/54 — StoreKit-backed Yofai Pro paywall. Prices come from StoreKit when loaded.
 struct YofaiProPaywallView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject private var purchases = PurchaseManager.shared
@@ -73,11 +73,11 @@ struct YofaiProPaywallView: View {
                     Button {
                         Task { _ = await purchases.restorePurchases() }
                     } label: {
-                        Text(FreemiumCopy.restorePurchases)
+                        Text(YofaiProLegalLinks.restorePurchasesTitle)
                             .foregroundStyle(DarkroomTheme.accent)
                     }
                     .disabled(purchases.isBusy)
-                    .accessibilityLabel(FreemiumCopy.restorePurchases)
+                    .accessibilityLabel(YofaiProLegalLinks.restorePurchasesTitle)
 
                     if let status = purchases.statusMessage, !status.isEmpty {
                         Text(status)
@@ -89,13 +89,24 @@ struct YofaiProPaywallView: View {
                     Text("Subscribe")
                         .foregroundStyle(DarkroomTheme.textTertiary)
                 } footer: {
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text(FreemiumCopy.manageSubscriptionsHint)
-                        Text("Payment is charged to your Apple ID. Intended tiers (App Store Connect): \(YofaiProductIDs.intendedMonthlyPriceNote), \(YofaiProductIDs.intendedYearlyPriceNote). Live price shown by StoreKit when available.")
-                        Link("Privacy Policy", destination: AppStoreLinks.privacyPolicy)
-                        Link("Support", destination: AppStoreLinks.support)
-                    }
-                    .foregroundStyle(DarkroomTheme.textTertiary)
+                    Text("Payment is charged to your Apple ID when a subscription product loads and you purchase. Live price comes from StoreKit. Intended App Store Connect tiers: \(YofaiProductIDs.intendedMonthlyPriceNote), \(YofaiProductIDs.intendedYearlyPriceNote).")
+                        .foregroundStyle(DarkroomTheme.textTertiary)
+                }
+
+                // Always visible — including when StoreKit products are unavailable.
+                Section {
+                    Link(YofaiProLegalLinks.termsOfUseTitle, destination: YofaiProLegalLinks.termsOfUseURL)
+                        .foregroundStyle(DarkroomTheme.accent)
+                        .accessibilityLabel(YofaiProLegalLinks.termsOfUseTitle)
+                    Link(YofaiProLegalLinks.privacyStatementTitle, destination: YofaiProLegalLinks.privacyStatementURL)
+                        .foregroundStyle(DarkroomTheme.accent)
+                        .accessibilityLabel(YofaiProLegalLinks.privacyStatementTitle)
+                } header: {
+                    Text("Legal")
+                        .foregroundStyle(DarkroomTheme.textTertiary)
+                } footer: {
+                    Text(FreemiumCopy.subscriptionTermsFooter)
+                        .foregroundStyle(DarkroomTheme.textTertiary)
                 }
             }
             .navigationTitle(FreemiumCopy.proTitle)
@@ -162,11 +173,11 @@ struct YofaiProSettingsSection: View {
             Button {
                 Task { _ = await purchases.restorePurchases() }
             } label: {
-                Text(FreemiumCopy.restorePurchases)
+                Text(YofaiProLegalLinks.restorePurchasesTitle)
                     .foregroundStyle(DarkroomTheme.accent)
             }
             .disabled(purchases.isBusy)
-            .accessibilityLabel(FreemiumCopy.restorePurchases)
+            .accessibilityLabel(YofaiProLegalLinks.restorePurchasesTitle)
 
             if purchases.productsLoadState == .unavailable {
                 Text(FreemiumCopy.purchasesUnavailable)
@@ -180,7 +191,7 @@ struct YofaiProSettingsSection: View {
                 .tracking(1.0)
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
-            Text(FreemiumCopy.manageSubscriptionsHint)
+            Text(FreemiumCopy.subscriptionTermsFooter)
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .sheet(isPresented: $showPaywall) {
@@ -192,5 +203,5 @@ struct YofaiProSettingsSection: View {
     }
 }
 
-/// Compatibility alias for older call sites during Phase 53.
+/// Compatibility alias for older call sites.
 typealias YofaiProPlaceholderSheet = YofaiProPaywallView

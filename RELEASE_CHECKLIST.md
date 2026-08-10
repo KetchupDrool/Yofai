@@ -17,7 +17,9 @@ Do **not** archive/upload in automation unless explicitly requested. Check boxes
 - [ ] Settings → Privacy matches local-only behavior
 - [ ] Settings → Yofai Pro: plan shown; Upgrade/Manage + Restore Purchases
 - [ ] Paywall: StoreKit prices when loaded, or purchases-unavailable copy (Free still works)
-- [ ] App Store Connect subscription products created per `APP_STORE_CONNECT_SUBSCRIPTIONS.md` before relying on live purchase
+- [ ] Paywall shows **Terms of Use** (Apple EULA) + **Privacy Statement** (GitHub Pages privacy URL)
+- [ ] App Store Connect subscription products created per `APP_STORE_CONNECT_SUBSCRIPTIONS.md` (**manual — not claimed done**)
+- [ ] Sandbox / TestFlight purchase verification per `STOREKIT_SANDBOX_TESTING.md` (**manual**)
 - [ ] Settings → Etsy Shop: connection not available (no Connect button)
 - [ ] No AI assistant / AI-powered claims in active UI
 - [ ] No Direct Upload / publish / compliance claims in active UI
@@ -69,4 +71,5 @@ Do **not** archive/upload in automation unless explicitly requested. Check boxes
 - Preset raw values or dimensions were changed without approval
 
 ## Related
-- `APP_STORE_PREP.md`, `APP_STORE_METADATA.md`, `APP_STORE_CONNECT_PRIVACY.md`, `TESTFLIGHT_SMOKE.md`
+- `APP_STORE_PREP.md`, `APP_STORE_METADATA.md`, `APP_STORE_CONNECT_PRIVACY.md`
+- `APP_STORE_CONNECT_SUBSCRIPTIONS.md`, `STOREKIT_SANDBOX_TESTING.md`, `TESTFLIGHT_SMOKE.md`

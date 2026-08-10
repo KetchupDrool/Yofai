@@ -68,6 +68,7 @@
 		A9D51B52C7D4E1F520345D1B /* Phase51NoAICleanupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D51B52C7D4E1F520345D1B /* Phase51NoAICleanupTests.swift */; };
 		A9D52B53D8E5F2631456E2C /* Phase52AppStoreSubmitPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D52B53D8E5F2631456E2C /* Phase52AppStoreSubmitPathTests.swift */; };
 		A9D53B55E9F6A3742567F3E /* Phase53StoreKitProPaymentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D53B55E9F6A3742567F3E /* Phase53StoreKitProPaymentsTests.swift */; };
+		A9D54B56F0A7B485367804A /* Phase54ConnectSubscriptionsReadinessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D54B56F0A7B485367804A /* Phase54ConnectSubscriptionsReadinessTests.swift */; };
 		E9C50A47F3C3D0E41F234C0B /* AppStoreLaunchSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C50A47F3C3D0E41F234C0B /* AppStoreLaunchSupport.swift */; };
 		AD9AE07102BD7F5E5CDC19F0 /* OriginalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B8427BE901DB4798F39B72 /* OriginalDetailView.swift */; };
 		B2C36D4E9F6A1243B8C07E57 /* Phase36VerifiedMarketplaceExportPresetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C36D4E9F6A1243B8C07E57 /* Phase36VerifiedMarketplaceExportPresetsTests.swift */; };
@@ -179,6 +180,7 @@
 		B9D51B52C7D4E1F520345D1B /* Phase51NoAICleanupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase51NoAICleanupTests.swift; sourceTree = "<group>"; };
 		B9D52B53D8E5F2631456E2C /* Phase52AppStoreSubmitPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase52AppStoreSubmitPathTests.swift; sourceTree = "<group>"; };
 		B9D53B55E9F6A3742567F3E /* Phase53StoreKitProPaymentsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase53StoreKitProPaymentsTests.swift; sourceTree = "<group>"; };
+		B9D54B56F0A7B485367804A /* Phase54ConnectSubscriptionsReadinessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase54ConnectSubscriptionsReadinessTests.swift; sourceTree = "<group>"; };
 		F9C50A47F3C3D0E41F234C0B /* AppStoreLaunchSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreLaunchSupport.swift; sourceTree = "<group>"; };
 		BA1B330994CDA7B6764522D4 /* PhotoPlanSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPlanSupport.swift; sourceTree = "<group>"; };
 		BA91391F1DC702D2DEE14F4A /* Yofai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yofai.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -359,6 +361,7 @@
 				B9D51B52C7D4E1F520345D1B /* Phase51NoAICleanupTests.swift */,
 				B9D52B53D8E5F2631456E2C /* Phase52AppStoreSubmitPathTests.swift */,
 				B9D53B55E9F6A3742567F3E /* Phase53StoreKitProPaymentsTests.swift */,
+				B9D54B56F0A7B485367804A /* Phase54ConnectSubscriptionsReadinessTests.swift */,
 			);
 			path = YofaiTests;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 				A9D51B52C7D4E1F520345D1B /* Phase51NoAICleanupTests.swift in Sources */,
 				A9D52B53D8E5F2631456E2C /* Phase52AppStoreSubmitPathTests.swift in Sources */,
 				A9D53B55E9F6A3742567F3E /* Phase53StoreKitProPaymentsTests.swift in Sources */,
+				A9D54B56F0A7B485367804A /* Phase54ConnectSubscriptionsReadinessTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
