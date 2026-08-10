@@ -11,14 +11,11 @@ Repo: `/Volumes/CombatMedic/Yofai` · branch `main`
 ## Current baseline
 Latest commit on `main`:
 
-*(set after Phase 62 push — see `git log -1`)*
-
-Phase 62 implementation commit message:
-
-*Phase 62 draft-aware listing packages*
+`af7879fb23acb012ad6735613a7fb6e93b0ad867` — *Phase 62 draft-aware listing packages*
 
 Status:
 - Phase 62 complete; APIs still later
+- `origin/main` up to date · working tree clean (verify with `git status`)
 - **330 tests passed** · build succeeded · iPhone 16e
 - Version **1.0 (1)** — do not auto-bump
 
@@ -56,7 +53,7 @@ Do **not** put Free primary workflow behind Pro.
 `112859e` — `MarketplaceListingDraft` + support + UI section; Pro gated by `advancedMultiMarketTools`; Free primary intact; 10 Phase 61 tests.
 
 ### Phase 62 — Draft-Aware Listing Packages & Copy Tools
-`MarketplaceDraftPackageSupport` + draft editor Copy/Share listing text; Free primary `ListingPackage` unchanged; no draft JPEG package folders this phase; 10 Phase 62 tests; 330 total.
+`af7879f` — `MarketplaceDraftPackageSupport` + draft editor Copy/Share listing text; Free primary `ListingPackage` unchanged; no draft JPEG package folders this phase; 10 Phase 62 tests; 330 total.
 
 ### API-later docs
 `4d31f8c` — locked why APIs wait; safe order 62→63→64→later one official API.
@@ -83,7 +80,7 @@ Continue Yofai iOS work.
 
 Read NEW_CHAT_HANDOFF.md, DECISIONS.md (Phase 62 + “Why marketplace APIs are not being done yet”), and SESSION_HANDOFF.md first.
 
-Baseline: main after Phase 62. 330 tests. Local Export Mode only.
+Baseline: main @ af7879f (Phase 62). 330 tests. Local Export Mode only.
 Free primary ItemProject workflow intact. Pro multi-draft + draft copy/share via advancedMultiMarketTools.
 APIs / Direct Upload / OAuth / publish are not next.
 
