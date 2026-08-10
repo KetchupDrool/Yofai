@@ -59,6 +59,7 @@ enum ListingPackageError: Error, Equatable {
 }
 
 enum ListingPackageSupport {
+    /// Free primary listing package text — always from `ItemProject` listing fields.
     static func listingDetailsText(for project: ItemProject) -> String {
         let tags = project.listingTags.joined(separator: ", ")
         return """
@@ -72,6 +73,12 @@ enum ListingPackageSupport {
         Shipping profile: \(project.listingShippingProfile)
         Processing time: \(project.listingProcessingTime)
         """
+    }
+
+    /// Phase 62 — Pro draft package text from `MarketplaceListingDraft` fields only (not ItemProject).
+    /// Manual listing package wording only — no Direct Upload / publish / login / OAuth / API.
+    static func listingDetailsText(for draft: MarketplaceListingDraft) -> String {
+        MarketplaceDraftPackageSupport.listingDetailsText(for: draft)
     }
 
     static func newestSuccessfulBatch(for project: ItemProject) -> ProjectExportBatch? {

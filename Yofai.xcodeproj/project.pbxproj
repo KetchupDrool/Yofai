@@ -79,6 +79,7 @@
 		9C1863EDF69362084AB89D2E /* FirstLaunchGuideSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58920707F177C2ABE0A233B /* FirstLaunchGuideSupport.swift */; };
 		9C2D6FA60F35CBC37FFA168B /* Phase59FirstLaunchGuideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4238340EFE8E7F849250D /* Phase59FirstLaunchGuideTests.swift */; };
 		9EA00D9380CE6C64DC3F1DCC /* Phase61MarketplaceListingDraftsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC20F077F3701711B458EA10 /* Phase61MarketplaceListingDraftsTests.swift */; };
+		C2F1E60FC72348C79B5366AF /* Phase62DraftAwareListingPackagesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CC9FF38E7C40E7ABDF5839 /* Phase62DraftAwareListingPackagesTests.swift */; };
 		A05E5607B533CDC8750C3345 /* EtsyConnecting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71020D97DFB91E252E64BE5 /* EtsyConnecting.swift */; };
 		A18D69787D889F99178B30B0 /* ItemProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EEA04BA7B6FA559052DC45 /* ItemProject.swift */; };
 		A22B6C8F3A0E6FF1CABB430C /* Phase35SellerFirstNavigationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6ABA106A756DE3D40BB52A /* Phase35SellerFirstNavigationTests.swift */; };
@@ -215,6 +216,7 @@
 		BA1B330994CDA7B6764522D4 /* PhotoPlanSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPlanSupport.swift; sourceTree = "<group>"; };
 		BA91391F1DC702D2DEE14F4A /* Yofai.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Yofai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC20F077F3701711B458EA10 /* Phase61MarketplaceListingDraftsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase61MarketplaceListingDraftsTests.swift; sourceTree = "<group>"; };
+		86CC9FF38E7C40E7ABDF5839 /* Phase62DraftAwareListingPackagesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase62DraftAwareListingPackagesTests.swift; sourceTree = "<group>"; };
 		BFBCC2E77ABF1EFB4C8F41FE /* SellerDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerDefaults.swift; sourceTree = "<group>"; };
 		C0B8427BE901DB4798F39B72 /* OriginalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginalDetailView.swift; sourceTree = "<group>"; };
 		C4A655C173817CF80C2BE2CE /* PhotoEditState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditState.swift; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 				8238FD0B7C96B4966BC8B2DD /* Phase54ConnectSubscriptionsReadinessTests.swift */,
 				05E4238340EFE8E7F849250D /* Phase59FirstLaunchGuideTests.swift */,
 				BC20F077F3701711B458EA10 /* Phase61MarketplaceListingDraftsTests.swift */,
+				86CC9FF38E7C40E7ABDF5839 /* Phase62DraftAwareListingPackagesTests.swift */,
 			);
 			path = YofaiTests;
 			sourceTree = "<group>";
@@ -593,6 +596,7 @@
 				C46F43FEB7E1ED8121A8D403 /* Phase54ConnectSubscriptionsReadinessTests.swift in Sources */,
 				9C2D6FA60F35CBC37FFA168B /* Phase59FirstLaunchGuideTests.swift in Sources */,
 				9EA00D9380CE6C64DC3F1DCC /* Phase61MarketplaceListingDraftsTests.swift in Sources */,
+				C2F1E60FC72348C79B5366AF /* Phase62DraftAwareListingPackagesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

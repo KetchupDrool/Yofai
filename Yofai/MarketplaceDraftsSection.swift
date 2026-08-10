@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import UIKit
 
 /// Phase 61 — product-level marketplace drafts list. Free primary + Pro additional drafts.
 struct MarketplaceDraftsSection: View {
@@ -166,6 +167,16 @@ struct MarketplaceListingDraftEditorView: View {
     @Environment(\.modelContext) private var modelContext
     @Bindable var draft: MarketplaceListingDraft
     @State private var saveMessage: String?
+    @State private var copyFeedback: String?
+    @State private var shareListingTextItem: ShareListingTextItem?
+
+    private var entitlementState: EntitlementState {
+        EntitlementStore.shared.state
+    }
+
+    private var canUsePackageTools: Bool {
+        MarketplaceDraftPackageSupport.canUse(state: entitlementState)
+    }
 
     var body: some View {
         Form {
@@ -196,6 +207,8 @@ struct MarketplaceListingDraftEditorView: View {
             } footer: {
                 Text(MarketplaceListingDraftCopy.manualPackageReminder)
             }
+
+            draftPackageToolsSection
 
             Section("Local export settings") {
                 Picker("Export size", selection: Binding(
@@ -253,5 +266,73 @@ struct MarketplaceListingDraftEditorView: View {
         .onChange(of: draft.title) { _, _ in draft.touchUpdated() }
         .onChange(of: draft.draftDescription) { _, _ in draft.touchUpdated() }
         .onChange(of: draft.priceText) { _, _ in draft.touchUpdated() }
+        .sheet(item: $shareListingTextItem) { item in
+            ActivityShareView(items: [item.text])
+        }
     }
+
+    @ViewBuilder
+    private var draftPackageToolsSection: some View {
+        Section {
+            if canUsePackageTools {
+                Button(MarketplaceListingDraftCopy.copyListingText) {
+                    copyField(.allListingText)
+                }
+                .foregroundStyle(DarkroomTheme.accent)
+                .accessibilityLabel(MarketplaceListingDraftCopy.copyListingText)
+
+                Button(MarketplaceListingDraftCopy.shareListingText) {
+                    let text = MarketplaceDraftPackageSupport.listingDetailsText(for: draft)
+                    shareListingTextItem = ShareListingTextItem(text: text)
+                }
+                .foregroundStyle(DarkroomTheme.accent)
+                .accessibilityLabel(MarketplaceListingDraftCopy.shareListingText)
+
+                Menu(MarketplaceListingDraftCopy.copyFieldMenuTitle) {
+                    ForEach(MarketplaceDraftCopyField.allCases.filter { $0 != .allListingText }) { field in
+                        Button(field.buttonTitle) {
+                            copyField(field)
+                        }
+                    }
+                }
+                .foregroundStyle(DarkroomTheme.accent)
+                .accessibilityLabel(MarketplaceListingDraftCopy.copyFieldMenuTitle)
+
+                if let copyFeedback {
+                    Text(copyFeedback)
+                        .font(.caption)
+                        .foregroundStyle(DarkroomTheme.success)
+                }
+            } else {
+                Text(MarketplaceListingDraftCopy.packageToolsLockedDetail)
+                    .font(.caption)
+                    .foregroundStyle(DarkroomTheme.textSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                NavigationLink {
+                    YofaiProPaywallView()
+                } label: {
+                    Text("View \(FreemiumCopy.proTitle)")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(DarkroomTheme.accent)
+                }
+            }
+        } header: {
+            Text(MarketplaceListingDraftCopy.copyToolsSectionTitle)
+        } footer: {
+            Text(MarketplaceListingDraftCopy.manualUploadFooter)
+                .font(.caption2)
+        }
+    }
+
+    private func copyField(_ field: MarketplaceDraftCopyField) {
+        guard canUsePackageTools else { return }
+        UIPasteboard.general.string = MarketplaceDraftPackageSupport.copyableText(for: field, draft: draft)
+        copyFeedback = MarketplaceListingDraftCopy.copiedFeedback
+    }
+}
+
+/// Share payload for draft listing text (Phase 62 — no network / marketplace upload).
+private struct ShareListingTextItem: Identifiable {
+    let id = UUID()
+    let text: String
 }

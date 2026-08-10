@@ -426,13 +426,24 @@
 - Manual listing packages only — no Direct Upload / login / OAuth / publish / API / AI
 - Tests: Phase 61 suite + Phase 27 entry-point update for additive draft model
 
+## Phase 62 — Draft-Aware Listing Packages & Copy Tools (locked)
+- Draft-specific listing-details text from `MarketplaceListingDraft` fields via `MarketplaceDraftPackageSupport` / `ListingPackageSupport.listingDetailsText(for:)`
+- Includes Prepared for / Draft label / listing fields / manual Local JPEGs upload note
+- Field copy + Copy listing text + Share listing text in Pro draft editor
+- Gated by `advancedMultiMarketTools` (`canUseDraftPackageTools`)
+- Free primary `ItemProject` package/export/share unchanged; no Pro required for primary workflow
+- No draft JPEG package-folder generation this phase (text copy/share only; file packages stay primary)
+- Still Local Export Mode only — no Direct Upload / login / OAuth / publish / API / AI
+- FB/Mercari recommended presets still nil; 7 preset raw values/dimensions unchanged
+- Tests: Phase 62 suite
+
 ## Why marketplace APIs are not being done yet (locked)
 **Short answer:** APIs are not next because Yofai must first be a strong **local** marketplace listing prep app. Phase 61 only added local drafts. Direct Upload / OAuth / publish stay future work until the local workflow is finished and a specific official API is approved.
 
 **Current state**
 - Local Export Mode only
-- Free: primary listing workflow on `ItemProject`
-- Pro: multiple local `MarketplaceListingDraft`s via `advancedMultiMarketTools`
+- Free: primary listing workflow on `ItemProject` + primary package/export
+- Pro: multiple local `MarketplaceListingDraft`s + draft-aware copy/share listing text via `advancedMultiMarketTools`
 - No Direct Upload, login, OAuth, publish, or marketplace API code
 
 **Why API work is later**
@@ -445,7 +456,7 @@
 
 **Safe build order (local-first; each step needs approval)**
 - Phase 61: Local marketplace drafts — **complete**
-- Phase 62: Draft-aware listing packages and copy tools
+- Phase 62: Draft-aware listing packages and copy tools — **complete**
 - Phase 63: Marketplace-specific templates/defaults
 - Phase 64: Pro multi-market workflow polish
 - Later API phase: pick **one** official marketplace (likely Etsy or eBay first), verify access, then implement only after approval

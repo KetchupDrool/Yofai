@@ -1,19 +1,18 @@
 # Tasks
 
 ## Status
-Phase 61 — Marketplace Listing Drafts complete.  
-320 tests Passed; build Passed on iPhone 16e.
+Phase 62 — Draft-Aware Listing Packages & Copy Tools complete.  
+Phase 62 tests + full suite Passed; build Passed on iPhone 16e.
 
 ## Current Phase
-Phase 61 complete. **No marketplace API work yet** (see `DECISIONS.md` — Why marketplace APIs are not being done yet).
+Phase 62 complete. **No marketplace API work yet** (see `DECISIONS.md` — Why marketplace APIs are not being done yet).
 
 ## Done
-- Phases 1–61
-- Local marketplace drafts only; Local Export Mode; Free primary + Pro multi-draft
+- Phases 1–62
+- Local marketplace drafts + draft-aware copy/share listing text; Local Export Mode; Free primary + Pro multi-draft tools
 
 ## Next (when approved — local first)
-- **Phase 62:** Draft-aware listing packages and copy tools (Pro draft packages; Free primary intact)  
-- Phase 63: Marketplace templates/defaults  
+- **Phase 63:** Marketplace templates/defaults  
 - Phase 64: Pro multi-market polish  
 - Later: one official API (likely Etsy or eBay), step-by-step after approval  
 

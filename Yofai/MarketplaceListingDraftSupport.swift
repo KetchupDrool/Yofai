@@ -1,7 +1,7 @@
 import Foundation
 import SwiftData
 
-/// Phase 61 — marketplace draft helpers, freemium gates, and safe copy.
+/// Phase 61–62 — marketplace draft helpers, freemium gates, and safe copy.
 /// Manual listing packages only. No Direct Upload / publish / login / OAuth.
 enum MarketplaceListingDraftCopy {
     static let sectionTitle = "Marketplace Drafts"
@@ -22,14 +22,27 @@ enum MarketplaceListingDraftCopy {
     static let openPrimaryWorkspace = "Open Prepare Listing & Export"
     static let editDraft = "Edit draft"
     static let draftSaved = "Draft saved"
+    /// Phase 62 — draft-aware copy / share (text package; JPEG package files remain primary-workflow).
+    static let copyToolsSectionTitle = "Draft listing package"
+    static let copyListingText = "Copy listing text"
+    static let copyDraftDetails = "Copy draft details"
+    static let shareListingText = "Share listing text"
+    static let copyFieldMenuTitle = "Copy field"
+    static let copiedFeedback = "Copied"
+    static let packageToolsLockedDetail =
+        "Draft-specific copy and share tools are advanced multi-market tools in Yofai Pro. Free keeps your primary listing package and local JPEG export."
+    static let manualUploadFooter =
+        "Manual listing package text for copy/share. Seller uploads outside the app."
 
     static var allUserFacingStrings: [String] {
         [
             sectionTitle, preparePackagesLine, primaryDraftTitle, primaryDraftDetail,
             additionalDraftsHeader, proLockedTitle, proLockedDetail, createDraftTitle,
             duplicateTargetMessage, manualPackageReminder, openPrimaryWorkspace,
-            editDraft, draftSaved
-        ]
+            editDraft, draftSaved, copyToolsSectionTitle, copyListingText, copyDraftDetails,
+            shareListingText, copyFieldMenuTitle, copiedFeedback, packageToolsLockedDetail,
+            manualUploadFooter
+        ] + MarketplaceDraftCopyField.allCases.map(\.buttonTitle)
     }
 }
 
@@ -37,6 +50,11 @@ enum MarketplaceListingDraftSupport {
     /// Pro-only: create/edit additional marketplace drafts beyond the Free primary workflow.
     static func canManageAdditionalDrafts(state: EntitlementState) -> Bool {
         EntitlementPolicy.access(for: .advancedMultiMarketTools, state: state).allowsUse
+    }
+
+    /// Phase 62 — draft-specific package/copy tools use the same advanced multi-market gate.
+    static func canUseDraftPackageTools(state: EntitlementState) -> Bool {
+        canManageAdditionalDrafts(state: state)
     }
 
     static func sortedDrafts(on project: ItemProject) -> [MarketplaceListingDraft] {
@@ -115,4 +133,111 @@ enum MarketplaceListingDraftSupport {
 enum MarketplaceListingDraftError: Error, Equatable {
     case proRequired
     case duplicateMarketplace
+}
+
+/// Phase 62 — individual draft field copy targets (clipboard).
+enum MarketplaceDraftCopyField: String, CaseIterable, Identifiable {
+    case title
+    case description
+    case price
+    case quantity
+    case category
+    case condition
+    case tags
+    case materials
+    case shippingNotes
+    case processingTime
+    case returnsPolicy
+    case personalization
+    case marketplaceSellerNotes
+    case allListingText
+
+    var id: String { rawValue }
+
+    var buttonTitle: String {
+        switch self {
+        case .title: return "Copy title"
+        case .description: return "Copy description"
+        case .price: return "Copy price"
+        case .quantity: return "Copy quantity"
+        case .category: return "Copy category"
+        case .condition: return "Copy condition"
+        case .tags: return "Copy tags"
+        case .materials: return "Copy materials"
+        case .shippingNotes: return "Copy shipping notes"
+        case .processingTime: return "Copy processing time"
+        case .returnsPolicy: return "Copy returns policy"
+        case .personalization: return "Copy personalization"
+        case .marketplaceSellerNotes: return "Copy marketplace seller notes"
+        case .allListingText: return MarketplaceListingDraftCopy.copyDraftDetails
+        }
+    }
+}
+
+/// Phase 62 — draft-aware manual listing package text and field copy.
+/// Does not create JPEG package folders; primary `ListingPackage` workflow stays on ItemProject.
+enum MarketplaceDraftPackageSupport {
+    static let manualUploadNote =
+        "Manual listing package — Local JPEGs for manual upload outside the app."
+
+    /// Listing-details text from draft fields only (never ItemProject listing*).
+    static func listingDetailsText(for draft: MarketplaceListingDraft) -> String {
+        let tags = draft.tags.joined(separator: ", ")
+        return """
+        Prepared for: \(draft.marketplaceTarget.displayTitle)
+        Draft: \(draft.displayTitle)
+        Title: \(draft.title)
+        Description: \(draft.draftDescription)
+        Price: \(draft.priceText)
+        Quantity: \(draft.quantity)
+        Category: \(draft.category)
+        Condition: \(draft.condition)
+        Tags: \(tags)
+        Materials: \(draft.materials)
+        Shipping notes: \(draft.shippingNotes)
+        Processing time: \(draft.processingTime)
+        Returns policy: \(draft.returnsPolicy)
+        Personalization: \(draft.personalizationNotes)
+        Marketplace seller notes: \(draft.marketplaceSellerNotes)
+        \(manualUploadNote)
+        """
+    }
+
+    static func copyableText(for field: MarketplaceDraftCopyField, draft: MarketplaceListingDraft) -> String {
+        switch field {
+        case .title:
+            return draft.title
+        case .description:
+            return draft.draftDescription
+        case .price:
+            return draft.priceText
+        case .quantity:
+            return String(draft.quantity)
+        case .category:
+            return draft.category
+        case .condition:
+            return draft.condition
+        case .tags:
+            return draft.tags.joined(separator: ", ")
+        case .materials:
+            return draft.materials
+        case .shippingNotes:
+            return draft.shippingNotes
+        case .processingTime:
+            return draft.processingTime
+        case .returnsPolicy:
+            return draft.returnsPolicy
+        case .personalization:
+            return draft.personalizationNotes
+        case .marketplaceSellerNotes:
+            return draft.marketplaceSellerNotes
+        case .allListingText:
+            return listingDetailsText(for: draft)
+        }
+    }
+
+    /// Pro gate for draft package/copy entry points.
+    static func canUse(state: EntitlementState) -> Bool {
+        MarketplaceListingDraftSupport.canUseDraftPackageTools(state: state)
+    }
 }
