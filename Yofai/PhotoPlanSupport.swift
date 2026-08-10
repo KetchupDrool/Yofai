@@ -185,7 +185,7 @@ enum PhotoTechnicalCheck {
             case .containPad:
                 framingExpectation = "Padding expected (Contain + Pad)"
             case .fillCrop:
-                framingExpectation = "Cropping expected (Fill + Crop, center)"
+                framingExpectation = "Cropping expected (Fill + Crop)"
             }
         } else if canvasCompare?.aspectDiffers == false {
             framingExpectation = "No meaningful pad/crop from aspect mismatch"

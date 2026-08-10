@@ -17,6 +17,9 @@ struct PhotoEditState: Equatable, Codable {
     var exportBackground: ListingExportBackground = .white
     /// Phase 37 — contain+pad (default) or fill+crop.
     var exportFitMode: ListingExportFitMode = .containPad
+    /// Phase 38 — Fill + Crop pan (-1...1). Ignored for Contain + Pad. Missing → centered (0).
+    var fillCropOffsetX: Double = 0
+    var fillCropOffsetY: Double = 0
     /// Seller watermark drawn on listing canvas after framing.
     var watermarkEnabled: Bool = false
     var watermarkText: String = ""
@@ -33,6 +36,8 @@ struct PhotoEditState: Equatable, Codable {
         case exportPreset
         case exportBackground
         case exportFitMode
+        case fillCropOffsetX
+        case fillCropOffsetY
         case watermarkEnabled
         case watermarkText
     }
@@ -47,6 +52,8 @@ struct PhotoEditState: Equatable, Codable {
         exportPreset: ListingExportPreset = .etsySquare,
         exportBackground: ListingExportBackground = .white,
         exportFitMode: ListingExportFitMode = .containPad,
+        fillCropOffsetX: Double = 0,
+        fillCropOffsetY: Double = 0,
         watermarkEnabled: Bool = false,
         watermarkText: String = ""
     ) {
@@ -59,6 +66,9 @@ struct PhotoEditState: Equatable, Codable {
         self.exportPreset = exportPreset
         self.exportBackground = exportBackground
         self.exportFitMode = exportFitMode
+        let clamped = ListingExportFillCropPosition.clampPair(x: fillCropOffsetX, y: fillCropOffsetY)
+        self.fillCropOffsetX = clamped.x
+        self.fillCropOffsetY = clamped.y
         self.watermarkEnabled = watermarkEnabled
         self.watermarkText = watermarkText
     }
@@ -74,6 +84,11 @@ struct PhotoEditState: Equatable, Codable {
         exportPreset = try container.decodeIfPresent(ListingExportPreset.self, forKey: .exportPreset) ?? .etsySquare
         exportBackground = try container.decodeIfPresent(ListingExportBackground.self, forKey: .exportBackground) ?? .white
         exportFitMode = try container.decodeIfPresent(ListingExportFitMode.self, forKey: .exportFitMode) ?? .containPad
+        let ox = try container.decodeIfPresent(Double.self, forKey: .fillCropOffsetX) ?? 0
+        let oy = try container.decodeIfPresent(Double.self, forKey: .fillCropOffsetY) ?? 0
+        let clamped = ListingExportFillCropPosition.clampPair(x: ox, y: oy)
+        fillCropOffsetX = clamped.x
+        fillCropOffsetY = clamped.y
         watermarkEnabled = try container.decodeIfPresent(Bool.self, forKey: .watermarkEnabled) ?? false
         watermarkText = try container.decodeIfPresent(String.self, forKey: .watermarkText) ?? ""
     }
@@ -89,6 +104,8 @@ struct PhotoEditState: Equatable, Codable {
         try container.encode(exportPreset, forKey: .exportPreset)
         try container.encode(exportBackground, forKey: .exportBackground)
         try container.encode(exportFitMode, forKey: .exportFitMode)
+        try container.encode(fillCropOffsetX, forKey: .fillCropOffsetX)
+        try container.encode(fillCropOffsetY, forKey: .fillCropOffsetY)
         try container.encode(watermarkEnabled, forKey: .watermarkEnabled)
         try container.encode(watermarkText, forKey: .watermarkText)
     }
@@ -111,6 +128,25 @@ struct PhotoEditState: Equatable, Codable {
         return cropRect.integralizedNormalized != full.integralizedNormalized
     }
 
+    var hasFillCropReposition: Bool {
+        abs(fillCropOffsetX) > 0.0001 || abs(fillCropOffsetY) > 0.0001
+    }
+
+    var isFillCropCentered: Bool {
+        !hasFillCropReposition
+    }
+
+    mutating func resetFillCropPosition() {
+        fillCropOffsetX = 0
+        fillCropOffsetY = 0
+    }
+
+    mutating func setFillCropOffsets(x: Double, y: Double) {
+        let clamped = ListingExportFillCropPosition.clampPair(x: x, y: y)
+        fillCropOffsetX = clamped.x
+        fillCropOffsetY = clamped.y
+    }
+
     var hasAdjustments: Bool {
         abs(brightness) > 0.001 || abs(contrast - 1) > 0.001 || abs(saturation - 1) > 0.001
     }
@@ -123,6 +159,7 @@ struct PhotoEditState: Equatable, Codable {
             || exportPreset != .etsySquare
             || exportBackground != .white
             || exportFitMode != .containPad
+            || hasFillCropReposition
             || watermarkEnabled
             || !trimmedWatermarkText.isEmpty
     }
@@ -140,6 +177,7 @@ struct PhotoEditState: Equatable, Codable {
     }
 
     /// Applies project-level listing frame / watermark on top of photo edits (or defaults).
+    /// Preserves per-photo Fill + Crop offsets (Phase 38).
     func applyingProjectExportSettings(from project: ItemProject) -> PhotoEditState {
         var copy = self
         copy.exportPreset = project.listingExportPreset

@@ -1,7 +1,7 @@
 # Session Handoff
 
 ## Status
-Phase 37 complete — Cover/Crop Export Fit Mode. Build + unit tests succeeded on iPhone 16e (138 tests). App Store upload paused.
+Phase 38 complete — Fill + Crop Reposition. Build + unit tests succeeded on iPhone 16e (153 tests). App Store upload paused.
 
 ## Product purpose
 Local-first marketplace product photo preparation for online sellers.
@@ -10,14 +10,14 @@ Export targets only: Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and si
 
 ## Facts
 - Yofai / `com.shawnwright.yofai` / iPhone-only
-- Phase 37 supersedes Phase 20 contain+pad-only: sellers choose **Contain + Pad** (default) or **Fill + Crop** (center only)
-- Seven export preset raw values/sizes unchanged; no FB Marketplace or Mercari named pixel presets
+- Phase 38: Fill + Crop supports per-photo drag reposition; default centered; Contain + Pad unchanged
+- Seven export preset raw values/sizes unchanged
 - Not marketplace compliance claims
 - Git: `/Volumes/CombatMedic/Yofai` on `main`
 
 ## Last Completed
-- `ListingExportFitMode`; ImageEditing fill+crop; Project/Defaults/Edit/Bulk fit pickers; Photo Check pad vs crop facts
-- Phase37ExportFitModeTests; Phases 1–36 still pass (138 total)
+- `fillCropOffsetX` / `fillCropOffsetY` on PhotoEditState; `ListingExportFillCropPosition`; `FillCropRepositionView`
+- Phase38FillCropRepositionTests; Phases 1–37 still pass (153 total)
 
 ## Abandoned from the active roadmap
 - Paid/live AI APIs
@@ -28,7 +28,7 @@ Export targets only: Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and si
 Backend, accounts, cloud sync, subscriptions, ads may be added later where they support the product; core photo prep stays local-first/on-device.
 
 ## Next Recommended
-Facebook Marketplace / Mercari named presets only with verified canvases. Optional later: fill+crop reposition. Do not default to live AI, OAuth, or upload.
+Facebook Marketplace / Mercari named presets only with verified canvases. Do not default to live AI, OAuth, or upload.
 
 ## Rules
 - Core photo preparation: local-first/on-device

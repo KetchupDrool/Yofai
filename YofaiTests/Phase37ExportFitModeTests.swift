@@ -326,7 +326,7 @@ final class Phase37ExportFitModeTests: XCTestCase {
         project.listingExportFitMode = .fillCrop
         facts = PhotoTechnicalCheck.facts(for: photo, project: project)
         XCTAssertEqual(facts.exportFitMode, .fillCrop)
-        XCTAssertEqual(facts.framingExpectation, "Cropping expected (Fill + Crop, center)")
+        XCTAssertEqual(facts.framingExpectation, "Cropping expected (Fill + Crop)")
 
         let matchFile = try LocalEditStore.saveProjectImage(
             makeSolidImage(color: solidMagenta, size: CGSize(width: 2000, height: 2000))

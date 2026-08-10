@@ -55,6 +55,8 @@ enum ImageEditing {
             preset: state.exportPreset,
             background: state.exportBackground,
             fitMode: state.exportFitMode,
+            fillCropOffsetX: state.fillCropOffsetX,
+            fillCropOffsetY: state.fillCropOffsetY,
             watermarkEnabled: state.watermarkEnabled,
             watermarkText: state.watermarkText,
             maxDimension: nil
@@ -70,6 +72,8 @@ enum ImageEditing {
             preset: state.exportPreset,
             background: state.exportBackground,
             fitMode: state.exportFitMode,
+            fillCropOffsetX: state.fillCropOffsetX,
+            fillCropOffsetY: state.fillCropOffsetY,
             watermarkEnabled: state.watermarkEnabled,
             watermarkText: state.watermarkText,
             maxDimension: previewMaxDimension
@@ -82,6 +86,12 @@ enum ImageEditing {
         let turns = ((quarterTurns % 4) + 4) % 4
         guard let rotated = rotate(normalized, quarterTurns: turns) else { return nil }
         return downscaled(rotated, maxDimension: previewMaxDimension)
+    }
+
+    /// Edited pixels before listing frame — used by Fill + Crop reposition UI.
+    static func imageForExportFraming(source: UIImage, state: PhotoEditState) -> UIImage? {
+        let previewSource = downscaled(source, maxDimension: previewMaxDimension)
+        return renderPipeline(source: previewSource, state: state)
     }
 
     /// Bakes `imageOrientation` into pixel data so preview and full Save/Share match.
@@ -159,13 +169,15 @@ enum ImageEditing {
         return UIImage(cgImage: cgImage, scale: 1, orientation: .up)
     }
 
-    /// Frames onto locked listing canvas. Contain+Pad keeps full image; Fill+Crop center-fills.
+    /// Frames onto locked listing canvas. Contain+Pad keeps full image; Fill+Crop fills with optional pan.
     /// Optional `maxDimension` caps preview canvases. Watermark is drawn after framing.
     static func applyListingFrame(
         _ image: UIImage,
         preset: ListingExportPreset,
         background: ListingExportBackground,
         fitMode: ListingExportFitMode = .containPad,
+        fillCropOffsetX: Double = 0,
+        fillCropOffsetY: Double = 0,
         watermarkEnabled: Bool,
         watermarkText: String,
         maxDimension: CGFloat?
@@ -194,18 +206,13 @@ enum ImageEditing {
                 height: drawSize.height
             )
         case .fillCrop:
-            let fill = max(canvas.width / imagePixelSize.width, canvas.height / imagePixelSize.height)
-            let drawSize = CGSize(
-                width: (imagePixelSize.width * fill).rounded(.down),
-                height: (imagePixelSize.height * fill).rounded(.down)
-            )
-            guard drawSize.width >= 1, drawSize.height >= 1 else { return nil }
-            drawRect = CGRect(
-                x: ((canvas.width - drawSize.width) / 2).rounded(.down),
-                y: ((canvas.height - drawSize.height) / 2).rounded(.down),
-                width: drawSize.width,
-                height: drawSize.height
-            )
+            guard let rect = ListingExportFillCropPosition.drawRect(
+                imagePixelSize: imagePixelSize,
+                canvas: canvas,
+                offsetX: fillCropOffsetX,
+                offsetY: fillCropOffsetY
+            ) else { return nil }
+            drawRect = rect
         }
 
         let format = UIGraphicsImageRendererFormat.default()

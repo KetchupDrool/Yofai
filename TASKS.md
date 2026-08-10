@@ -1,7 +1,7 @@
 # Tasks
 
 ## Status
-Phase 37 — Cover/Crop Export Fit Mode complete.
+Phase 38 — Fill + Crop Reposition complete.
 App Store upload remains paused.
 
 ## Product direction
@@ -10,19 +10,18 @@ Core functionality is local-first/on-device.
 Marketplaces (Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, similar) are **local export targets only**.
 
 ## Current Phase
-Phase 37 — Cover/Crop Export Fit Mode. Complete.
+Phase 38 — Fill + Crop Reposition. Complete.
 
 ## Done
-- MVP + Phases 4–36
-- Phase 37: Contain + Pad (default) + Fill + Crop (center) export fit modes; Photo Check framing facts; tests
-- Build + unit tests succeeded on iPhone 16e (138 tests)
+- MVP + Phases 4–37
+- Phase 38: per-photo Fill + Crop drag reposition (-1…1 offsets); Edit Reposition UI; tests
+- Build + unit tests succeeded on iPhone 16e (153 tests)
 
 ## Remaining Polish
 - Edit tools may scroll with Export + watermark
 
 ## Next (when explicitly approved)
 - Facebook Marketplace / Mercari named presets only after verified specific canvases are supplied
-- Optional later: fill+crop reposition / focal point (not Phase 37)
 - Do not treat live AI, OAuth, or marketplace upload as the default next step
 
 ## Abandoned from the active roadmap

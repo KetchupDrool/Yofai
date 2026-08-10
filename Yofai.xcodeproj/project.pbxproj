@@ -68,6 +68,7 @@
 		EBC5B8BE765326802B1DCCF7 /* ProjectExportBatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F483BF5F43BC4B35DFF1DDB9 /* ProjectExportBatch.swift */; };
 		F37541F4B0D0AE123620B14F /* OriginalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68E38A2BCFD243B657D1D5 /* OriginalsView.swift */; };
 		F3F30DE5B9C50F815D7B60AF /* FreeformCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C1784212753AA8E4F70C92 /* FreeformCropView.swift */; };
+		A8B38F20D1E4056C7F18A901 /* FillCropRepositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B38F20D1E4056C7F18A901 /* FillCropRepositionView.swift */; };
 		F544B5403F50164293B87F83 /* YofaiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013F0E7F2A74F2FCDBB01476 /* YofaiApp.swift */; };
 		F786C905F860BFCE15CD77F8 /* BulkEditSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B9C85A8EDD77D3B1F7922 /* BulkEditSupport.swift */; };
 		FADF9F3019C73426C062D788 /* ProjectBatchExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0FED065E54BEA3BC57F39B /* ProjectBatchExporter.swift */; };
@@ -75,6 +76,7 @@
 		F1A35B2D8E5C0132A7B96D46 /* Phase35SellerFirstNavigationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A35B2D8E5C0132A7B96D46 /* Phase35SellerFirstNavigationTests.swift */; };
 		B2C36D4E9F6A1243B8C07E57 /* Phase36VerifiedMarketplaceExportPresetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C36D4E9F6A1243B8C07E57 /* Phase36VerifiedMarketplaceExportPresetsTests.swift */; };
 		E7A37F19C8D2045B6E07F68A /* Phase37ExportFitModeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A37F19C8D2045B6E07F68A /* Phase37ExportFitModeTests.swift */; };
+		C8B38F21E2F5067D8A29B012 /* Phase38FillCropRepositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B38F21E2F5067D8A29B012 /* Phase38FillCropRepositionTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +99,7 @@
 		1A454A110D2B0140A35901E3 /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		1F229036218D3F74F3E5E6A3 /* EtsyCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtsyCredentials.swift; sourceTree = "<group>"; };
 		28C1784212753AA8E4F70C92 /* FreeformCropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeformCropView.swift; sourceTree = "<group>"; };
+		B8B38F20D1E4056C7F18A901 /* FillCropRepositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillCropRepositionView.swift; sourceTree = "<group>"; };
 		2A2F3F0328410ACBFCBFED4A /* SavedEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedEdit.swift; sourceTree = "<group>"; };
 		2B9C86933ACBA56343122F69 /* ImportedOriginal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportedOriginal.swift; sourceTree = "<group>"; };
 		2FE44C1F5D51637762E22557 /* ListingQueueEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingQueueEntry.swift; sourceTree = "<group>"; };
@@ -131,6 +134,7 @@
 		D1A35B2D8E5C0132A7B96D46 /* Phase35SellerFirstNavigationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase35SellerFirstNavigationTests.swift; sourceTree = "<group>"; };
 		C2C36D4E9F6A1243B8C07E57 /* Phase36VerifiedMarketplaceExportPresetsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase36VerifiedMarketplaceExportPresetsTests.swift; sourceTree = "<group>"; };
 		F7A37F19C8D2045B6E07F68A /* Phase37ExportFitModeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase37ExportFitModeTests.swift; sourceTree = "<group>"; };
+		D8B38F21E2F5067D8A29B012 /* Phase38FillCropRepositionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase38FillCropRepositionTests.swift; sourceTree = "<group>"; };
 		C35A0B1C7D4E9021F6A85C35 /* SellerNavigationSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerNavigationSupport.swift; sourceTree = "<group>"; };
 		97EEA04BA7B6FA559052DC45 /* ItemProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemProject.swift; sourceTree = "<group>"; };
 		9CE183516F25380F56C12048 /* Phase27ListingWorkspaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase27ListingWorkspaceTests.swift; sourceTree = "<group>"; };
@@ -189,6 +193,7 @@
 				4EC8E29E5727D563671A025E /* EtsyOAuthConfig.swift */,
 				5D78441D87AC5BB31B58B368 /* EtsyShopSettingsSection.swift */,
 				28C1784212753AA8E4F70C92 /* FreeformCropView.swift */,
+				B8B38F20D1E4056C7F18A901 /* FillCropRepositionView.swift */,
 				D4EDC252ED2FD43DA3FF2FC2 /* HistoryDetailView.swift */,
 				A71AA6F7AE79A72B0BD6E5E4 /* HistoryView.swift */,
 				4AE9E95DE5571028873EC4AF /* HomeView.swift */,
@@ -257,6 +262,7 @@
 				D1A35B2D8E5C0132A7B96D46 /* Phase35SellerFirstNavigationTests.swift */,
 				C2C36D4E9F6A1243B8C07E57 /* Phase36VerifiedMarketplaceExportPresetsTests.swift */,
 				F7A37F19C8D2045B6E07F68A /* Phase37ExportFitModeTests.swift */,
+				D8B38F21E2F5067D8A29B012 /* Phase38FillCropRepositionTests.swift */,
 			);
 			path = YofaiTests;
 			sourceTree = "<group>";
@@ -362,6 +368,7 @@
 				68B2E3CE1F17E60737386845 /* EtsyOAuthConfig.swift in Sources */,
 				E213D657A70F232B0F015B1A /* EtsyShopSettingsSection.swift in Sources */,
 				F3F30DE5B9C50F815D7B60AF /* FreeformCropView.swift in Sources */,
+				A8B38F20D1E4056C7F18A901 /* FillCropRepositionView.swift in Sources */,
 				13BCC10E2C1CAA3689C3E672 /* HistoryDetailView.swift in Sources */,
 				20C0DB8564D9A4846982AD22 /* HistoryView.swift in Sources */,
 				42CB7915D48665E9ECD06B44 /* HomeView.swift in Sources */,
@@ -421,6 +428,7 @@
 				F1A35B2D8E5C0132A7B96D46 /* Phase35SellerFirstNavigationTests.swift in Sources */,
 				B2C36D4E9F6A1243B8C07E57 /* Phase36VerifiedMarketplaceExportPresetsTests.swift in Sources */,
 				E7A37F19C8D2045B6E07F68A /* Phase37ExportFitModeTests.swift in Sources */,
+				C8B38F21E2F5067D8A29B012 /* Phase38FillCropRepositionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

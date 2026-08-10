@@ -12,6 +12,7 @@ enum BulkEditSetting: String, CaseIterable, Identifiable, Codable, Equatable {
     case exportPreset
     case background
     case fitMode
+    case fillCropPosition
     case watermark
 
     var id: String { rawValue }
@@ -27,6 +28,7 @@ enum BulkEditSetting: String, CaseIterable, Identifiable, Codable, Equatable {
         case .exportPreset: return "Export preset"
         case .background: return "Background"
         case .fitMode: return "Fit mode"
+        case .fillCropPosition: return "Fill crop position"
         case .watermark: return "Watermark settings"
         }
     }
@@ -80,6 +82,10 @@ enum BulkEditSupport {
         }
         if settings.contains(.fitMode) {
             result.exportFitMode = source.exportFitMode
+        }
+        if settings.contains(.fillCropPosition) {
+            result.fillCropOffsetX = source.fillCropOffsetX
+            result.fillCropOffsetY = source.fillCropOffsetY
         }
         if settings.contains(.watermark) {
             result.watermarkEnabled = source.watermarkEnabled
@@ -181,6 +187,11 @@ enum BulkEditSupport {
                 return "\(setting.displayName): \(state.exportBackground.rawValue)"
             case .fitMode:
                 return "\(setting.displayName): \(state.exportFitMode.displayTitle)"
+            case .fillCropPosition:
+                if state.isFillCropCentered {
+                    return "\(setting.displayName): Centered"
+                }
+                return "\(setting.displayName): Repositioned"
             case .watermark:
                 if state.willDrawWatermark {
                     return "\(setting.displayName): “\(state.trimmedWatermarkText)”"

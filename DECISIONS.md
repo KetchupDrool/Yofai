@@ -187,7 +187,7 @@
 - **Supersedes the Phase 20 contain+pad-only export-fit restriction.**
 - Current locked export-fit decision (seller-selectable):
   - **Contain + Pad** — keeps the whole photo; may add borders (selected export background)
-  - **Fill + Crop** — fills the canvas; may crop edges (center crop only in Phase 37)
+  - **Fill + Crop** — fills the canvas; may crop edges (Phase 37 defaulted to center; Phase 38 adds manual reposition)
 - Default / backward-compatible behavior: **Contain + Pad**
 - Missing/unknown stored fit-mode values resolve to Contain + Pad (PhotoEditState, Seller Defaults, project raw string)
 - Stable raw values: `"Contain + Pad"`, `"Fill + Crop"`
@@ -195,7 +195,22 @@
 - Honored by single/project/batch/package export paths via existing `PhotoEditState` + `ImageEditing.applyListingFrame`
 - Photo Check: aspect mismatch → padding expected (Contain + Pad) or cropping expected (Fill + Crop); matching aspect → no meaningful pad/crop warning; Phase 25 readiness unchanged
 - Watermark unchanged (drawn after framing); background still stored; Fill + Crop fully filled canvases show no visible pad
-- Out of scope: drag/focal-point/face/AI crop, new marketplace sizes, FB Marketplace/Mercari named presets, compliance claims, OAuth/AI/upload/backend
+- Out of scope at Phase 37: drag/focal-point/face/AI crop, new marketplace sizes, FB Marketplace/Mercari named presets, compliance claims, OAuth/AI/upload/backend
+
+## Phase 38 — Fill + Crop Reposition (locked)
+- **Extends Phase 37 Fill + Crop from center-only cropping to seller-controlled manual repositioning.**
+- Locked behavior:
+  - Fill + Crop keeps the required fill scale (no pinch-zoom beyond fill)
+  - Seller can drag to reposition within valid bounds (canvas never shows empty background)
+  - Default remains centered (`fillCropOffsetX` / `fillCropOffsetY` = 0)
+  - Positioning is persisted per photo on `PhotoEditState` (not project-global / not Seller Defaults)
+  - No AI / focal-point automation
+- Normalized offsets in **-1.0 … 1.0** (screen-independent); missing keys decode to centered
+- Contain + Pad ignores offsets and remains unchanged
+- Edit UI: Reposition + Reset to Center when Fill + Crop is selected (`FillCropRepositionView`)
+- Same offsets used by preview, single export, batch export, and listing package paths
+- Bulk Edit may optionally copy “Fill crop position”; fit mode copy does not force positions
+- All 7 preset sizes/raw values unchanged
 
 ## Future capability (approved direction — not next work)
 May be added later where they support the product; core photo preparation remains local-first/on-device:

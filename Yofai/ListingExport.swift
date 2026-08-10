@@ -156,3 +156,58 @@ enum ListingExportFitMode: String, CaseIterable, Identifiable, Equatable, Codabl
         return mode
     }
 }
+
+/// Phase 38 — normalized Fill + Crop pan within the overflow range. Center = (0, 0).
+enum ListingExportFillCropPosition {
+    static let minOffset: Double = -1
+    static let maxOffset: Double = 1
+
+    static func clamp(_ value: Double) -> Double {
+        min(maxOffset, max(minOffset, value))
+    }
+
+    static func clampPair(x: Double, y: Double) -> (x: Double, y: Double) {
+        (clamp(x), clamp(y))
+    }
+
+    /// Draw rect for fill-scale image on canvas. Offsets in -1...1 shift within valid pan only.
+    static func drawRect(
+        imagePixelSize: CGSize,
+        canvas: CGSize,
+        offsetX: Double,
+        offsetY: Double
+    ) -> CGRect? {
+        guard imagePixelSize.width >= 1, imagePixelSize.height >= 1,
+              canvas.width >= 1, canvas.height >= 1 else { return nil }
+
+        let fill = max(canvas.width / imagePixelSize.width, canvas.height / imagePixelSize.height)
+        let drawSize = CGSize(
+            width: (imagePixelSize.width * fill).rounded(.down),
+            height: (imagePixelSize.height * fill).rounded(.down)
+        )
+        guard drawSize.width >= 1, drawSize.height >= 1 else { return nil }
+
+        let ox = clamp(offsetX)
+        let oy = clamp(offsetY)
+        let overflowX = max(0, drawSize.width - canvas.width)
+        let overflowY = max(0, drawSize.height - canvas.height)
+        let x = ((canvas.width - drawSize.width) / 2 + CGFloat(ox) * (overflowX / 2)).rounded(.down)
+        let y = ((canvas.height - drawSize.height) / 2 + CGFloat(oy) * (overflowY / 2)).rounded(.down)
+        return CGRect(x: x, y: y, width: drawSize.width, height: drawSize.height)
+    }
+
+    /// True when the filled image is larger than the canvas on that axis (reposition has effect).
+    static func canRepositionHorizontally(imagePixelSize: CGSize, canvas: CGSize) -> Bool {
+        guard let rect = drawRect(imagePixelSize: imagePixelSize, canvas: canvas, offsetX: 0, offsetY: 0) else {
+            return false
+        }
+        return rect.width > canvas.width + 0.5
+    }
+
+    static func canRepositionVertically(imagePixelSize: CGSize, canvas: CGSize) -> Bool {
+        guard let rect = drawRect(imagePixelSize: imagePixelSize, canvas: canvas, offsetX: 0, offsetY: 0) else {
+            return false
+        }
+        return rect.height > canvas.height + 0.5
+    }
+}

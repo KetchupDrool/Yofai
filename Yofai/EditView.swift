@@ -22,6 +22,7 @@ struct EditView: View {
     @State private var shareItem: ShareFileItem?
     @State private var shareFileURLToCleanup: URL?
     @State private var showFreeformCrop = false
+    @State private var showFillCropReposition = false
     @State private var cropCanvasImage: UIImage?
     @State private var previewRefreshTask: Task<Void, Never>?
     @State private var didLoadProjectEditState = false
@@ -209,6 +210,29 @@ struct EditView: View {
                             .foregroundStyle(DarkroomTheme.textTertiary)
                             .fixedSize(horizontal: false, vertical: true)
 
+                        if editState.exportFitMode == .fillCrop {
+                            HStack(spacing: 6) {
+                                toolButton("Reposition", systemImage: "arrow.up.and.down.and.arrow.left.and.right") {
+                                    showFillCropReposition = true
+                                }
+                                toolButton("Reset to Center", systemImage: "scope") {
+                                    guard editState.hasFillCropReposition else { return }
+                                    undoStack.append(editState)
+                                    editState.resetFillCropPosition()
+                                    commitChange()
+                                }
+                                .disabled(!editState.hasFillCropReposition)
+                                .opacity(editState.hasFillCropReposition ? 1 : 0.45)
+                            }
+                            Text(
+                                editState.isFillCropCentered
+                                    ? "Crop position: Centered"
+                                    : "Crop position: Repositioned"
+                            )
+                            .font(.caption2)
+                            .foregroundStyle(DarkroomTheme.textTertiary)
+                        }
+
                         Text(editState.listingSummary)
                             .font(.caption2)
                             .foregroundStyle(DarkroomTheme.textTertiary)
@@ -371,6 +395,36 @@ struct EditView: View {
                 }
             }
         }
+        .fullScreenCover(isPresented: $showFillCropReposition) {
+            if let framed = ImageEditing.imageForExportFraming(source: sourceImage, state: editState) {
+                FillCropRepositionView(
+                    image: framed,
+                    preset: editState.exportPreset,
+                    background: editState.exportBackground,
+                    initialOffsetX: editState.fillCropOffsetX,
+                    initialOffsetY: editState.fillCropOffsetY,
+                    onApply: { x, y in
+                        applyFillCropPosition(x: x, y: y)
+                    },
+                    onCancel: {
+                        showFillCropReposition = false
+                    }
+                )
+            } else {
+                NavigationStack {
+                    ContentUnavailableView(
+                        "Reposition Unavailable",
+                        systemImage: "arrow.up.and.down.and.arrow.left.and.right",
+                        description: Text("Could not prepare this photo for repositioning.")
+                    )
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Close") { showFillCropReposition = false }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private func toolButton(_ title: String, systemImage: String, action: @escaping () -> Void) -> some View {
@@ -409,6 +463,19 @@ struct EditView: View {
         editState.cropRect = ImageEditing.clampNormalizedCrop(normalized)
         edgeCropAmount = 0
         showFreeformCrop = false
+        commitChange()
+    }
+
+    private func applyFillCropPosition(x: Double, y: Double) {
+        let clamped = ListingExportFillCropPosition.clampPair(x: x, y: y)
+        guard abs(clamped.x - editState.fillCropOffsetX) > 0.0001
+                || abs(clamped.y - editState.fillCropOffsetY) > 0.0001 else {
+            showFillCropReposition = false
+            return
+        }
+        undoStack.append(editState)
+        editState.setFillCropOffsets(x: clamped.x, y: clamped.y)
+        showFillCropReposition = false
         commitChange()
     }
 

@@ -47,8 +47,8 @@ Home → Start / Continue Product → Item Project → Capture & Check Photos �
 Import, Originals, and History remain available as secondary tools.
 
 ## Status
-- Phases 1–37 technical history complete (see `DECISIONS.md`)
-- Export fit modes: Contain + Pad (default) and Fill + Crop (center); Phase 37 supersedes Phase 20 contain+pad-only
+- Phases 1–38 technical history complete (see `DECISIONS.md`)
+- Export fit modes: Contain + Pad (default) and Fill + Crop with optional per-photo reposition
 - Verified local export canvases include Etsy sizes, eBay 1600×1600, Poshmark 1000×1000 (recommended; not compliance claims)
 - Facebook Marketplace and Mercari named pixel presets deferred until verified
 - App Store upload remains paused
