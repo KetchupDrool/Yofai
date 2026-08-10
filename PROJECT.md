@@ -63,8 +63,9 @@ Home → Start / Continue Product → Item Project → Capture & Check Photos �
 Import, Originals, and History remain available as secondary tools.
 
 ## Status
-- Phases 1–57 technical history complete (see `DECISIONS.md`, `APP_STORE_SUBMIT_GATES.md`, `SHAWN_NEXT_RELEASE_STEPS.md`)
-- **Phase 57:** local suite/build re-verified Passed; manual release gates kept honest (Needs user action / Not started)
+- Phases 1–58 technical history complete (see `DECISIONS.md`, `APP_STORE_SUBMIT_GATES.md`, `SHAWN_NEXT_RELEASE_STEPS.md`)
+- **Phase 58:** owner Connect IAP + screenshot execution guide; manual gates still Needs user action / Not started
+- **Phase 57:** local suite/build re-verified Passed; honest release gates
 - **Phase 56:** screenshot packet, archive runbook, App Review notes, master submit gates
 - Freemium-first: Free keeps core local export; Pro additive via StoreKit when Connect products exist. No Direct Upload.
 - Marketplace target (destination) is separate from export size (pixel canvas)

@@ -1,9 +1,9 @@
 # Session Handoff
 
 ## Status
-Phase 57 complete — release-gate execution support.  
-**301 tests Passed; build Passed on iPhone 16e (2026-08-10).**  
-Screenshots / Connect IAP / TestFlight purchase / archive / App Review: still **Needs user action** or **Not started** (not marked Passed).
+Phase 58 complete — Connect IAP + screenshot owner execution guide.  
+Local tests/build re-verified on iPhone 16e (Phase 58 closeout).  
+Screenshots / Connect IAP / TestFlight purchase / archive / App Review: still **Needs user action** or **Not started**.
 
 ## Version / build (do not auto-bump)
 - Marketing: **1.0**
@@ -13,10 +13,10 @@ Screenshots / Connect IAP / TestFlight purchase / archive / App Review: still **
 - Platform: iPhone
 
 ## Owner next steps
-See **`SHAWN_NEXT_RELEASE_STEPS.md`** and **`APP_STORE_SUBMIT_GATES.md`**.
+See **`SHAWN_NEXT_RELEASE_STEPS.md`** (full §A–G) and **`APP_STORE_SUBMIT_GATES.md`**.
 
 ## Last Completed
-- Phase 57 local verification + honest gate table update
+- Phase 58 owner execution package (docs-only; no fake Passed gates)
 
 ## Rules
 - No fake Passed manual gates  

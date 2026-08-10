@@ -389,6 +389,13 @@
 - Version remains **1.0 (1)** — build bump before archive is **manual / not auto-changed**
 - No new product features; no Direct Upload; no AI; no StoreKit ID/price changes
 
+## Phase 58 — Connect IAP Setup & Screenshot Execution Guide (locked)
+- Docs-only owner package: expanded sequential `SHAWN_NEXT_RELEASE_STEPS.md` (§A–G)
+- Tightened `APP_STORE_PREP.md` paths/setup/Pro-screenshot rules; Connect checklist still all **Not done**
+- Manual gates remain **Needs user action** / **Not started** — no fake Passes
+- Version remains **1.0 (1)** — build bump still required before archive
+- No new product features; no Direct Upload; no AI; no StoreKit ID/price changes; no archive/upload
+
 ## Future StoreKit follow-ups (manual / not claimed done)
 - Create/verify subscription group + products in App Store Connect (user sign-off)
 - Fill `TESTFLIGHT_PURCHASE_VERIFICATION.md` with real Pass results

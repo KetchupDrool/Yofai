@@ -1,18 +1,18 @@
 # Tasks
 
 ## Status
-Phase 57 — Release Gate Execution Support complete.  
-Local tests/build **Passed**. Manual Connect/screenshots/TestFlight/archive gates remain **Needs user action / Not started**.
+Phase 58 — Connect IAP Setup & Screenshot Execution Guide complete.  
+Docs-only owner package. Manual Connect/screenshots/TestFlight/archive gates remain **Needs user action / Not started**.
 
 ## Current Phase
-Phase 57 complete.
+Phase 58 complete.
 
 ## Done
-- Phases 1–56
-- Phase 57: re-verified suite (301) + build; honest gate updates; `SHAWN_NEXT_RELEASE_STEPS.md`
+- Phases 1–57
+- Phase 58: expanded `SHAWN_NEXT_RELEASE_STEPS.md`; tightened `APP_STORE_PREP.md` + Connect checklist; honest gates
 
 ## Next (Shawn)
-Follow `SHAWN_NEXT_RELEASE_STEPS.md` / `APP_STORE_SUBMIT_GATES.md`.  
+Follow `SHAWN_NEXT_RELEASE_STEPS.md` §A–B (Connect IAP), then §C (screenshots).  
 Do not ask the agent to mark Connect/TestFlight/archive Passed without proof.
 
 ## Do Not Do

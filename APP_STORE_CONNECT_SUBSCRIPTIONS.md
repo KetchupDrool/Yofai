@@ -1,14 +1,16 @@
 # App Store Connect — Yofai Pro Subscriptions (Manual Sign-Off)
 
-**Phase 55** — final manual sign-off checklist.  
+**Phases 55–58** — manual Connect setup checklist.  
+Step-by-step owner guide: `SHAWN_NEXT_RELEASE_STEPS.md` §B.  
 **Agents must not mark Connect items Done or Verified.** Only you can, after completing each step in App Store Connect / TestFlight.
 
 Status values (use exactly one per row):
-- **Not done** — default
+- **Not done** — default / Needs user action
 - **Done by user** — you created/configured it in Connect
-- **Verified in TestFlight** — you confirmed it works on a TestFlight/sandbox build
+- **Verified in TestFlight** — you confirmed it works on a TestFlight/sandbox build (separate from Connect creation)
 
-Overall Connect IAP status for this repo: **Not done** (no proof of Connect completion was provided).
+Overall Connect IAP status for this repo: **Not done** (no proof of Connect completion was provided).  
+TestFlight purchase verification is **separate** — use `TESTFLIGHT_PURCHASE_VERIFICATION.md`; do not treat Connect “created” as purchase Verified.
 
 ## Product IDs (must match app — do not change without approval)
 | Item | Value |

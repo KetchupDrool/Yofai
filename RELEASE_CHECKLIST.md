@@ -1,23 +1,26 @@
 # Release Checklist — Yofai
 
-Master tracker: **`APP_STORE_SUBMIT_GATES.md`**. Owner checklist: **`SHAWN_NEXT_RELEASE_STEPS.md`**.  
-Archive steps: **`APP_STORE_ARCHIVE_RUNBOOK.md`**.
+Master tracker: **`APP_STORE_SUBMIT_GATES.md`**. Owner guide: **`SHAWN_NEXT_RELEASE_STEPS.md`**.  
+Archive steps: **`APP_STORE_ARCHIVE_RUNBOOK.md`**. Screenshots: **`APP_STORE_PREP.md`**. Connect IAP: **`APP_STORE_CONNECT_SUBSCRIPTIONS.md`**.
 
 Freemium Local Export Mode + StoreKit Pro. Do **not** archive/upload/submit in automation unless requested. Do **not** mark gates Passed without evidence.
 
-## Phase 57 local verification (automated)
-- [x] Full unit suite on iPhone 16e — **Passed** (301)
+## Local verification (automated)
+- [x] Full unit suite on iPhone 16e — **Passed** (Phase 57/58)
 - [x] Build on iPhone 16e — **Passed**
+- [x] Owner Connect + screenshot execution guide — **Passed** (Phase 58 docs)
 
-## Required order
-1. Local StoreKit smoke (`STOREKIT_SANDBOX_TESTING.md`) — recommended  
-2. Connect IAP configured (`APP_STORE_CONNECT_SUBSCRIPTIONS.md`)  
-3. Archive + upload (`APP_STORE_ARCHIVE_RUNBOOK.md`) — **bump build from 1 first**  
-4. TestFlight purchase verification (`TESTFLIGHT_PURCHASE_VERIFICATION.md`) → **Pass**  
-5. Full app smoke (`TESTFLIGHT_SMOKE.md`)  
-6. Screenshots + metadata (`APP_STORE_PREP.md`, `APP_STORE_METADATA.md`)  
-7. Update `APP_STORE_SUBMIT_GATES.md` to Passed with evidence  
-8. Submit for App Review  
+## Required order (Shawn)
+1. Before you start — §A in `SHAWN_NEXT_RELEASE_STEPS.md`  
+2. Connect IAP — §B / `APP_STORE_CONNECT_SUBSCRIPTIONS.md`  
+3. Screenshots — §C / `APP_STORE_PREP.md`  
+4. Local StoreKit smoke — `STOREKIT_SANDBOX_TESTING.md` (recommended)  
+5. Bump build → archive/upload — §D–E / `APP_STORE_ARCHIVE_RUNBOOK.md`  
+6. TestFlight purchase — §F / `TESTFLIGHT_PURCHASE_VERIFICATION.md` → **Pass**  
+7. Full app smoke — `TESTFLIGHT_SMOKE.md`  
+8. Metadata + privacy — `APP_STORE_METADATA.md`, `APP_STORE_CONNECT_PRIVACY.md`  
+9. Update `APP_STORE_SUBMIT_GATES.md` to Passed with evidence  
+10. Submit for App Review  
 
 ## Do not ship if
 - Connect IAP missing or TestFlight purchase still Not run / Fail

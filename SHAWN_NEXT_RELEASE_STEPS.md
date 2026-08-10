@@ -1,52 +1,147 @@
 # Shawn — Next Manual Release Steps
 
-**Phase 57** — concise owner checklist. Details live in linked docs.  
-Nothing below is marked done by the agent.
+**Phase 58** — owner execution package for Connect IAP + screenshots + archive prep.  
+Agents must **not** mark any step below complete. You check boxes only after you do the work.
 
-## Already verified locally (2026-08-10)
-- [x] 301 unit tests passed on iPhone 16e  
-- [x] Debug build succeeded on iPhone 16e  
-- [x] Working tree clean on `main` @ Phase 56/57 docs baseline  
-- [x] StoreKit IDs, Terms/Privacy URLs, Free local export intact in code  
+Baseline: `main` @ Phase 57/58 · version **1.0** · build **1** · bundle `com.shawnwright.yofai` · display **Yofai**  
+Freemium Local Export · no Direct Upload · no AI · StoreKit 2 Pro already in code.
 
-## Still your action
+---
 
-### 1. App Store Connect IAP
-Doc: `APP_STORE_CONNECT_SUBSCRIPTIONS.md`  
-- [ ] Group **Yofai Pro**  
-- [ ] `com.shawnwright.yofai.pro.monthly` @ ~$4.99/mo  
-- [ ] `com.shawnwright.yofai.pro.yearly` @ ~$39.99/yr  
-- [ ] Localizations + review info  
-- [ ] Clear for review with the build you submit  
+## A. Before You Start
 
-### 2. Screenshots
-Doc: `APP_STORE_PREP.md`  
-- [ ] Capture 8 screens (no fake Pro/AI/Direct Upload)  
-- [ ] Upload to App Store Connect  
+- [ ] Working tree clean on latest `main` (`git pull` then `git status`)
+- [ ] Apple Developer + App Store Connect access for this Apple ID
+- [ ] Privacy URL opens: https://ketchupdrool.github.io/Yofai/privacy-policy.html
+- [ ] Terms URL opens: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+- [ ] Support URL opens: https://ketchupdrool.github.io/Yofai/support.html
+- [ ] Optional: local StoreKit smoke with scheme → `Yofai.storekit` (`STOREKIT_SANDBOX_TESTING.md`)
 
-### 3. Local StoreKit smoke (recommended)
-Doc: `STOREKIT_SANDBOX_TESTING.md`  
-- [ ] Scheme → `Yofai.storekit`  
-- [ ] Buy monthly → Pro; restore; Free fallback  
+---
 
-### 4. Archive / upload
-Doc: `APP_STORE_ARCHIVE_RUNBOOK.md`  
-- [ ] Confirm version **1.0**; **increment build** from **1** before upload  
-- [ ] Archive Any iOS Device → Upload  
+## B. Create Yofai Pro in App Store Connect
 
-### 5. TestFlight purchase
-Doc: `TESTFLIGHT_PURCHASE_VERIFICATION.md`  
-- [ ] Products load; monthly purchase; restore; Free export without purchase  
-- [ ] Fill report with Pass only if true  
+Full checklist: `APP_STORE_CONNECT_SUBSCRIPTIONS.md`  
+Do **not** change product IDs. Intended prices are for Connect; the app shows StoreKit `displayPrice`.
 
-### 6. Metadata + submit
-Docs: `APP_STORE_METADATA.md`, `APP_STORE_CONNECT_PRIVACY.md`, `APP_STORE_SUBMIT_GATES.md`  
-- [ ] Paste metadata + App Review notes  
-- [ ] Verify https://ketchupdrool.github.io/Yofai/support.html and privacy-policy.html  
-- [ ] Submit for App Review only when gates A–E are Passed  
+1. Open https://appstoreconnect.apple.com
+2. **My Apps** → **Yofai** (bundle `com.shawnwright.yofai`)
+3. **Monetization** → **Subscriptions** (or In-App Purchases → Subscriptions)
+4. Create subscription group:
+   - Name: **Yofai Pro**
+5. Create **monthly** subscription:
+   - Product ID: `com.shawnwright.yofai.pro.monthly` *(exact — cannot change later)*
+   - Reference Name: Yofai Pro Monthly
+   - Duration: 1 month
+   - Display Name: Yofai Pro Monthly
+   - Description: Unlocks Pro features in Yofai.
+   - Price: **$4.99**/month (or your storefront equivalent)
+6. Create **yearly** subscription:
+   - Product ID: `com.shawnwright.yofai.pro.yearly`
+   - Reference Name: Yofai Pro Yearly
+   - Duration: 1 year
+   - Display Name: Yofai Pro Yearly
+   - Description: Unlocks Pro features in Yofai for one year.
+   - Price: **$39.99**/year
+7. Add localizations (at least English) for group + both products
+8. Fill **subscription review information**
+9. Attach a paywall screenshot if Connect requires it (Settings → Yofai Pro → Upgrade; real prices or honest unavailable state — **no fake success**)
+10. Make products available / cleared for review with the app version you will submit
+11. Optional: create a Sandbox tester (Users and Access → Sandbox)
+
+When done, mark rows in `APP_STORE_CONNECT_SUBSCRIPTIONS.md` as **Done by user** yourself. Repo status stays **Needs user action** until you confirm.
+
+---
+
+## C. Screenshot Capture
+
+Packet detail: `APP_STORE_PREP.md`  
+Capture on required App Store sizes (e.g. 6.7" / 6.1"). Prefer a physical iPhone for Camera frames. Do **not** invent AI, Direct Upload, publish, compliance, or fake Pro purchase success.
+
+Use one sample product with 1–3 clear photos.
+
+| # | Screen | Path | Setup | Overlay / title | Avoid |
+|---|---|---|---|---|---|
+| 1 | Home / Start Product | Home → **New Product** (or empty Products) | Empty list or New Product sheet | “Start a product photo set on your iPhone” | Pro paywall, AI badges |
+| 2 | Capture & Check Photos | Open product → **Capture & Check Photos** | ≥1 photo; Photo Check facts visible | “Capture and check product photos” | “Etsy ready”, compliance |
+| 3 | Edit / Fit / Reposition | Photo → **Edit** | Contain+Pad or Fill+Crop; reposition if useful | “Edit and fit for export” | AI / auto-crop labels |
+| 4 | Marketplace + Export Size | Product → **Prepare Listing & Export** | Marketplace target set; export size shown separately | “Prepare for your marketplace” | Upload, Connect, publish |
+| 5 | Export Readiness + Prep Tips | Same workspace → readiness / Prep Tips | Real checklist + tips | “Check readiness before export” | Marketplace approved |
+| 6 | Export Local JPEGs | After successful local export | Summary with next step to View Exported Files | “Export local JPEGs for manual upload” | Published / Direct Upload |
+| 7 | Export History / View Files | **History** → open batch → **View Exported Files** (or post-export viewer) | Files still on disk | “Review and share exported files” | Upload status |
+| 8 | Yofai Pro | **Settings** → **Yofai Pro** → **Upgrade** | See Pro screenshot rules below | “Optional Yofai Pro” | Fake $, fake success, AI, Direct Upload available |
+
+### Pro screenshot rules
+- **If Connect products exist and load:** show real monthly/yearly StoreKit prices + Terms / Privacy / Restore.
+- **If products do not load yet:** show honest “Purchases are not available right now.” (or Free plan) — still OK for marketing if accurate.
+- **Never** fake a successful purchase or invent dollar amounts.
+
+Store captures locally (e.g. Desktop or `AppStoreScreenshots/`). Upload to Connect when ready. Status remains **Needs user action** until you capture and upload.
+
+---
+
+## D. Build Number
+
+| Field | Current | Action |
+|---|---|---|
+| Marketing version | **1.0** | Keep unless you intentionally ship a different marketing version |
+| Build | **1** | **Bump before every App Store Connect upload** (e.g. to 2) |
+| Bundle ID | `com.shawnwright.yofai` | Do not change |
+| Display name | Yofai | Do not change |
+
+Bump in `project.yml` (`CURRENT_PROJECT_VERSION`) then regenerate the Xcode project, **or** set Build in Xcode target General — then keep `project.yml` in sync if you use XcodeGen. Ask the agent to bump only if you explicitly approve.
+
+---
+
+## E. Archive / Upload
+
+Full steps: `APP_STORE_ARCHIVE_RUNBOOK.md`
+
+1. Clean `main`, Connect IAP ready (or knowingly blocked), build bumped  
+2. Xcode → scheme **Yofai** → **Any iOS Device** → **Product → Archive**  
+3. Organizer → **Distribute App** → App Store Connect → Upload  
+4. Wait for processing → attach build to version / TestFlight  
+
+Archive / upload / App Review: still **Not started** in the gate table until you do them.
+
+---
+
+## F. TestFlight Purchase Verification
+
+Template: `TESTFLIGHT_PURCHASE_VERIFICATION.md`
+
+Must pass before App Review submit:
+- [ ] Monthly + yearly products load from Connect (real prices)
+- [ ] Monthly purchase unlocks Pro
+- [ ] Restore Purchases works
+- [ ] Reinstall + restore if practical
+- [ ] Free fallback when products unavailable / cancelled (no data deletion)
+- [ ] Free local JPEG export still works **without** purchase
+- [ ] Terms of Use + Privacy Statement open
+- [ ] No Direct Upload / AI buttons
+
+Fill the verification doc with **Pass** only for checks you actually ran.
+
+---
+
+## G. Submit Only After Gates Pass
+
+Master table: `APP_STORE_SUBMIT_GATES.md`
+
+Do **not** submit for App Review until these are **Passed** with evidence:
+1. Connect IAP group + monthly + yearly (A)
+2. TestFlight purchase verification (C) — products load, buy, restore, Free export
+3. Screenshots captured, reviewed, uploaded (D)
+4. Metadata + privacy answers + App Review notes + live Support/Privacy URLs (E)
+5. Archive created + build uploaded (F)
+
+Recommended first: local StoreKit smoke (B in gates) → Connect products → screenshots → bump build → archive/upload → TestFlight purchase → metadata → submit.
+
+---
 
 ## Do not
-- Claim Connect/TestFlight/archive done without doing them  
+- Mark Connect / screenshots / TestFlight / archive **Passed** without doing them  
 - Show fake StoreKit prices or Pro success in screenshots  
-- Lock Free core local export  
+- Lock Free core local export behind purchase  
 - Add Direct Upload / AI / backend for launch  
+- Ask the agent to archive/upload/submit unless you explicitly approve that step  

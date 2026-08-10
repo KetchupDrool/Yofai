@@ -1,7 +1,9 @@
 # App Store Submit Gates — Yofai
 
-**Phase 57** — release-gate tracker.  
+**Phase 58** — release-gate tracker + owner execution package.  
 **Agents must not mark Passed unless evidence exists.**
+
+Owner sequence: **`SHAWN_NEXT_RELEASE_STEPS.md`**.
 
 Status values:
 - **Not started**
@@ -16,9 +18,10 @@ Overall submit readiness: **Needs user action** (Connect IAP + screenshots + Tes
 
 | Area | Item | Status |
 |---|---|---|
-| **Local verification** | Full unit suite on iPhone 16e | **Passed** (Phase 57: 301 tests, 2026-08-10) |
-| Local | Debug build on iPhone 16e | **Passed** (Phase 57) |
-| Local | Submission-path docs present & consistent | **Passed** (Phases 52–56 package verified Phase 57) |
+| **Local verification** | Full unit suite on iPhone 16e | **Passed** (Phase 57: 301 tests, 2026-08-10; re-check Phase 58) |
+| Local | Debug build on iPhone 16e | **Passed** (Phase 57; re-check Phase 58) |
+| Local | Submission-path docs present & consistent | **Passed** (Phases 52–58 package) |
+| Local | Owner Connect + screenshot execution guide | **Passed** (Phase 58: `SHAWN_NEXT_RELEASE_STEPS.md`) |
 | **A. Connect subscriptions** | Yofai Pro group created | **Needs user action** |
 | A | Monthly product `com.shawnwright.yofai.pro.monthly` created | **Needs user action** |
 | A | Yearly product `com.shawnwright.yofai.pro.yearly` created | **Needs user action** |
@@ -36,7 +39,7 @@ Overall submit readiness: **Needs user action** (Connect IAP + screenshots + Tes
 | C | Restore works | **Needs user action** |
 | C | Reinstall + restore | **Needs user action** |
 | C | Free fallback / no data deletion | **Needs user action** |
-| **D. Screenshots** | Captured per `APP_STORE_PREP.md` | **Needs user action** (manual; not captured in Phase 57) |
+| **D. Screenshots** | Captured per `APP_STORE_PREP.md` | **Needs user action** (manual; guide tightened Phase 58) |
 | D | Reviewed (no AI / Direct Upload / fake Pro) | **Needs user action** |
 | D | Uploaded to App Store Connect | **Needs user action** |
 | **E. Metadata / privacy** | Metadata pasted from `APP_STORE_METADATA.md` | **Needs user action** |
@@ -54,28 +57,29 @@ Overall submit readiness: **Needs user action** (Connect IAP + screenshots + Tes
 | Paywall Terms of Use + Privacy Statement | Passed (Phase 54) |
 | Free core local export without purchase | Passed (regression suite) |
 | No Direct Upload / no AI product UI | Passed (Phase 51+) |
-| Product IDs unchanged | Passed (`monthly` / `yearly` IDs verified Phase 57) |
+| Product IDs unchanged | Passed (`monthly` / `yearly` IDs verified Phase 57–58) |
 | Version/build not auto-bumped | Passed (still 1.0 (1); bump before archive — manual) |
 
 ## Required order before App Review
 1. Local StoreKit smoke (`STOREKIT_SANDBOX_TESTING.md`) — recommended  
-2. Connect products configured (`APP_STORE_CONNECT_SUBSCRIPTIONS.md`)  
-3. Archive + upload (`APP_STORE_ARCHIVE_RUNBOOK.md`) — **bump build number first**  
-4. TestFlight sandbox purchase (`TESTFLIGHT_PURCHASE_VERIFICATION.md`)  
-5. Full app smoke (`TESTFLIGHT_SMOKE.md`)  
-6. Screenshots + metadata  
-7. Fill gates above to **Passed** with real evidence  
-8. Submit for App Review  
+2. Connect products configured (`APP_STORE_CONNECT_SUBSCRIPTIONS.md` / guide §B)  
+3. Screenshots (`APP_STORE_PREP.md` / guide §C)  
+4. Archive + upload (`APP_STORE_ARCHIVE_RUNBOOK.md`) — **bump build number first** (§D–E)  
+5. TestFlight sandbox purchase (`TESTFLIGHT_PURCHASE_VERIFICATION.md`) (§F)  
+6. Full app smoke (`TESTFLIGHT_SMOKE.md`)  
+7. Metadata + privacy + App Review notes  
+8. Fill gates above to **Passed** with real evidence  
+9. Submit for App Review  
 
-Do **not** skip to F until A–E are Passed.
+Do **not** skip to F submit until A–E are Passed.
 
 ## What Shawn must do next
-1. Create Connect subscription group **Yofai Pro** + monthly/yearly products (exact IDs; $4.99 / $39.99 intended)  
-2. Attach `Yofai.storekit` and run local StoreKit smoke (optional but recommended)  
-3. Capture 8 App Store screenshots per `APP_STORE_PREP.md`  
-4. Approve/bump build (currently **1.0 (1)**), archive, upload (`APP_STORE_ARCHIVE_RUNBOOK.md`)  
+1. Follow **`SHAWN_NEXT_RELEASE_STEPS.md`** §A–B — create Connect **Yofai Pro** + exact product IDs ($4.99 / $39.99 intended)  
+2. Capture 8 screenshots per §C / `APP_STORE_PREP.md`  
+3. Optional: local StoreKit smoke with `Yofai.storekit`  
+4. Approve/bump build (currently **1.0 (1)**), archive, upload  
 5. TestFlight purchase → fill `TESTFLIGHT_PURCHASE_VERIFICATION.md` with Pass  
 6. Paste metadata + App Review notes; verify Support/Privacy URLs  
 7. Mark gates Passed only with evidence → Submit for App Review  
 
-Cursor cannot complete steps 1–7 without your App Store Connect / device / screenshot work.
+Cursor prepared the guides; Connect / device / screenshot / archive work is yours.
