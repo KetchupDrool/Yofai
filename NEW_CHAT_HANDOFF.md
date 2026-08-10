@@ -11,6 +11,10 @@ Repo: `/Volumes/CombatMedic/Yofai` · branch `main`
 ## Current baseline
 Latest commit on `main`:
 
+`ca284f832bbdcf9a142d3884e7574a26cd2e345e` — *Point new-chat handoff at Phase 62 commit.*
+
+Phase 62 implementation:
+
 `af7879fb23acb012ad6735613a7fb6e93b0ad867` — *Phase 62 draft-aware listing packages*
 
 Status:
@@ -80,7 +84,7 @@ Continue Yofai iOS work.
 
 Read NEW_CHAT_HANDOFF.md, DECISIONS.md (Phase 62 + “Why marketplace APIs are not being done yet”), and SESSION_HANDOFF.md first.
 
-Baseline: main @ af7879f (Phase 62). 330 tests. Local Export Mode only.
+Baseline: main @ ca284f8 after Phase 62 @ af7879f. 330 tests. Local Export Mode only.
 Free primary ItemProject workflow intact. Pro multi-draft + draft copy/share via advancedMultiMarketTools.
 APIs / Direct Upload / OAuth / publish are not next.
 
