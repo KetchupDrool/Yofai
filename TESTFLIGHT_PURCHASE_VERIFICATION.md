@@ -1,0 +1,83 @@
+# TestFlight Purchase Verification Report — Yofai
+
+**Phase 55** — fill this report when you actually run purchases.  
+**Do not mark Pass until you performed the step.** Agents leave all cases **Not run**.
+
+Status values: **Not run** | **Pass** | **Fail** | **Blocked**
+
+| Meta | Value |
+|---|---|
+| Build / version | __________ |
+| Commit / build number | __________ |
+| Device | __________ |
+| Sandbox Apple ID used | __________ (do not commit secrets) |
+| Tester | __________ |
+| Date | __________ |
+| Overall result | **Not run** |
+
+Prerequisites before TestFlight purchase tests:
+- [ ] Connect subscriptions created (`APP_STORE_CONNECT_SUBSCRIPTIONS.md`) — still **Not done** in repo by default
+- [ ] Build uploaded to TestFlight
+- [ ] Sandbox tester created
+- [ ] Legal URLs open: Terms of Use + Privacy Statement
+
+Related: `STOREKIT_SANDBOX_TESTING.md`, `TESTFLIGHT_SMOKE.md`.
+
+---
+
+## A. Product loading
+| Case | Status | Notes |
+|---|---|---|
+| Monthly product appears | **Not run** | |
+| Yearly product appears | **Not run** | |
+| Prices match App Store Connect (StoreKit displayPrice) | **Not run** | |
+| Terms of Use visible | **Not run** | |
+| Privacy Statement visible | **Not run** | |
+| Restore Purchases visible | **Not run** | |
+
+## B. Monthly purchase
+| Case | Status | Notes |
+|---|---|---|
+| Purchase monthly succeeds | **Not run** | |
+| Entitlement changes to Pro | **Not run** | |
+| Unlimited product creation unlocks | **Not run** | |
+| Free core workflow still works (export/Photo Check/edit) | **Not run** | |
+
+## C. Yearly purchase
+| Case | Status | Notes |
+|---|---|---|
+| Purchase yearly (if practical) | **Not run** | |
+| Entitlement changes to Pro | **Not run** | |
+
+## D. Restore
+| Case | Status | Notes |
+|---|---|---|
+| Delete/reinstall if practical | **Not run** | |
+| Restore Purchases | **Not run** | |
+| Pro entitlement returns | **Not run** | |
+
+## E. Expired / cancelled / no purchase
+| Case | Status | Notes |
+|---|---|---|
+| No verified purchase → Free | **Not run** | |
+| Existing products remain accessible | **Not run** | |
+| Over-limit products not deleted | **Not run** | |
+
+## F. Safety checks
+| Case | Status | Notes |
+|---|---|---|
+| No Direct Upload button / claim | **Not run** | |
+| No AI feature | **Not run** | |
+| No backend/account required for Free | **Not run** | |
+| No marketplace login required | **Not run** | |
+
+---
+
+## Blockers (if any)
+- __________
+
+## Sign-off
+I confirm the statuses above reflect real device/TestFlight testing (not assumptions).
+
+Signature / initials: __________  
+Date: __________

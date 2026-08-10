@@ -1,66 +1,75 @@
-# StoreKit Sandbox / TestFlight Purchase Verification — Yofai
+# StoreKit Sandbox / Local Verification — Yofai
 
-**Phase 54** — manual purchase verification plan.  
-Do not claim sandbox/TestFlight purchase was verified until you run these steps on a device/simulator and check the boxes.
+**Phase 55** — local StoreKit config + pointer to TestFlight report.  
+UI purchase checks are **manual**. Cursor unit tests do **not** count as purchase verification.
 
-Related: `APP_STORE_CONNECT_SUBSCRIPTIONS.md`, `TESTFLIGHT_SMOKE.md`, `RELEASE_CHECKLIST.md`.
+Status values for tables below: **Not run** | **Pass** | **Fail** | **Blocked**  
+Repo default for all UI purchase rows: **Not run**
+
+Related:
+- `APP_STORE_CONNECT_SUBSCRIPTIONS.md` — Connect sign-off
+- `TESTFLIGHT_PURCHASE_VERIFICATION.md` — TestFlight Pass/Fail report
+- `RELEASE_CHECKLIST.md`
 
 ## Prerequisites
-- [ ] Phase 53 StoreKit code on the build you test
-- [ ] Product IDs unchanged:
+- [ ] Phase 53+ StoreKit code on the build
+- Product IDs:
   - `com.shawnwright.yofai.pro.monthly`
   - `com.shawnwright.yofai.pro.yearly`
-- [ ] For TestFlight/live sandbox: Connect subscription products created (not claimed done by agents)
-- [ ] Sandbox tester Apple ID created (for device/TestFlight)
+- [ ] For TestFlight: Connect products created (sign-off still **Not done** unless you updated that doc)
 
-## A. Local StoreKit Configuration (Xcode)
-1. [ ] Open Yofai scheme → Run → Options → **StoreKit Configuration** → `Yofai.storekit`
-2. [ ] Run on **iPhone 16e** simulator (or a device)
-3. [ ] Settings → **Yofai Pro**
-4. [ ] Confirm current plan **Free**
-5. [ ] Open Upgrade / Manage paywall
-6. [ ] Confirm monthly and yearly options load with StoreKit prices (not invented fake prices)
-7. [ ] Confirm **Restore Purchases** visible
-8. [ ] Confirm **Terms of Use** → Apple Standard EULA
-9. [ ] Confirm **Privacy Statement** → https://ketchupdrool.github.io/Yofai/privacy-policy.html
-10. [ ] Purchase **monthly** in the StoreKit test sheet
-11. [ ] Confirm plan becomes **Pro** / unlimited create works
-12. [ ] Tap **Restore Purchases** — still Pro
-13. [ ] In Xcode StoreKit transaction manager (if available): expire/cancel subscription
-14. [ ] Refresh / relaunch — confirm **Free** fallback
-15. [ ] Confirm existing products were **not** deleted
-16. [ ] Confirm Free can still export local JPEGs
+## A. Local StoreKit Configuration (Xcode + iPhone 16e)
+
+| Step | Status | Notes |
+|---|---|---|
+| Scheme → StoreKit Configuration → `Yofai.storekit` | **Not run** | Manual |
+| Launch app; Settings → Yofai Pro | **Not run** | |
+| Plan shows Free | **Not run** | |
+| Open Upgrade paywall | **Not run** | |
+| Monthly + yearly load with StoreKit prices | **Not run** | |
+| Restore Purchases visible | **Not run** | |
+| Terms of Use opens Apple EULA | **Not run** | |
+| Privacy Statement opens GitHub Pages privacy URL | **Not run** | |
+| Purchase monthly → Pro | **Not run** | |
+| Restore still Pro | **Not run** | |
+| Expire/cancel in StoreKit transactions → Free | **Not run** | |
+| Existing products not deleted | **Not run** | |
+| Free can still export local JPEGs | **Not run** | |
 
 ### Local unavailable-path check
-1. [ ] Temporarily clear StoreKit Configuration (or use a build without products)
-2. [ ] Paywall shows **Purchases are not available right now.**
-3. [ ] No fake dollar price buttons
-4. [ ] Terms of Use + Privacy Statement still visible
-5. [ ] Restore Purchases still visible
-6. [ ] Free export still works
+| Step | Status | Notes |
+|---|---|---|
+| Clear StoreKit Configuration / no products | **Not run** | |
+| Shows “Purchases are not available right now.” | **Not run** | |
+| No fake dollar price buttons | **Not run** | |
+| Terms + Privacy still visible | **Not run** | |
+| Restore still visible | **Not run** | |
+| Free export still works | **Not run** | |
 
-## B. Sandbox / TestFlight (after Connect products exist)
-1. [ ] Create Connect products + sandbox tester (`APP_STORE_CONNECT_SUBSCRIPTIONS.md`)
-2. [ ] Upload a build; install via TestFlight on a physical iPhone
-3. [ ] Sign out of Media & Purchases / use sandbox account when prompted (do not use your personal Apple ID for sandbox)
-4. [ ] Settings → Yofai Pro → Upgrade
-5. [ ] Confirm monthly/yearly **StoreKit** prices load from Connect
-6. [ ] Purchase monthly → confirm Pro
-7. [ ] Restore Purchases → still Pro
-8. [ ] Delete app → reinstall TestFlight build → Restore → Pro returns
-9. [ ] On a Free account / without purchase: create product, Photo Check, edit, export, View Exported Files — all work
-10. [ ] Over Free limit (12): create blocked; existing products still open
+**Local StoreKit overall (repo default):** **Not run** — requires manual UI on simulator/device.
 
-## C. Pass criteria
-- [ ] No fake purchase success without StoreKit
-- [ ] Free core local export never requires purchase
-- [ ] Legal links present on paywall
-- [ ] Restore works
-- [ ] No Direct Upload / AI / backend required
+## B. TestFlight / sandbox
+Use `TESTFLIGHT_PURCHASE_VERIFICATION.md` for the scored report. Do not mark Pass here until that report is filled.
+
+High-level gate before App Store submit:
+1. Connect subscriptions created + cleared for review
+2. Build on TestFlight
+3. Sandbox tester ready
+4. Monthly purchase **Pass**
+5. Restore **Pass**
+6. Free fallback **Pass**
+7. Legal links opened **Pass**
+8. Screenshots updated if paywall is in App Store metadata
+
+## C. Automated (Cursor / CI)
+| Check | Status |
+|---|---|
+| Full unit suite on iPhone 16e | Run on each phase closeout — not a purchase proof |
+| Product ID / legal URL unit assertions | Covered by Phase 53–55 style tests |
 
 ## Sign-off
 - Build / version: __________  
-- Method: StoreKit config / TestFlight sandbox  
+- Method: StoreKit config / TestFlight  
 - Tester: __________  
 - Date: __________  
-- Result: Pass / Fail (notes: __________)
+- Result: **Not run** / Pass / Fail

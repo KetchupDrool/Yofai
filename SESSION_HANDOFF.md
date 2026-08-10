@@ -1,25 +1,31 @@
 # Session Handoff
 
 ## Status
-Phase 54 complete — Connect subscription checklist + sandbox verification plan + paywall legal links.  
-**301 tests passed; build on iPhone 16e.** StoreKit 2 Pro foundation (Phase 53) remains. **Connect products not claimed created.**  
-Do not submit until `APP_STORE_CONNECT_SUBSCRIPTIONS.md` and `STOREKIT_SANDBOX_TESTING.md` are manually completed.
+Phase 55 complete — Connect IAP manual sign-off checklist + TestFlight purchase verification **template**.  
+**301 tests passed; build on iPhone 16e (docs-only phase; no new Phase 55 tests).**  
+**Connect status: Not done. TestFlight purchase cases: Not run.**  
+Do not submit until you complete Connect products and fill `TESTFLIGHT_PURCHASE_VERIFICATION.md` with real Pass results.
 
-## Legal links (verified in code)
-- Terms of Use: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
-- Privacy Statement: https://ketchupdrool.github.io/Yofai/privacy-policy.html
+## In-app (already done Phases 53–54)
+- StoreKit 2 Pro monthly/yearly
+- Terms of Use + Privacy Statement always on paywall
+- Restore Purchases; unavailable state safe; Free keeps core export
+
+## Manual still required
+1. `APP_STORE_CONNECT_SUBSCRIPTIONS.md` — create group/products (status table)
+2. Local optional: `STOREKIT_SANDBOX_TESTING.md` with `Yofai.storekit`
+3. `TESTFLIGHT_PURCHASE_VERIFICATION.md` — scored purchase report
+4. Then `RELEASE_CHECKLIST.md` A2 gate → submit
 
 ## Product IDs
 - `com.shawnwright.yofai.pro.monthly` ($4.99 intended)
 - `com.shawnwright.yofai.pro.yearly` ($39.99 intended)
 
 ## Last Completed
-- Phase 54 readiness docs + paywall Terms/Privacy + Phase54 tests
+- Phase 55 sign-off docs (no new app features)
 
 ## Next Recommended
-1. Create Connect subscription group/products (manual)
-2. Run `STOREKIT_SANDBOX_TESTING.md` (StoreKit config, then TestFlight sandbox)
-3. Then `RELEASE_CHECKLIST.md` submit path
+Complete Connect IAP + TestFlight purchase verification yourself, then submit path.
 
 ## Rules
 - Freemium-first; no fake purchases; Free keeps core local export

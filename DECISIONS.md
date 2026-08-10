@@ -365,9 +365,16 @@
 - Settings privacy copy updated (Pro is optional StoreKit subscription; Free keeps core export)
 - No new product features; no Direct Upload; no AI; no backend
 
+## Phase 55 — App Store Connect IAP Manual Sign-Off & TestFlight Purchase Verification (locked)
+- Final Connect sign-off checklist with statuses: Not done / Done by user / Verified in TestFlight (defaults **Not done**)
+- `TESTFLIGHT_PURCHASE_VERIFICATION.md` report template (Not run / Pass / Fail / Blocked — defaults **Not run**)
+- `STOREKIT_SANDBOX_TESTING.md` + `RELEASE_CHECKLIST.md` A2 IAP gate before submit
+- No claim that Connect products or TestFlight purchases were completed
+- No new product features; no Direct Upload; no AI; no backend; product IDs unchanged
+
 ## Future StoreKit follow-ups (manual / not claimed done)
-- Create/verify subscription group + products in App Store Connect
-- Sandbox / TestFlight purchase verification (`STOREKIT_SANDBOX_TESTING.md`)
+- Create/verify subscription group + products in App Store Connect (user sign-off)
+- Fill `TESTFLIGHT_PURCHASE_VERIFICATION.md` with real Pass results
 - Optional lifetime product if later approved
 - Paid-apps privacy nutrition label updates when IAP goes live
 

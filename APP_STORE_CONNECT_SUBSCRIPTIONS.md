@@ -1,69 +1,98 @@
-# App Store Connect — Yofai Pro Subscriptions
+# App Store Connect — Yofai Pro Subscriptions (Manual Sign-Off)
 
-**Phase 54** — step-by-step manual setup.  
-**Status: NOT complete until you check every box in App Store Connect yourself.**  
-This phase documents the path; it does not claim Connect products were created.
+**Phase 55** — final manual sign-off checklist.  
+**Agents must not mark Connect items Done or Verified.** Only you can, after completing each step in App Store Connect / TestFlight.
 
-## Product IDs (must match app code)
-| Reference name | Product ID | Intended price |
-|---|---|---|
-| Yofai Pro Monthly | `com.shawnwright.yofai.pro.monthly` | **$4.99**/month |
-| Yofai Pro Yearly | `com.shawnwright.yofai.pro.yearly` | **$39.99**/year |
+Status values (use exactly one per row):
+- **Not done** — default
+- **Done by user** — you created/configured it in Connect
+- **Verified in TestFlight** — you confirmed it works on a TestFlight/sandbox build
 
-Subscription group: **Yofai Pro**
+Overall Connect IAP status for this repo: **Not done** (no proof of Connect completion was provided).
+
+## Product IDs (must match app — do not change without approval)
+| Item | Value |
+|---|---|
+| Monthly product ID | `com.shawnwright.yofai.pro.monthly` |
+| Yearly product ID | `com.shawnwright.yofai.pro.yearly` |
+| Intended monthly price | $4.99/month |
+| Intended yearly price | $39.99/year |
+| Subscription group | **Yofai Pro** |
 
 Local StoreKit config: `Yofai/Yofai.storekit`  
-Scheme → Run → Options → StoreKit Configuration → select `Yofai.storekit`.
+Scheme → Run → Options → StoreKit Configuration → `Yofai.storekit`
 
-## Legal links (in app paywall)
-| Label | URL |
+## Legal (in-app + Connect)
+| Item | Value | Status |
+|---|---|---|
+| Terms of Use (Apple Standard EULA) | https://www.apple.com/legal/internet-services/itunes/dev/stdeula/ | Visible in app (Phase 54) |
+| Privacy Statement | https://ketchupdrool.github.io/Yofai/privacy-policy.html | Visible in app (Phase 54) |
+| Privacy URL opens in Safari | Confirm before submit | **Not done** |
+| Connect privacy / Purchases nutrition labels updated for IAP | When products go live | **Not done** |
+
+---
+
+## Sign-off table
+
+| # | Step | Details | Status |
+|---|---|---|---|
+| 1 | Open App Store Connect | https://appstoreconnect.apple.com | **Not done** |
+| 2 | Select Yofai app | Bundle ID `com.shawnwright.yofai` | **Not done** |
+| 3 | Open Subscriptions | Monetization → Subscriptions | **Not done** |
+| 4 | Create subscription group | Name: **Yofai Pro** | **Not done** |
+| 5 | Group localization | Display name for group if required | **Not done** |
+| 6 | Create monthly subscription | See Monthly block below | **Not done** |
+| 7 | Monthly localization | Display name + description | **Not done** |
+| 8 | Create yearly subscription | See Yearly block below | **Not done** |
+| 9 | Yearly localization | Display name + description | **Not done** |
+| 10 | Subscription review information | Fill Connect review fields | **Not done** |
+| 11 | Paywall screenshot | Attach if Connect requires for review | **Not done** |
+| 12 | Clear products for review | Attach to the app version you will submit | **Not done** |
+| 13 | Sandbox tester | Users and Access → Sandbox → create tester | **Not done** |
+| 14 | Products load in TestFlight | Monthly + yearly appear with StoreKit prices | **Not done** |
+| 15 | Purchase + restore verified | Fill `TESTFLIGHT_PURCHASE_VERIFICATION.md` | **Not done** |
+
+---
+
+## Monthly subscription (create exactly)
+
+| Field | Value |
 |---|---|
-| Terms of Use | https://www.apple.com/legal/internet-services/itunes/dev/stdeula/ |
-| Privacy Statement | https://ketchupdrool.github.io/Yofai/privacy-policy.html |
+| Product ID | `com.shawnwright.yofai.pro.monthly` |
+| Reference name | Yofai Pro Monthly |
+| Duration | 1 month |
+| Intended price | **$4.99**/month |
+| Display name | Yofai Pro Monthly |
+| Description | Unlocks Pro features in Yofai. |
 
-Confirm the Privacy Statement URL opens before submit. Hosted from `docs/privacy-policy.html`.
+Status: **Not done**
 
-## Exact manual steps
-1. [ ] Open [App Store Connect](https://appstoreconnect.apple.com)
-2. [ ] Select the **Yofai** app (`com.shawnwright.yofai`)
-3. [ ] Go to **Monetization → Subscriptions** (or In-App Purchases / Subscriptions)
-4. [ ] Create subscription group: **Yofai Pro**
-5. [ ] Create monthly auto-renewable subscription:
-   - Product ID: `com.shawnwright.yofai.pro.monthly`
-   - Reference name: **Yofai Pro Monthly**
-   - Duration: 1 month
-   - Price: tier ≈ **$4.99**/month
-6. [ ] Create yearly auto-renewable subscription:
-   - Product ID: `com.shawnwright.yofai.pro.yearly`
-   - Reference name: **Yofai Pro Yearly**
-   - Duration: 1 year
-   - Price: tier ≈ **$39.99**/year
-7. [ ] Add localization (en_US or primary):
-   - Display name (e.g. Yofai Pro Monthly / Yofai Pro Yearly)
-   - Description (unlimited products + additive Pro extras; Free keeps local export)
-8. [ ] Add **subscription review information** (and paywall screenshot if Connect requires it)
-9. [ ] Clear products for sale / for review with the app version you will submit
-10. [ ] Create a **Sandbox Apple ID** tester (Users and Access → Sandbox)
-11. [ ] Verify products load in:
-    - Xcode + `Yofai.storekit`, and/or
-    - TestFlight + sandbox account
-12. [ ] Run purchase + Restore Purchases per `STOREKIT_SANDBOX_TESTING.md`
+## Yearly subscription (create exactly)
 
-## Suggested localization copy
-**Display name (monthly):** Yofai Pro Monthly  
-**Display name (yearly):** Yofai Pro Yearly  
+| Field | Value |
+|---|---|
+| Product ID | `com.shawnwright.yofai.pro.yearly` |
+| Reference name | Yofai Pro Yearly |
+| Duration | 1 year |
+| Intended price | **$39.99**/year |
+| Display name | Yofai Pro Yearly |
+| Description | Unlocks Pro features in Yofai for one year. |
 
-**Description:**  
-Yofai Pro unlocks unlimited products and additive Pro extras. Free keeps Capture → Organize → Photo Check → Edit → Prepare → Local Export. Direct Upload and cloud backup are not included.
+Status: **Not done**
 
-## App behavior (already in code)
+### Optional longer description (localization notes)
+Free keeps Capture → Organize → Photo Check → Edit → Prepare → Local Export. Pro is additive (unlimited products and planned extras). Direct Upload and cloud backup are not included. No AI features.
+
+---
+
+## App behavior already in code (not Connect)
 - Free keeps core local export without purchase
-- Pro unlocks unlimited products after verified StoreKit entitlement
-- UI prices come from StoreKit `displayPrice` when products load
-- If products fail to load: “Purchases are not available right now.” — Free still works; legal links still visible
-- Restore Purchases on Settings + paywall
-- No fake purchase success
-- Cloud backup / Direct Upload not implemented
+- UI prices from StoreKit `displayPrice` when products load
+- Unavailable: “Purchases are not available right now.” — no fake price buttons; legal links + Restore still visible
+- Pro unlock only after verified StoreKit entitlement
+- No Direct Upload / AI / backend for Free workflow
 
-## Privacy nutrition labels
-When IAP goes live, update App Store Connect privacy answers for Purchases / Paid Apps as needed (`APP_STORE_CONNECT_PRIVACY.md`).
+## Related docs
+- `STOREKIT_SANDBOX_TESTING.md` — how to test
+- `TESTFLIGHT_PURCHASE_VERIFICATION.md` — Pass/Fail report template
+- `RELEASE_CHECKLIST.md` — submit gate

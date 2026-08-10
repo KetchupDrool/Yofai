@@ -1,23 +1,22 @@
 # Tasks
 
 ## Status
-Phase 54 — App Store Connect Subscriptions & Sandbox Purchase Verification complete (docs + paywall legal links).
-**App Store Connect products are NOT claimed created.** Run `APP_STORE_CONNECT_SUBSCRIPTIONS.md` + `STOREKIT_SANDBOX_TESTING.md` manually before submit.
-Yofai is freemium-first, no-AI, Local Export Mode only.
+Phase 55 — App Store Connect IAP Manual Sign-Off & TestFlight Purchase Verification complete (docs/templates only).
+**Connect IAP: Not done. TestFlight purchase report: Not run.** You must complete those manually before submit.
+No new product features. StoreKit foundation remains from Phase 53–54.
 
 ## Current Phase
-Phase 54 complete.
+Phase 55 complete.
 
 ## Done
-- Phases 1–53
-- Phase 54: Connect checklist, sandbox test plan, Terms of Use + Privacy Statement on paywall, Settings copy fix; Phase54ConnectSubscriptionsReadinessTests (6); total 301
-- Build + unit tests on iPhone 16e
+- Phases 1–54
+- Phase 55: Connect sign-off statuses, `TESTFLIGHT_PURCHASE_VERIFICATION.md`, release IAP gate, sandbox doc refresh; no new app code; total tests still 301
 
 ## Next (when explicitly approved)
-- Manually create Connect subscriptions + sandbox purchase verification
-- Screenshots / archive / TestFlight / App Review submit
+- You create Connect products + fill verification report with real Passes
+- Then screenshots / archive / App Review submit
 - Or Direct Upload foundation after API verification
 
 ## Do Not Do
-- Claim Connect IAP setup is done without manual verification
-- Fake purchases; lock Free core export; Direct Upload; AI; backend; ads
+- Mark Connect/TestFlight purchase as Pass without real testing
+- Fake purchases; lock Free core export; Direct Upload; AI; backend

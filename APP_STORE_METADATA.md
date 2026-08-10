@@ -118,11 +118,11 @@ Demo path (Pro): Settings → Yofai Pro → purchase or Restore Purchases (sandb
 ```
 
 ## Subscriptions / IAP
-See `APP_STORE_CONNECT_SUBSCRIPTIONS.md` + `STOREKIT_SANDBOX_TESTING.md`.  
+See `APP_STORE_CONNECT_SUBSCRIPTIONS.md`, `STOREKIT_SANDBOX_TESTING.md`, and `TESTFLIGHT_PURCHASE_VERIFICATION.md`.  
 Product IDs: `com.shawnwright.yofai.pro.monthly`, `com.shawnwright.yofai.pro.yearly`.  
 Intended tiers: $4.99/month, $39.99/year (live price from StoreKit).  
 Paywall legal links: **Terms of Use** (Apple Standard EULA) + **Privacy Statement** (https://ketchupdrool.github.io/Yofai/privacy-policy.html).  
-Connect product creation and sandbox purchase verification are **manual** and not claimed complete by this repo alone.
+Connect product creation and TestFlight purchase verification are **manual** — repo defaults remain Not done / Not run until you update those docs with proof.
 ## Build settings (current project)
 - Display name: Yofai  
 - Bundle ID: `com.shawnwright.yofai`  
