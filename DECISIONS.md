@@ -416,6 +416,16 @@
 - **Out of scope:** Direct Upload, publishing, login, OAuth, browser automation, passwords, scraping, unofficial APIs, backend, AI, ads, analytics SDK, invented dimensions, new fixed FB/Mercari sizes
 - Next implementation (when approved): **Phase 61 — Marketplace Listing Drafts (additive model + Free primary / Pro multi-draft UI)**
 
+## Phase 61 — Marketplace Listing Drafts (locked)
+- Additive local SwiftData model `MarketplaceListingDraft` owned by `ItemProject` (cascade)
+- Free primary listing workflow unchanged on `ItemProject.listing*` fields + Prepare Listing & Export
+- Pro additional drafts gated by `advancedMultiMarketTools` — one draft per marketplace per product
+- Create copies primary fields into new draft; never clears/overwrites existing project listing text
+- UI: Marketplace Drafts section on Product Detail + Listing Workspace; basic Pro draft editor
+- FB/Mercari `recommendedExportPreset` still nil; all 7 preset raw values/dimensions unchanged
+- Manual listing packages only — no Direct Upload / login / OAuth / publish / API / AI
+- Tests: Phase 61 suite + Phase 27 entry-point update for additive draft model
+
 ## Future StoreKit follow-ups (manual / not claimed done)
 - Create/verify subscription group + products in App Store Connect (user sign-off)
 - Fill `TESTFLIGHT_PURCHASE_VERIFICATION.md` with real Pass results

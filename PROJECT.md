@@ -63,7 +63,8 @@ Home → Start / Continue Product → Item Project → Capture & Check Photos �
 Import, Originals, and History remain available as secondary tools.
 
 ## Status
-- Phases 1–60 technical history complete (see `DECISIONS.md`, `APP_STORE_SUBMIT_GATES.md`, `SHAWN_NEXT_RELEASE_STEPS.md`)
+- Phases 1–61 technical history complete (see `DECISIONS.md`, `APP_STORE_SUBMIT_GATES.md`, `SHAWN_NEXT_RELEASE_STEPS.md`)
+- **Phase 61:** additive `MarketplaceListingDraft` (Pro multi-market); Free primary listing stays on `ItemProject`; no Direct Upload
 - **Phase 60:** docs-only marketplace workspace + freemium mapping lock (no app code). Free = one primary listing workflow per product; Pro multi-draft later via `advancedMultiMarketTools`. Manual listing packages only — no Direct Upload.
 - **Phase 59:** first-launch welcome + guided walkthrough; Settings replay; rich SwiftUI mini-scenes per step; system launch screen unchanged
 - **Phase 58:** owner Connect IAP + screenshot execution guide; manual gates still Needs user action / Not started

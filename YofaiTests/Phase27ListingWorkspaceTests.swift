@@ -172,13 +172,15 @@ final class Phase27ListingWorkspaceTests: XCTestCase {
     }
 
     func testEntryPointsUseSameProjectModel() throws {
-        // Workspace and Project Detail share ItemProject — no second draft model.
+        // Workspace and Project Detail share ItemProject as Free primary listing.
+        // Phase 61 adds MarketplaceListingDraft only as additive Pro multi-market drafts.
         let container = try makeContainer()
         let context = ModelContext(container)
         let project = try makeReadyProject(name: "Shared", in: context)
         project.listingTitle = "Updated Title"
         XCTAssertEqual(project.listingTitle, "Updated Title")
         XCTAssertTrue(YofaiModelSchema.models.contains { $0 == ItemProject.self })
-        XCTAssertFalse(YofaiModelSchema.models.contains { String(describing: $0).contains("ListingDraft") })
+        XCTAssertTrue(YofaiModelSchema.models.contains { $0 == MarketplaceListingDraft.self })
+        XCTAssertTrue(project.marketplaceDrafts.isEmpty)
     }
 }

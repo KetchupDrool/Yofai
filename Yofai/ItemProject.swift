@@ -20,6 +20,9 @@ final class ItemProject {
     var aiPreparations: [AIPreparationRecord] = []
     @Relationship(deleteRule: .cascade, inverse: \PhotoPlanGoal.project)
     var photoPlanGoals: [PhotoPlanGoal] = []
+    /// Phase 61 — Pro multi-market manual listing drafts. Free primary workflow stays on `listing*` fields below.
+    @Relationship(deleteRule: .cascade, inverse: \MarketplaceListingDraft.project)
+    var marketplaceDrafts: [MarketplaceListingDraft] = []
 
     // Local Etsy listing draft fields (Phase 23). No API/upload.
     var listingTitle: String = ""

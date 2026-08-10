@@ -79,6 +79,9 @@ struct ProjectDetailView: View {
             }
             .listRowBackground(sectionBackground)
 
+            MarketplaceDraftsSection(project: project)
+                .listRowBackground(sectionBackground)
+
             listingDetailsSection
 
             projectExportSettingsSection

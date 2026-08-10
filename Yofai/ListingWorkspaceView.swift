@@ -53,6 +53,8 @@ struct ListingWorkspaceView: View {
         ScrollViewReader { proxy in
             List {
             overviewSection
+            MarketplaceDraftsSection(project: project)
+                .listRowBackground(sectionBackground)
             readinessSection
             listingInformationSection
             productIntakeSection

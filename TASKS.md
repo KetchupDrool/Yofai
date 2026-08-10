@@ -1,22 +1,21 @@
 # Tasks
 
 ## Status
-Phase 60 — Marketplace Workspace Planning & Freemium Mapping complete (**docs-only**).  
-No Swift / SwiftData / UI / StoreKit / entitlement code changed.
+Phase 61 — Marketplace Listing Drafts complete.  
+320 tests Passed; build Passed on iPhone 16e.
 
 ## Current Phase
-Phase 60 complete (decision lock).
+Phase 61 complete.
 
 ## Done
-- Phases 1–59
-- Phase 60: locked Free primary draft vs Pro multi-market drafts (`advancedMultiMarketTools`); manual packages only
+- Phases 1–60
+- Phase 61: additive `MarketplaceListingDraft`; Free primary workflow preserved; Pro multi-draft via `advancedMultiMarketTools`
 
-## Next
-- Release gates remain manual (`SHAWN_NEXT_RELEASE_STEPS.md`)
-- Implementation only after approval: **Phase 61 — Marketplace Listing Drafts**
+## Next (Shawn)
+- Release: `SHAWN_NEXT_RELEASE_STEPS.md`
+- Optional later: draft→export package wiring, templates, per-market defaults (still local-only)
 
 ## Do Not Do
-- Implement marketplace drafts without Phase 61 approval  
 - Direct Upload / login / OAuth / publish / AI  
-- Fake gate Passes; auto-bump version without approval  
-- Weaken Free core local workflow or replace `ItemProject` listing fields  
+- Invent FB/Mercari fixed presets  
+- Fake gate Passes; weaken Free core workflow  
