@@ -34,6 +34,8 @@ struct ProjectDetailView: View {
     @State private var exportStatusIsError = false
     @State private var shareBatchItem: ShareBatchItem?
     @State private var batchToDelete: ProjectExportBatch?
+    @State private var recentlyExportedBatch: ProjectExportBatch?
+    @State private var noteEditorBatch: ProjectExportBatch?
     @State private var showDuplicateSheet = false
     @State private var duplicateName = ""
     @State private var duplicateError: String?
@@ -253,6 +255,9 @@ struct ProjectDetailView: View {
         }
         .sheet(item: $shareBatchItem) { item in
             ActivityShareView(items: item.urls)
+        }
+        .sheet(item: $noteEditorBatch) { batch in
+            ExportBatchNoteEditor(batch: batch)
         }
         } // ScrollViewReader
     }
@@ -493,6 +498,15 @@ struct ProjectDetailView: View {
                     .foregroundStyle(exportStatusIsError ? DarkroomTheme.danger : DarkroomTheme.accent)
                     .fixedSize(horizontal: false, vertical: true)
             }
+
+            if let recentlyExportedBatch, !exportStatusIsError {
+                Button(recentlyExportedBatch.hasSellerNote ? "Edit Note" : "Add Note") {
+                    noteEditorBatch = recentlyExportedBatch
+                }
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(DarkroomTheme.accent)
+                .accessibilityLabel(recentlyExportedBatch.hasSellerNote ? "Edit Note" : "Add Note")
+            }
         } header: {
             Text("Export")
                 .foregroundStyle(DarkroomTheme.textTertiary)
@@ -508,6 +522,7 @@ struct ProjectDetailView: View {
         isExportingBatch = true
         exportStatusMessage = nil
         exportStatusIsError = false
+        recentlyExportedBatch = nil
         exportProgressCompleted = 0
         exportProgressTotal = sortedPhotos.count
         defer { isExportingBatch = false }
@@ -526,6 +541,7 @@ struct ProjectDetailView: View {
                 }
                 exportStatusMessage = summary
                 exportStatusIsError = false
+                recentlyExportedBatch = batch
             } else {
                 // Clean up empty/failed folder if nothing succeeded.
                 LocalEditStore.deleteExportBatchFolder(folderName: result.batchFolderName)

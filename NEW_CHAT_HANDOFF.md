@@ -13,27 +13,27 @@ Yofai
 - iPhone-only SwiftUI + SwiftData
 - **Product purpose:** local-first marketplace product photo preparation for online sellers
 - Core functionality is local-first/on-device
-- Phases 1–43 complete
-- Phase 43: one-tap prep tips from readiness (manual, computed)
-- Last build/tests: succeeded on iPhone 16e (228 tests)
+- Phases 1–44 complete
+- Phase 44: optional local notes on export history batches
+- Last build/tests: succeeded on iPhone 16e (240 tests)
 - App Store upload paused
 - Primary local path: `/Volumes/CombatMedic/Yofai`
 - GitHub Pages: https://ketchupdrool.github.io/Yofai/
 
-## 5. Completed phases 1–43
-1–42. Local listing prep through export readiness checklist
-43. Prep tips that route sellers to existing photo/fit/export controls without auto-fixes
+## 5. Completed phases 1–44
+1–43. Local listing prep through prep tips
+44. Optional seller notes on completed `ProjectExportBatch` rows
 
-## 6. Phase 43 result
-**Seller One-Tap Prep Tips complete.** Up to 3 prioritized local tips (blocking → review → framing → optional) with actions into Capture & Check Photos, Photo Check, Fit/Export size scroll, Reposition, or Listing Workspace. No auto-mutations, AI, or compliance claims. Build + 228 unit tests passed on iPhone 16e.
+## 6. Phase 44 result
+**Seller Export Batch Notes complete.** Sellers can optionally add/edit/remove a short local note on a completed export batch (e.g. “eBay draft”). Notes are not publish status and never required. Build + 240 unit tests passed on iPhone 16e.
 
 ## 7. Current models/files
-**Export:** `ExportPrepTipSupport.swift`, `ExportPrepTipsSection.swift`, `ExportReadiness*`, `ExportHistorySupport.swift`
+**Export:** `ProjectExportBatch.sellerNote`, `ExportBatchNoteSupport.swift`, `ExportBatchNoteEditor.swift`, prep tips, readiness, history filters
 
-**Tests:** Phase22–43
+**Tests:** Phase22–44
 
 ## 8. Working features
-- Prep tips, export readiness checklist, marketplace filters/compare, Export Again, fit modes + reposition, verified canvases, FB/Mercari guidance, listing prep, bulk edit, packages, defaults, queue, batch export
+- Export batch notes, prep tips, readiness checklist, history filters/compare, Export Again, fit modes + reposition, verified canvases, FB/Mercari guidance, listing prep, bulk edit, packages, defaults, queue, batch export
 
 ## 9. Rules/constraints
 - Core photo preparation: local-first/on-device
@@ -53,7 +53,7 @@ App: Yofai
 Bundle ID: com.shawnwright.yofai
 Purpose: local-first marketplace product photo preparation for online sellers.
 Core functionality is local-first/on-device.
-Status: Phases 1–43 done. Prep tips guide sellers to existing controls. Last build/tests succeeded on iPhone 16e (228 tests). App Store upload paused.
+Status: Phases 1–44 done. Export batches can carry optional local seller notes. Last build/tests succeeded on iPhone 16e (240 tests). App Store upload paused.
 Marketplaces are local export targets only. Do not invent new preset pixel sizes.
 Abandoned from active roadmap: paid/live AI APIs; OAuth marketplace publishing; direct marketplace uploads.
 Future capability (not next work): backend, accounts, cloud sync, subscriptions, ads.

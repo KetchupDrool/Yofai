@@ -20,6 +20,8 @@ final class ProjectExportBatch {
     var exportCanvasWidth: Int = 0
     var exportCanvasHeight: Int = 0
     var watermarkEnabled: Bool = false
+    /// Phase 44 — optional local seller note. Empty = no note (legacy-safe default).
+    var sellerNote: String = ""
 
     init(
         createdAt: Date = .now,
@@ -33,7 +35,8 @@ final class ProjectExportBatch {
         exportFitModeRaw: String = "",
         exportCanvasWidth: Int = 0,
         exportCanvasHeight: Int = 0,
-        watermarkEnabled: Bool = false
+        watermarkEnabled: Bool = false,
+        sellerNote: String = ""
     ) {
         self.createdAt = createdAt
         self.batchFolderName = batchFolderName
@@ -47,6 +50,7 @@ final class ProjectExportBatch {
         self.exportCanvasWidth = exportCanvasWidth
         self.exportCanvasHeight = exportCanvasHeight
         self.watermarkEnabled = watermarkEnabled
+        self.sellerNote = ExportBatchNoteSupport.normalized(sellerNote)
     }
 
     var fileURLs: [URL] {

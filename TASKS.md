@@ -1,7 +1,7 @@
 # Tasks
 
 ## Status
-Phase 43 — Seller One-Tap Prep Tips complete.
+Phase 44 — Seller Export Batch Notes complete.
 App Store upload remains paused.
 
 ## Product direction
@@ -10,12 +10,12 @@ Core functionality is local-first/on-device.
 Marketplaces (Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, similar) are **local export targets only**.
 
 ## Current Phase
-Phase 43 — Seller One-Tap Prep Tips. Complete.
+Phase 44 — Seller Export Batch Notes. Complete.
 
 ## Done
-- MVP + Phases 4–42
-- Phase 43: computed prep tips (max 3), manual actions to existing controls; Phase43ExportPrepTipsTests (15); total 228
-- Build + unit tests succeeded on iPhone 16e (228 tests)
+- MVP + Phases 4–43
+- Phase 44: optional local `sellerNote` on ProjectExportBatch (240 char max); Phase44ExportBatchNotesTests (12); total 240
+- Build + unit tests succeeded on iPhone 16e (240 tests)
 
 ## Remaining Polish
 - Edit tools may scroll with Export + watermark

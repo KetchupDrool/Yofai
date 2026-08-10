@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Phase 40/41 — local export history with marketplace filters and recent-export compare.
+/// Phase 40/41/44 — local export history with marketplace filters, compare, and optional notes.
 struct ExportHistorySection: View {
     @Bindable var project: ItemProject
     var onUseSettings: (ProjectExportBatch) -> Void
@@ -9,6 +9,7 @@ struct ExportHistorySection: View {
     var onDelete: ((ProjectExportBatch) -> Void)?
 
     @State private var selectedFilter: ExportHistoryFilter = .all
+    @State private var batchForNote: ProjectExportBatch?
 
     private var allBatches: [ProjectExportBatch] {
         ExportHistorySupport.completedBatches(in: project)
@@ -70,13 +71,16 @@ struct ExportHistorySection: View {
             Text("Export History")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
-            Text("Local only. Filter and compare use saved export details — not photo pixels, and not publish status. Deleting a row removes that export folder only, not your product photos.")
+            Text("Local only. Filter and compare use saved export details — not photo pixels, and not publish status. Notes are optional reminders. Deleting a row removes that export folder only, not your product photos.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .onChange(of: availableFilters) { _, filters in
             if !filters.contains(selectedFilter) {
                 selectedFilter = .all
             }
+        }
+        .sheet(item: $batchForNote) { batch in
+            ExportBatchNoteEditor(batch: batch)
         }
     }
 
@@ -132,6 +136,14 @@ struct ExportHistorySection: View {
                 .font(.caption2)
                 .foregroundStyle(DarkroomTheme.textTertiary)
 
+            if let note = batch.sellerNoteDisplayLine {
+                Text(note)
+                    .font(.caption)
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityLabel("Export note: \(note)")
+            }
+
             HStack(spacing: 12) {
                 Button("Use These Export Settings") {
                     onUseSettings(batch)
@@ -146,6 +158,13 @@ struct ExportHistorySection: View {
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(DarkroomTheme.accent)
                 }
+
+                Button(batch.hasSellerNote ? "Edit Note" : "Add Note") {
+                    batchForNote = batch
+                }
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(DarkroomTheme.accent)
+                .accessibilityLabel(batch.hasSellerNote ? "Edit Note" : "Add Note")
 
                 if let onShare, batch.hasShareableFiles {
                     Button("Share") {

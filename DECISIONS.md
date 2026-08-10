@@ -274,6 +274,16 @@
 - Project Detail: compact single top tip near readiness; Listing Workspace: Prep Tips after Export Readiness, before Preview
 - Intentionally NOT added: AI, auto-fixes, face/object detection, tip persistence, new marketplace dimensions
 
+## Phase 44 — Seller Export Batch Notes (locked)
+- Optional local free-text `sellerNote` on existing `ProjectExportBatch` (default `""` for legacy rows)
+- Max **240** characters; trim whitespace; blank/whitespace-only → no note
+- Notes are seller memory only — not publish/upload status, not AI-generated, not marketplace claims
+- Never required for export; editing a note does not change files, marketplace, preset, canvas, fit, watermark, photo count, date, or Phase 38 offsets
+- UI: Add Note after successful export summary (optional); Add Note / Edit Note / Remove Note in Export History sheet
+- History shows note only when present (secondary); Phase 41 filters/compare unchanged (notes not compared or used for filtering)
+- Deleting a history row removes the note with the batch (Phase 40 deletion unchanged)
+- Intentionally NOT added: note search/filter by text, sync, backend, separate note entity
+
 ## Future capability (approved direction — not next work)
 May be added later where they support the product; core photo preparation remains local-first/on-device:
 - Backend services

@@ -1,7 +1,7 @@
 # Session Handoff
 
 ## Status
-Phase 43 complete — Seller One-Tap Prep Tips. Build + unit tests succeeded on iPhone 16e (228 tests). App Store upload paused.
+Phase 44 complete — Seller Export Batch Notes. Build + unit tests succeeded on iPhone 16e (240 tests). App Store upload paused.
 
 ## Product purpose
 Local-first marketplace product photo preparation for online sellers.
@@ -10,13 +10,13 @@ Export targets only: Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and si
 
 ## Facts
 - Yofai / `com.shawnwright.yofai` / iPhone-only
-- Phase 43: computed prep tips (max 3) guide sellers to existing controls; manual only; not persisted
-- No auto-fit/crop/size/export; no guidance-only false warnings; watermark off creates no tip
-- Seven export preset raw values/sizes unchanged; Phases 37–42 preserved
+- Phase 44: optional `sellerNote` on `ProjectExportBatch` (max 240 chars); local reminder only — not publish status
+- Notes never required for export; edits isolated from export settings/files/offsets
+- Seven export preset raw values/sizes unchanged; Phases 37–43 preserved
 - Git: `/Volumes/CombatMedic/Yofai` on `main`
 
 ## Last Completed
-- `ExportPrepTipSupport.swift`, `ExportPrepTipsSection.swift`; Phase43ExportPrepTipsTests (15); total 228
+- `ExportBatchNoteSupport.swift`, `ExportBatchNoteEditor.swift`; Phase44ExportBatchNotesTests (12); total 240
 
 ## Abandoned from the active roadmap
 - Paid/live AI APIs
