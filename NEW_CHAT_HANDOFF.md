@@ -11,6 +11,10 @@ Repo: `/Volumes/CombatMedic/Yofai` · branch `main`
 ## Current baseline
 Latest commit on `main`:
 
+`6c7848cfa4bccb7a7649ea591a246e6ee1ce475e` — *Refresh Cursor new-chat handoff after Phase 61.*
+
+API-later decision commit:
+
 `4d31f8c3111d3209c0d49d054b4220232d04655d` — *Document why marketplace APIs wait until local prep is stable.*
 
 Phase 61 implementation commit:
@@ -83,7 +87,7 @@ Continue Yofai iOS work.
 
 Read NEW_CHAT_HANDOFF.md, DECISIONS.md (Phase 61 + “Why marketplace APIs are not being done yet”), and SESSION_HANDOFF.md first.
 
-Baseline: main @ 4d31f8c (API-later docs) after Phase 61 @ 112859e. 320 tests. Local Export Mode only.
+Baseline: main @ 6c7848c (handoff refresh) after 4d31f8c (API-later) and Phase 61 @ 112859e. 320 tests. Local Export Mode only.
 Free primary ItemProject workflow intact. Pro multi-draft via advancedMultiMarketTools.
 
 Work in /Volumes/CombatMedic/Yofai on main. Unit tests on iPhone 16e only.
