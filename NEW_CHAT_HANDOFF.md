@@ -11,14 +11,11 @@ Repo: `/Volumes/CombatMedic/Yofai` · branch `main`
 ## Current baseline
 Latest commit on `main`:
 
-*(set after Phase 64 push — see `git log -1`)*
-
-Phase 64 implementation commit message:
-
-*Phase 64 multi-market workflow polish*
+`09c39dc6d213b2ab527ebc672af6b604d9a06605` — *Phase 64 multi-market workflow polish*
 
 Status:
 - Phase 64 complete; APIs still later unless approved
+- `origin/main` up to date · working tree clean (verify with `git status`)
 - **354 tests passed** · build succeeded · iPhone 16e
 - Version **1.0 (1)** — do not auto-bump
 
@@ -56,7 +53,7 @@ Do **not** put Free primary workflow behind Pro.
 `db43a4d` — per-marketplace UserDefaults templates; apply blank fields only; Free SellerDefaults preserved.
 
 ### Phase 64 — Pro Multi-Market Workflow Polish
-`MarketplaceDraftCompletionSupport` + overview/editor polish; Free lock clarifies local export stays available; 13 Phase 64 tests; 354 total.
+`09c39dc` — `MarketplaceDraftCompletionSupport` + overview/editor polish; Free lock clarifies local export stays available; 13 Phase 64 tests; 354 total.
 
 ### API-later docs
 `4d31f8c` — locked why APIs wait; local order 61→64 complete before any official API.
