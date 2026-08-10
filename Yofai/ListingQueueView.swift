@@ -21,7 +21,7 @@ struct ListingQueueView: View {
         List {
             if entries.isEmpty {
                 Section {
-                    Text("No projects in the listing queue yet. Add item projects to prepare them for a future Etsy upload.")
+                    Text("No projects in the listing queue yet. Add item projects to prepare them for local export.")
                         .font(.subheadline)
                         .foregroundStyle(DarkroomTheme.textSecondary)
                         .fixedSize(horizontal: false, vertical: true)

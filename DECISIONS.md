@@ -9,25 +9,23 @@
 - Build tool: Xcode
 - Coding assistant: Cursor
 
-## Product Pivot (2026-08-09) — Locked
+## Product Pivot (2026-08-09) — Locked (modes clarified Phase 45)
 - Primary purpose: local-first marketplace product photo preparation for online sellers
 - Core functionality is local-first/on-device
 - Seller jobs: photograph → organize photo sets → quality check → edit → resize/crop → listing-ready local exports
-- Marketplace targets (export only, not integrations): Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and similar
-- Active export direction: multi-marketplace **local** export presets (future work when approved; do not implement yet)
-  - Etsy-sized presets already exist where verified (see Phase 20)
-  - Future local preset targets: eBay, Facebook Marketplace, Poshmark, Mercari, similar
-- Abandoned from the active roadmap (inactive unless explicitly re-approved later):
+- Marketplace targets for **Local Export Mode**: Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and similar
+- **Local Export Mode** is current production behavior and remains permanent fallback
+- **Direct Upload Mode** is future-only: official API/OAuth per marketplace after verification + explicit approval; not implemented
+- Abandoned from the active near-term roadmap (inactive unless explicitly re-approved later):
   - Paid/live AI APIs
-  - OAuth marketplace publishing
-  - Direct Etsy publishing
-  - Direct publishing to any marketplace
+  - Browser automation / unofficial marketplace APIs / marketplace password storage
 - Future-capability / approved-direction (not immediate tasks; may be added later where they support the product):
   - Backend services
   - User accounts
   - Cloud sync
   - Subscriptions
   - Ads
+  - Direct Upload Mode for verified marketplaces only (see `MARKETPLACE_UPLOAD_ROADMAP.md`)
 - Core photo preparation remains local-first/on-device even if future capabilities are added later
 - Old primary goal (“general photo editor MVP”) is superseded; App Store upload remains paused
 
@@ -284,6 +282,17 @@
 - Deleting a history row removes the note with the batch (Phase 40 deletion unchanged)
 - Intentionally NOT added: note search/filter by text, sync, backend, separate note entity
 
+## Phase 45 — Direct Marketplace Upload Feasibility & Roadmap Reset (locked)
+- Audit confirmed: app prepares local JPEGs, stores export history/notes, does not authenticate live upload, does not call marketplace upload APIs, does not publish
+- Formalizes **Local Export Mode** (current/permanent) vs **Direct Upload Mode** (future only)
+- Feasibility matrix for Etsy, eBay, Poshmark, Facebook Marketplace, Mercari in `MARKETPLACE_UPLOAD_ROADMAP.md`
+- Strongest verified official photo-upload path today: Etsy Open API v3 `uploadListingImage` (still requires OAuth/app registration before any implementation)
+- Poshmark / consumer Facebook Marketplace / Mercari US: no suitable verified individual-seller binary upload path for first implementation
+- Hard bans: browser automation, unofficial APIs, marketplace password storage, guessed endpoints
+- No Direct Upload Mode code, OAuth secrets, backend vendors, or AI APIs added in this phase
+- Minimal code: `YofaiProductMode.current == .localExport`; queue empty-state copy no longer implies “future Etsy upload”
+- UI language remains “exported for” / local export — not publish/upload status
+
 ## Future capability (approved direction — not next work)
 May be added later where they support the product; core photo preparation remains local-first/on-device:
 - Backend services
@@ -291,17 +300,17 @@ May be added later where they support the product; core photo preparation remain
 - Cloud sync
 - Subscriptions
 - Ads
+- Direct Upload Mode for verified marketplaces only
 
-## Abandoned from the active roadmap
+## Abandoned from the active near-term roadmap
 Inactive unless explicitly re-approved later:
 - Paid/live AI APIs
-- OAuth marketplace publishing
-- Direct Etsy publishing
-- Direct publishing to any marketplace
+- Browser automation / unofficial marketplace APIs / marketplace password storage
 
 ## Still out of scope unless newly approved
 - Social sharing beyond the system Share sheet (local export/share remains the path)
 - Inventing marketplace category trees, IDs, scopes, or hard compliance limits
+- Implementing Direct Upload Mode without verified official API/OAuth docs and explicit phase approval
 
 ## Naming
 - Keep user-facing name as Yofai.

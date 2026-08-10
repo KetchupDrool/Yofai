@@ -7,47 +7,61 @@
 - Type: Mosaic
 - Platform: iPhone, SwiftUI, SwiftData
 
-## Product purpose (locked 2026-08-09)
+## Product purpose (locked 2026-08-09; modes clarified Phase 45)
 Local-first marketplace product photo preparation for online sellers.
 
-Core functionality is **local-first/on-device**.
+Core photo preparation is **local-first/on-device**.
 
-## What sellers do in Yofai
+### Local Export Mode (current)
+- Prepare marketplace-sized images on-device
+- Save/share local JPEGs
+- Seller manually uploads in marketplace websites/apps
+- Works offline and without marketplace login
+- Remains available permanently as the fallback
+
+### Direct Upload Mode (future only — not implemented)
+- May later upload prepared images via **official** marketplace APIs/OAuth only
+- Requires explicit phase approval and verified feasibility per marketplace
+- Must not use browser automation, guessed endpoints, or marketplace passwords
+- See `MARKETPLACE_UPLOAD_ROADMAP.md`
+
+## What sellers do in Yofai today
 - Photograph products
 - Organize product photo sets
 - Check photo quality
 - Edit photos
 - Resize/crop for marketplaces
-- Prepare listing-ready exports
-- Export locally for Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and similar marketplaces
+- Prepare listing-ready **local** exports
+- Export locally for Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and similar
 
-Those marketplaces are **export targets only** — not live integrations or publishing destinations.
+Today those marketplaces are **local export targets** — Yofai does not upload or publish listings.
 
 ## Priority
-Keep the product focused on local seller photo preparation. Do not start new feature coding until an explicit next phase is approved.
+Keep Local Export Mode solid. Do not start Direct Upload Mode coding until a marketplace-specific phase is approved after official API verification.
 
 ## Constraints (active)
 - Core photo preparation remains local-first/on-device
-- No paid/live AI APIs on the active roadmap
-- No OAuth marketplace publishing on the active roadmap
-- No direct Etsy publishing or direct publishing to any marketplace on the active roadmap
+- No paid/live AI APIs on the active roadmap (none required for export/upload)
+- Direct marketplace upload is **not implemented**; do not claim it exists
+- No browser automation / unofficial APIs / marketplace password storage for upload
 
 ## Future capabilities (approved direction, not next work)
 These may be added later where they support the product:
-- Backend services
+- Backend services (especially if Direct Upload Mode needs secure OAuth)
 - User accounts
 - Cloud sync
 - Subscriptions
 - Ads
+- Direct Upload Mode for verified marketplaces only
 
-They are not immediate implementation tasks. Core photo preparation stays local-first/on-device even if some of these arrive later.
+Core photo preparation stays local-first/on-device even if some of these arrive later.
 
 ## Primary workflow
 Home → Start / Continue Product → Item Project → Capture & Check Photos → Prepare Listing & Export → local export.
 Import, Originals, and History remain available as secondary tools.
 
 ## Status
-- Phases 1–44 technical history complete (see `DECISIONS.md`)
+- Phases 1–45 technical history complete (see `DECISIONS.md`, `MARKETPLACE_UPLOAD_ROADMAP.md`)
 - Marketplace target (destination) is separate from export size (pixel canvas)
 - Local export history records what was **exported for** a marketplace — never publish/upload status
 - Optional local seller notes on export batches are reminders only — not publish status
@@ -62,4 +76,4 @@ Import, Originals, and History remain available as secondary tools.
 ## Rules
 - Keep changes small. Do not refactor unrelated files.
 - Inspect files before editing.
-- Do not implement abandoned-roadmap items unless explicitly re-approved.
+- Do not implement Direct Upload Mode or paid/live AI unless explicitly re-approved.

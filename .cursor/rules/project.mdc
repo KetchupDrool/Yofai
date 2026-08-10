@@ -10,13 +10,16 @@ alwaysApply: true
 - App type code word is Mosaic.
 - Product purpose: local-first marketplace product photo preparation for online sellers.
 - Core photo preparation is local-first/on-device.
-- Marketplaces are local export targets only — not live publishing destinations.
+- **Local Export Mode** is current production behavior: prepare/save/share local JPEGs; seller uploads manually.
+- **Direct Upload Mode** is not implemented. It may be added later only after marketplace-specific official API/OAuth feasibility is verified and a phase is explicitly approved.
+- Do not implement upload by guessing endpoints, browser automation, unofficial APIs, or storing marketplace passwords.
+- Marketplaces are currently local export targets — do not claim live upload/publish exists.
 - Marketplace destination (target) is separate from export pixel canvas; do not invent sizes for unverified markets.
 - Export preset pixel sizes must not be invented; use verified sizes only.
 - Keep changes small.
 - Inspect files before editing.
 - Do not refactor unrelated files.
-- Do not implement paid/live AI APIs, OAuth marketplace publishing, or direct marketplace uploads unless explicitly re-approved.
+- Do not implement paid/live AI APIs unless explicitly re-approved. No AI API is required for export or future upload.
 - Backend, accounts, cloud sync, subscriptions, and ads are future-capability only — not current work unless newly approved as a phase.
 - Report changed files, build result, and next needed approval.
 - Use short, simple explanations.
