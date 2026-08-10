@@ -1,6 +1,6 @@
 # App Store Connect Privacy Answers — Yofai
 
-**Phase 52 — paste-ready answers for App Store Connect privacy nutrition labels / questionnaire.**  
+**Phase 52/56 — paste-ready answers for App Store Connect privacy nutrition labels / questionnaire.**  
 Aligned with `PRIVACY_NOTES.md` and hosted `docs/privacy-policy.html`.
 
 **Last verified:** 2026-08-10
@@ -12,13 +12,15 @@ Aligned with `PRIVACY_NOTES.md` and hosted `docs/privacy-policy.html`.
 - No backend sync
 - No analytics SDK
 - No ads
-- No AI service
+- No AI service / no AI processing of photos or listing data
 - No marketplace login
 - No Direct Upload / marketplace publish
 - No tracking
+- Optional Yofai Pro via **Apple StoreKit** only — Yofai does not collect payment card numbers or act as a payment processor
 
 ## Data collection summary (current build)
 Yofai does **not** collect data off-device for analytics, advertising, or developer servers in this version.
+Apple may process purchase/subscription data under Apple’s terms when the user buys Yofai Pro; that is not Yofai backend collection.
 
 | Topic | Answer |
 |---|---|

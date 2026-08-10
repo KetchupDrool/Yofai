@@ -1,9 +1,19 @@
 # TestFlight Purchase Verification Report — Yofai
 
-**Phase 55** — fill this report when you actually run purchases.  
-**Do not mark Pass until you performed the step.** Agents leave all cases **Not run**.
+**Fill when you actually run purchases.** Agents leave all cases **Not run**.
 
 Status values: **Not run** | **Pass** | **Fail** | **Blocked**
+
+Master gates: `APP_STORE_SUBMIT_GATES.md`  
+Archive/upload: `APP_STORE_ARCHIVE_RUNBOOK.md`
+
+## Order (do not skip)
+1. Local StoreKit smoke (`STOREKIT_SANDBOX_TESTING.md`) — recommended  
+2. Connect products (`APP_STORE_CONNECT_SUBSCRIPTIONS.md`)  
+3. Archive + upload build  
+4. **This purchase report**  
+5. Full app smoke (`TESTFLIGHT_SMOKE.md`)  
+6. App Review submit only if overall result is **Pass**
 
 | Meta | Value |
 |---|---|
@@ -15,8 +25,8 @@ Status values: **Not run** | **Pass** | **Fail** | **Blocked**
 | Date | __________ |
 | Overall result | **Not run** |
 
-Prerequisites before TestFlight purchase tests:
-- [ ] Connect subscriptions created (`APP_STORE_CONNECT_SUBSCRIPTIONS.md`) — still **Not done** in repo by default
+Prerequisites:
+- [ ] Connect subscriptions created — still **Not done** in repo by default
 - [ ] Build uploaded to TestFlight
 - [ ] Sandbox tester created
 - [ ] Legal URLs open: Terms of Use + Privacy Statement

@@ -1,15 +1,27 @@
 # TestFlight Smoke Test — Yofai
 
-**Phase 52 — manual smoke before App Review.**  
+**Manual app smoke before App Review.**  
+Combine with purchase verification — see order below.
+
 Device: physical iPhone preferred for Camera / Photos / Share. Unit tests use **iPhone 16e** simulator.
 
-Do not expect: login, Pro purchase, Direct Upload, AI assistant, marketplace Connect.
+## Verification order (Phase 56)
+1. Local StoreKit smoke — `STOREKIT_SANDBOX_TESTING.md`  
+2. Connect products configured — `APP_STORE_CONNECT_SUBSCRIPTIONS.md`  
+3. Upload TestFlight build — `APP_STORE_ARCHIVE_RUNBOOK.md`  
+4. TestFlight sandbox purchase — `TESTFLIGHT_PURCHASE_VERIFICATION.md`  
+5. **This full app smoke**  
+6. Fill gates — `APP_STORE_SUBMIT_GATES.md`  
+7. Only then App Review submit  
+
+Do not expect: login for Free, Direct Upload, AI assistant, marketplace Connect.
 
 ## Pass/fail
 - [ ] App launches without crash
 - [ ] Core Local Export path works end-to-end
 - [ ] No AI or marketplace-upload UI presented as available
-- [ ] Pro placeholder: not available / no purchase charged
+- [ ] Yofai Pro: StoreKit prices **or** purchases-unavailable; Terms + Privacy + Restore visible
+- [ ] Free export works without purchase
 
 ## Script
 

@@ -63,10 +63,10 @@ Home → Start / Continue Product → Item Project → Capture & Check Photos �
 Import, Originals, and History remain available as secondary tools.
 
 ## Status
-- Phases 1–55 technical history complete (see `DECISIONS.md`, `APP_STORE_CONNECT_SUBSCRIPTIONS.md`, `TESTFLIGHT_PURCHASE_VERIFICATION.md`)
-- **Phase 55:** Connect IAP manual sign-off + TestFlight purchase verification template (defaults Not done / Not run)
-- **Phase 54:** paywall Terms of Use + Privacy Statement; sandbox docs
-- **Phase 53:** StoreKit 2 Yofai Pro monthly/yearly foundation
+- Phases 1–56 technical history complete (see `DECISIONS.md`, `APP_STORE_SUBMIT_GATES.md`, `APP_STORE_ARCHIVE_RUNBOOK.md`)
+- **Phase 56:** screenshot packet, archive runbook, App Review notes, master submit gates (manual items not claimed Passed)
+- **Phase 55:** Connect IAP sign-off + TestFlight purchase template (defaults Not done / Not run)
+- **Phase 54–53:** paywall legal links + StoreKit 2 Pro foundation
 - Freemium-first: Free keeps core local export; Pro additive via StoreKit when Connect products exist. No Direct Upload.
 - Marketplace target (destination) is separate from export size (pixel canvas)
 - Local export history records what was **exported for** a marketplace — never publish/upload status

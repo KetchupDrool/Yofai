@@ -372,6 +372,15 @@
 - No claim that Connect products or TestFlight purchases were completed
 - No new product features; no Direct Upload; no AI; no backend; product IDs unchanged
 
+## Phase 56 — Screenshots, Archive & App Review Submit Path (locked)
+- Submission-path package only — **no archive/upload/submit claimed**
+- `APP_STORE_SUBMIT_GATES.md` — master gate table (Needs user action / Not started defaults)
+- `APP_STORE_ARCHIVE_RUNBOOK.md` — version/build checklist + Xcode archive/upload steps
+- Screenshot capture packet finalized in `APP_STORE_PREP.md` (8 screens; no generated fake assets)
+- App Review notes finalized in `APP_STORE_METADATA.md`
+- Verification order: local StoreKit → Connect IAP → archive/upload → TestFlight purchase → app smoke → gates Passed → App Review
+- No new product features; no Direct Upload; no AI; no StoreKit ID/price changes
+
 ## Future StoreKit follow-ups (manual / not claimed done)
 - Create/verify subscription group + products in App Store Connect (user sign-off)
 - Fill `TESTFLIGHT_PURCHASE_VERIFICATION.md` with real Pass results

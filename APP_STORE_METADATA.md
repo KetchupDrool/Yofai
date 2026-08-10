@@ -93,48 +93,52 @@ Yofai 1.0 helps sellers prepare marketplace product photos on device and export 
 ## App Review Notes (paste into App Store Connect)
 
 ```text
-Yofai does not require a login or account.
+Yofai does not require a login or account. The core Capture → Organize → Photo Check → Edit → Prepare → Local Export workflow works without purchasing.
 
-Purchases: Yofai Pro is an optional auto-renewable subscription (monthly and yearly) via StoreKit 2. Free users keep the full core local export workflow without purchasing. Restore Purchases is available in Settings → Yofai Pro and on the paywall. The paywall includes Terms of Use (Apple Standard EULA) and Privacy Statement (https://ketchupdrool.github.io/Yofai/privacy-policy.html).
+Purchases: Yofai Pro is optional StoreKit 2 auto-renewable subscriptions (monthly and yearly). Free users keep the full core local export workflow. Restore Purchases is in Settings → Yofai Pro and on the paywall. Terms of Use: Apple Standard EULA. Privacy Statement: https://ketchupdrool.github.io/Yofai/privacy-policy.html
 
-Product IDs:
+Product IDs (submit with the app):
 - com.shawnwright.yofai.pro.monthly
 - com.shawnwright.yofai.pro.yearly
 
-If subscription products are not yet available in this build’s environment, the paywall shows “Purchases are not available right now.” Legal links remain visible. Free remains fully usable.
+If products are not yet available in a given environment, the paywall shows “Purchases are not available right now.” Legal links remain visible. Free remains fully usable.
 
-What the app does: sellers capture/import product photos, check and edit them on device, then export local JPEG files for manual upload in marketplace apps/websites.
+What the app does: on-device product photo prep and local JPEG export for the seller’s manual upload in marketplace apps/websites.
 
 What the app does not do:
-- Does not upload or publish to marketplaces
+- No direct marketplace upload or publishing
+- No marketplace account login required
 - Direct Upload Mode is not implemented
-- No marketplace account connection is required
-- Live Etsy OAuth/upload is disabled (Settings shows “Etsy connection not available”; no Connect button)
-- No AI features are included
-- Photos remain local on device
+- Live Etsy OAuth is disabled (Settings: “Etsy connection not available”; no Connect button)
+- No AI features
+- No Yofai backend account; photos/projects/exports stay on device
+- Yofai does not collect payment card data (Apple handles StoreKit)
 
-Demo path (Free): create a product → add a photo → Photo Check → Edit → Prepare Listing & Export → Export Photos → View Exported Files / Share.
-Demo path (Pro): Settings → Yofai Pro → purchase or Restore Purchases (sandbox), then confirm unlimited product create.
+Demo (Free): create product → add photo → Photo Check → Edit → Prepare Listing & Export → Export Photos → View Exported Files / Share.
+Demo (Pro): Settings → Yofai Pro → purchase or Restore (sandbox) → confirm unlimited product create.
 ```
 
 ## Subscriptions / IAP
-See `APP_STORE_CONNECT_SUBSCRIPTIONS.md`, `STOREKIT_SANDBOX_TESTING.md`, and `TESTFLIGHT_PURCHASE_VERIFICATION.md`.  
+See `APP_STORE_CONNECT_SUBSCRIPTIONS.md`, `STOREKIT_SANDBOX_TESTING.md`, `TESTFLIGHT_PURCHASE_VERIFICATION.md`, and `APP_STORE_SUBMIT_GATES.md`.  
 Product IDs: `com.shawnwright.yofai.pro.monthly`, `com.shawnwright.yofai.pro.yearly`.  
 Intended tiers: $4.99/month, $39.99/year (live price from StoreKit).  
 Paywall legal links: **Terms of Use** (Apple Standard EULA) + **Privacy Statement** (https://ketchupdrool.github.io/Yofai/privacy-policy.html).  
-Connect product creation and TestFlight purchase verification are **manual** — repo defaults remain Not done / Not run until you update those docs with proof.
+Connect product creation, TestFlight purchase verification, archive, and App Review submit remain **manual** — see `APP_STORE_SUBMIT_GATES.md` (defaults Needs user action / Not started).
+
 ## Build settings (current project)
 - Display name: Yofai  
 - Bundle ID: `com.shawnwright.yofai`  
 - iPhone only (portrait)  
 - Marketing version: **1.0**  
-- Build: **1** — bump before each App Store Connect upload if needed  
+- Build: **1** — increment before each App Store Connect upload (`APP_STORE_ARCHIVE_RUNBOOK.md`)  
 - Camera usage: product photo capture into local Item Project  
 - Photos add usage: optional Save Listing Copy only  
 
 ## Related docs
-- `APP_STORE_PREP.md` — positioning + screenshot plan  
-- `APP_STORE_CONNECT_PRIVACY.md` — App Store Connect privacy answers  
-- `TESTFLIGHT_SMOKE.md` — manual smoke script  
-- `RELEASE_CHECKLIST.md` — archive / upload / submit  
+- `APP_STORE_PREP.md` — screenshot packet  
+- `APP_STORE_SUBMIT_GATES.md` — master gates  
+- `APP_STORE_ARCHIVE_RUNBOOK.md` — archive/upload  
+- `APP_STORE_CONNECT_PRIVACY.md` — privacy answers  
+- `TESTFLIGHT_SMOKE.md` — app smoke  
+- `RELEASE_CHECKLIST.md`  
 - `PRIVACY_NOTES.md` + hosted `docs/privacy-policy.html` / `docs/support.html`

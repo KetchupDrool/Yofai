@@ -7,9 +7,19 @@ Status values for tables below: **Not run** | **Pass** | **Fail** | **Blocked**
 Repo default for all UI purchase rows: **Not run**
 
 Related:
+- `APP_STORE_SUBMIT_GATES.md` — master status
 - `APP_STORE_CONNECT_SUBSCRIPTIONS.md` — Connect sign-off
 - `TESTFLIGHT_PURCHASE_VERIFICATION.md` — TestFlight Pass/Fail report
+- `APP_STORE_ARCHIVE_RUNBOOK.md` — archive/upload
 - `RELEASE_CHECKLIST.md`
+
+## Verification order (Phase 56)
+1. This local StoreKit smoke  
+2. Connect products configured  
+3. Archive + upload  
+4. TestFlight purchase report  
+5. Full app smoke (`TESTFLIGHT_SMOKE.md`)  
+6. Gates Passed → App Review  
 
 ## Prerequisites
 - [ ] Phase 53+ StoreKit code on the build
