@@ -53,7 +53,11 @@ struct ListingWorkspaceView: View {
             aiAssistantSection
             productIntakeSection
             photosSection
-            MarketplaceExportSettingsBlock(project: project, showPreview: true)
+            MarketplaceExportSettingsBlock(
+                project: project,
+                showPreview: true,
+                readinessStyle: .full
+            )
             exportSection
             ExportHistorySection(
                 project: project,

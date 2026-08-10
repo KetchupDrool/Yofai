@@ -251,6 +251,18 @@
 - “Export Again” applies export-level settings and leaves the seller in the normal flow (must tap Export Photos); does not auto-export; does not change per-photo edits or Phase 38 offsets
 - Intentionally NOT added: pixel comparison, upload/publish status, new persistence for filters, new marketplace dimensions
 
+## Phase 42 — Seller Export Readiness Checklist (locked)
+- Expands Phase 39 `ExportReadiness` into a computed checklist: Photos, Marketplace, Export size, Fit, Photo Check, Watermark
+- Overall: Ready to export / Review before export / Needs attention — from local deterministic state only
+- Needs Attention: no photos, missing/unreadable files, invalid export size raw
+- Review: low source resolution, expected pad/crop, adjusted Fill + Crop position (informational — not an error), incomplete listing details (Phase 25)
+- Ready: photos present with readable files + valid canvas; guidance-only FB Marketplace / Mercari + valid general canvas can be Ready
+- Watermark is **Optional** and never reduces overall readiness
+- Reuses `PhotoTechnicalCheck` — no duplicate pixel-evaluation logic; readiness is **not persisted**
+- UI: compact checklist on Project Detail; full checklist on Listing Workspace after Photo check, before Preview
+- Language: local export readiness only — never compliant / approved / marketplace-ready / publish readiness
+- Intentionally NOT added: compliance claims, upload status, new marketplace dimensions, readiness persistence
+
 ## Future capability (approved direction — not next work)
 May be added later where they support the product; core photo preparation remains local-first/on-device:
 - Backend services

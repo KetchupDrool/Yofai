@@ -1,7 +1,7 @@
 # Session Handoff
 
 ## Status
-Phase 41 complete — Export History Filters & Compare Polish. Build + unit tests succeeded on iPhone 16e (198 tests). App Store upload paused.
+Phase 42 complete — Seller Export Readiness Checklist. Build + unit tests succeeded on iPhone 16e (213 tests). App Store upload paused.
 
 ## Product purpose
 Local-first marketplace product photo preparation for online sellers.
@@ -10,14 +10,13 @@ Export targets only: Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and si
 
 ## Facts
 - Yofai / `com.shawnwright.yofai` / iPhone-only
-- Phase 41: transient marketplace filters + metadata-only compare of newest two exports; Export Again applies settings only (no auto-export)
-- Filter uses stored `marketplaceTargetRaw` only; legacy empty → Earlier export; never infer from canvas/folder/JPEG
-- Seven export preset raw values/sizes unchanged; Phases 37–40 preserved
-- Not marketplace compliance claims; not pixel comparison
+- Phase 42: computed Export Readiness checklist (Photos, Marketplace, Export size, Fit, Photo Check, Watermark); not persisted
+- Watermark optional; guidance-only markets can still be Ready with a valid canvas; no compliance claims
+- Seven export preset raw values/sizes unchanged; Phases 37–41 preserved
 - Git: `/Volumes/CombatMedic/Yofai` on `main`
 
 ## Last Completed
-- `ExportHistorySupport.swift`; filters/compare in `ExportHistorySection`; Phase41ExportHistoryFiltersCompareTests (13); total 198
+- Expanded `ExportReadiness` + `ExportReadinessChecklistSection`; Phase42ExportReadinessChecklistTests (15); total 213
 
 ## Abandoned from the active roadmap
 - Paid/live AI APIs

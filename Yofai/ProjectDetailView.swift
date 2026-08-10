@@ -441,7 +441,12 @@ struct ProjectDetailView: View {
 
     @ViewBuilder
     private var projectExportSettingsSection: some View {
-        MarketplaceExportSettingsBlock(project: project, showPreview: true)
+        MarketplaceExportSettingsBlock(
+            project: project,
+            showPreview: true,
+            readinessStyle: .compact,
+            showWorkspaceLinkInReadiness: true
+        )
     }
 
     @ViewBuilder

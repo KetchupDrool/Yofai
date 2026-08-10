@@ -60,14 +60,13 @@ struct ExportPreviewCard: View {
     }
 }
 
-/// Shared Phase 39 marketplace → canvas → fit controls for Project Detail / Listing Workspace.
+/// Shared Phase 39/42 marketplace → canvas → fit controls for Project Detail / Listing Workspace.
 struct MarketplaceExportSettingsBlock: View {
     @Bindable var project: ItemProject
     var showPreview: Bool = true
-
-    private var readiness: ExportReadinessSummary {
-        ExportReadiness.summary(for: project)
-    }
+    /// Compact on Project Detail; full checklist on Listing Workspace.
+    var readinessStyle: ExportReadinessChecklistSection.Style = .full
+    var showWorkspaceLinkInReadiness: Bool = false
 
     private var previewPhoto: ItemProjectPhoto? {
         project.sortedPhotos.first
@@ -90,7 +89,12 @@ struct MarketplaceExportSettingsBlock: View {
             canvasSection
             fitSection
             photoCheckSummarySection
-            readinessSection
+            ExportReadinessChecklistSection(
+                project: project,
+                style: readinessStyle,
+                showWorkspaceLink: showWorkspaceLinkInReadiness
+            )
+            .listRowBackground(sectionBackground)
             if showPreview, let photo = previewPhoto, let source = photo.fullLocalImage, let state = previewState {
                 Section {
                     ExportPreviewCard(sourceImage: source, state: state)
@@ -281,35 +285,6 @@ struct MarketplaceExportSettingsBlock: View {
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)
-    }
-
-    private var readinessSection: some View {
-        Section {
-            Text(readiness.status.rawValue)
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(readinessColor)
-            ForEach(readiness.reasons, id: \.self) { reason in
-                Text(reason)
-                    .font(.caption)
-                    .foregroundStyle(DarkroomTheme.textSecondary)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-        } header: {
-            Text("Export readiness")
-                .foregroundStyle(DarkroomTheme.textTertiary)
-        } footer: {
-            Text("Helps you review before a local export. Does not block Export Photos and is not marketplace compliance.")
-                .foregroundStyle(DarkroomTheme.textTertiary)
-        }
-        .listRowBackground(sectionBackground)
-    }
-
-    private var readinessColor: Color {
-        switch readiness.status {
-        case .ready: return DarkroomTheme.accent
-        case .review: return DarkroomTheme.textSecondary
-        case .needsAttention: return DarkroomTheme.danger
-        }
     }
 
     private func labeled(_ title: String, _ value: String) -> some View {
