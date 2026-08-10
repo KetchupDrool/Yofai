@@ -11,6 +11,9 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
+                YofaiProSettingsSection()
+                    .listRowBackground(settingsRowBackground)
+
                 EtsyShopSettingsSection(connection: etsyConnection)
                     .listRowBackground(settingsRowBackground)
 

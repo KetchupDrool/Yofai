@@ -16,6 +16,9 @@ alwaysApply: true
 - Marketplaces are currently local export targets — do not claim live upload/publish exists.
 - Marketplace destination (target) is separate from export pixel canvas; do not invent sizes for unverified markets.
 - Export preset pixel sizes must not be invented; use verified sizes only.
+- **Freemium-first if monetized:** Free keeps the core local export workflow from launch; Pro must be additive. Do not launch fully free and later lock existing core Free features behind payment.
+- Do not delete seller data to enforce Free limits; over-limit existing products remain viewable/editable.
+- Real StoreKit purchases are not implemented until an approved payments phase; do not fake purchase success.
 - Keep changes small.
 - Inspect files before editing.
 - Do not refactor unrelated files.

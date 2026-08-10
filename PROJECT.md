@@ -50,7 +50,7 @@ These may be added later where they support the product:
 - Backend services (especially if Direct Upload Mode needs secure OAuth)
 - User accounts
 - Cloud sync
-- Subscriptions
+- Subscriptions / Yofai Pro via StoreKit (freemium-first; do not lock core Free workflow later)
 - Ads
 - Direct Upload Mode for verified marketplaces only
 
@@ -61,7 +61,8 @@ Home → Start / Continue Product → Item Project → Capture & Check Photos �
 Import, Originals, and History remain available as secondary tools.
 
 ## Status
-- Phases 1–48 technical history complete (see `DECISIONS.md`, `MARKETPLACE_UPLOAD_ROADMAP.md`)
+- Phases 1–49 technical history complete (see `DECISIONS.md`, `MARKETPLACE_UPLOAD_ROADMAP.md`)
+- Freemium-first if monetized: Free keeps core local export; Pro is additive (Phase 49). No StoreKit purchases yet.
 - Marketplace target (destination) is separate from export size (pixel canvas)
 - Local export history records what was **exported for** a marketplace — never publish/upload status
 - Optional local seller notes on export batches are reminders only — not publish status; may optionally accompany share as text/reference or Copy Export Note

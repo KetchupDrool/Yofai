@@ -7,10 +7,30 @@ struct ProjectsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \ItemProject.modifiedAt, order: .reverse) private var projects: [ItemProject]
     @State private var showCreate = false
+    @State private var showProPlaceholder = false
     @Binding var presentNewProduct: Bool
 
     init(presentNewProduct: Binding<Bool> = .constant(false)) {
         _presentNewProduct = presentNewProduct
+    }
+
+    private var canCreateMoreProducts: Bool {
+        EntitlementPolicy.canCreateProduct(
+            activeProductCount: projects.count,
+            state: EntitlementStore.shared.state
+        )
+    }
+
+    private var productLimitMessage: String? {
+        let access = EntitlementPolicy.access(
+            for: .createProduct,
+            state: EntitlementStore.shared.state,
+            activeProductCount: projects.count
+        )
+        if case .limited(_, _, let message) = access {
+            return message
+        }
+        return nil
     }
 
     var body: some View {
@@ -25,7 +45,7 @@ struct ProjectsView: View {
                                 message: "Start a product to photograph, organize, check, edit, and export listing-ready photos on this device."
                             )
                             Button {
-                                showCreate = true
+                                beginCreateProduct()
                             } label: {
                                 DarkroomPrimaryButtonLabel(
                                     title: SellerNavigationSupport.startProductTitle,
@@ -40,6 +60,14 @@ struct ProjectsView: View {
                     }
                 } else {
                     List {
+                        if let productLimitMessage {
+                            Text(productLimitMessage)
+                                .font(.caption)
+                                .foregroundStyle(DarkroomTheme.textSecondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .listRowBackground(Color.clear)
+                                .accessibilityLabel(productLimitMessage)
+                        }
                         ForEach(projects) { project in
                             NavigationLink {
                                 ProjectDetailView(project: project)
@@ -73,7 +101,7 @@ struct ProjectsView: View {
                 }
                 ToolbarItem(placement: .primaryAction) {
                     Button {
-                        showCreate = true
+                        beginCreateProduct()
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -83,17 +111,28 @@ struct ProjectsView: View {
             .sheet(isPresented: $showCreate) {
                 CreateProjectView()
             }
+            .sheet(isPresented: $showProPlaceholder) {
+                YofaiProPlaceholderSheet()
+            }
             .onChange(of: presentNewProduct) { _, shouldPresent in
                 guard shouldPresent else { return }
-                showCreate = true
+                beginCreateProduct()
                 presentNewProduct = false
             }
             .onAppear {
                 if presentNewProduct {
-                    showCreate = true
+                    beginCreateProduct()
                     presentNewProduct = false
                 }
             }
+        }
+    }
+
+    private func beginCreateProduct() {
+        if canCreateMoreProducts {
+            showCreate = true
+        } else {
+            showProPlaceholder = true
         }
     }
 }
@@ -150,6 +189,7 @@ private struct ProjectCardRow: View {
 struct CreateProjectView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    @Query(sort: \ItemProject.modifiedAt, order: .reverse) private var projects: [ItemProject]
 
     enum StartMode: String, CaseIterable, Identifiable {
         case blank = "Start Blank"
@@ -170,8 +210,15 @@ struct CreateProjectView: View {
         name.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
+    private var withinProductLimit: Bool {
+        EntitlementPolicy.canCreateProduct(
+            activeProductCount: projects.count,
+            state: EntitlementStore.shared.state
+        )
+    }
+
     private var canCreate: Bool {
-        !trimmedName.isEmpty && !pickerItems.isEmpty && !isSaving
+        !trimmedName.isEmpty && !pickerItems.isEmpty && !isSaving && withinProductLimit
     }
 
     private var savedDefaults: SellerDefaults {
@@ -242,6 +289,21 @@ struct CreateProjectView: View {
                         .font(.caption)
                         .foregroundStyle(DarkroomTheme.danger)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+
+                if !withinProductLimit {
+                    Text(
+                        EntitlementPolicy.access(
+                            for: .createProduct,
+                            state: EntitlementStore.shared.state,
+                            activeProductCount: projects.count
+                        ).limitedMessage ?? FreemiumCopy.plannedProFeature
+                    )
+                    .font(.caption)
+                    .foregroundStyle(DarkroomTheme.textSecondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .fixedSize(horizontal: false, vertical: true)
                 }
 
                 Spacer(minLength: 0)
@@ -279,6 +341,17 @@ struct CreateProjectView: View {
 
     private func createProject() async {
         guard canCreate else { return }
+        guard EntitlementPolicy.canCreateProduct(
+            activeProductCount: projects.count,
+            state: EntitlementStore.shared.state
+        ) else {
+            errorMessage = EntitlementPolicy.access(
+                for: .createProduct,
+                state: EntitlementStore.shared.state,
+                activeProductCount: projects.count
+            ).limitedMessage
+            return
+        }
         isSaving = true
         errorMessage = nil
         defer { isSaving = false }

@@ -318,6 +318,23 @@
 - Wording cleanup remains local JPEGs / exported for / manual upload — no publish/Direct Upload claims
 - No new product scope: no upload, OAuth, backend, AI, analytics, subscriptions, ads, or new presets
 
+## Phase 49 — Freemium Foundation & Entitlement Planning (locked)
+- Freemium-first if monetized: Free keeps Capture → Organize → Photo Check → Edit → Prepare → Local Export
+- Do not launch fully free and later lock existing core Free features behind payment
+- Free limit (changeable in `FreemiumLimits`): **12 active products**; over-limit existing products stay fully usable; no auto-delete
+- Core Free forever in this plan: local JPEG export, Photo Check, edit/fit, export notes, view/re-share exported files, export history
+- Pro additive (planned): unlimited products, advanced history/multi-market tools, cloud backup/sync, Direct Upload Mode (still not implemented)
+- Architecture: `EntitlementPlan`, `FreemiumFeature`, `EntitlementState`, `EntitlementPolicy`, `EntitlementStore` — testable, offline, default Free
+- Settings: Yofai Pro section + factual placeholder sheet (“Pro is not available yet. No purchase is charged.”) — no fake pricing or StoreKit buy button
+- StoreKit not implemented; future payments phase needs product IDs, StoreKit 2, restore, App Store Connect, legal/privacy, paywall copy, configuration tests
+
+## Future StoreKit phase requirements (not started)
+- Choose subscription vs lifetime (or both) and App Store Connect product IDs
+- StoreKit 2 purchase + restore + transaction verification
+- Wire `EntitlementStore` only after a real successful transaction
+- Paywall copy, privacy/legal updates, StoreKit Configuration file for tests
+- No backend required for basic StoreKit 2 on-device entitlements unless multi-device account sync is later approved
+
 ## Future capability (approved direction — not next work)
 May be added later where they support the product; core photo preparation remains local-first/on-device:
 - Backend services
