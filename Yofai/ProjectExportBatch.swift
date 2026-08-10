@@ -54,11 +54,11 @@ final class ProjectExportBatch {
     }
 
     var fileURLs: [URL] {
-        orderedFileNames.compactMap { LocalEditStore.exportBatchFileURL(folderName: batchFolderName, fileName: $0) }
+        ExportBatchFileAccessSupport.shareableURLs(for: self)
     }
 
     var hasShareableFiles: Bool {
-        !fileURLs.isEmpty
+        ExportBatchFileAccessSupport.canShare(self)
     }
 
     /// True when this row was recorded after a successful export (Phase 40 history).

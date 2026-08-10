@@ -7,6 +7,7 @@ enum LocalExportShareSupport {
     static let shareExportedPhotosTitle = "Share Exported Photos"
     static let shareWithNoteTitle = "Share with Note"
     static let copyExportNoteTitle = "Copy Export Note"
+    static let viewExportedFilesTitle = ExportBatchFileAccessSupport.viewExportedFilesTitle
 
     /// Compact package label: marketplace, canvas, count, local framing.
     static func packageSummaryLine(for batch: ProjectExportBatch) -> String {

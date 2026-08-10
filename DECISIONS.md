@@ -302,6 +302,15 @@
 - ShareBatchItem gains optional `caption` only; sheet still uses ActivityShareView
 - No marketplace upload, OAuth, publish status, or Direct Upload Mode
 
+## Phase 47 — Local Export File Access & UX Polish (locked)
+- View Exported Files sheet lists ordered local JPEGs for one history batch (filename + canvas label; no raw paths)
+- Tap available file for read-only larger preview; unreadable/missing files show a short safe message
+- Re-share from history uses existing on-disk JPEGs only — no re-render, no new history row, no settings/note mutation
+- Missing folder / missing files / empty ordered names → hide share actions and show “Export files no longer available”
+- History actions: View Exported Files + Share Exported Photos primary; Use These / Export Again / notes / delete under More
+- Deleting a history row still removes only that ExportBatches folder — never product photos
+- No Direct Upload Mode, OAuth upload, publish status, or file-manager features
+
 ## Future capability (approved direction — not next work)
 May be added later where they support the product; core photo preparation remains local-first/on-device:
 - Backend services

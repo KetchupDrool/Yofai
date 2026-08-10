@@ -498,6 +498,7 @@ struct ProjectDetailView: View {
                     .font(.caption)
                     .foregroundStyle(exportStatusIsError ? DarkroomTheme.danger : DarkroomTheme.accent)
                     .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityLabel(exportStatusIsError ? "Export error. \(exportStatusMessage)" : exportStatusMessage)
             }
 
             if let recentlyExportedBatch, !exportStatusIsError {

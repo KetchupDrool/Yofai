@@ -1,7 +1,7 @@
 # Tasks
 
 ## Status
-Phase 46 — Local Export Share Polish complete.
+Phase 47 — Local Export File Access & UX Polish complete.
 App Store upload remains paused.
 
 ## Product direction
@@ -10,12 +10,12 @@ Local-first marketplace product photo preparation for online sellers.
 **Direct Upload Mode** is future-only (see `MARKETPLACE_UPLOAD_ROADMAP.md`).
 
 ## Current Phase
-Phase 46 — Local Export Share Polish. Complete.
+Phase 47 — Local Export File Access & UX Polish. Complete.
 
 ## Done
-- MVP + Phases 4–45
-- Phase 46: share/package label polish, export result summary, optional note share/copy; Phase46LocalExportSharePolishTests (8); total 254
-- Build + unit tests succeeded on iPhone 16e (254 tests)
+- MVP + Phases 4–46
+- Phase 47: View Exported Files, safe missing-file handling, re-share from history; Phase47LocalExportFileAccessTests (10); total 264
+- Build + unit tests succeeded on iPhone 16e (264 tests)
 
 ## Remaining Polish
 - Edit tools may scroll with Export + watermark

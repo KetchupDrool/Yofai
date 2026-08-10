@@ -1,7 +1,7 @@
 # Session Handoff
 
 ## Status
-Phase 46 complete — Local Export Share Polish. Build + unit tests succeeded on iPhone 16e (254 tests; 8 Phase 46). Local Export Mode remains current. Direct Upload Mode not implemented. App Store upload paused.
+Phase 47 complete — Local Export File Access & UX Polish. Build + unit tests succeeded on iPhone 16e (264 tests; 10 Phase 47). Local Export Mode remains current. Direct Upload Mode not implemented. App Store upload paused.
 
 ## Product purpose
 Local-first marketplace product photo preparation for online sellers.
@@ -10,13 +10,14 @@ Core photo prep is local-first/on-device.
 
 ## Facts
 - Yofai / `com.shawnwright.yofai` / iPhone-only
-- Code prepares local JPEGs + export history/notes; shares via system sheet; optional note as share caption / Copy Export Note
+- Export batches live under Application Support / ExportBatches; history can view/re-share when files remain
+- Missing export files show a safe message; delete history removes export folder only
 - Does not upload/publish; no upload status
 - Hard bans: browser automation, unofficial APIs, marketplace passwords, AI API for upload
 - Git: `/Volumes/CombatMedic/Yofai` on `main`
 
 ## Last Completed
-- Phase 46: `LocalExportShareSupport`, summary/history/share wording, optional note caption + copy, Phase46 tests
+- Phase 47: `ExportBatchFileAccessSupport`, `ExportedFilesViewer`, history View/Share/More actions, Phase47 tests
 
 ## Abandoned from the active near-term roadmap
 - Paid/live AI APIs
@@ -26,7 +27,7 @@ Core photo prep is local-first/on-device.
 Backend, accounts, cloud sync, subscriptions, ads, and verified Direct Upload Mode may be added later; core photo prep stays local-first/on-device.
 
 ## Next Recommended
-Phase 47 only when approved — further Local Export Mode polish, or verified Etsy upload foundation after manual API/OAuth confirmation. Do not start Phase 47 unprompted.
+Phase 48 only when approved — further Local Export Mode polish, or verified Etsy upload foundation after manual API/OAuth confirmation. Do not start Phase 48 unprompted.
 
 ## Rules
 - Core photo preparation: local-first/on-device

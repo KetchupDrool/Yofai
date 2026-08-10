@@ -1,7 +1,7 @@
 import SwiftUI
 import UIKit
 
-/// Phase 40/41/44/46 — local export history with filters, compare, notes, and share polish.
+/// Phase 40/41/44/46/47 — local export history with filters, compare, notes, share, and file access.
 struct ExportHistorySection: View {
     @Bindable var project: ItemProject
     var onUseSettings: (ProjectExportBatch) -> Void
@@ -12,6 +12,7 @@ struct ExportHistorySection: View {
 
     @State private var selectedFilter: ExportHistoryFilter = .all
     @State private var batchForNote: ProjectExportBatch?
+    @State private var batchForFiles: ProjectExportBatch?
     @State private var noteCopiedMessage: String?
 
     private var allBatches: [ProjectExportBatch] {
@@ -74,13 +75,14 @@ struct ExportHistorySection: View {
                     Text(noteCopiedMessage)
                         .font(.caption2)
                         .foregroundStyle(DarkroomTheme.accent)
+                        .accessibilityLabel(noteCopiedMessage)
                 }
             }
         } header: {
             Text("Export History")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
-            Text("Local only. Share local JPEGs for manual upload — not publish status. Filter and compare use saved export details. Notes are optional reminders. Deleting a row removes that export folder only, not your product photos.")
+            Text("Local only. View or share local JPEGs for manual upload — not publish status. Filter and compare use saved export details. Notes are optional reminders. Deleting a row removes that export folder only, not your product photos.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .onChange(of: availableFilters) { _, filters in
@@ -90,6 +92,11 @@ struct ExportHistorySection: View {
         }
         .sheet(item: $batchForNote) { batch in
             ExportBatchNoteEditor(batch: batch)
+        }
+        .sheet(item: $batchForFiles) { batch in
+            ExportedFilesViewer(batch: batch) { includeNote in
+                onShare?(batch, includeNote)
+            }
         }
     }
 
@@ -138,10 +145,12 @@ struct ExportHistorySection: View {
             Text(batch.historyPrimaryLine)
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(DarkroomTheme.textPrimary)
+                .fixedSize(horizontal: false, vertical: true)
                 .accessibilityLabel("\(batch.exportedForLine). \(batch.historyPrimaryLine)")
             Text(batch.historySecondaryLine)
                 .font(.caption)
                 .foregroundStyle(DarkroomTheme.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
 
             if let noteLine = batch.historyNoteLine {
                 Text(noteLine)
@@ -149,6 +158,14 @@ struct ExportHistorySection: View {
                     .foregroundStyle(DarkroomTheme.textTertiary)
                     .fixedSize(horizontal: false, vertical: true)
                     .accessibilityLabel(noteLine)
+            }
+
+            if let unavailable = ExportBatchFileAccessSupport.availabilityMessage(for: batch) {
+                Text(unavailable)
+                    .font(.caption)
+                    .foregroundStyle(DarkroomTheme.textSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityLabel(unavailable)
             }
 
             actionsRow(batch)
@@ -160,63 +177,59 @@ struct ExportHistorySection: View {
     private func actionsRow(_ batch: ProjectExportBatch) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 12) {
-                Button("Use These Export Settings") {
-                    onUseSettings(batch)
+                Button(ExportBatchFileAccessSupport.viewExportedFilesTitle) {
+                    batchForFiles = batch
                 }
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(DarkroomTheme.accent)
+                .accessibilityLabel(ExportBatchFileAccessSupport.viewExportedFilesTitle)
 
-                if let onExportAgain {
-                    Button("Export Again") {
-                        onExportAgain(batch)
-                    }
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(DarkroomTheme.accent)
-                }
-
-                Button(batch.hasSellerNote ? "Edit Note" : "Add Note") {
-                    batchForNote = batch
-                }
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(DarkroomTheme.accent)
-                .accessibilityLabel(batch.hasSellerNote ? "Edit Note" : "Add Note")
-            }
-
-            HStack(spacing: 12) {
-                if let onShare, batch.hasShareableFiles {
+                if let onShare, ExportBatchFileAccessSupport.canShare(batch) {
                     Button(LocalExportShareSupport.shareExportedPhotosTitle) {
                         onShare(batch, false)
                     }
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(DarkroomTheme.accent)
                     .accessibilityLabel(LocalExportShareSupport.shareExportedPhotosTitle)
+                }
 
-                    if batch.hasSellerNote {
+                Menu {
+                    Button("Use These Export Settings") {
+                        onUseSettings(batch)
+                    }
+                    if let onExportAgain {
+                        Button("Export Again") {
+                            onExportAgain(batch)
+                        }
+                    }
+                    Button(batch.hasSellerNote ? "Edit Note" : "Add Note") {
+                        batchForNote = batch
+                    }
+                    if let onShare, ExportBatchFileAccessSupport.canShare(batch),
+                       ExportBatchFileAccessSupport.canOfferShareWithNote(batch) {
                         Button(LocalExportShareSupport.shareWithNoteTitle) {
                             onShare(batch, true)
                         }
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(DarkroomTheme.accent)
-                        .accessibilityLabel(LocalExportShareSupport.shareWithNoteTitle)
-
+                    }
+                    if ExportBatchFileAccessSupport.canOfferCopyNote(batch) {
                         Button(LocalExportShareSupport.copyExportNoteTitle) {
                             if let text = LocalExportShareSupport.copyableNoteText(for: batch) {
                                 UIPasteboard.general.string = text
                                 noteCopiedMessage = "Export note copied."
                             }
                         }
+                    }
+                    if let onDelete {
+                        Button("Delete", role: .destructive) {
+                            onDelete(batch)
+                        }
+                    }
+                } label: {
+                    Text("More")
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(DarkroomTheme.accent)
-                        .accessibilityLabel(LocalExportShareSupport.copyExportNoteTitle)
-                    }
                 }
-
-                if let onDelete {
-                    Button("Delete", role: .destructive) {
-                        onDelete(batch)
-                    }
-                    .font(.caption.weight(.semibold))
-                }
+                .accessibilityLabel("More export actions")
             }
         }
     }
