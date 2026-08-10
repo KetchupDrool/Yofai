@@ -1,32 +1,29 @@
 # New Chat Handoff — Yofai
 
 ## App
-Yofai · `com.shawnwright.yofai` · iPhone SwiftUI/SwiftData · `/Volumes/CombatMedic/Yofai` · `main`  
-Date: 2026-08-10
+Yofai · `com.shawnwright.yofai` · iPhone · `/Volumes/CombatMedic/Yofai` · `main`  
+Date: 2026-08-10 · HEAD after Phase 57 closeout
 
 ## Baseline
-- Phase 56 complete (submit-path docs; **no archive/submit claimed**)
-- StoreKit Pro in-app; Connect IAP + TestFlight purchase still manual open gates
+- Phase 57: local tests/build **Passed** (301)
+- Manual gates still open: Connect IAP, screenshots, TestFlight purchase, archive, App Review
+- Version **1.0 (1)** — bump build before archive (manual approval)
 - Freemium-first, no-AI, Local Export Mode only
-- Unit tests: iPhone 16e
 
 ## Start here
-1. `APP_STORE_SUBMIT_GATES.md`  
-2. `APP_STORE_ARCHIVE_RUNBOOK.md`  
-3. `APP_STORE_PREP.md` (screenshots)  
-4. `APP_STORE_METADATA.md` (review notes)  
-5. `TESTFLIGHT_PURCHASE_VERIFICATION.md`
+1. `SHAWN_NEXT_RELEASE_STEPS.md`  
+2. `APP_STORE_SUBMIT_GATES.md`  
+3. `APP_STORE_ARCHIVE_RUNBOOK.md`
 
 ## First prompt
 
 ```text
 Continue Yofai iOS work.
 
-Read NEW_CHAT_HANDOFF.md, SESSION_HANDOFF.md, APP_STORE_SUBMIT_GATES.md, APP_STORE_ARCHIVE_RUNBOOK.md, RELEASE_CHECKLIST.md first.
+Read SHAWN_NEXT_RELEASE_STEPS.md, APP_STORE_SUBMIT_GATES.md, SESSION_HANDOFF.md, and RELEASE_CHECKLIST.md first.
 
-Status: Phase 56 done. Submission path documented. Connect IAP, TestFlight purchases, screenshots, archive, and App Review are still MANUAL and not marked Passed.
+Status: Phase 57 done. Local tests/build Passed. Connect IAP, screenshots, TestFlight purchases, archive, and App Review are still MANUAL and not Passed.
 Work in /Volumes/CombatMedic/Yofai on main. Unit tests on iPhone 16e only.
 
-Next: only an explicitly approved step (help after you complete Connect/TestFlight, screenshot guidance, archive assistance, or a new product phase).
-Do not start Phase 57 unless approved.
+Next: only help with an explicitly approved manual step (e.g. after Shawn creates Connect products or captures screenshots). Do not mark gates Passed without evidence. Do not start Phase 58 unless approved.
 ```
