@@ -448,13 +448,23 @@
 - FB/Mercari `recommendedExportPreset` still nil; 7 preset raw values/dimensions unchanged
 - Tests: Phase 63 suite
 
+## Phase 64 — Pro Multi-Market Workflow Polish (locked)
+- Deterministic draft overview status (`MarketplaceDraftCompletionSupport`): Missing title/description, No price, Ready to copy, Draft basics complete, Review before manual upload
+- Draft list shows Prepared for, title/placeholder, status, Template available / No saved template, updated date
+- Editor shows completion hint + template availability; copy/share helper: “Use this text while manually creating your listing.”
+- Free lock copy clarifies primary listing + local export stay available
+- Apply-to-blank-fields unchanged; no data migration; no draft JPEG package folders
+- Still Local Export Mode only — no Direct Upload / login / OAuth / publish / API / AI
+- FB/Mercari recommended presets still nil; 7 preset raw values/dimensions unchanged
+- Tests: Phase 64 suite
+
 ## Why marketplace APIs are not being done yet (locked)
 **Short answer:** APIs are not next because Yofai must first be a strong **local** marketplace listing prep app. Phase 61 only added local drafts. Direct Upload / OAuth / publish stay future work until the local workflow is finished and a specific official API is approved.
 
 **Current state**
 - Local Export Mode only
 - Free: primary listing workflow on `ItemProject` + primary package/export + Seller Defaults for new products
-- Pro: multiple local `MarketplaceListingDraft`s + draft-aware copy/share + per-marketplace templates/defaults via `advancedMultiMarketTools`
+- Pro: multiple local `MarketplaceListingDraft`s + draft-aware copy/share + per-marketplace templates/defaults + workflow polish via `advancedMultiMarketTools`
 - No Direct Upload, login, OAuth, publish, or marketplace API code
 
 **Why API work is later**
@@ -469,7 +479,7 @@
 - Phase 61: Local marketplace drafts — **complete**
 - Phase 62: Draft-aware listing packages and copy tools — **complete**
 - Phase 63: Marketplace-specific templates/defaults — **complete**
-- Phase 64: Pro multi-market workflow polish
+- Phase 64: Pro multi-market workflow polish — **complete**
 - Later API phase: pick **one** official marketplace (likely Etsy or eBay first), verify access, then implement only after approval
 
 **Do not start API integration until**

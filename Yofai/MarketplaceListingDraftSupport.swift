@@ -13,7 +13,7 @@ enum MarketplaceListingDraftCopy {
     static let additionalDraftsHeader = "Additional marketplace drafts"
     static let proLockedTitle = "Advanced multi-market tools"
     static let proLockedDetail =
-        "Yofai Pro unlocks multiple marketplace drafts per product so you can reuse one product across Etsy, eBay, Facebook Marketplace, Mercari, Poshmark, and more. Free keeps your primary listing workflow."
+        "Advanced multi-market tools are part of Yofai Pro. Your primary listing workflow and local export tools stay available."
     static let createDraftTitle = "New marketplace draft"
     static let duplicateTargetMessage =
         "This product already has a draft for that marketplace."
@@ -27,12 +27,12 @@ enum MarketplaceListingDraftCopy {
     static let copyListingText = "Copy listing text"
     static let copyDraftDetails = "Copy draft details"
     static let shareListingText = "Share listing text"
-    static let copyFieldMenuTitle = "Copy field"
+    static let copyFieldMenuTitle = "Copy draft details"
     static let copiedFeedback = "Copied"
     static let packageToolsLockedDetail =
-        "Draft-specific copy and share tools are advanced multi-market tools in Yofai Pro. Free keeps your primary listing package and local JPEG export."
+        "Advanced multi-market tools are part of Yofai Pro. Your primary listing workflow and local export tools stay available."
     static let manualUploadFooter =
-        "Manual listing package text for copy/share. Seller uploads outside the app."
+        "Use this text while manually creating your listing. Manual listing package text for copy/share — Local JPEGs for manual upload outside the app."
 
     static var allUserFacingStrings: [String] {
         [
@@ -43,6 +43,7 @@ enum MarketplaceListingDraftCopy {
             shareListingText, copyFieldMenuTitle, copiedFeedback, packageToolsLockedDetail,
             manualUploadFooter
         ] + MarketplaceDraftCopyField.allCases.map(\.buttonTitle)
+            + MarketplaceDraftWorkflowCopy.allUserFacingStrings
     }
 }
 

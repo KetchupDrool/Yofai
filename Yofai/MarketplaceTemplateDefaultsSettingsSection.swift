@@ -18,7 +18,7 @@ struct MarketplaceTemplateDefaultsSettingsSection: View {
             if canUseTemplates {
                 let templates = store.allTemplates()
                 if templates.isEmpty {
-                    Text(MarketplaceTemplateDefaultsCopy.noTemplateSaved)
+                    Text(MarketplaceTemplateDefaultsCopy.noSavedTemplate)
                         .font(.caption)
                         .foregroundStyle(DarkroomTheme.textSecondary)
                         .fixedSize(horizontal: false, vertical: true)
@@ -27,9 +27,12 @@ struct MarketplaceTemplateDefaultsSettingsSection: View {
                         VStack(alignment: .leading, spacing: 2) {
                             Text(template.displayName)
                                 .foregroundStyle(DarkroomTheme.textPrimary)
-                            Text("Prepared for \(template.marketplaceTarget.displayTitle)")
+                            Text("\(MarketplaceDraftWorkflowCopy.preparedForPrefix) \(template.marketplaceTarget.displayTitle)")
                                 .font(.caption2)
                                 .foregroundStyle(DarkroomTheme.textTertiary)
+                            Text(MarketplaceTemplateDefaultsCopy.templateAvailable)
+                                .font(.caption2)
+                                .foregroundStyle(DarkroomTheme.textSecondary)
                         }
                         .accessibilityElement(children: .combine)
                     }

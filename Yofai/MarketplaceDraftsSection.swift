@@ -2,13 +2,15 @@ import SwiftUI
 import SwiftData
 import UIKit
 
-/// Phase 61 — product-level marketplace drafts list. Free primary + Pro additional drafts.
+/// Phase 61–64 — product-level marketplace drafts list. Free primary + Pro additional drafts.
 struct MarketplaceDraftsSection: View {
     @Environment(\.modelContext) private var modelContext
     @Bindable var project: ItemProject
 
     @State private var createError: String?
     @State private var showCreatePicker = false
+
+    private let templateStore = MarketplaceTemplateDefaultsStore()
 
     private var entitlementState: EntitlementState {
         EntitlementStore.shared.state
@@ -49,7 +51,7 @@ struct MarketplaceDraftsSection: View {
                             .font(.caption.weight(.semibold))
                             .foregroundStyle(DarkroomTheme.accent)
                     }
-                    Text(project.listingMarketplaceTarget.displayTitle)
+                    Text("\(MarketplaceDraftWorkflowCopy.preparedForPrefix) \(project.listingMarketplaceTarget.displayTitle)")
                         .font(.caption2)
                         .foregroundStyle(DarkroomTheme.textTertiary)
                 }
@@ -63,7 +65,7 @@ struct MarketplaceDraftsSection: View {
                     } label: {
                         draftRow(draft)
                     }
-                    .accessibilityLabel("\(draft.displayTitle). \(draft.listingTitleOrPlaceholder)")
+                    .accessibilityLabel(draftAccessibilityLabel(draft))
                 }
 
                 if availableTargets.isEmpty {
@@ -130,16 +132,39 @@ struct MarketplaceDraftsSection: View {
     }
 
     private func draftRow(_ draft: MarketplaceListingDraft) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
+        let completion = MarketplaceDraftCompletionSupport.snapshot(for: draft, project: project)
+        let hasTemplate = templateStore.hasTemplate(for: draft.marketplaceTarget)
+        return VStack(alignment: .leading, spacing: 4) {
+            Text(MarketplaceDraftCompletionSupport.preparedForLine(for: draft))
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(DarkroomTheme.accent)
             Text(draft.displayTitle)
                 .foregroundStyle(DarkroomTheme.textPrimary)
             Text(draft.listingTitleOrPlaceholder)
                 .font(.caption)
                 .foregroundStyle(DarkroomTheme.textSecondary)
+            Text(completion.quickStatusLine)
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(DarkroomTheme.textSecondary)
+            Text(MarketplaceDraftCompletionSupport.templateAvailabilityText(hasTemplate: hasTemplate))
+                .font(.caption2)
+                .foregroundStyle(DarkroomTheme.textTertiary)
             Text(draft.updatedAt.formatted(date: .abbreviated, time: .shortened))
                 .font(.caption2)
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
+    }
+
+    private func draftAccessibilityLabel(_ draft: MarketplaceListingDraft) -> String {
+        let completion = MarketplaceDraftCompletionSupport.snapshot(for: draft, project: project)
+        let hasTemplate = templateStore.hasTemplate(for: draft.marketplaceTarget)
+        return [
+            MarketplaceDraftCompletionSupport.preparedForLine(for: draft),
+            draft.displayTitle,
+            draft.listingTitleOrPlaceholder,
+            completion.quickStatusLine,
+            MarketplaceDraftCompletionSupport.templateAvailabilityText(hasTemplate: hasTemplate)
+        ].joined(separator: ". ")
     }
 
     private func createDraft(for target: MarketplaceTarget) {
@@ -186,11 +211,23 @@ struct MarketplaceListingDraftEditorView: View {
         MarketplaceTemplateDefaultsSupport.canUseMarketplaceTemplates(state: entitlementState)
     }
 
+    private var completion: MarketplaceDraftCompletionSnapshot {
+        MarketplaceDraftCompletionSupport.snapshot(for: draft, project: draft.project)
+    }
+
     var body: some View {
         Form {
             Section {
-                Text(draft.marketplaceTarget.displayTitle)
+                Text(MarketplaceDraftCompletionSupport.preparedForLine(for: draft))
                     .foregroundStyle(DarkroomTheme.textSecondary)
+                Text(completion.primaryActionHint)
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(DarkroomTheme.accent)
+                if completion.isBasicsComplete {
+                    Text(MarketplaceDraftWorkflowCopy.reviewBeforeManualUpload)
+                        .font(.caption2)
+                        .foregroundStyle(DarkroomTheme.textTertiary)
+                }
                 TextField("Draft label", text: $draft.draftLabel)
                 TextField("Title", text: $draft.title)
                 TextField("Description", text: $draft.draftDescription, axis: .vertical)
@@ -285,6 +322,10 @@ struct MarketplaceListingDraftEditorView: View {
     private var draftTemplateSection: some View {
         Section {
             if canUseTemplates {
+                Text(MarketplaceDraftCompletionSupport.templateAvailabilityText(hasTemplate: hasSavedTemplate))
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(DarkroomTheme.textSecondary)
+
                 Button(MarketplaceTemplateDefaultsCopy.saveAsTemplate) {
                     saveTemplateFromDraft()
                 }
@@ -339,6 +380,11 @@ struct MarketplaceListingDraftEditorView: View {
     private var draftPackageToolsSection: some View {
         Section {
             if canUsePackageTools {
+                Text(MarketplaceDraftWorkflowCopy.copyShareHelper)
+                    .font(.caption)
+                    .foregroundStyle(DarkroomTheme.textSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+
                 Button(MarketplaceListingDraftCopy.copyListingText) {
                     copyField(.allListingText)
                 }
@@ -352,7 +398,7 @@ struct MarketplaceListingDraftEditorView: View {
                 .foregroundStyle(DarkroomTheme.accent)
                 .accessibilityLabel(MarketplaceListingDraftCopy.shareListingText)
 
-                Menu(MarketplaceListingDraftCopy.copyFieldMenuTitle) {
+                Menu(MarketplaceListingDraftCopy.copyDraftDetails) {
                     ForEach(MarketplaceDraftCopyField.allCases.filter { $0 != .allListingText }) { field in
                         Button(field.buttonTitle) {
                             copyField(field)
@@ -360,7 +406,7 @@ struct MarketplaceListingDraftEditorView: View {
                     }
                 }
                 .foregroundStyle(DarkroomTheme.accent)
-                .accessibilityLabel(MarketplaceListingDraftCopy.copyFieldMenuTitle)
+                .accessibilityLabel(MarketplaceListingDraftCopy.copyDraftDetails)
 
                 if let copyFeedback {
                     Text(copyFeedback)

@@ -63,7 +63,8 @@ Home → Start / Continue Product → Item Project → Capture & Check Photos �
 Import, Originals, and History remain available as secondary tools.
 
 ## Status
-- Phases 1–63 technical history complete (see `DECISIONS.md`, `APP_STORE_SUBMIT_GATES.md`, `SHAWN_NEXT_RELEASE_STEPS.md`)
+- Phases 1–64 technical history complete (see `DECISIONS.md`, `APP_STORE_SUBMIT_GATES.md`, `SHAWN_NEXT_RELEASE_STEPS.md`)
+- **Phase 64:** Pro multi-market workflow polish (draft status overview, template availability, copy/share helper wording); Free primary + local export stay available; no Direct Upload
 - **Phase 63:** Pro per-marketplace templates/defaults (UserDefaults; apply to blank fields); Free SellerDefaults preserved; no Direct Upload
 - **Phase 62:** Pro draft-aware listing text copy/share (`MarketplaceDraftPackageSupport`); Free primary `ListingPackage` / export unchanged; no Direct Upload
 - **Phase 61:** additive `MarketplaceListingDraft` (Pro multi-market); Free primary listing stays on `ItemProject`; no Direct Upload

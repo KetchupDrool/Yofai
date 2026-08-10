@@ -75,8 +75,10 @@ enum MarketplaceTemplateDefaultsCopy {
     static let templateApplied = "Applied to blank fields"
     static let templateCleared = "Marketplace default cleared"
     static let noTemplateSaved = "No marketplace default saved for this target yet."
+    static let templateAvailable = "Template available"
+    static let noSavedTemplate = "No saved template"
     static let lockedDetail =
-        "Marketplace templates are advanced multi-market tools in Yofai Pro. Free keeps Seller Defaults for new products and your primary listing workflow."
+        "Advanced multi-market tools are part of Yofai Pro. Your primary listing workflow and local export tools stay available."
     static let footer =
         "Local marketplace defaults for additional drafts. Manual listing packages only — Local JPEGs for manual upload outside the app."
     static let settingsFooter =
@@ -86,7 +88,7 @@ enum MarketplaceTemplateDefaultsCopy {
         [
             sectionTitle, saveAsTemplate, applyToBlankFields, clearTemplate,
             templateSaved, templateApplied, templateCleared, noTemplateSaved,
-            lockedDetail, footer, settingsFooter
+            templateAvailable, noSavedTemplate, lockedDetail, footer, settingsFooter
         ]
     }
 }
