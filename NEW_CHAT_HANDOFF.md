@@ -11,15 +11,12 @@ Repo: `/Volumes/CombatMedic/Yofai` · branch `main`
 ## Current baseline
 Latest commit on `main`:
 
-*(set after Phase 65 push — see `git log -1`)*
-
-Phase 65 implementation commit message:
-
-*Phase 65 app store release gate prep*
+`4346b1546529a5bd71963d87fd8714fcd38c78ac` — *Phase 65 app store release gate prep*
 
 Status:
 - Phase 65 complete (release docs/verification)
 - Local multi-market arc Phases 61–64 complete
+- `origin/main` up to date · working tree clean (verify with `git status`)
 - **354 tests passed** · build succeeded · iPhone 16e
 - Version **1.0** · Build **1** — **not bumped** (bump before archive)
 - Manual App Store gates still open
@@ -74,7 +71,7 @@ Continue Yofai iOS work.
 
 Read NEW_CHAT_HANDOFF.md, SHAWN_NEXT_RELEASE_STEPS.md, and APP_STORE_SUBMIT_GATES.md first.
 
-Baseline: main after Phase 65. 354 tests. Version 1.0 (1) not bumped.
+Baseline: main @ 4346b15 (Phase 65). 354 tests. Version 1.0 (1) not bumped.
 Local multi-market complete. App Store Connect / screenshots / TestFlight / archive still manual.
 Local Export Mode only. No API / Direct Upload unless explicitly approved.
 
