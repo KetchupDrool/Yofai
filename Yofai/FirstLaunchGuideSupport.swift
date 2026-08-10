@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import SwiftUI
 
 /// First-launch welcome + guided walkthrough copy and page model.
 /// Offline, no network. No AI / Direct Upload / publish / fake Pro success claims.
@@ -116,6 +117,87 @@ enum FirstLaunchGuideCopy {
             skip, getStarted, continueTitle, done,
             replayFromSettingsTitle, replayFromSettingsDetail
         ]
+    }
+}
+
+/// Short motion timings for the first-launch guide. No video; Reduce Motion → nil / instant.
+enum FirstLaunchGuideMotion {
+    static let welcomeDuration: TimeInterval = 0.55
+    static let pageDuration: TimeInterval = 0.35
+    static let stepContentDuration: TimeInterval = 0.40
+    static let chromeDuration: TimeInterval = 0.45
+    /// One-frame delay so hide → show actually animates (same-runloop toggles are invisible).
+    static let frameDelayNanoseconds: UInt64 = 16_000_000
+
+    /// Staged demo beats (enter → act → settle). Kept short; not a video intro.
+    static let sceneEnterDelayNanoseconds: UInt64 = 40_000_000
+    static let sceneActDelayNanoseconds: UInt64 = 420_000_000
+    static let sceneSettleDelayNanoseconds: UInt64 = 520_000_000
+    static let demoStageHeight: CGFloat = 220
+
+    static func welcomeAnimation(reduceMotion: Bool) -> Animation? {
+        reduceMotion ? nil : .spring(response: welcomeDuration, dampingFraction: 0.86)
+    }
+
+    static func pageAnimation(reduceMotion: Bool) -> Animation? {
+        reduceMotion ? nil : .easeInOut(duration: pageDuration)
+    }
+
+    static func stepContentAnimation(reduceMotion: Bool) -> Animation? {
+        reduceMotion ? nil : .spring(response: stepContentDuration, dampingFraction: 0.88)
+    }
+
+    static func chromeAnimation(reduceMotion: Bool) -> Animation? {
+        reduceMotion ? nil : .easeOut(duration: chromeDuration)
+    }
+
+    static func sceneEnterAnimation(reduceMotion: Bool) -> Animation? {
+        reduceMotion ? nil : .spring(response: 0.48, dampingFraction: 0.82)
+    }
+
+    static func sceneActAnimation(reduceMotion: Bool) -> Animation? {
+        reduceMotion ? nil : .spring(response: 0.42, dampingFraction: 0.78)
+    }
+
+    static func sceneSettleAnimation(reduceMotion: Bool) -> Animation? {
+        reduceMotion ? nil : .easeOut(duration: 0.28)
+    }
+}
+
+/// Demo stage timeline for each onboarding page.
+enum FirstLaunchGuideScenePhase: Int, CaseIterable, Equatable {
+    case idle
+    case enter
+    case act
+    case settle
+
+    var hasEntered: Bool { self != .idle }
+    var hasActed: Bool { self == .act || self == .settle }
+    var hasSettled: Bool { self == .settle }
+}
+
+/// One scene kind per guide page (testable mapping).
+enum FirstLaunchGuideSceneKind: String, CaseIterable, Equatable {
+    case welcomeBrand
+    case startProduct
+    case addPhotos
+    case photoCheck
+    case editFit
+    case exportLocal
+    case exportHistory
+    case yofaiPro
+
+    static func kind(for page: FirstLaunchGuidePage) -> FirstLaunchGuideSceneKind {
+        switch page {
+        case .welcome: return .welcomeBrand
+        case .startProduct: return .startProduct
+        case .addPhotos: return .addPhotos
+        case .photoCheck: return .photoCheck
+        case .editFit: return .editFit
+        case .exportLocal: return .exportLocal
+        case .exportHistory: return .exportHistory
+        case .yofaiPro: return .yofaiPro
+        }
     }
 }
 

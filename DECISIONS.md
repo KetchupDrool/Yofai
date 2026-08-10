@@ -403,6 +403,7 @@
 - First launch only (UserDefaults); replay from Settings → Help
 - Offline; VoiceOver + Dynamic Type; no AI / Direct Upload / fake Pro success / publish claims
 - Free core local export unchanged; StoreKit IDs / presets unchanged
+- **Follow-up:** rich SwiftUI mini-scenes per step (`FirstLaunchGuideScenes.swift`) — multi-angle entrances + workflow acting beats; Reduce Motion shows static final frame; still no Lottie/Rive/video
 
 ## Future StoreKit follow-ups (manual / not claimed done)
 - Create/verify subscription group + products in App Store Connect (user sign-off)

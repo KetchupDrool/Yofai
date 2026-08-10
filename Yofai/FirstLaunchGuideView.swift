@@ -1,12 +1,14 @@
 import SwiftUI
 
-/// Branded welcome + short guided walkthrough after the system launch screen.
-/// Skip is always available. Offline. VoiceOver + Dynamic Type friendly.
+/// Branded welcome + guided walkthrough after the system launch screen.
+/// Skip always available. Offline. VoiceOver + Dynamic Type friendly.
+/// Rich SwiftUI demo scenes per step — not a video. Honors Reduce Motion.
 struct FirstLaunchGuideView: View {
     var onFinished: () -> Void
 
     @State private var page: FirstLaunchGuidePage = .welcome
-    @State private var brandAppeared = false
+    @State private var copyVisible = false
+    @State private var animatesForward = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let pages = FirstLaunchGuidePage.allCases
@@ -14,7 +16,9 @@ struct FirstLaunchGuideView: View {
     var body: some View {
         ZStack {
             DarkroomTheme.screenGradient.ignoresSafeArea()
-            DarkroomTheme.softGlow.ignoresSafeArea()
+            DarkroomTheme.softGlow
+                .opacity(copyVisible ? 1 : 0.25)
+                .ignoresSafeArea()
 
             VStack(spacing: 0) {
                 HStack {
@@ -32,15 +36,13 @@ struct FirstLaunchGuideView: View {
                 .padding(.horizontal, 20)
                 .padding(.top, 8)
 
-                TabView(selection: $page) {
-                    ForEach(pages) { step in
-                        guidePage(step)
-                            .tag(step)
-                            .accessibilityElement(children: .contain)
-                    }
+                ZStack {
+                    guidePage(page)
+                        .id(page)
+                        .transition(pageTransition)
                 }
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                .animation(pageAnimation, value: page)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .gesture(pageSwipeGesture)
 
                 pageDots
                     .padding(.bottom, 12)
@@ -65,14 +67,7 @@ struct FirstLaunchGuideView: View {
         .preferredColorScheme(.dark)
         .tint(DarkroomTheme.accent)
         .onAppear {
-            guard page == .welcome else { return }
-            if reduceMotion {
-                brandAppeared = true
-            } else {
-                withAnimation(.easeOut(duration: 0.55)) {
-                    brandAppeared = true
-                }
-            }
+            revealCopy(animated: !reduceMotion)
         }
         .accessibilityAddTraits(.isModal)
     }
@@ -80,21 +75,9 @@ struct FirstLaunchGuideView: View {
     @ViewBuilder
     private func guidePage(_ step: FirstLaunchGuidePage) -> some View {
         ScrollView {
-            VStack(spacing: 20) {
-                Spacer(minLength: 12)
-
-                ZStack {
-                    Circle()
-                        .fill(DarkroomTheme.accent.opacity(0.14))
-                        .frame(width: 120, height: 120)
-                    Image(systemName: step.systemImage)
-                        .font(.system(size: 44, weight: .semibold))
-                        .foregroundStyle(DarkroomTheme.accentGradient)
-                        .symbolRenderingMode(.hierarchical)
-                }
-                .scaleEffect(step.isWelcome ? (brandAppeared ? 1 : 0.86) : 1)
-                .opacity(step.isWelcome ? (brandAppeared ? 1 : 0.35) : 1)
-                .accessibilityHidden(true)
+            VStack(spacing: 18) {
+                FirstLaunchGuideDemoStage(page: step, reduceMotion: reduceMotion)
+                    .padding(.top, 8)
 
                 Text(step.title)
                     .font(step.isWelcome ? .largeTitle.weight(.bold) : .title2.weight(.bold))
@@ -102,6 +85,8 @@ struct FirstLaunchGuideView: View {
                     .multilineTextAlignment(.center)
                     .minimumScaleFactor(0.8)
                     .lineLimit(3)
+                    .opacity(copyVisible ? 1 : 0)
+                    .offset(y: copyVisible ? 0 : 16)
                     .accessibilityAddTraits(.isHeader)
 
                 Text(step.bodyText)
@@ -110,6 +95,8 @@ struct FirstLaunchGuideView: View {
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal, 8)
+                    .opacity(copyVisible ? 1 : 0)
+                    .offset(y: copyVisible ? 0 : 12)
 
                 if step.isWelcome {
                     Text(AppStoreLaunchSupport.freemiumLaunchNote)
@@ -117,14 +104,15 @@ struct FirstLaunchGuideView: View {
                         .foregroundStyle(DarkroomTheme.textTertiary)
                         .multilineTextAlignment(.center)
                         .fixedSize(horizontal: false, vertical: true)
-                        .padding(.top, 4)
+                        .padding(.top, 2)
+                        .opacity(copyVisible ? 1 : 0)
                 }
 
-                Spacer(minLength: 24)
+                Spacer(minLength: 12)
             }
             .frame(maxWidth: .infinity)
-            .padding(.horizontal, 28)
-            .padding(.vertical, 12)
+            .padding(.horizontal, 24)
+            .padding(.vertical, 8)
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(step.title). \(step.bodyText)")
@@ -135,11 +123,11 @@ struct FirstLaunchGuideView: View {
             ForEach(pages) { step in
                 Capsule()
                     .fill(step == page ? DarkroomTheme.accent : DarkroomTheme.strokeBright.opacity(0.55))
-                    .frame(width: step == page ? 18 : 7, height: 7)
-                    .animation(pageAnimation, value: page)
+                    .frame(width: step == page ? 20 : 7, height: 7)
             }
         }
         .frame(minHeight: 20)
+        .animation(pageAnimation, value: page)
     }
 
     private var pageIndicatorLabel: String {
@@ -147,8 +135,71 @@ struct FirstLaunchGuideView: View {
         return String(format: FirstLaunchGuideCopy.pageIndicatorAccessibilityFormat, index, pages.count)
     }
 
+    private var pageTransition: AnyTransition {
+        if reduceMotion {
+            return .opacity
+        }
+        return .asymmetric(
+            insertion: .move(edge: animatesForward ? .trailing : .leading)
+                .combined(with: .opacity),
+            removal: .move(edge: animatesForward ? .leading : .trailing)
+                .combined(with: .opacity)
+        )
+    }
+
     private var pageAnimation: Animation? {
-        reduceMotion ? nil : .easeInOut(duration: 0.28)
+        FirstLaunchGuideMotion.pageAnimation(reduceMotion: reduceMotion)
+    }
+
+    private var pageSwipeGesture: some Gesture {
+        DragGesture(minimumDistance: 40, coordinateSpace: .local)
+            .onEnded { value in
+                let horizontal = value.translation.width
+                let vertical = value.translation.height
+                guard abs(horizontal) > abs(vertical), abs(horizontal) > 50 else { return }
+                if horizontal < 0 {
+                    advanceOrFinish()
+                } else {
+                    goBack()
+                }
+            }
+    }
+
+    private func revealCopy(animated: Bool) {
+        if !animated || reduceMotion {
+            copyVisible = true
+            return
+        }
+        copyVisible = false
+        Task { @MainActor in
+            try? await Task.sleep(nanoseconds: FirstLaunchGuideMotion.frameDelayNanoseconds)
+            withAnimation(FirstLaunchGuideMotion.stepContentAnimation(reduceMotion: false)) {
+                copyVisible = true
+            }
+        }
+    }
+
+    private func animateToPage(_ newPage: FirstLaunchGuidePage, forward: Bool) {
+        guard newPage != page else { return }
+        animatesForward = forward
+
+        if reduceMotion {
+            page = newPage
+            copyVisible = true
+            return
+        }
+
+        withAnimation(FirstLaunchGuideMotion.pageAnimation(reduceMotion: false)) {
+            page = newPage
+            copyVisible = false
+        }
+
+        Task { @MainActor in
+            try? await Task.sleep(nanoseconds: FirstLaunchGuideMotion.frameDelayNanoseconds)
+            withAnimation(FirstLaunchGuideMotion.stepContentAnimation(reduceMotion: false)) {
+                copyVisible = true
+            }
+        }
     }
 
     private func advanceOrFinish() {
@@ -158,15 +209,15 @@ struct FirstLaunchGuideView: View {
         }
         let next = index + 1
         if next < pages.count {
-            withAnimation(pageAnimation) {
-                page = pages[next]
-            }
-            if pages[next] == .welcome {
-                brandAppeared = true
-            }
+            animateToPage(pages[next], forward: true)
         } else {
             finish()
         }
+    }
+
+    private func goBack() {
+        guard let index = pages.firstIndex(of: page), index > 0 else { return }
+        animateToPage(pages[index - 1], forward: false)
     }
 
     private func finish() {

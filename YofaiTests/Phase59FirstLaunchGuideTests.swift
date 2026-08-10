@@ -130,4 +130,35 @@ final class Phase59FirstLaunchGuideTests: XCTestCase {
         XCTAssertEqual(FreemiumLimits.launch.freeActiveProductLimit, 12)
         XCTAssertEqual(EntitlementStore.shared.state.plan, .free)
     }
+
+    func testMotionTimingsStayShortAndHonorReduceMotion() {
+        XCTAssertLessThanOrEqual(FirstLaunchGuideMotion.welcomeDuration, 0.7)
+        XCTAssertLessThanOrEqual(FirstLaunchGuideMotion.pageDuration, 0.5)
+        XCTAssertLessThanOrEqual(FirstLaunchGuideMotion.stepContentDuration, 0.5)
+        XCTAssertGreaterThan(FirstLaunchGuideMotion.frameDelayNanoseconds, 0)
+        XCTAssertEqual(FirstLaunchGuideMotion.demoStageHeight, 220)
+        XCTAssertNil(FirstLaunchGuideMotion.welcomeAnimation(reduceMotion: true))
+        XCTAssertNil(FirstLaunchGuideMotion.pageAnimation(reduceMotion: true))
+        XCTAssertNil(FirstLaunchGuideMotion.stepContentAnimation(reduceMotion: true))
+        XCTAssertNil(FirstLaunchGuideMotion.chromeAnimation(reduceMotion: true))
+        XCTAssertNil(FirstLaunchGuideMotion.sceneEnterAnimation(reduceMotion: true))
+        XCTAssertNil(FirstLaunchGuideMotion.sceneActAnimation(reduceMotion: true))
+        XCTAssertNil(FirstLaunchGuideMotion.sceneSettleAnimation(reduceMotion: true))
+        XCTAssertNotNil(FirstLaunchGuideMotion.pageAnimation(reduceMotion: false))
+        XCTAssertNotNil(FirstLaunchGuideMotion.stepContentAnimation(reduceMotion: false))
+        XCTAssertNotNil(FirstLaunchGuideMotion.sceneEnterAnimation(reduceMotion: false))
+    }
+
+    func testSceneKindsMapToEveryGuidePage() {
+        XCTAssertEqual(FirstLaunchGuideScenePhase.allCases.count, 4)
+        XCTAssertEqual(FirstLaunchGuideSceneKind.allCases.count, FirstLaunchGuidePage.allCases.count)
+        XCTAssertEqual(
+            FirstLaunchGuidePage.allCases.map { FirstLaunchGuideSceneKind.kind(for: $0) },
+            FirstLaunchGuideSceneKind.allCases
+        )
+        XCTAssertEqual(FirstLaunchGuideScenePhase.idle.hasEntered, false)
+        XCTAssertEqual(FirstLaunchGuideScenePhase.enter.hasEntered, true)
+        XCTAssertEqual(FirstLaunchGuideScenePhase.act.hasActed, true)
+        XCTAssertEqual(FirstLaunchGuideScenePhase.settle.hasSettled, true)
+    }
 }

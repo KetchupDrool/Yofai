@@ -64,7 +64,7 @@ Import, Originals, and History remain available as secondary tools.
 
 ## Status
 - Phases 1–59 technical history complete (see `DECISIONS.md`, `APP_STORE_SUBMIT_GATES.md`, `SHAWN_NEXT_RELEASE_STEPS.md`)
-- **Phase 59:** first-launch welcome + guided walkthrough; Settings replay; system launch screen unchanged
+- **Phase 59:** first-launch welcome + guided walkthrough; Settings replay; rich SwiftUI mini-scenes per step; system launch screen unchanged
 - **Phase 58:** owner Connect IAP + screenshot execution guide; manual gates still Needs user action / Not started
 - **Phase 57:** local suite/build re-verified Passed; honest release gates
 - **Phase 56:** screenshot packet, archive runbook, App Review notes, master submit gates

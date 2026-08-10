@@ -94,6 +94,7 @@
 		C3B6FAB768E66AA2D4DC7AB0 /* YofaiModelSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51C5326458F9E10E5524213 /* YofaiModelSchema.swift */; };
 		C46F43FEB7E1ED8121A8D403 /* Phase54ConnectSubscriptionsReadinessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8238FD0B7C96B4966BC8B2DD /* Phase54ConnectSubscriptionsReadinessTests.swift */; };
 		C68CBDA02767C26AE4ACF140 /* ListingQueueSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F37C5BE7AD5640A0A18BF3E /* ListingQueueSupport.swift */; };
+		C8B3F27305A9AA32B8E69298 /* FirstLaunchGuideScenes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86AFCE30BC6EBA9AD45D803 /* FirstLaunchGuideScenes.swift */; };
 		D0A3C62D53FA41F1BC330D9F /* Phase36VerifiedMarketplaceExportPresetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D768A26D037A650D7173D456 /* Phase36VerifiedMarketplaceExportPresetsTests.swift */; };
 		D51A8A6A01D7A336DD31FD0A /* StoreKitSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E70EE1BF6824C3EF42BCB76 /* StoreKitSupport.swift */; };
 		D594B5BE2F0042FE1DBB7BD1 /* ExportPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F90DF6A4B6D4A9CB5FAD842 /* ExportPreviewCard.swift */; };
@@ -222,6 +223,7 @@
 		DE196A020E7CCA6FD2305243 /* Phase29BulkEditAndPackageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase29BulkEditAndPackageTests.swift; sourceTree = "<group>"; };
 		E209CE6FEE2048F188D6677E /* ExportBatchNoteSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportBatchNoteSupport.swift; sourceTree = "<group>"; };
 		E51C5326458F9E10E5524213 /* YofaiModelSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YofaiModelSchema.swift; sourceTree = "<group>"; };
+		E86AFCE30BC6EBA9AD45D803 /* FirstLaunchGuideScenes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchGuideScenes.swift; sourceTree = "<group>"; };
 		E8E30D8B2F9590FED714FFB3 /* Phase53StoreKitProPaymentsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase53StoreKitProPaymentsTests.swift; sourceTree = "<group>"; };
 		EA17D35E6CA934AC7DC75465 /* Phase24EtsyConnectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase24EtsyConnectionTests.swift; sourceTree = "<group>"; };
 		EAF7E07AA3165CE87450949A /* ListingWorkspaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingWorkspaceView.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				4F90DF6A4B6D4A9CB5FAD842 /* ExportPreviewCard.swift */,
 				F5C606C38CE5629ECD6CE132 /* ExportReadinessChecklistSection.swift */,
 				A88F0AF7208E6EBCD62153B3 /* FillCropRepositionView.swift */,
+				E86AFCE30BC6EBA9AD45D803 /* FirstLaunchGuideScenes.swift */,
 				C58920707F177C2ABE0A233B /* FirstLaunchGuideSupport.swift */,
 				B4095D5EF864EE140DE18B49 /* FirstLaunchGuideView.swift */,
 				28C1784212753AA8E4F70C92 /* FreeformCropView.swift */,
@@ -487,6 +490,7 @@
 				616ADE4DA66F1D8CB569B0B8 /* ExportReadinessChecklistSection.swift in Sources */,
 				294AC48A21F75DCFB03520F8 /* ExportedFilesViewer.swift in Sources */,
 				C07849EDF5CA81D6A2F8B14B /* FillCropRepositionView.swift in Sources */,
+				C8B3F27305A9AA32B8E69298 /* FirstLaunchGuideScenes.swift in Sources */,
 				9C1863EDF69362084AB89D2E /* FirstLaunchGuideSupport.swift in Sources */,
 				F187A1EF9691D1ABE4E97791 /* FirstLaunchGuideView.swift in Sources */,
 				F3F30DE5B9C50F815D7B60AF /* FreeformCropView.swift in Sources */,

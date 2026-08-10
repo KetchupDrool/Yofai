@@ -6,7 +6,8 @@ Date: 2026-08-10 · HEAD after Phase 59 closeout
 
 ## Baseline
 - Phase 59: welcome + 7-step walkthrough; Settings replay
-- 308 tests Passed on iPhone 16e
+- Rich SwiftUI demo scenes per step (`FirstLaunchGuideScenes.swift`)
+- 310 tests Passed on iPhone 16e
 - Manual release gates still open (Connect IAP, screenshots, TestFlight, archive)
 - Version **1.0 (1)**
 
