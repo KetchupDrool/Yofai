@@ -29,10 +29,6 @@ struct ListingWorkspaceView: View {
         ListingQueueSupport.isQueued(project, in: modelContext)
     }
 
-    private var latestBatch: ProjectExportBatch? {
-        project.sortedExportBatches.first
-    }
-
     private var newestSuccessfulBatch: ProjectExportBatch? {
         project.sortedExportBatches.first { $0.successCount > 0 && $0.hasShareableFiles }
     }
@@ -59,6 +55,23 @@ struct ListingWorkspaceView: View {
             photosSection
             MarketplaceExportSettingsBlock(project: project, showPreview: true)
             exportSection
+            ExportHistorySection(
+                project: project,
+                onUseSettings: { batch in
+                    batch.applyExportSettings(to: project)
+                    exportStatusMessage = "Export settings restored. Photo edits unchanged. Tap Export Photos when ready."
+                    exportStatusIsError = false
+                },
+                onShare: { batch in
+                    shareBatchItem = ShareBatchItem(urls: batch.fileURLs)
+                },
+                onDelete: { batch in
+                    LocalEditStore.deleteExportBatchFolder(folderName: batch.batchFolderName)
+                    modelContext.delete(batch)
+                    project.touchModified()
+                }
+            )
+            .listRowBackground(sectionBackground)
             packageSection
             queueSection
             actionsSection
@@ -390,19 +403,6 @@ struct ListingWorkspaceView: View {
 
     private var exportSection: some View {
         Section {
-            if let latestBatch {
-                Text(latestBatch.createdAt, format: .dateTime.month().day().hour().minute())
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(DarkroomTheme.textPrimary)
-                Text("\(latestBatch.successCount) file\(latestBatch.successCount == 1 ? "" : "s") · \(latestBatch.orderedFileNames.joined(separator: ", "))")
-                    .font(.caption)
-                    .foregroundStyle(DarkroomTheme.textSecondary)
-            } else {
-                Text("No export batch yet.")
-                    .font(.subheadline)
-                    .foregroundStyle(DarkroomTheme.textSecondary)
-            }
-
             Button {
                 Task { await exportListingImages() }
             } label: {
@@ -418,20 +418,13 @@ struct ListingWorkspaceView: View {
             }
             .disabled(isExporting || project.photoCount == 0)
 
-            if project.listingMarketplaceTarget.hasVerifiedYofaiCanvas == false {
-                Text("After this export, switch Marketplace above and Export Photos again for another target — photo edits stay.")
-                    .font(.caption2)
-                    .foregroundStyle(DarkroomTheme.textTertiary)
-                    .fixedSize(horizontal: false, vertical: true)
-            } else {
-                Text("Need another marketplace? Switch Marketplace above, then Export Photos again. Photo edits stay.")
-                    .font(.caption2)
-                    .foregroundStyle(DarkroomTheme.textTertiary)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
+            Text("Need another marketplace? Switch Marketplace above, then Export Photos again. Photo edits stay.")
+                .font(.caption2)
+                .foregroundStyle(DarkroomTheme.textTertiary)
+                .fixedSize(horizontal: false, vertical: true)
 
             if let newestSuccessfulBatch, newestSuccessfulBatch.hasShareableFiles {
-                Button("Share Newest Export Batch") {
+                Button("Share Newest Export") {
                     shareBatchItem = ShareBatchItem(urls: newestSuccessfulBatch.fileURLs)
                 }
                 .foregroundStyle(DarkroomTheme.accent)
@@ -441,6 +434,7 @@ struct ListingWorkspaceView: View {
                 Text(exportStatusMessage)
                     .font(.caption)
                     .foregroundStyle(exportStatusIsError ? DarkroomTheme.danger : DarkroomTheme.accent)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         } header: {
             Text("Export")
@@ -543,17 +537,22 @@ struct ListingWorkspaceView: View {
                 exportProgressCompleted = completed
                 exportProgressTotal = total
             }
-            let batch = ProjectExportBatch(
-                batchFolderName: result.batchFolderName,
-                orderedFileNames: result.orderedFileNames,
-                successCount: result.successCount,
-                errorMessages: result.errorMessages,
-                project: project
-            )
-            modelContext.insert(batch)
-            project.touchModified()
-            exportStatusMessage = "Exported \(result.successCount) of \(project.photoCount)."
-            exportStatusIsError = result.successCount == 0
+            if let batch = ProjectExportBatch.recordSuccessfulExport(from: result, project: project) {
+                modelContext.insert(batch)
+                project.touchModified()
+                var summary = batch.resultSummaryText
+                if !result.errorMessages.isEmpty {
+                    summary += "\n" + result.errorMessages.joined(separator: " · ")
+                }
+                exportStatusMessage = summary
+                exportStatusIsError = false
+            } else {
+                LocalEditStore.deleteExportBatchFolder(folderName: result.batchFolderName)
+                exportStatusMessage = result.errorMessages.isEmpty
+                    ? "Export did not complete. No history entry was saved."
+                    : result.errorMessages.joined(separator: " · ")
+                exportStatusIsError = true
+            }
         } catch {
             exportStatusMessage = "Export failed."
             exportStatusIsError = true
@@ -569,7 +568,7 @@ struct ListingWorkspaceView: View {
             packageStatusMessage = "Package created with \(package.photoCount) JPEG\(package.photoCount == 1 ? "" : "s") + listing-details.txt."
         } catch ListingPackageError.noSuccessfulExportBatch {
             packageStatusIsError = true
-            packageStatusMessage = "No successful export batch yet. Use Export Listing Images first."
+            packageStatusMessage = "No successful export yet. Use Export Photos first."
         } catch {
             packageStatusIsError = true
             packageStatusMessage = "Could not create listing package."

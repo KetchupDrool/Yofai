@@ -1,7 +1,7 @@
 # Session Handoff
 
 ## Status
-Phase 39 complete — Marketplace Export Expansion. Build + unit tests succeeded on iPhone 16e (172 tests). App Store upload paused.
+Phase 40 complete — Local Export Batch History & Marketplace Labeling. Build + unit tests succeeded on iPhone 16e (185 tests). App Store upload paused.
 
 ## Product purpose
 Local-first marketplace product photo preparation for online sellers.
@@ -10,14 +10,13 @@ Export targets only: Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and si
 
 ## Facts
 - Yofai / `com.shawnwright.yofai` / iPhone-only
-- Phase 39: Marketplace target ≠ export canvas; no new named FB Marketplace / Mercari pixel presets (research 2026-08-09)
-- Seven export preset raw values/sizes unchanged; Fill + Crop reposition preserved
+- Phase 40: `ProjectExportBatch` stores marketplace/size/fit history; “exported for” only — never publish status
+- Seven export preset raw values/sizes unchanged; Phases 37–39 preserved
 - Not marketplace compliance claims
 - Git: `/Volumes/CombatMedic/Yofai` on `main`
 
 ## Last Completed
-- `MarketplaceTarget`, `ExportReadiness`, `MarketplaceExportSettingsBlock`, `ExportPreviewCard`
-- Phase39MarketplaceExportExpansionTests (19); total 172
+- Export history metadata on `ProjectExportBatch`; `ExportHistorySection`; Phase40ExportBatchHistoryTests (13); total 185
 
 ## Abandoned from the active roadmap
 - Paid/live AI APIs
@@ -28,7 +27,7 @@ Export targets only: Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and si
 Backend, accounts, cloud sync, subscriptions, ads may be added later where they support the product; core photo prep stays local-first/on-device.
 
 ## Next Recommended
-Only add FB Marketplace / Mercari named presets if first-party exact canvases appear. Otherwise continue local seller polish. Do not default to live AI, OAuth, or upload.
+Continue local seller polish only when explicitly approved. Do not default to live AI, OAuth, or upload.
 
 ## Rules
 - Core photo preparation: local-first/on-device

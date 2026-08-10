@@ -1,7 +1,7 @@
 # Tasks
 
 ## Status
-Phase 39 — Marketplace Export Expansion complete.
+Phase 40 — Local Export Batch History & Marketplace Labeling complete.
 App Store upload remains paused.
 
 ## Product direction
@@ -10,12 +10,12 @@ Core functionality is local-first/on-device.
 Marketplaces (Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, similar) are **local export targets only**.
 
 ## Current Phase
-Phase 39 — Marketplace Export Expansion. Complete.
+Phase 40 — Local Export Batch History & Marketplace Labeling. Complete.
 
 ## Done
-- MVP + Phases 4–38
-- Phase 39: marketplace target vs export canvas; readiness; preview; FB/Mercari guidance without invented presets; tests
-- Build + unit tests succeeded on iPhone 16e (172 tests)
+- MVP + Phases 4–39
+- Phase 40: export-batch history metadata, seller labels, Use These Export Settings, result summary; tests
+- Build + unit tests succeeded on iPhone 16e (185 tests)
 
 ## Remaining Polish
 - Edit tools may scroll with Export + watermark

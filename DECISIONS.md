@@ -227,6 +227,17 @@
 - Marketplace quick switch changes export-level settings only; preserves per-photo edits and Fill + Crop offsets
 - All existing 7 preset raw values and dimensions unchanged; Phase 37/38 behavior preserved
 
+## Phase 40 — Local Export Batch History & Marketplace Labeling (locked)
+- Extends existing `ProjectExportBatch` with export-history metadata (no second history model)
+- Metadata stored per successful export: marketplace target, preset raw, canvas W×H, fit mode, photo count, watermark enabled, date/time, local batch folder reference
+- Seller labels keep destination and canvas separate (e.g. “eBay • 1600×1600 • 6 photos”, “Facebook Marketplace • 1600×1600 • 6 photos”)
+- Language: **exported for** — never “published to”; no upload/publish status tracking
+- Only `successCount > 0` creates a history row; failed/empty exports do not create false completed entries
+- Pre-Phase-40 rows load with empty metadata → “Earlier export” / Other fallback
+- “Use These Export Settings” restores marketplace/preset/fit/watermark only — never per-photo edits or Phase 38 offsets
+- Deleting a history row removes that ExportBatches folder only — not product photos, Originals, or edit History
+- Intentionally NOT tracked: marketplace upload status, compliance, cloud sync, accounts
+
 ## Future capability (approved direction — not next work)
 May be added later where they support the product; core photo preparation remains local-first/on-device:
 - Backend services

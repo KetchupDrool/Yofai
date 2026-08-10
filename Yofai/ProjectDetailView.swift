@@ -80,6 +80,22 @@ struct ProjectDetailView: View {
 
             batchExportSection
 
+            ExportHistorySection(
+                project: project,
+                onUseSettings: { batch in
+                    batch.applyExportSettings(to: project)
+                    exportStatusMessage = "Export settings restored. Photo edits unchanged. Tap Export Photos when ready."
+                    exportStatusIsError = false
+                },
+                onShare: { batch in
+                    shareBatchItem = ShareBatchItem(urls: batch.fileURLs)
+                },
+                onDelete: { batch in
+                    batchToDelete = batch
+                }
+            )
+            .listRowBackground(sectionBackground)
+
             Section {
                 if sortedPhotos.isEmpty {
                     Text("No photos in this project yet.")
@@ -452,41 +468,11 @@ struct ProjectDetailView: View {
                     .foregroundStyle(exportStatusIsError ? DarkroomTheme.danger : DarkroomTheme.accent)
                     .fixedSize(horizontal: false, vertical: true)
             }
-
-            ForEach(project.sortedExportBatches) { batch in
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(batch.createdAt, format: .dateTime.month().day().hour().minute())
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(DarkroomTheme.textPrimary)
-                    Text("\(batch.successCount) file\(batch.successCount == 1 ? "" : "s") · \(batch.orderedFileNames.joined(separator: ", "))")
-                        .font(.caption)
-                        .foregroundStyle(DarkroomTheme.textSecondary)
-                    if !batch.errorMessages.isEmpty {
-                        Text(batch.errorMessages.joined(separator: " · "))
-                            .font(.caption2)
-                            .foregroundStyle(DarkroomTheme.danger)
-                    }
-                    HStack(spacing: 16) {
-                        if batch.hasShareableFiles {
-                            Button("Share Export Batch") {
-                                shareBatchItem = ShareBatchItem(urls: batch.fileURLs)
-                            }
-                            .font(.caption.weight(.semibold))
-                            .foregroundStyle(DarkroomTheme.accent)
-                        }
-                        Button("Delete Batch", role: .destructive) {
-                            batchToDelete = batch
-                        }
-                        .font(.caption.weight(.semibold))
-                    }
-                }
-                .padding(.vertical, 2)
-            }
         } header: {
-            Text("Export Batches")
+            Text("Export")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
-            Text("Saves ordered JPEGs under ExportBatches only. Does not change project photos, Originals, or History.")
+            Text("Saves ordered JPEGs under ExportBatches only. Does not change project photos, Originals, or edit History.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)
@@ -506,22 +492,23 @@ struct ProjectDetailView: View {
                 exportProgressCompleted = completed
                 exportProgressTotal = total
             }
-            let batch = ProjectExportBatch(
-                batchFolderName: result.batchFolderName,
-                orderedFileNames: result.orderedFileNames,
-                successCount: result.successCount,
-                errorMessages: result.errorMessages,
-                project: project
-            )
-            modelContext.insert(batch)
-            project.touchModified()
-
-            var parts: [String] = ["Exported \(result.successCount) of \(sortedPhotos.count)"]
-            if !result.errorMessages.isEmpty {
-                parts.append(result.errorMessages.joined(separator: " · "))
+            if let batch = ProjectExportBatch.recordSuccessfulExport(from: result, project: project) {
+                modelContext.insert(batch)
+                project.touchModified()
+                var summary = batch.resultSummaryText
+                if !result.errorMessages.isEmpty {
+                    summary += "\n" + result.errorMessages.joined(separator: " · ")
+                }
+                exportStatusMessage = summary
+                exportStatusIsError = false
+            } else {
+                // Clean up empty/failed folder if nothing succeeded.
+                LocalEditStore.deleteExportBatchFolder(folderName: result.batchFolderName)
+                exportStatusMessage = result.errorMessages.isEmpty
+                    ? "Export did not complete. No history entry was saved."
+                    : result.errorMessages.joined(separator: " · ")
+                exportStatusIsError = true
             }
-            exportStatusMessage = parts.joined(separator: ". ")
-            exportStatusIsError = result.successCount == 0
         } catch {
             exportStatusMessage = "Export failed."
             exportStatusIsError = true

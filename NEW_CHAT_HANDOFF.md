@@ -13,27 +13,27 @@ Yofai
 - iPhone-only SwiftUI + SwiftData
 - **Product purpose:** local-first marketplace product photo preparation for online sellers
 - Core functionality is local-first/on-device
-- Phases 1–39 complete
-- Phase 39: Marketplace target vs export canvas; export readiness; preview; no invented FB/Mercari sizes
-- Last build/tests: succeeded on iPhone 16e (172 tests)
+- Phases 1–40 complete
+- Phase 40: local export-batch history with marketplace labels
+- Last build/tests: succeeded on iPhone 16e (185 tests)
 - App Store upload paused
 - Primary local path: `/Volumes/CombatMedic/Yofai`
 - GitHub Pages: https://ketchupdrool.github.io/Yofai/
 
-## 5. Completed phases 1–39
-1–38. Local listing prep, fit modes, Fill + Crop reposition, verified eBay/Poshmark canvases
-39. Marketplace export expansion (target/canvas split; guidance for unverified markets)
+## 5. Completed phases 1–40
+1–39. Local listing prep, fit modes, reposition, marketplace target vs canvas
+40. Export history labeling (“exported for”) on existing ProjectExportBatch
 
-## 6. Phase 39 result
-**Marketplace Export Expansion complete.** Marketplace destination is separate from pixel export size. Etsy/eBay/Poshmark can recommend existing verified canvases. Facebook Marketplace and Mercari intentionally have **no** named pixel presets (no defensible exact first-party canvas as of 2026-08-09). Export readiness + shared preview use local facts / same render path. Build + 172 unit tests passed on iPhone 16e.
+## 6. Phase 40 result
+**Local Export Batch History & Marketplace Labeling complete.** Successful exports record marketplace target, canvas size, fit, photo count, watermark, and date on `ProjectExportBatch`. Sellers can restore export settings without touching photo edits. “Exported for” only — not published. Build + 185 unit tests passed on iPhone 16e.
 
 ## 7. Current models/files
-**Export:** `ListingExport.swift` (7 presets), `MarketplaceExportSupport.swift`, `ExportPreviewCard.swift`
+**Export:** `ProjectExportBatch` (+ Phase 40 metadata), `ExportHistorySection.swift`
 
-**Tests:** Phase22–39
+**Tests:** Phase22–40
 
 ## 8. Working features
-- Seller-first path, marketplace target switching, export readiness, export preview, Contain+Pad / Fill+Crop + reposition, verified eBay/Poshmark/Etsy canvases, guidance for FB Marketplace/Mercari without fake sizes, listing prep, bulk edit, packages, defaults, queue, batch export
+- Marketplace target switching, export readiness/preview, export history, Contain+Pad / Fill+Crop + reposition, verified eBay/Poshmark/Etsy canvases, FB Marketplace/Mercari guidance without fake sizes, listing prep, bulk edit, packages, defaults, queue, batch export
 
 ## 9. Rules/constraints
 - Core photo preparation: local-first/on-device
@@ -53,7 +53,7 @@ App: Yofai
 Bundle ID: com.shawnwright.yofai
 Purpose: local-first marketplace product photo preparation for online sellers.
 Core functionality is local-first/on-device.
-Status: Phases 1–39 done. Marketplace target separate from export canvas. No FB Marketplace/Mercari named pixel presets. Last build/tests succeeded on iPhone 16e (172 tests). App Store upload paused.
+Status: Phases 1–40 done. Export history labels marketplace + canvas locally. Last build/tests succeeded on iPhone 16e (185 tests). App Store upload paused.
 Marketplaces are local export targets only. Do not invent new preset pixel sizes.
 Abandoned from active roadmap: paid/live AI APIs; OAuth marketplace publishing; direct marketplace uploads.
 Future capability (not next work): backend, accounts, cloud sync, subscriptions, ads.
