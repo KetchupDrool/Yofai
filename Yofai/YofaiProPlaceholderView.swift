@@ -29,7 +29,7 @@ struct YofaiProPaywallView: View {
                 Section {
                     benefitRow(FreemiumFeature.unlimitedProducts.displayTitle, detail: "Available with Pro")
                     benefitRow(FreemiumFeature.advancedHistoryTools.displayTitle, detail: FreemiumCopy.plannedProFeature)
-                    benefitRow(FreemiumFeature.advancedMultiMarketTools.displayTitle, detail: "Multiple marketplace drafts per product")
+                    benefitRow(FreemiumFeature.advancedMultiMarketTools.displayTitle, detail: "Multiple marketplace drafts and marketplace defaults per product")
                     benefitRow(
                         FreemiumFeature.cloudBackupSync.displayTitle,
                         detail: FreemiumCopy.plannedFutureProFeature

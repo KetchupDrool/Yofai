@@ -437,13 +437,24 @@
 - FB/Mercari recommended presets still nil; 7 preset raw values/dimensions unchanged
 - Tests: Phase 62 suite
 
+## Phase 63 — Marketplace Templates/Defaults (locked)
+- Per-marketplace local templates in UserDefaults (`MarketplaceTemplateDefaultsStore`, key `…marketplaceTemplateDefaults.v1`) — separate from Free `SellerDefaults`
+- Pro save / apply-to-blank-fields / clear from draft editor; Settings shows status + Free lock
+- New Pro draft create prefills blank fields + preferred export/fit from that marketplace template when present
+- Apply never overwrites nonblank draft fields (no replace mode this phase)
+- Gated by `advancedMultiMarketTools`
+- Existing SellerDefaults key/behavior unchanged
+- Still Local Export Mode only — no Direct Upload / login / OAuth / publish / API / AI
+- FB/Mercari `recommendedExportPreset` still nil; 7 preset raw values/dimensions unchanged
+- Tests: Phase 63 suite
+
 ## Why marketplace APIs are not being done yet (locked)
 **Short answer:** APIs are not next because Yofai must first be a strong **local** marketplace listing prep app. Phase 61 only added local drafts. Direct Upload / OAuth / publish stay future work until the local workflow is finished and a specific official API is approved.
 
 **Current state**
 - Local Export Mode only
-- Free: primary listing workflow on `ItemProject` + primary package/export
-- Pro: multiple local `MarketplaceListingDraft`s + draft-aware copy/share listing text via `advancedMultiMarketTools`
+- Free: primary listing workflow on `ItemProject` + primary package/export + Seller Defaults for new products
+- Pro: multiple local `MarketplaceListingDraft`s + draft-aware copy/share + per-marketplace templates/defaults via `advancedMultiMarketTools`
 - No Direct Upload, login, OAuth, publish, or marketplace API code
 
 **Why API work is later**
@@ -457,7 +468,7 @@
 **Safe build order (local-first; each step needs approval)**
 - Phase 61: Local marketplace drafts — **complete**
 - Phase 62: Draft-aware listing packages and copy tools — **complete**
-- Phase 63: Marketplace-specific templates/defaults
+- Phase 63: Marketplace-specific templates/defaults — **complete**
 - Phase 64: Pro multi-market workflow polish
 - Later API phase: pick **one** official marketplace (likely Etsy or eBay first), verify access, then implement only after approval
 

@@ -76,12 +76,14 @@ enum MarketplaceListingDraftSupport {
     }
 
     /// Creates an additive draft. Copies listing/export fields from the Free primary `ItemProject` fields — never clears them.
+    /// Phase 63: if a Pro marketplace template exists, fills blank fields and preferred export/fit after primary seed.
     @discardableResult
     static func createDraft(
         for target: MarketplaceTarget,
         on project: ItemProject,
         in context: ModelContext,
-        state: EntitlementState
+        state: EntitlementState,
+        templateStore: MarketplaceTemplateDefaultsStore = MarketplaceTemplateDefaultsStore()
     ) throws -> MarketplaceListingDraft {
         guard canManageAdditionalDrafts(state: state) else {
             throw MarketplaceListingDraftError.proRequired
@@ -92,6 +94,11 @@ enum MarketplaceListingDraftSupport {
 
         let draft = MarketplaceListingDraft(marketplaceTarget: target, project: project)
         copyPrimaryListingFields(from: project, into: draft)
+        if MarketplaceTemplateDefaultsSupport.canUseMarketplaceTemplates(state: state),
+           let template = templateStore.template(for: target) {
+            MarketplaceTemplateDefaultsSupport.applyToBlankFields(template, onto: draft)
+            MarketplaceTemplateDefaultsSupport.applyPreferredExportSettingsIfPresent(template, onto: draft)
+        }
         draft.orderedSelectedPhotoIDs = project.sortedPhotos.map(\.stableID)
         context.insert(draft)
         project.marketplaceDrafts.append(draft)

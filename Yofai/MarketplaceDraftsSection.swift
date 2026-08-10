@@ -169,6 +169,10 @@ struct MarketplaceListingDraftEditorView: View {
     @State private var saveMessage: String?
     @State private var copyFeedback: String?
     @State private var shareListingTextItem: ShareListingTextItem?
+    @State private var templateStatus: String?
+    @State private var hasSavedTemplate = false
+
+    private let templateStore = MarketplaceTemplateDefaultsStore()
 
     private var entitlementState: EntitlementState {
         EntitlementStore.shared.state
@@ -176,6 +180,10 @@ struct MarketplaceListingDraftEditorView: View {
 
     private var canUsePackageTools: Bool {
         MarketplaceDraftPackageSupport.canUse(state: entitlementState)
+    }
+
+    private var canUseTemplates: Bool {
+        MarketplaceTemplateDefaultsSupport.canUseMarketplaceTemplates(state: entitlementState)
     }
 
     var body: some View {
@@ -208,6 +216,7 @@ struct MarketplaceListingDraftEditorView: View {
                 Text(MarketplaceListingDraftCopy.manualPackageReminder)
             }
 
+            draftTemplateSection
             draftPackageToolsSection
 
             Section("Local export settings") {
@@ -263,11 +272,66 @@ struct MarketplaceListingDraftEditorView: View {
         .darkroomScreen()
         .navigationTitle(draft.displayTitle)
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear { refreshTemplateStatus() }
         .onChange(of: draft.title) { _, _ in draft.touchUpdated() }
         .onChange(of: draft.draftDescription) { _, _ in draft.touchUpdated() }
         .onChange(of: draft.priceText) { _, _ in draft.touchUpdated() }
         .sheet(item: $shareListingTextItem) { item in
             ActivityShareView(items: [item.text])
+        }
+    }
+
+    @ViewBuilder
+    private var draftTemplateSection: some View {
+        Section {
+            if canUseTemplates {
+                Button(MarketplaceTemplateDefaultsCopy.saveAsTemplate) {
+                    saveTemplateFromDraft()
+                }
+                .foregroundStyle(DarkroomTheme.accent)
+                .accessibilityLabel(MarketplaceTemplateDefaultsCopy.saveAsTemplate)
+
+                Button(MarketplaceTemplateDefaultsCopy.applyToBlankFields) {
+                    applyTemplateToBlankFields()
+                }
+                .foregroundStyle(DarkroomTheme.accent)
+                .disabled(!hasSavedTemplate)
+                .accessibilityLabel(MarketplaceTemplateDefaultsCopy.applyToBlankFields)
+
+                Button(MarketplaceTemplateDefaultsCopy.clearTemplate, role: .destructive) {
+                    clearTemplate()
+                }
+                .disabled(!hasSavedTemplate)
+                .accessibilityLabel(MarketplaceTemplateDefaultsCopy.clearTemplate)
+
+                if let templateStatus {
+                    Text(templateStatus)
+                        .font(.caption)
+                        .foregroundStyle(DarkroomTheme.textSecondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                } else if !hasSavedTemplate {
+                    Text(MarketplaceTemplateDefaultsCopy.noTemplateSaved)
+                        .font(.caption)
+                        .foregroundStyle(DarkroomTheme.textTertiary)
+                }
+            } else {
+                Text(MarketplaceTemplateDefaultsCopy.lockedDetail)
+                    .font(.caption)
+                    .foregroundStyle(DarkroomTheme.textSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                NavigationLink {
+                    YofaiProPaywallView()
+                } label: {
+                    Text("View \(FreemiumCopy.proTitle)")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(DarkroomTheme.accent)
+                }
+            }
+        } header: {
+            Text(MarketplaceTemplateDefaultsCopy.sectionTitle)
+        } footer: {
+            Text(MarketplaceTemplateDefaultsCopy.footer)
+                .font(.caption2)
         }
     }
 
@@ -328,6 +392,45 @@ struct MarketplaceListingDraftEditorView: View {
         guard canUsePackageTools else { return }
         UIPasteboard.general.string = MarketplaceDraftPackageSupport.copyableText(for: field, draft: draft)
         copyFeedback = MarketplaceListingDraftCopy.copiedFeedback
+    }
+
+    private func refreshTemplateStatus() {
+        hasSavedTemplate = templateStore.hasTemplate(for: draft.marketplaceTarget)
+    }
+
+    private func saveTemplateFromDraft() {
+        guard canUseTemplates else { return }
+        let template = MarketplaceTemplateDefaultsSupport.makeTemplate(from: draft)
+        do {
+            try templateStore.save(template, state: entitlementState)
+            hasSavedTemplate = true
+            templateStatus = MarketplaceTemplateDefaultsCopy.templateSaved
+        } catch {
+            templateStatus = MarketplaceTemplateDefaultsCopy.lockedDetail
+        }
+    }
+
+    private func applyTemplateToBlankFields() {
+        guard canUseTemplates else { return }
+        guard let template = templateStore.template(for: draft.marketplaceTarget) else {
+            templateStatus = MarketplaceTemplateDefaultsCopy.noTemplateSaved
+            return
+        }
+        _ = MarketplaceTemplateDefaultsSupport.applyToBlankFields(template, onto: draft)
+        draft.project?.touchModified()
+        try? modelContext.save()
+        templateStatus = MarketplaceTemplateDefaultsCopy.templateApplied
+    }
+
+    private func clearTemplate() {
+        guard canUseTemplates else { return }
+        do {
+            try templateStore.clear(for: draft.marketplaceTarget, state: entitlementState)
+            hasSavedTemplate = false
+            templateStatus = MarketplaceTemplateDefaultsCopy.templateCleared
+        } catch {
+            templateStatus = MarketplaceTemplateDefaultsCopy.lockedDetail
+        }
     }
 }
 

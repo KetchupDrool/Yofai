@@ -23,6 +23,9 @@ struct SettingsView: View {
                 SellerDefaultsSettingsSection()
                     .listRowBackground(settingsRowBackground)
 
+                MarketplaceTemplateDefaultsSettingsSection()
+                    .listRowBackground(settingsRowBackground)
+
                 Section {
                     Button {
                         firstLaunchGuide.presentReplay()
