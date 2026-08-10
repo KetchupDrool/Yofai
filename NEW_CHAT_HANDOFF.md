@@ -11,82 +11,76 @@ Repo: `/Volumes/CombatMedic/Yofai` · branch `main`
 ## Current baseline
 Latest commit on `main`:
 
-`09c39dc6d213b2ab527ebc672af6b604d9a06605` — *Phase 64 multi-market workflow polish*
+*(set after Phase 65 push — see `git log -1`)*
+
+Phase 65 implementation commit message:
+
+*Phase 65 app store release gate prep*
 
 Status:
-- Phase 64 complete; APIs still later unless approved
-- `origin/main` up to date · working tree clean (verify with `git status`)
+- Phase 65 complete (release docs/verification)
+- Local multi-market arc Phases 61–64 complete
 - **354 tests passed** · build succeeded · iPhone 16e
-- Version **1.0 (1)** — do not auto-bump
+- Version **1.0** · Build **1** — **not bumped** (bump before archive)
+- Manual App Store gates still open
 
 ## Product direction
 Freemium-first, **no-AI**, local-first marketplace photo-prep and listing-prep.
 
 Core workflow: Capture → Organize → Photo Check → Edit → Prepare → Local Export
 
-Marketplace direction: prepare **manual listing packages** for:
-Etsy · eBay · Facebook Marketplace · Mercari · Poshmark · Other / custom
-
-Current behavior: Local JPEG export only; seller uploads outside the app; local marketplace drafts; Pro draft copy/share; Pro marketplace templates/defaults; Pro multi-market workflow polish; **no** Direct Upload / publish / login / OAuth / API / backend / AI / ads / analytics SDK.
+Current behavior: Local JPEG export only; seller uploads outside the app; local marketplace drafts/templates/copy tools; **no** Direct Upload / publish / login / OAuth / API / backend / AI / ads / analytics SDK.
 
 ## Hard rules
 Do **not** add: Direct Upload, publishing, login, OAuth, API integration, browser automation, marketplace passwords, scraping, unofficial APIs, backend, AI/OpenAI, ads, analytics SDK, compliance claims, invented marketplace dimensions, new fixed FB/Mercari sizes.
 
-Preserve: user data, `ItemProject` listing fields, SellerDefaults key/behavior, marketplace templates, export preset raw values/dimensions, FB/Mercari `recommendedExportPreset == nil`, Free core local workflow, one simulator (iPhone 16e).
+Preserve: user data, Free core local workflow, SellerDefaults, marketplace templates, export preset raw values/dimensions, FB/Mercari `recommendedExportPreset == nil`, one simulator (iPhone 16e).
 
-## Freemium rules
-**Free keeps:** 12 active products; one primary listing workflow (`ItemProject` fields); Seller Defaults for new products; Capture → Organize → Photo Check → Edit/fit → Prepare → Local JPEG export → notes → view/re-share → copy/share manual package → manual upload outside app.
+Do **not** archive/upload/submit or mark Connect/TestFlight gates Passed without Shawn evidence/approval.
 
-**Pro adds:** unlimited products; multiple marketplace drafts; draft status overview; draft-specific Copy/Share listing text; per-marketplace templates/defaults; apply to blank fields only. Multi-market maps to `advancedMultiMarketTools`.
+## StoreKit / release
+Product IDs (unchanged):
+- `com.shawnwright.yofai.pro.monthly` (intended $4.99/month)
+- `com.shawnwright.yofai.pro.yearly` (intended $39.99/year)
 
-Do **not** put Free primary workflow behind Pro.
+Legal:
+- Terms: Apple Standard EULA  
+- Privacy: https://ketchupdrool.github.io/Yofai/privacy-policy.html
+
+Owner guide: **`SHAWN_NEXT_RELEASE_STEPS.md`** · Gates: **`APP_STORE_SUBMIT_GATES.md`**
 
 ## Completed recent phases
-
-### Phase 61 — Marketplace Listing Drafts
-`112859e` — `MarketplaceListingDraft` + support + UI; Pro gated by `advancedMultiMarketTools`.
-
-### Phase 62 — Draft-Aware Listing Packages & Copy Tools
-`af7879f` — draft listing-text copy/share; Free primary `ListingPackage` unchanged.
-
-### Phase 63 — Marketplace Templates/Defaults
-`db43a4d` — per-marketplace UserDefaults templates; apply blank fields only; Free SellerDefaults preserved.
-
-### Phase 64 — Pro Multi-Market Workflow Polish
-`09c39dc` — `MarketplaceDraftCompletionSupport` + overview/editor polish; Free lock clarifies local export stays available; 13 Phase 64 tests; 354 total.
-
-### API-later docs
-`4d31f8c` — locked why APIs wait; local order 61→64 complete before any official API.
+- Phase 61–64: local multi-market drafts / packages / templates / polish  
+- Phase 65: App Store release gate prep (docs; build left at 1)
 
 ## Why APIs are not being done yet
-Local marketplace workflow first. APIs are marketplace-specific, need external setup/official access; do not assume FB/Mercari/Poshmark upload; no scraping/automation/passwords/unofficial APIs. When approved, walk Shawn step-by-step for **one** marketplace (likely Etsy or eBay first).
+Local marketplace workflow first. See `DECISIONS.md` — *Why marketplace APIs are not being done yet*.
 
-See `DECISIONS.md` — *Why marketplace APIs are not being done yet*.
-
-## Recommended next (needs approval)
-App Store release gates (`SHAWN_NEXT_RELEASE_STEPS.md`) **or** a later official API phase for one marketplace.
-
-Still local-only until an API phase is explicitly approved.
+## Recommended next (Shawn)
+1. Create Connect Yofai Pro products (§B in `SHAWN_NEXT_RELEASE_STEPS.md`)  
+2. Capture screenshots  
+3. Approve build bump → archive/upload  
+4. TestFlight purchase verification → metadata → submit when gates Pass  
 
 ## Start here
-1. `DECISIONS.md` (Phase 61–64 + API-later)  
-2. `SESSION_HANDOFF.md` / `TASKS.md`  
-3. `SHAWN_NEXT_RELEASE_STEPS.md` (App Store gates still manual)
+1. `SHAWN_NEXT_RELEASE_STEPS.md`  
+2. `APP_STORE_SUBMIT_GATES.md`  
+3. `SESSION_HANDOFF.md` / `TASKS.md`
 
 ## First prompt
 
 ```text
 Continue Yofai iOS work.
 
-Read NEW_CHAT_HANDOFF.md, DECISIONS.md (Phase 64 + “Why marketplace APIs are not being done yet”), and SESSION_HANDOFF.md first.
+Read NEW_CHAT_HANDOFF.md, SHAWN_NEXT_RELEASE_STEPS.md, and APP_STORE_SUBMIT_GATES.md first.
 
-Baseline: main @ 09c39dc (Phase 64). 354 tests. Local Export Mode only.
-Free primary ItemProject workflow + SellerDefaults intact. Pro multi-draft / copy / templates / polish via advancedMultiMarketTools.
-APIs / Direct Upload / OAuth / publish are not next unless explicitly approved.
+Baseline: main after Phase 65. 354 tests. Version 1.0 (1) not bumped.
+Local multi-market complete. App Store Connect / screenshots / TestFlight / archive still manual.
+Local Export Mode only. No API / Direct Upload unless explicitly approved.
 
 Work in /Volumes/CombatMedic/Yofai on main. Unit tests on iPhone 16e only.
 
-Do not start marketplace API work unless explicitly approved.
-No scraping, browser automation, password storage, or unofficial APIs.
+Do not archive, upload, or submit without explicit approval.
+Do not mark manual gates Passed without Shawn evidence.
 No invented FB/Mercari fixed presets. No AI.
 ```

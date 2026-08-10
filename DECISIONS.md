@@ -458,6 +458,14 @@
 - FB/Mercari recommended presets still nil; 7 preset raw values/dimensions unchanged
 - Tests: Phase 64 suite
 
+## Phase 65 — App Store Release Gate Prep (locked)
+- Docs/checklist refresh after Phases 61–64; no product feature work; no archive/upload/submit
+- Version **1.0** / build **1** left unchanged (bump still required before archive — manual)
+- StoreKit IDs confirmed: `com.shawnwright.yofai.pro.monthly` / `.yearly` ($4.99 / $39.99 intended notes only)
+- Manual gates remain open: Connect IAP, screenshots, bump+archive, TestFlight purchase Pass, metadata, App Review submit
+- Local verification re-run: 354 tests Passed; build Passed on iPhone 16e
+- No Direct Upload / login / OAuth / publish / API / AI; no marketplace dimension changes
+
 ## Why marketplace APIs are not being done yet (locked)
 **Short answer:** APIs are not next because Yofai must first be a strong **local** marketplace listing prep app. Phase 61 only added local drafts. Direct Upload / OAuth / publish stay future work until the local workflow is finished and a specific official API is approved.
 
@@ -480,6 +488,7 @@
 - Phase 62: Draft-aware listing packages and copy tools — **complete**
 - Phase 63: Marketplace-specific templates/defaults — **complete**
 - Phase 64: Pro multi-market workflow polish — **complete**
+- Phase 65: App Store release gate prep — **complete** (manual Connect/TestFlight/screenshots/archive still open)
 - Later API phase: pick **one** official marketplace (likely Etsy or eBay first), verify access, then implement only after approval
 
 **Do not start API integration until**

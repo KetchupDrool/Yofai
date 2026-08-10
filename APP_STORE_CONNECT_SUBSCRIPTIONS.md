@@ -12,6 +12,8 @@ Status values (use exactly one per row):
 Overall Connect IAP status for this repo: **Not done** (no proof of Connect completion was provided).  
 TestFlight purchase verification is **separate** — use `TESTFLIGHT_PURCHASE_VERIFICATION.md`; do not treat Connect “created” as purchase Verified.
 
+**Phase 65 note:** Product IDs in code still match the table below. Connect creation / pricing confirmation / TestFlight Pass remain **manual gates**.
+
 ## Product IDs (must match app — do not change without approval)
 | Item | Value |
 |---|---|

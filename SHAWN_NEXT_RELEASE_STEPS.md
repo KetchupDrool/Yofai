@@ -1,10 +1,12 @@
 # Shawn — Next Manual Release Steps
 
-**Phase 58** — owner execution package for Connect IAP + screenshots + archive prep.  
+**Phase 65** — App Store release gate prep after local multi-market arc (Phases 61–64).  
 Agents must **not** mark any step below complete. You check boxes only after you do the work.
 
-Baseline: `main` @ Phase 57/58 · version **1.0** · build **1** · bundle `com.shawnwright.yofai` · display **Yofai**  
-Freemium Local Export · no Direct Upload · no AI · StoreKit 2 Pro already in code.
+Baseline: `main` after Phase 65 · local product work through Phase 64 · version **1.0** · build **1** · bundle `com.shawnwright.yofai` · display **Yofai**  
+Freemium Local Export · no Direct Upload · no AI · StoreKit 2 Pro already in code · Pro multi-market drafts/templates local-only.
+
+**Build number:** still **1**. Bump before every App Store Connect upload (do not archive with build 1 if a prior binary used build 1). Phase 65 did **not** bump the build.
 
 ---
 
@@ -22,7 +24,8 @@ Freemium Local Export · no Direct Upload · no AI · StoreKit 2 Pro already in 
 ## B. Create Yofai Pro in App Store Connect
 
 Full checklist: `APP_STORE_CONNECT_SUBSCRIPTIONS.md`  
-Do **not** change product IDs. Intended prices are for Connect; the app shows StoreKit `displayPrice`.
+Do **not** change product IDs. Intended prices are for Connect; the app shows StoreKit `displayPrice`.  
+**Still manual unless you confirm Done by user.** Do not assume products are approved.
 
 1. Open https://appstoreconnect.apple.com
 2. **My Apps** → **Yofai** (bundle `com.shawnwright.yofai`)
@@ -58,6 +61,8 @@ When done, mark rows in `APP_STORE_CONNECT_SUBSCRIPTIONS.md` as **Done by user**
 Packet detail: `APP_STORE_PREP.md`  
 Capture on required App Store sizes (e.g. 6.7" / 6.1"). Prefer a physical iPhone for Camera frames. Do **not** invent AI, Direct Upload, publish, compliance, or fake Pro purchase success.
 
+**Still Needs user action** — no screenshot assets were generated in Phase 65.
+
 Use one sample product with 1–3 clear photos.
 
 | # | Screen | Path | Setup | Overlay / title | Avoid |
@@ -85,7 +90,7 @@ Store captures locally (e.g. Desktop or `AppStoreScreenshots/`). Upload to Conne
 | Field | Current | Action |
 |---|---|---|
 | Marketing version | **1.0** | Keep unless you intentionally ship a different marketing version |
-| Build | **1** | **Bump before every App Store Connect upload** (e.g. to 2) |
+| Build | **1** | **Bump before every App Store Connect upload** (e.g. to 2). Phase 65 left build at **1** on purpose. |
 | Bundle ID | `com.shawnwright.yofai` | Do not change |
 | Display name | Yofai | Do not change |
 
@@ -102,13 +107,14 @@ Full steps: `APP_STORE_ARCHIVE_RUNBOOK.md`
 3. Organizer → **Distribute App** → App Store Connect → Upload  
 4. Wait for processing → attach build to version / TestFlight  
 
-Archive / upload / App Review: still **Not started** in the gate table until you do them.
+Archive / upload / App Review: still **Not started** in the gate table until you do them. Agents must not archive/upload/submit without your explicit approval.
 
 ---
 
 ## F. TestFlight Purchase Verification
 
-Template: `TESTFLIGHT_PURCHASE_VERIFICATION.md`
+Template: `TESTFLIGHT_PURCHASE_VERIFICATION.md`  
+**Overall result still Not run** unless you fill Pass with evidence.
 
 Must pass before App Review submit:
 - [ ] Monthly + yearly products load from Connect (real prices)
@@ -143,5 +149,5 @@ Recommended first: local StoreKit smoke (B in gates) → Connect products → sc
 - Mark Connect / screenshots / TestFlight / archive **Passed** without doing them  
 - Show fake StoreKit prices or Pro success in screenshots  
 - Lock Free core local export behind purchase  
-- Add Direct Upload / AI / backend for launch  
+- Add Direct Upload / AI / backend / marketplace API for launch  
 - Ask the agent to archive/upload/submit unless you explicitly approve that step  

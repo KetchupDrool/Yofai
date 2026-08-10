@@ -1,6 +1,6 @@
 # App Store Submit Gates — Yofai
 
-**Phase 58** — release-gate tracker + owner execution package.  
+**Phase 65** — release-gate prep after Phases 61–64 (local multi-market complete).  
 **Agents must not mark Passed unless evidence exists.**
 
 Owner sequence: **`SHAWN_NEXT_RELEASE_STEPS.md`**.
@@ -12,16 +12,18 @@ Status values:
 - **Passed**
 - **Blocked**
 
-Overall submit readiness: **Needs user action** (Connect IAP + screenshots + TestFlight purchase + archive still open).
+Overall submit readiness: **Needs user action** (Connect IAP + screenshots + TestFlight purchase + archive still open).  
+Local product code path through Phase 64 is complete; App Store Connect / device / screenshot work remains yours.
 
 ## Gate table
 
 | Area | Item | Status |
 |---|---|---|
-| **Local verification** | Full unit suite on iPhone 16e | **Passed** (Phase 57: 301 tests, 2026-08-10; re-check Phase 58) |
-| Local | Debug build on iPhone 16e | **Passed** (Phase 57; re-check Phase 58) |
-| Local | Submission-path docs present & consistent | **Passed** (Phases 52–58 package) |
-| Local | Owner Connect + screenshot execution guide | **Passed** (Phase 58: `SHAWN_NEXT_RELEASE_STEPS.md`) |
+| **Local verification** | Full unit suite on iPhone 16e | **Passed** (Phase 65: 354 tests, 2026-08-10) |
+| Local | Debug build on iPhone 16e | **Passed** (Phase 65) |
+| Local | Submission-path docs present & consistent | **Passed** (Phases 52–65 package) |
+| Local | Owner Connect + screenshot execution guide | **Passed** (`SHAWN_NEXT_RELEASE_STEPS.md`; refreshed Phase 65) |
+| Local | Multi-market local arc (Phases 61–64) | **Passed** (local-only drafts/templates/polish) |
 | **A. Connect subscriptions** | Yofai Pro group created | **Needs user action** |
 | A | Monthly product `com.shawnwright.yofai.pro.monthly` created | **Needs user action** |
 | A | Yearly product `com.shawnwright.yofai.pro.yearly` created | **Needs user action** |
@@ -39,7 +41,7 @@ Overall submit readiness: **Needs user action** (Connect IAP + screenshots + Tes
 | C | Restore works | **Needs user action** |
 | C | Reinstall + restore | **Needs user action** |
 | C | Free fallback / no data deletion | **Needs user action** |
-| **D. Screenshots** | Captured per `APP_STORE_PREP.md` | **Needs user action** (manual; guide tightened Phase 58) |
+| **D. Screenshots** | Captured per `APP_STORE_PREP.md` | **Needs user action** |
 | D | Reviewed (no AI / Direct Upload / fake Pro) | **Needs user action** |
 | D | Uploaded to App Store Connect | **Needs user action** |
 | **E. Metadata / privacy** | Metadata pasted from `APP_STORE_METADATA.md` | **Needs user action** |
@@ -57,8 +59,9 @@ Overall submit readiness: **Needs user action** (Connect IAP + screenshots + Tes
 | Paywall Terms of Use + Privacy Statement | Passed (Phase 54) |
 | Free core local export without purchase | Passed (regression suite) |
 | No Direct Upload / no AI product UI | Passed (Phase 51+) |
-| Product IDs unchanged | Passed (`monthly` / `yearly` IDs verified Phase 57–58) |
-| Version/build not auto-bumped | Passed (still 1.0 (1); bump before archive — manual) |
+| Product IDs unchanged | Passed (`com.shawnwright.yofai.pro.monthly` / `.yearly`; verified Phase 65) |
+| Version/build not auto-bumped | Passed (still **1.0 (1)**; bump before archive — manual) |
+| Local-only / manual upload positioning | Passed (Phases 45–64) |
 
 ## Required order before App Review
 1. Local StoreKit smoke (`STOREKIT_SANDBOX_TESTING.md`) — recommended  
@@ -82,4 +85,5 @@ Do **not** skip to F submit until A–E are Passed.
 6. Paste metadata + App Review notes; verify Support/Privacy URLs  
 7. Mark gates Passed only with evidence → Submit for App Review  
 
-Cursor prepared the guides; Connect / device / screenshot / archive work is yours.
+Cursor prepared the guides; Connect / device / screenshot / archive work is yours.  
+Do **not** treat marketplace APIs / Direct Upload as next work unless explicitly approved.

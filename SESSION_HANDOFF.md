@@ -1,29 +1,29 @@
 # Session Handoff
 
 ## Status
-Phase 64 complete — Pro multi-market workflow polish.  
-**Full suite Passed; build Passed on iPhone 16e.**  
-**Marketplace APIs are not next** unless explicitly approved (see `DECISIONS.md`).
+Phase 65 complete — App Store release gate prep.  
+**354 tests Passed; build Passed on iPhone 16e.**  
+Version **1.0 (1)** — **not bumped** (bump before archive).
 
-## Behavior
-- Free: Primary Draft + Prepare Listing & Export + primary package/share + Seller Defaults; Pro lock explains multi-market without blocking local export
-- Pro: drafts + status overview + template available/no saved template + copy/share helpers + apply blank fields only
-- Still Local Export Mode only — seller uploads manually outside the app
-- No Direct Upload / login / OAuth / publish / API
+## Ready (local)
+- Free primary local export + Pro multi-market (61–64) in code
+- StoreKit product IDs: `com.shawnwright.yofai.pro.monthly` / `.yearly`
+- Release guides: `SHAWN_NEXT_RELEASE_STEPS.md`, `APP_STORE_SUBMIT_GATES.md`
 
-## Why no APIs yet (short)
-Local listing prep must be stable first. APIs are marketplace-specific, need external setup and official access, and some markets may not offer third-party upload. Wrong shortcuts (automation/scraping/passwords) are banned.
-
-## Suggested next (approval required)
-Later: one official API (likely Etsy or eBay) · or App Store release gates
+## Still open (manual)
+- Connect IAP create/confirm  
+- Screenshots  
+- Build bump + archive/upload (approval required)  
+- TestFlight purchase verification (**Not run**)  
+- Metadata / privacy / App Review submit  
 
 ## Version / build (do not auto-bump)
 - Marketing: **1.0** · Build: **1** · Bundle: `com.shawnwright.yofai`
 
-## Owner next steps
-Release: **`SHAWN_NEXT_RELEASE_STEPS.md`**.  
-Do not start API work without explicit approval.
+## Owner next step
+Start **`SHAWN_NEXT_RELEASE_STEPS.md` §B** — create Yofai Pro products in App Store Connect.
 
 ## Rules
 - Freemium-first; Free keeps core local export; no AI / Direct Upload  
 - Unit tests: iPhone 16e  
+- Do not submit/archive without explicit approval  

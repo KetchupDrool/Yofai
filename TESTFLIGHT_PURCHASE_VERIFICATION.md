@@ -25,6 +25,8 @@ Archive/upload: `APP_STORE_ARCHIVE_RUNBOOK.md`
 | Date | __________ |
 | Overall result | **Not run** |
 
+**Phase 65:** Still **Not run** until Shawn fills Pass/Fail with a real TestFlight/sandbox run. Agents must not mark Pass.
+
 Prerequisites:
 - [ ] Connect subscriptions created — still **Not done** in repo by default
 - [ ] Build uploaded to TestFlight

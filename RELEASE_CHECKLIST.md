@@ -6,9 +6,19 @@ Archive steps: **`APP_STORE_ARCHIVE_RUNBOOK.md`**. Screenshots: **`APP_STORE_PRE
 Freemium Local Export Mode + StoreKit Pro. Do **not** archive/upload/submit in automation unless requested. Do **not** mark gates Passed without evidence.
 
 ## Local verification (automated)
-- [x] Full unit suite on iPhone 16e — **Passed** (Phase 57/58)
-- [x] Build on iPhone 16e — **Passed**
-- [x] Owner Connect + screenshot execution guide — **Passed** (Phase 58 docs)
+- [x] Full unit suite on iPhone 16e — **Passed** (Phase 65: 354 tests)
+- [x] Build on iPhone 16e — **Passed** (Phase 65)
+- [x] Owner Connect + screenshot execution guide — **Passed** (docs; refreshed Phase 65)
+- [x] Local multi-market arc Phases 61–64 — **Passed** (product code; Local Export only)
+
+## Still open (Shawn / manual)
+- [ ] App Store Connect Yofai Pro products (`…pro.monthly` / `…pro.yearly`, $4.99 / $39.99 intended)
+- [ ] Screenshots captured + uploaded (`APP_STORE_PREP.md`)
+- [ ] Build bumped from **1** before archive
+- [ ] Archive + upload (after approval)
+- [ ] TestFlight purchase verification filled with Pass
+- [ ] Metadata / privacy / App Review notes pasted
+- [ ] App Review submit (only after gates Pass)
 
 ## Required order (Shawn)
 1. Before you start — §A in `SHAWN_NEXT_RELEASE_STEPS.md`  
