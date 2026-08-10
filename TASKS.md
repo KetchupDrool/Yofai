@@ -1,19 +1,22 @@
 # Tasks
 
 ## Status
-Phase 59 rich onboarding motion follow-up complete.  
-310 tests Passed; build Passed on iPhone 16e.
+Phase 60 — Marketplace Workspace Planning & Freemium Mapping complete (**docs-only**).  
+No Swift / SwiftData / UI / StoreKit / entitlement code changed.
 
 ## Current Phase
-Phase 59 follow-up complete (rich scenes).
+Phase 60 complete (decision lock).
 
 ## Done
 - Phases 1–59
-- Rich SwiftUI mini-scenes for all 8 guide pages; Reduce Motion static finals
+- Phase 60: locked Free primary draft vs Pro multi-market drafts (`advancedMultiMarketTools`); manual packages only
 
-## Next (Shawn)
-- Replay guide in Settings and confirm demos feel clear  
-- Continue release: `SHAWN_NEXT_RELEASE_STEPS.md`
+## Next
+- Release gates remain manual (`SHAWN_NEXT_RELEASE_STEPS.md`)
+- Implementation only after approval: **Phase 61 — Marketplace Listing Drafts**
 
 ## Do Not Do
-- Fake gate Passes; Direct Upload; AI; auto-bump version without approval
+- Implement marketplace drafts without Phase 61 approval  
+- Direct Upload / login / OAuth / publish / AI  
+- Fake gate Passes; auto-bump version without approval  
+- Weaken Free core local workflow or replace `ItemProject` listing fields  

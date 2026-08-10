@@ -2,29 +2,31 @@
 
 ## App
 Yofai · `com.shawnwright.yofai` · iPhone · `/Volumes/CombatMedic/Yofai` · `main`  
-Date: 2026-08-10 · HEAD after Phase 59 closeout
+Date: 2026-08-10 · HEAD after Phase 60 docs-only closeout
 
 ## Baseline
-- Phase 59: welcome + 7-step walkthrough; Settings replay
-- Rich SwiftUI demo scenes per step (`FirstLaunchGuideScenes.swift`)
-- 310 tests Passed on iPhone 16e
+- Phase 60: marketplace workspace + freemium mapping **locked in docs** (no app code)
+- Phase 59: first-launch guide + rich scenes closed
+- Free = one primary listing workflow per product; Pro multi-draft later (`advancedMultiMarketTools`)
 - Manual release gates still open (Connect IAP, screenshots, TestFlight, archive)
 - Version **1.0 (1)**
 
 ## Start here
-1. `SESSION_HANDOFF.md`  
-2. `SHAWN_NEXT_RELEASE_STEPS.md`  
-3. `APP_STORE_SUBMIT_GATES.md`
+1. `DECISIONS.md` (Phase 60)  
+2. `SESSION_HANDOFF.md`  
+3. `SHAWN_NEXT_RELEASE_STEPS.md`
 
 ## First prompt
 
 ```text
 Continue Yofai iOS work.
 
-Read SESSION_HANDOFF.md and SHAWN_NEXT_RELEASE_STEPS.md first.
+Read DECISIONS.md Phase 60, SESSION_HANDOFF.md, and TASKS.md first.
 
-Status: Phase 59 first-launch welcome/walkthrough done (308 tests). Release manual gates still open.
+Status: Phase 60 docs-only complete. Marketplace workspaces not implemented yet.
+Free keeps one primary ItemProject listing workflow. Pro multi-draft is future (advancedMultiMarketTools).
 Work in /Volumes/CombatMedic/Yofai on main. Unit tests on iPhone 16e only.
 
-Do not mark Connect/TestFlight/archive Passed without evidence. Do not start a new phase unless approved.
+Do not start Phase 61 (Marketplace Listing Drafts) unless explicitly approved.
+Do not add Direct Upload, login, OAuth, publish, AI, or invented FB/Mercari presets.
 ```

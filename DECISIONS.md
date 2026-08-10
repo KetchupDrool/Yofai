@@ -405,6 +405,17 @@
 - Free core local export unchanged; StoreKit IDs / presets unchanged
 - **Follow-up:** rich SwiftUI mini-scenes per step (`FirstLaunchGuideScenes.swift`) — multi-angle entrances + workflow acting beats; Reduce Motion shows static final frame; still no Lottie/Rive/video
 
+## Phase 60 — Marketplace Workspace Planning & Freemium Mapping (locked, docs-only)
+- **No Swift / SwiftData / UI / StoreKit / entitlement code in this phase** — decision lock only
+- Yofai stays **freemium-first** and **Local Export Mode only** for this phase family
+- Future marketplace workspaces = **manual listing package preparation** for Etsy, eBay, Facebook Marketplace, Mercari, Poshmark, Other — **not** upload/publish/login/OAuth
+- **Free:** keep 12 active product limit; **one primary listing workflow per product** via existing `ItemProject` listing fields; full Capture → Organize → Photo Check → Edit/Fit → Prepare → Local JPEG export → notes → view/re-share → copy/share manual package → seller uploads outside the app
+- **Pro (additive later):** unlimited products; multiple marketplace drafts per product; reuse product across drafts; marketplace templates; per-marketplace seller defaults; advanced copy/export packages; advanced multi-market checklists; future bulk prep — map multi-draft tools to existing `advancedMultiMarketTools`
+- **Model (future impl):** do **not** replace `ItemProject` listing fields; keep them as Free primary draft; add local-only `MarketplaceListingDraft` owned by `ItemProject`; migration **additive only** — never delete/clear/overwrite existing listing text; export history stays valid; presets unchanged; FB/Mercari keep `recommendedExportPreset == nil` until officially verified
+- **Copy:** allow “Prepare listing packages for Etsy, eBay, Facebook Marketplace, Mercari, Poshmark, and more,” Local JPEGs, Manual upload, Exported for…, Draft, Workspace, Manual listing package; ban upload-directly / publish / post-automatically / connect-account / automation / “* upload” / compliance / AI claims
+- **Out of scope:** Direct Upload, publishing, login, OAuth, browser automation, passwords, scraping, unofficial APIs, backend, AI, ads, analytics SDK, invented dimensions, new fixed FB/Mercari sizes
+- Next implementation (when approved): **Phase 61 — Marketplace Listing Drafts (additive model + Free primary / Pro multi-draft UI)**
+
 ## Future StoreKit follow-ups (manual / not claimed done)
 - Create/verify subscription group + products in App Store Connect (user sign-off)
 - Fill `TESTFLIGHT_PURCHASE_VERIFICATION.md` with real Pass results
