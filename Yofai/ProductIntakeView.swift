@@ -299,6 +299,10 @@ struct ProductIntakeView: View {
             Text("Project export canvas: \(project.listingExportPreset.pickerLabel)")
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(DarkroomTheme.textPrimary)
+            Text("Fit: \(project.listingExportFitMode.displayTitle) — \(project.listingExportFitMode.sellerExplanation)")
+                .font(.caption)
+                .foregroundStyle(DarkroomTheme.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
             if smaller.isEmpty && aspect.isEmpty {
                 Text("No export-canvas size or aspect notes for readable photos.")
                     .foregroundStyle(DarkroomTheme.textSecondary)
@@ -456,6 +460,7 @@ struct PhotoCheckView: View {
 
             Section {
                 labeled("Export canvas", facts.exportCanvasPreset.pickerLabel)
+                labeled("Fit mode", "\(facts.exportFitMode.displayTitle) — \(facts.exportFitMode.sellerExplanation)")
                 labeled(
                     "Source vs canvas size",
                     {
@@ -470,16 +475,17 @@ struct PhotoCheckView: View {
                     "Aspect vs canvas",
                     {
                         switch facts.sourceAspectDiffersFromCanvas {
-                        case true: return "Differs — contain + pad will add padding"
+                        case true: return "Differs"
                         case false: return "Matches (within tolerance)"
                         case nil: return "Unavailable"
                         }
                     }()
                 )
+                labeled("Framing expectation", facts.framingExpectation ?? "Unavailable")
             } header: {
                 Text("Export Canvas (Local)")
             } footer: {
-                Text("Compares source file pixels to this project’s listing export preset (\(facts.exportCanvasPreset.pixelSizeLabel)). Local facts only — not marketplace compliance. Does not change queue readiness.")
+                Text("Compares source file pixels to this project’s listing export preset (\(facts.exportCanvasPreset.pixelSizeLabel)) and fit mode. Local facts only — not marketplace compliance. Does not change queue readiness.")
             }
 
             Section {

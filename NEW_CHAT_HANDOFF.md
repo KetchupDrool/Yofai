@@ -13,27 +13,27 @@ Yofai
 - iPhone-only SwiftUI + SwiftData
 - **Product purpose:** local-first marketplace product photo preparation for online sellers
 - Core functionality is local-first/on-device
-- Phases 1–36 complete
-- Phase 36: Verified Marketplace Local Export Presets (eBay 1600×1600, Poshmark 1000×1000)
-- Last build/tests: succeeded on iPhone 16e (123 tests)
+- Phases 1–37 complete
+- Phase 37: Cover/Crop Export Fit Mode (Contain + Pad default + Fill + Crop center)
+- Last build/tests: succeeded on iPhone 16e (138 tests)
 - App Store upload paused
 - Primary local path: `/Volumes/CombatMedic/Yofai`
 - GitHub Pages: https://ketchupdrool.github.io/Yofai/
 
-## 5. Completed phases 1–36
-1–35. Local listing prep, seller-first nav, export clarity, canvas check
-36. Verified eBay + Poshmark local export presets
+## 5. Completed phases 1–37
+1–36. Local listing prep, seller-first nav, export clarity, canvas check, eBay/Poshmark presets
+37. Seller-selectable export fit: Contain + Pad / Fill + Crop (center)
 
-## 6. Phase 36 result
-**Verified Marketplace Local Export Presets complete.** Added `eBay` (1600×1600) and `Poshmark` (1000×1000) Listing group presets. Legacy five raw values/sizes unchanged. No Facebook Marketplace or Mercari named pixel presets. Recommended local canvases only — not compliance claims. Build + 123 unit tests passed on iPhone 16e.
+## 6. Phase 37 result
+**Cover/Crop Export Fit Mode complete.** Phase 37 supersedes Phase 20 contain+pad-only. Sellers choose Contain + Pad (default, backward compatible) or Fill + Crop (center crop). Exact preset canvases unchanged. Photo Check reports padding vs cropping expected. Build + 138 unit tests passed on iPhone 16e.
 
 ## 7. Current models/files
-**Export:** `ListingExport.swift` (7 presets)
+**Export:** `ListingExport.swift` (7 presets + `ListingExportFitMode`)
 
-**Tests:** Phase22–36
+**Tests:** Phase22–37
 
 ## 8. Working features
-- Seller-first Home/Products path, product intake/capture, export canvas Photo Check, eBay/Poshmark/Etsy/etc. local export presets, disconnected AI foundation, listing information, bulk edit, packages, defaults, duplicate, workspace, queue, batch export, Etsy connection stub (no live OAuth)
+- Seller-first Home/Products path, product intake/capture, export canvas Photo Check, Contain+Pad / Fill+Crop fit, eBay/Poshmark/Etsy/etc. local export presets, disconnected AI foundation, listing information, bulk edit, packages, defaults, duplicate, workspace, queue, batch export, Etsy connection stub (no live OAuth)
 
 ## 9. Rules/constraints
 - Core photo preparation: local-first/on-device
@@ -53,7 +53,7 @@ App: Yofai
 Bundle ID: com.shawnwright.yofai
 Purpose: local-first marketplace product photo preparation for online sellers.
 Core functionality is local-first/on-device.
-Status: Phases 1–36 done. eBay 1600×1600 + Poshmark 1000×1000 local presets added. Last build/tests succeeded on iPhone 16e (123 tests). App Store upload paused.
+Status: Phases 1–37 done. Export fit modes: Contain + Pad (default) + Fill + Crop (center). Last build/tests succeeded on iPhone 16e (138 tests). App Store upload paused.
 Marketplaces are local export targets only. Do not invent new preset pixel sizes.
 Abandoned from active roadmap: paid/live AI APIs; OAuth marketplace publishing; direct marketplace uploads.
 Future capability (not next work): backend, accounts, cloud sync, subscriptions, ads.
@@ -65,6 +65,6 @@ Do not invent fake AI listing copy, fake camera captures, marketplace category t
 Do not change Share sheet architecture unless fixing a proven bug.
 Build once on iPhone 16e when you change code.
 
-Next: only an explicitly approved local photo-prep phase (e.g. FB Marketplace/Mercari presets with verified canvases, or cover/crop fit when approved). Not live AI / OAuth / upload by default.
+Next: only an explicitly approved local photo-prep phase (e.g. FB Marketplace/Mercari presets with verified canvases). Not live AI / OAuth / upload by default.
 If blocked, report why and the safest alternative.
 ```

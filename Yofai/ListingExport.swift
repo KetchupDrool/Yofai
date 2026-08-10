@@ -127,3 +127,32 @@ enum ListingExportBackground: String, CaseIterable, Identifiable, Equatable, Cod
         }
     }
 }
+
+/// Phase 37 — seller-selectable export fit. Supersedes Phase 20 contain+pad-only lock.
+enum ListingExportFitMode: String, CaseIterable, Identifiable, Equatable, Codable {
+    case containPad = "Contain + Pad"
+    case fillCrop = "Fill + Crop"
+
+    var id: String { rawValue }
+
+    var displayTitle: String { rawValue }
+
+    var sellerExplanation: String {
+        switch self {
+        case .containPad:
+            return "Keeps the whole photo; may add borders."
+        case .fillCrop:
+            return "Fills the canvas; may crop edges."
+        }
+    }
+
+    static var `default`: ListingExportFitMode { .containPad }
+
+    /// Resolves missing/unknown stored values to Contain + Pad (backward compatible).
+    static func resolved(rawValue: String?) -> ListingExportFitMode {
+        guard let rawValue, let mode = ListingExportFitMode(rawValue: rawValue) else {
+            return .containPad
+        }
+        return mode
+    }
+}

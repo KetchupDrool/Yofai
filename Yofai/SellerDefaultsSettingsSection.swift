@@ -51,6 +51,20 @@ struct SellerDefaultsSettingsSection: View {
                 .foregroundStyle(DarkroomTheme.textTertiary)
                 .fixedSize(horizontal: false, vertical: true)
 
+            Picker("Export fit mode", selection: Binding(
+                get: { defaults.exportFitMode },
+                set: { defaults.exportFitMode = $0 }
+            )) {
+                ForEach(ListingExportFitMode.allCases) { mode in
+                    Text(mode.displayTitle).tag(mode)
+                }
+            }
+
+            Text(defaults.exportFitMode.sellerExplanation)
+                .font(.caption)
+                .foregroundStyle(DarkroomTheme.textTertiary)
+                .fixedSize(horizontal: false, vertical: true)
+
             Picker("Export background", selection: Binding(
                 get: { defaults.exportBackground },
                 set: { defaults.exportBackground = $0 }

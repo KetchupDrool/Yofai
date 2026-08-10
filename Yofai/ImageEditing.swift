@@ -54,6 +54,7 @@ enum ImageEditing {
             edited,
             preset: state.exportPreset,
             background: state.exportBackground,
+            fitMode: state.exportFitMode,
             watermarkEnabled: state.watermarkEnabled,
             watermarkText: state.watermarkText,
             maxDimension: nil
@@ -68,6 +69,7 @@ enum ImageEditing {
             edited,
             preset: state.exportPreset,
             background: state.exportBackground,
+            fitMode: state.exportFitMode,
             watermarkEnabled: state.watermarkEnabled,
             watermarkText: state.watermarkText,
             maxDimension: previewMaxDimension
@@ -157,12 +159,13 @@ enum ImageEditing {
         return UIImage(cgImage: cgImage, scale: 1, orientation: .up)
     }
 
-    /// Contain + pad onto locked listing canvas. Optional `maxDimension` caps preview canvases.
-    /// Watermark is drawn after pad when enabled with non-empty trimmed text.
+    /// Frames onto locked listing canvas. Contain+Pad keeps full image; Fill+Crop center-fills.
+    /// Optional `maxDimension` caps preview canvases. Watermark is drawn after framing.
     static func applyListingFrame(
         _ image: UIImage,
         preset: ListingExportPreset,
         background: ListingExportBackground,
+        fitMode: ListingExportFitMode = .containPad,
         watermarkEnabled: Bool,
         watermarkText: String,
         maxDimension: CGFloat?
@@ -174,17 +177,36 @@ enum ImageEditing {
             width: max(1, image.size.width * image.scale),
             height: max(1, image.size.height * image.scale)
         )
-        let fit = min(canvas.width / imagePixelSize.width, canvas.height / imagePixelSize.height)
-        let drawSize = CGSize(
-            width: (imagePixelSize.width * fit).rounded(.down),
-            height: (imagePixelSize.height * fit).rounded(.down)
-        )
-        guard drawSize.width >= 1, drawSize.height >= 1 else { return nil }
 
-        let origin = CGPoint(
-            x: ((canvas.width - drawSize.width) / 2).rounded(.down),
-            y: ((canvas.height - drawSize.height) / 2).rounded(.down)
-        )
+        let drawRect: CGRect
+        switch fitMode {
+        case .containPad:
+            let fit = min(canvas.width / imagePixelSize.width, canvas.height / imagePixelSize.height)
+            let drawSize = CGSize(
+                width: (imagePixelSize.width * fit).rounded(.down),
+                height: (imagePixelSize.height * fit).rounded(.down)
+            )
+            guard drawSize.width >= 1, drawSize.height >= 1 else { return nil }
+            drawRect = CGRect(
+                x: ((canvas.width - drawSize.width) / 2).rounded(.down),
+                y: ((canvas.height - drawSize.height) / 2).rounded(.down),
+                width: drawSize.width,
+                height: drawSize.height
+            )
+        case .fillCrop:
+            let fill = max(canvas.width / imagePixelSize.width, canvas.height / imagePixelSize.height)
+            let drawSize = CGSize(
+                width: (imagePixelSize.width * fill).rounded(.down),
+                height: (imagePixelSize.height * fill).rounded(.down)
+            )
+            guard drawSize.width >= 1, drawSize.height >= 1 else { return nil }
+            drawRect = CGRect(
+                x: ((canvas.width - drawSize.width) / 2).rounded(.down),
+                y: ((canvas.height - drawSize.height) / 2).rounded(.down),
+                width: drawSize.width,
+                height: drawSize.height
+            )
+        }
 
         let format = UIGraphicsImageRendererFormat.default()
         format.scale = 1
@@ -193,7 +215,7 @@ enum ImageEditing {
         return renderer.image { _ in
             background.uiColor.setFill()
             UIRectFill(CGRect(origin: .zero, size: canvas))
-            image.draw(in: CGRect(origin: origin, size: drawSize))
+            image.draw(in: drawRect)
             drawWatermarkIfNeeded(
                 text: watermarkText,
                 enabled: watermarkEnabled,

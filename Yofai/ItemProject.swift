@@ -63,6 +63,8 @@ final class ItemProject {
     // Project-level listing export settings (Phase 26 batch export).
     var listingExportPresetRaw: String = ListingExportPreset.etsySquare.rawValue
     var listingExportBackgroundRaw: String = ListingExportBackground.white.rawValue
+    /// Phase 37 — missing/unknown values resolve to Contain + Pad.
+    var listingExportFitModeRaw: String = ListingExportFitMode.containPad.rawValue
     var listingWatermarkEnabled: Bool = false
     var listingWatermarkText: String = ""
 
@@ -89,6 +91,11 @@ final class ItemProject {
     var listingExportBackground: ListingExportBackground {
         get { ListingExportBackground(rawValue: listingExportBackgroundRaw) ?? .white }
         set { listingExportBackgroundRaw = newValue.rawValue }
+    }
+
+    var listingExportFitMode: ListingExportFitMode {
+        get { ListingExportFitMode.resolved(rawValue: listingExportFitModeRaw) }
+        set { listingExportFitModeRaw = newValue.rawValue }
     }
 
     var sortedExportBatches: [ProjectExportBatch] {

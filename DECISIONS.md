@@ -31,9 +31,9 @@
 - Core photo preparation remains local-first/on-device even if future capabilities are added later
 - Old primary goal (“general photo editor MVP”) is superseded; App Store upload remains paused
 
-## Phase 20 — Listing export (locked)
+## Phase 20 — Listing export (locked; fit mode superseded by Phase 37)
 - Product direction: listing / photo-prep for sellers (local-only)
-- Fit mode: contain + pad
+- ~~Fit mode: contain + pad only~~ → **superseded by Phase 37** (Contain + Pad and Fill + Crop)
 - Backgrounds: white, black, soft gray only (no transparent)
 - Export presets (pixels):
   - Etsy square: 2000 × 2000
@@ -47,7 +47,7 @@
 ## Phase 21 — Watermark (locked)
 - Simple text watermark on listing exports only
 - State: watermarkEnabled (default false), watermarkText (default "", max 32)
-- Draw after contain + pad; bottom-trailing; font scales with canvas
+- Draw after listing frame (contain+pad or fill+crop); bottom-trailing; font scales with canvas
 - Text color follows background (light on black, dark on white/soft gray)
 - History stores optional didWatermark Bool? (Yes/No); nil = older rows
 - Share architecture unchanged (ShareFileItem + temp JPEG + .sheet(item:))
@@ -87,8 +87,8 @@
 ## Phase 26 — Batch listing image export (locked)
 - Project Detail: Listing Export settings + Export Listing Images
 - Export all project photos in sort order to Application Support/ExportBatches as `01.jpg`, `02.jpg`, …
-- Per-photo saved `PhotoEditState` when available; else original + project preset/background/watermark
-- Fit mode remains contain + pad; source project files never modified
+- Per-photo saved `PhotoEditState` when available; else original + project preset/background/fit mode/watermark
+- Export fit uses project fit mode (Phase 37); source project files never modified
 - Share Export Batch shares real JPEG file URLs; Delete Batch removes only that batch folder
 - Abandoned from the active roadmap: Etsy upload of batches
 
@@ -101,7 +101,7 @@
 - Readiness remains Phase 25 rules only
 
 ## Phase 28 — Seller Defaults + Duplicate Listing Draft (locked)
-- Settings Seller Defaults: category, materials, shipping, processing time, export preset/background, watermark text
+- Settings Seller Defaults: category, materials, shipping, processing time, export preset/background/fit mode, watermark text
 - Stored in UserDefaults via `SellerDefaultsStore`; never Etsy credentials; clear requires confirmation
 - Apply only when creating a new Item Project with Use Seller Defaults; Start Blank applies nothing
 - Existing projects never overwritten by defaults changes
@@ -109,7 +109,7 @@
 
 ## Phase 29 — Bulk Photo Editing + Listing Package (locked)
 - Bulk Edit Photos: copy selectable edit recipe from one project photo to targets; never overwrite source image files; no History rows
-- Exclude any setting before apply; fit mode is locked contain + pad
+- Exclude any setting before apply; fit mode is a selectable recipe field (Phase 37)
 - Per-project undo restores previous edit settings for the most recent bulk op only
 - Listing Package: local folder with `listing-details.txt` + ordered JPEGs from newest successful export batch
 - Requires export batch first; packages separate from photos/Originals/History/export batches; share/delete package files only
@@ -158,23 +158,22 @@
 - Facebook post subtitle clarifies social post canvas, not Marketplace product
 - Local export disclaimer on Edit, Project Detail export, Seller Defaults
 - Home + Projects empty copy aligned to marketplace product photo-prep north star
-- Fit mode remains contain + pad; no new marketplace sizes invented
-- Out of scope: cover/crop fit, eBay/Poshmark/Mercari/FB Marketplace sized presets, OAuth/AI/upload, nav merge
+- Fit mode later unlocked in Phase 37; no new marketplace sizes invented in Phase 33
+- Out of scope at the time: cover/crop fit, eBay/Poshmark/Mercari/FB Marketplace sized presets, OAuth/AI/upload, nav merge
 
-## Phase 34 — Local Export Canvas Check (locked)
+## Phase 34 — Local Export Canvas Check (locked; framing facts extended by Phase 37)
 - Photo Check compares source file pixels to the project’s listing export preset canvas (batch-export canvas)
-- Facts: canvas picker label/size, source smaller than canvas, aspect differs (contain+pad padding expected)
+- Facts: canvas picker label/size, source smaller than canvas, aspect differs; Phase 37 adds fit mode + framing expectation (pad vs crop)
 - Product Intake progress + Export Canvas Notes section; Listing Workspace intake summary line
 - Local facts only — not marketplace compliance; never changes Phase 25 queue readiness
-- Fit mode remains contain + pad; no new marketplace sizes; no cover/crop unlock
-- Out of scope: nav merge, cover/crop fit, inventing marketplace sizes, OAuth/AI/upload
+- Out of scope at the time: nav merge, inventing marketplace sizes, OAuth/AI/upload
 
 ## Phase 35 — Seller-First Navigation Simplification (locked)
 - Primary path: Home → Start/Continue Product → Item Project → Capture & Check → Prepare Listing & Export
 - Tab labels: Projects → Products; Home primary CTA Start Product (switches to Products + new-product sheet)
 - Continue Product shows recent Item Projects; Import / Originals / History remain secondary under More Tools
 - Project Detail: Capture & Check Photos before Prepare Listing & Export; no data deletion; no SwiftData migration
-- Out of scope: deleting features, cover/crop, new marketplace sizes, OAuth/AI/upload, backend/accounts
+- Out of scope: deleting features, new marketplace sizes, OAuth/AI/upload, backend/accounts
 
 ## Phase 36 — Verified Marketplace Local Export Presets (locked)
 - Added ListingExportPreset cases: eBay (`"eBay"`, 1600×1600) and Poshmark (`"Poshmark"`, 1000×1000) in Listing group
@@ -183,6 +182,20 @@
 - Recommended local canvases only — not marketplace compliance guarantees
 - Photo Check / batch export / Seller Defaults / Edit pickers use CaseIterable (includes new presets)
 - Deferred named presets: Facebook Marketplace, Mercari (pending verified specific canvas)
+
+## Phase 37 — Cover/Crop Export Fit Mode (locked)
+- **Supersedes the Phase 20 contain+pad-only export-fit restriction.**
+- Current locked export-fit decision (seller-selectable):
+  - **Contain + Pad** — keeps the whole photo; may add borders (selected export background)
+  - **Fill + Crop** — fills the canvas; may crop edges (center crop only in Phase 37)
+- Default / backward-compatible behavior: **Contain + Pad**
+- Missing/unknown stored fit-mode values resolve to Contain + Pad (PhotoEditState, Seller Defaults, project raw string)
+- Stable raw values: `"Contain + Pad"`, `"Fill + Crop"`
+- Exact canvas dimensions for all 7 current export presets unchanged; no stretch/distort
+- Honored by single/project/batch/package export paths via existing `PhotoEditState` + `ImageEditing.applyListingFrame`
+- Photo Check: aspect mismatch → padding expected (Contain + Pad) or cropping expected (Fill + Crop); matching aspect → no meaningful pad/crop warning; Phase 25 readiness unchanged
+- Watermark unchanged (drawn after framing); background still stored; Fill + Crop fully filled canvases show no visible pad
+- Out of scope: drag/focal-point/face/AI crop, new marketplace sizes, FB Marketplace/Mercari named presets, compliance claims, OAuth/AI/upload/backend
 
 ## Future capability (approved direction — not next work)
 May be added later where they support the product; core photo preparation remains local-first/on-device:

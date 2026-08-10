@@ -26,7 +26,7 @@ enum BulkEditSetting: String, CaseIterable, Identifiable, Codable, Equatable {
         case .saturation: return "Saturation"
         case .exportPreset: return "Export preset"
         case .background: return "Background"
-        case .fitMode: return "Fit mode (contain + pad)"
+        case .fitMode: return "Fit mode"
         case .watermark: return "Watermark settings"
         }
     }
@@ -47,7 +47,7 @@ struct BulkEditUndoPayload: Codable, Equatable {
 }
 
 enum BulkEditSupport {
-    /// Merges selected fields from `source` into `target`. Fit mode is locked contain+pad (no stored field).
+    /// Merges selected fields from `source` into `target`.
     static func merge(
         source: PhotoEditState,
         into target: PhotoEditState,
@@ -78,7 +78,9 @@ enum BulkEditSupport {
         if settings.contains(.background) {
             result.exportBackground = source.exportBackground
         }
-        // fitMode: locked contain + pad — no PhotoEditState field to copy
+        if settings.contains(.fitMode) {
+            result.exportFitMode = source.exportFitMode
+        }
         if settings.contains(.watermark) {
             result.watermarkEnabled = source.watermarkEnabled
             result.watermarkText = source.watermarkText
@@ -178,7 +180,7 @@ enum BulkEditSupport {
             case .background:
                 return "\(setting.displayName): \(state.exportBackground.rawValue)"
             case .fitMode:
-                return "\(setting.displayName): contain + pad"
+                return "\(setting.displayName): \(state.exportFitMode.displayTitle)"
             case .watermark:
                 if state.willDrawWatermark {
                     return "\(setting.displayName): “\(state.trimmedWatermarkText)”"

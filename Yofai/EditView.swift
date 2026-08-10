@@ -182,6 +182,33 @@ struct EditView: View {
                             }
                         }
 
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 6) {
+                                ForEach(ListingExportFitMode.allCases) { mode in
+                                    Button {
+                                        guard editState.exportFitMode != mode else { return }
+                                        undoStack.append(editState)
+                                        editState.exportFitMode = mode
+                                        commitChange()
+                                    } label: {
+                                        DarkroomSelectableChip(
+                                            title: mode == .containPad ? "Pad" : "Crop",
+                                            isSelected: editState.exportFitMode == mode,
+                                            isCompact: true
+                                        )
+                                    }
+                                    .buttonStyle(.plain)
+                                    .accessibilityLabel("\(mode.displayTitle). \(mode.sellerExplanation)")
+                                    .accessibilityAddTraits(editState.exportFitMode == mode ? .isSelected : [])
+                                }
+                            }
+                        }
+
+                        Text(editState.exportFitMode.sellerExplanation)
+                            .font(.caption2)
+                            .foregroundStyle(DarkroomTheme.textTertiary)
+                            .fixedSize(horizontal: false, vertical: true)
+
                         Text(editState.listingSummary)
                             .font(.caption2)
                             .foregroundStyle(DarkroomTheme.textTertiary)

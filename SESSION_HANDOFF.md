@@ -1,7 +1,7 @@
 # Session Handoff
 
 ## Status
-Phase 36 complete — Verified Marketplace Local Export Presets. Build + unit tests succeeded on iPhone 16e (123 tests). App Store upload paused.
+Phase 37 complete — Cover/Crop Export Fit Mode. Build + unit tests succeeded on iPhone 16e (138 tests). App Store upload paused.
 
 ## Product purpose
 Local-first marketplace product photo preparation for online sellers.
@@ -10,14 +10,14 @@ Export targets only: Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and si
 
 ## Facts
 - Yofai / `com.shawnwright.yofai` / iPhone-only
-- Phase 36: eBay 1600×1600 and Poshmark 1000×1000 recommended local canvases
-- Legacy five preset raw values/sizes unchanged; no FB Marketplace or Mercari named pixel presets
+- Phase 37 supersedes Phase 20 contain+pad-only: sellers choose **Contain + Pad** (default) or **Fill + Crop** (center only)
+- Seven export preset raw values/sizes unchanged; no FB Marketplace or Mercari named pixel presets
 - Not marketplace compliance claims
 - Git: `/Volumes/CombatMedic/Yofai` on `main`
 
 ## Last Completed
-- `ListingExportPreset.ebay` / `.poshmark`; Phase36VerifiedMarketplaceExportPresetsTests
-- Phase 33 tests adjusted for CaseIterable count 7; Phases 22–35 still pass (123 total)
+- `ListingExportFitMode`; ImageEditing fill+crop; Project/Defaults/Edit/Bulk fit pickers; Photo Check pad vs crop facts
+- Phase37ExportFitModeTests; Phases 1–36 still pass (138 total)
 
 ## Abandoned from the active roadmap
 - Paid/live AI APIs
@@ -28,7 +28,7 @@ Export targets only: Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and si
 Backend, accounts, cloud sync, subscriptions, ads may be added later where they support the product; core photo prep stays local-first/on-device.
 
 ## Next Recommended
-Facebook Marketplace / Mercari named presets only with verified canvases. Optional later: cover/crop fit mode. Do not default to live AI, OAuth, or upload.
+Facebook Marketplace / Mercari named presets only with verified canvases. Optional later: fill+crop reposition. Do not default to live AI, OAuth, or upload.
 
 ## Rules
 - Core photo preparation: local-first/on-device

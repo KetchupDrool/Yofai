@@ -143,10 +143,14 @@ struct PhotoTechnicalFacts: Equatable {
     var exportCanvasPreset: ListingExportPreset
     var exportCanvasWidth: Int
     var exportCanvasHeight: Int
+    /// Project export fit mode (Phase 37).
+    var exportFitMode: ListingExportFitMode
     /// True when source file width or height is below the export canvas (local fact only).
     var sourceSmallerThanExportCanvas: Bool?
-    /// True when source aspect differs from canvas enough that contain+pad will add padding.
+    /// True when source aspect differs from canvas enough that framing will pad or crop.
     var sourceAspectDiffersFromCanvas: Bool?
+    /// Local framing expectation when aspect differs (nil if unavailable or aspect matches).
+    var framingExpectation: String?
 }
 
 enum PhotoTechnicalCheck {
@@ -171,9 +175,23 @@ enum PhotoTechnicalCheck {
         }
 
         let canvas = project.listingExportPreset
+        let fitMode = project.listingExportFitMode
         let canvasW = Int(canvas.pixelSize.width)
         let canvasH = Int(canvas.pixelSize.height)
         let canvasCompare = compareSourceToCanvas(width: width, height: height, canvas: canvas)
+        let framingExpectation: String?
+        if canvasCompare?.aspectDiffers == true {
+            switch fitMode {
+            case .containPad:
+                framingExpectation = "Padding expected (Contain + Pad)"
+            case .fillCrop:
+                framingExpectation = "Cropping expected (Fill + Crop, center)"
+            }
+        } else if canvasCompare?.aspectDiffers == false {
+            framingExpectation = "No meaningful pad/crop from aspect mismatch"
+        } else {
+            framingExpectation = nil
+        }
 
         return PhotoTechnicalFacts(
             pixelWidth: width,
@@ -187,8 +205,10 @@ enum PhotoTechnicalCheck {
             exportCanvasPreset: canvas,
             exportCanvasWidth: canvasW,
             exportCanvasHeight: canvasH,
+            exportFitMode: fitMode,
             sourceSmallerThanExportCanvas: canvasCompare?.sourceSmaller,
-            sourceAspectDiffersFromCanvas: canvasCompare?.aspectDiffers
+            sourceAspectDiffersFromCanvas: canvasCompare?.aspectDiffers,
+            framingExpectation: framingExpectation
         )
     }
 

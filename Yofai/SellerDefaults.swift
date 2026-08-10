@@ -1,13 +1,14 @@
 import Foundation
 
 /// Local seller preferences for new Item Projects only. Never stores Etsy credentials.
-struct SellerDefaults: Codable, Equatable {
+struct SellerDefaults: Equatable {
     var category: String = ""
     var materials: String = ""
     var shippingProfile: String = ""
     var processingTime: String = ""
     var exportPresetRaw: String = ListingExportPreset.etsySquare.rawValue
     var exportBackgroundRaw: String = ListingExportBackground.white.rawValue
+    var exportFitModeRaw: String = ListingExportFitMode.containPad.rawValue
     var watermarkText: String = ""
 
     // Phase 30 — safe reusable listing-information defaults only.
@@ -27,6 +28,11 @@ struct SellerDefaults: Codable, Equatable {
         set { exportBackgroundRaw = newValue.rawValue }
     }
 
+    var exportFitMode: ListingExportFitMode {
+        get { ListingExportFitMode.resolved(rawValue: exportFitModeRaw) }
+        set { exportFitModeRaw = newValue.rawValue }
+    }
+
     var itemType: ListingItemType? {
         get { ListingItemType(rawValue: itemTypeRaw) }
         set { itemTypeRaw = newValue?.rawValue ?? "" }
@@ -43,6 +49,7 @@ struct SellerDefaults: Codable, Equatable {
             && processingTime.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
             && exportPreset == .etsySquare
             && exportBackground == .white
+            && exportFitMode == .containPad
             && trimmedWatermarkText.isEmpty
             && itemTypeRaw.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
             && condition.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
@@ -59,6 +66,7 @@ struct SellerDefaults: Codable, Equatable {
         project.listingProcessingTime = processingTime
         project.listingExportPreset = exportPreset
         project.listingExportBackground = exportBackground
+        project.listingExportFitMode = exportFitMode
         project.listingWatermarkText = String(trimmedWatermarkText.prefix(PhotoEditState.watermarkMaxLength))
         project.listingWatermarkEnabled = !project.listingWatermarkText.isEmpty
 
@@ -86,6 +94,51 @@ struct SellerDefaults: Codable, Equatable {
             project.listingReturnPolicy = trimmedReturn
             project.listingReturnPolicyNotApplicable = false
         }
+    }
+}
+
+extension SellerDefaults: Codable {
+    enum CodingKeys: String, CodingKey {
+        case category, materials, shippingProfile, processingTime
+        case exportPresetRaw, exportBackgroundRaw, exportFitModeRaw, watermarkText
+        case itemTypeRaw, condition, whoMadeIt, whenMade, returnPolicy
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        category = try container.decodeIfPresent(String.self, forKey: .category) ?? ""
+        materials = try container.decodeIfPresent(String.self, forKey: .materials) ?? ""
+        shippingProfile = try container.decodeIfPresent(String.self, forKey: .shippingProfile) ?? ""
+        processingTime = try container.decodeIfPresent(String.self, forKey: .processingTime) ?? ""
+        exportPresetRaw = try container.decodeIfPresent(String.self, forKey: .exportPresetRaw)
+            ?? ListingExportPreset.etsySquare.rawValue
+        exportBackgroundRaw = try container.decodeIfPresent(String.self, forKey: .exportBackgroundRaw)
+            ?? ListingExportBackground.white.rawValue
+        exportFitModeRaw = try container.decodeIfPresent(String.self, forKey: .exportFitModeRaw)
+            ?? ListingExportFitMode.containPad.rawValue
+        watermarkText = try container.decodeIfPresent(String.self, forKey: .watermarkText) ?? ""
+        itemTypeRaw = try container.decodeIfPresent(String.self, forKey: .itemTypeRaw) ?? ""
+        condition = try container.decodeIfPresent(String.self, forKey: .condition) ?? ""
+        whoMadeIt = try container.decodeIfPresent(String.self, forKey: .whoMadeIt) ?? ""
+        whenMade = try container.decodeIfPresent(String.self, forKey: .whenMade) ?? ""
+        returnPolicy = try container.decodeIfPresent(String.self, forKey: .returnPolicy) ?? ""
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(category, forKey: .category)
+        try container.encode(materials, forKey: .materials)
+        try container.encode(shippingProfile, forKey: .shippingProfile)
+        try container.encode(processingTime, forKey: .processingTime)
+        try container.encode(exportPresetRaw, forKey: .exportPresetRaw)
+        try container.encode(exportBackgroundRaw, forKey: .exportBackgroundRaw)
+        try container.encode(exportFitModeRaw, forKey: .exportFitModeRaw)
+        try container.encode(watermarkText, forKey: .watermarkText)
+        try container.encode(itemTypeRaw, forKey: .itemTypeRaw)
+        try container.encode(condition, forKey: .condition)
+        try container.encode(whoMadeIt, forKey: .whoMadeIt)
+        try container.encode(whenMade, forKey: .whenMade)
+        try container.encode(returnPolicy, forKey: .returnPolicy)
     }
 }
 
@@ -137,6 +190,7 @@ extension ItemProject {
         copy.listingProcessingTime = listingProcessingTime
         copy.listingExportPresetRaw = listingExportPresetRaw
         copy.listingExportBackgroundRaw = listingExportBackgroundRaw
+        copy.listingExportFitModeRaw = listingExportFitModeRaw
         copy.listingWatermarkEnabled = listingWatermarkEnabled
         copy.listingWatermarkText = listingWatermarkText
 

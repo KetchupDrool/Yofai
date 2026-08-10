@@ -441,6 +441,23 @@ struct ProjectDetailView: View {
                 .font(.caption)
                 .foregroundStyle(DarkroomTheme.textTertiary)
 
+            Picker("Fit mode", selection: Binding(
+                get: { project.listingExportFitMode },
+                set: {
+                    project.listingExportFitMode = $0
+                    project.touchModified()
+                }
+            )) {
+                ForEach(ListingExportFitMode.allCases) { mode in
+                    Text(mode.displayTitle).tag(mode)
+                }
+            }
+
+            Text(project.listingExportFitMode.sellerExplanation)
+                .font(.caption)
+                .foregroundStyle(DarkroomTheme.textTertiary)
+                .fixedSize(horizontal: false, vertical: true)
+
             Picker("Background", selection: Binding(
                 get: { project.listingExportBackground },
                 set: {
@@ -471,10 +488,6 @@ struct ProjectDetailView: View {
                     }
                 ))
             }
-
-            Text("Fit: contain + pad (locked)")
-                .font(.caption)
-                .foregroundStyle(DarkroomTheme.textTertiary)
         } header: {
             Text("Listing Export")
                 .foregroundStyle(DarkroomTheme.textTertiary)
