@@ -53,8 +53,9 @@ struct ContentView: View {
                 .tag(YofaiAppTab.settings)
         }
         .darkroomScreen()
-        .toolbarBackground(.ultraThinMaterial, for: .tabBar)
+        .toolbarBackground(DarkroomTheme.backgroundBottom.opacity(0.94), for: .tabBar)
         .toolbarBackground(.visible, for: .tabBar)
+        .toolbarColorScheme(.dark, for: .tabBar)
         .fullScreenCover(isPresented: $firstLaunchGuide.isPresented) {
             FirstLaunchGuideView {
                 firstLaunchGuide.dismissFinished()

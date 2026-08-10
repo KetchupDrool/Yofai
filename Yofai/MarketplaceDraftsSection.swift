@@ -108,7 +108,9 @@ struct MarketplaceDraftsSection: View {
                 .fixedSize(horizontal: false, vertical: true)
         } header: {
             Text(MarketplaceListingDraftCopy.sectionTitle)
-                .foregroundStyle(DarkroomTheme.textTertiary)
+                .font(.caption.weight(.bold))
+                .tracking(DarkroomReadability.sectionHeaderTracking)
+                .foregroundStyle(DarkroomTheme.textSecondary)
         } footer: {
             if let createError {
                 Text(createError)
@@ -298,6 +300,9 @@ struct MarketplaceListingDraftEditorView: View {
                     try? modelContext.save()
                     saveMessage = MarketplaceListingDraftCopy.draftSaved
                 }
+                .font(.body.weight(.semibold))
+                .frame(minHeight: DarkroomReadability.minTapTarget, alignment: .leading)
+                .foregroundStyle(DarkroomTheme.accent)
                 if let saveMessage {
                     Text(saveMessage)
                         .font(.caption)
@@ -306,9 +311,13 @@ struct MarketplaceListingDraftEditorView: View {
             }
         }
         .scrollContentBackground(.hidden)
+        .contentMargins(.bottom, DarkroomReadability.listBottomClearance, for: .scrollContent)
+        .tint(DarkroomTheme.accent)
         .darkroomScreen()
         .navigationTitle(draft.displayTitle)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
         .onAppear { refreshTemplateStatus() }
         .onChange(of: draft.title) { _, _ in draft.touchUpdated() }
         .onChange(of: draft.draftDescription) { _, _ in draft.touchUpdated() }

@@ -63,11 +63,12 @@ Home → Start / Continue Product → Item Project → Capture & Check Photos �
 Import, Originals, and History remain available as secondary tools.
 
 ## Status
-- Phases 1–65 technical history complete (see `DECISIONS.md`, `APP_STORE_SUBMIT_GATES.md`, `SHAWN_NEXT_RELEASE_STEPS.md`)
+- Phases 1–66 technical history complete (see `DECISIONS.md`, `APP_STORE_SUBMIT_GATES.md`, `SHAWN_NEXT_RELEASE_STEPS.md`)
+- **Phase 66:** app-wide readability/navigation cleanup (DarkroomTheme contrast, form cards, tab clearance); no product-feature change; no Direct Upload
 - **Phase 65:** App Store release gate prep (docs/verification); version **1.0** build **1** unchanged; Connect/TestFlight/screenshots/archive still manual
-- **Phase 64:** Pro multi-market workflow polish (draft status overview, template availability, copy/share helper wording); Free primary + local export stay available; no Direct Upload
-- **Phase 63:** Pro per-marketplace templates/defaults (UserDefaults; apply to blank fields); Free SellerDefaults preserved; no Direct Upload
-- **Phase 62:** Pro draft-aware listing text copy/share (`MarketplaceDraftPackageSupport`); Free primary `ListingPackage` / export unchanged; no Direct Upload
+- **Phase 64:** Pro multi-market workflow polish; Free primary + local export stay available; no Direct Upload
+- **Phase 63:** Pro per-marketplace templates/defaults; Free SellerDefaults preserved; no Direct Upload
+- **Phase 62:** Pro draft-aware listing text copy/share; Free primary `ListingPackage` / export unchanged; no Direct Upload
 - **Phase 61:** additive `MarketplaceListingDraft` (Pro multi-market); Free primary listing stays on `ItemProject`; no Direct Upload
 - **APIs later:** marketplace APIs / Direct Upload wait until local prep is solid and a specific official API is approved (`DECISIONS.md` — Why marketplace APIs are not being done yet)
 - **Phase 60:** docs-only marketplace workspace + freemium mapping lock (no app code). Free = one primary listing workflow per product; Pro multi-draft later via `advancedMultiMarketTools`. Manual listing packages only — no Direct Upload.

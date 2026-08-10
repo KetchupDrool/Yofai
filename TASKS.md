@@ -1,28 +1,24 @@
 # Tasks
 
 ## Status
-Phase 65 — App Store Release Gate Prep complete (docs/verification).  
-354 tests Passed; build Passed on iPhone 16e. Version **1.0** build **1** (not bumped).
+Phase 66 — App-Wide Readability & Navigation Cleanup complete.  
+363 tests Passed; build Passed on iPhone 16e. Version **1.0** build **1**.
 
 ## Current Phase
-Phase 65 complete. Product local multi-market arc (61–64) complete.  
-**App Store Connect / screenshots / TestFlight / archive / submit remain manual** — see `SHAWN_NEXT_RELEASE_STEPS.md`.
+Phase 66 complete (UI polish).  
+App Store Connect §B and remaining release gates still manual — `SHAWN_NEXT_RELEASE_STEPS.md`.
 
 ## Done
-- Phases 1–65
-- Local marketplace drafts → copy/share → templates → polish
-- Release gate docs refreshed; StoreKit IDs verified; build left at 1
+- Phases 1–66
+- Local multi-market arc + release gate docs + readability/navigation cleanup
 
-## Next (Shawn manual — recommended order)
-1. Create Connect Yofai Pro products (`…pro.monthly` / `…pro.yearly`, $4.99 / $39.99)  
-2. Capture screenshots (`APP_STORE_PREP.md`)  
-3. Optional local StoreKit smoke  
-4. Approve build bump → archive/upload  
-5. Fill `TESTFLIGHT_PURCHASE_VERIFICATION.md` with Pass  
-6. Metadata / privacy / App Review notes → submit only when gates Pass  
+## Next (Shawn / approval)
+1. Finish Connect Yofai Pro products (§B) if not done  
+2. Screenshots · build bump · archive/upload · TestFlight purchase Pass  
+3. Or other approved product work  
 
 ## Do Not Do
-- Mark Connect / TestFlight / screenshots / archive Passed without evidence  
-- Archive/upload/submit without Shawn approval  
+- Mark Connect / TestFlight / archive Passed without evidence  
+- Archive/upload/submit without approval  
 - Marketplace API / Direct Upload / OAuth / publish unless newly approved  
 - Invent FB/Mercari fixed presets; AI; weaken Free core  

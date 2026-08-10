@@ -57,6 +57,7 @@ struct ProjectsView: View {
                             .accessibilityLabel(SellerNavigationSupport.startProductTitle)
                         }
                         .padding(.top, 40)
+                        .padding(.bottom, DarkroomReadability.listBottomClearance)
                     }
                 } else {
                     List {
@@ -84,6 +85,7 @@ struct ProjectsView: View {
                     }
                     .listStyle(.plain)
                     .scrollContentBackground(.hidden)
+                    .contentMargins(.bottom, DarkroomReadability.listBottomClearance, for: .scrollContent)
                 }
             }
             .darkroomScreen()
@@ -95,7 +97,7 @@ struct ProjectsView: View {
                     NavigationLink {
                         ListingQueueView()
                     } label: {
-                        Image(systemName: "list.bullet.rectangle")
+                        Label("Listing Queue", systemImage: "list.bullet.rectangle")
                     }
                     .accessibilityLabel(SellerNavigationSupport.listingQueueAccessibilityLabel)
                 }

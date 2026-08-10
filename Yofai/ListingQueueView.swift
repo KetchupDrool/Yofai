@@ -53,8 +53,7 @@ struct ListingQueueView: View {
                 .listRowBackground(sectionBackground)
             }
         }
-        .scrollContentBackground(.hidden)
-        .listStyle(.insetGrouped)
+        .darkroomFormList()
         .darkroomScreen()
         .navigationTitle("Listing Queue")
         .navigationBarTitleDisplayMode(.inline)
@@ -98,13 +97,7 @@ struct ListingQueueView: View {
     }
 
     private var sectionBackground: some View {
-        RoundedRectangle(cornerRadius: 12, style: .continuous)
-            .fill(.ultraThinMaterial)
-            .opacity(0.45)
-            .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(DarkroomTheme.surface)
-            )
+        DarkroomListRowBackground()
     }
 
     @ViewBuilder

@@ -128,13 +128,7 @@ struct MarketplaceExportSettingsBlock: View {
     }
 
     private var sectionBackground: some View {
-        RoundedRectangle(cornerRadius: 12, style: .continuous)
-            .fill(.ultraThinMaterial)
-            .opacity(0.45)
-            .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(DarkroomTheme.surface)
-            )
+        DarkroomListRowBackground()
     }
 
     private var marketplaceSection: some View {

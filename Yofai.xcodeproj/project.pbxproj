@@ -85,6 +85,7 @@
 		C2F1E60FC72348C79B5366AF /* Phase62DraftAwareListingPackagesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CC9FF38E7C40E7ABDF5839 /* Phase62DraftAwareListingPackagesTests.swift */; };
 		4E5636C67BA64E269E09FCA9 /* Phase63MarketplaceTemplatesDefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42A95B6EA25412690D7C86E /* Phase63MarketplaceTemplatesDefaultsTests.swift */; };
 		D0AEDFC08F8E474C9ECD716F /* Phase64MultiMarketWorkflowPolishTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E44BF28ACF4499BCE45E0E /* Phase64MultiMarketWorkflowPolishTests.swift */; };
+		01FD7EF45CF641CE81F7BC38 /* Phase66AppReadabilityCleanupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9F7283106D4134BB5A4E56 /* Phase66AppReadabilityCleanupTests.swift */; };
 		A05E5607B533CDC8750C3345 /* EtsyConnecting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71020D97DFB91E252E64BE5 /* EtsyConnecting.swift */; };
 		A18D69787D889F99178B30B0 /* ItemProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EEA04BA7B6FA559052DC45 /* ItemProject.swift */; };
 		A22B6C8F3A0E6FF1CABB430C /* Phase35SellerFirstNavigationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6ABA106A756DE3D40BB52A /* Phase35SellerFirstNavigationTests.swift */; };
@@ -224,6 +225,7 @@
 		86CC9FF38E7C40E7ABDF5839 /* Phase62DraftAwareListingPackagesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase62DraftAwareListingPackagesTests.swift; sourceTree = "<group>"; };
 		F42A95B6EA25412690D7C86E /* Phase63MarketplaceTemplatesDefaultsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase63MarketplaceTemplatesDefaultsTests.swift; sourceTree = "<group>"; };
 		08E44BF28ACF4499BCE45E0E /* Phase64MultiMarketWorkflowPolishTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase64MultiMarketWorkflowPolishTests.swift; sourceTree = "<group>"; };
+		0D9F7283106D4134BB5A4E56 /* Phase66AppReadabilityCleanupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase66AppReadabilityCleanupTests.swift; sourceTree = "<group>"; };
 		BFBCC2E77ABF1EFB4C8F41FE /* SellerDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerDefaults.swift; sourceTree = "<group>"; };
 		C0B8427BE901DB4798F39B72 /* OriginalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginalDetailView.swift; sourceTree = "<group>"; };
 		C4A655C173817CF80C2BE2CE /* PhotoEditState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditState.swift; sourceTree = "<group>"; };
@@ -404,6 +406,7 @@
 				86CC9FF38E7C40E7ABDF5839 /* Phase62DraftAwareListingPackagesTests.swift */,
 				F42A95B6EA25412690D7C86E /* Phase63MarketplaceTemplatesDefaultsTests.swift */,
 				08E44BF28ACF4499BCE45E0E /* Phase64MultiMarketWorkflowPolishTests.swift */,
+				0D9F7283106D4134BB5A4E56 /* Phase66AppReadabilityCleanupTests.swift */,
 			);
 			path = YofaiTests;
 			sourceTree = "<group>";
@@ -617,6 +620,7 @@
 				C2F1E60FC72348C79B5366AF /* Phase62DraftAwareListingPackagesTests.swift in Sources */,
 				4E5636C67BA64E269E09FCA9 /* Phase63MarketplaceTemplatesDefaultsTests.swift in Sources */,
 				D0AEDFC08F8E474C9ECD716F /* Phase64MultiMarketWorkflowPolishTests.swift in Sources */,
+				01FD7EF45CF641CE81F7BC38 /* Phase66AppReadabilityCleanupTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

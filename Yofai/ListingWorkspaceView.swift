@@ -97,8 +97,7 @@ struct ListingWorkspaceView: View {
             queueSection
             actionsSection
         }
-        .scrollContentBackground(.hidden)
-        .listStyle(.insetGrouped)
+        .darkroomFormList()
         .darkroomScreen()
         .navigationTitle("Listing Workspace")
         .navigationBarTitleDisplayMode(.inline)
@@ -153,13 +152,7 @@ struct ListingWorkspaceView: View {
     }
 
     private var sectionBackground: some View {
-        RoundedRectangle(cornerRadius: 12, style: .continuous)
-            .fill(.ultraThinMaterial)
-            .opacity(0.45)
-            .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(DarkroomTheme.surface)
-            )
+        DarkroomListRowBackground()
     }
 
     private var overviewSection: some View {

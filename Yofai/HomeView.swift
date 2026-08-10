@@ -46,7 +46,7 @@ struct HomeView: View {
                             .fixedSize(horizontal: false, vertical: true)
                         Text(SellerNavigationSupport.homeWorkflowHint)
                             .font(.caption)
-                            .foregroundStyle(DarkroomTheme.textTertiary)
+                            .foregroundStyle(DarkroomTheme.textSecondary)
                             .fixedSize(horizontal: false, vertical: true)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -163,7 +163,7 @@ struct HomeView: View {
                 }
                 .padding(.horizontal, 16)
                 .padding(.top, 8)
-                .padding(.bottom, 28)
+                .padding(.bottom, DarkroomReadability.listBottomClearance + 12)
             }
             .darkroomScreen()
             .navigationBarTitleDisplayMode(.inline)
@@ -179,9 +179,9 @@ struct HomeView: View {
     private func homeSection<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(title.uppercased())
-                .font(.caption2.weight(.bold))
-                .tracking(1.1)
-                .foregroundStyle(DarkroomTheme.textTertiary)
+                .font(.caption.weight(.bold))
+                .tracking(DarkroomReadability.sectionHeaderTracking)
+                .foregroundStyle(DarkroomTheme.textSecondary)
             content()
         }
     }

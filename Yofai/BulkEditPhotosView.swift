@@ -130,8 +130,7 @@ struct BulkEditPhotosView: View {
             }
             .listRowBackground(sectionBackground)
         }
-        .scrollContentBackground(.hidden)
-        .listStyle(.insetGrouped)
+        .darkroomFormList()
         .darkroomScreen()
         .navigationTitle("Bulk Edit Photos")
         .navigationBarTitleDisplayMode(.inline)
@@ -143,13 +142,7 @@ struct BulkEditPhotosView: View {
     }
 
     private var sectionBackground: some View {
-        RoundedRectangle(cornerRadius: 12, style: .continuous)
-            .fill(.ultraThinMaterial)
-            .opacity(0.45)
-            .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(DarkroomTheme.surface)
-            )
+        DarkroomListRowBackground()
     }
 
     private func photoRow(_ photo: ItemProjectPhoto, trailing: String?) -> some View {

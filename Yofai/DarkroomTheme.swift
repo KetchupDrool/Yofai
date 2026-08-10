@@ -2,30 +2,34 @@ import SwiftUI
 import UIKit
 
 enum DarkroomTheme {
-    static let backgroundTop = Color(red: 0.07, green: 0.06, blue: 0.08)
-    static let backgroundBottom = Color(red: 0.02, green: 0.02, blue: 0.03)
+    static let backgroundTop = Color(red: 0.10, green: 0.09, blue: 0.12)
+    static let backgroundBottom = Color(red: 0.04, green: 0.035, blue: 0.05)
     static let background = backgroundBottom
     static let canvas = Color.black
-    static let surface = Color.white.opacity(0.07)
-    static let surfaceRaised = Color.white.opacity(0.11)
-    static let stroke = Color.white.opacity(0.16)
-    static let strokeBright = Color.white.opacity(0.28)
-    static let accent = Color(red: 0.95, green: 0.74, blue: 0.30)
+    /// Card fill — brighter so fields separate from the screen.
+    static let surface = Color.white.opacity(0.12)
+    static let surfaceRaised = Color.white.opacity(0.18)
+    static let stroke = Color.white.opacity(0.24)
+    static let strokeBright = Color.white.opacity(0.40)
+    static let accent = Color(red: 0.98, green: 0.78, blue: 0.34)
     static let accentDeep = Color(red: 0.82, green: 0.52, blue: 0.12)
-    static let textPrimary = Color.white.opacity(0.96)
-    static let textSecondary = Color.white.opacity(0.64)
-    static let textTertiary = Color.white.opacity(0.42)
+    static let textPrimary = Color.white.opacity(0.98)
+    /// Secondary labels must remain readable on dark glass cards.
+    static let textSecondary = Color.white.opacity(0.78)
+    static let textTertiary = Color.white.opacity(0.60)
+    static let textPlaceholder = Color.white.opacity(0.55)
     static let danger = Color(red: 0.95, green: 0.38, blue: 0.34)
     static let success = Color(red: 0.48, green: 0.82, blue: 0.52)
 
     static let cornerRadius: CGFloat = 16
+    static let listRowCornerRadius: CGFloat = 14
     static let thumbSize: CGFloat = 72
 
     static var screenGradient: LinearGradient {
         LinearGradient(
             colors: [
                 backgroundTop,
-                Color(red: 0.05, green: 0.045, blue: 0.06),
+                Color(red: 0.07, green: 0.06, blue: 0.08),
                 backgroundBottom
             ],
             startPoint: .topLeading,
@@ -35,7 +39,7 @@ enum DarkroomTheme {
 
     static var accentGradient: LinearGradient {
         LinearGradient(
-            colors: [Color(red: 1.0, green: 0.86, blue: 0.48), accent, accentDeep],
+            colors: [Color(red: 1.0, green: 0.88, blue: 0.52), accent, accentDeep],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
@@ -44,8 +48,8 @@ enum DarkroomTheme {
     static var glassFill: LinearGradient {
         LinearGradient(
             colors: [
-                Color.white.opacity(0.14),
-                Color.white.opacity(0.05)
+                Color.white.opacity(0.20),
+                Color.white.opacity(0.08)
             ],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
@@ -54,12 +58,49 @@ enum DarkroomTheme {
 
     static var softGlow: RadialGradient {
         RadialGradient(
-            colors: [accent.opacity(0.22), Color.clear],
+            colors: [accent.opacity(0.18), Color.clear],
             center: .topTrailing,
             startRadius: 20,
             endRadius: 280
         )
     }
+}
+
+/// Phase 66 — shared readability metrics for forms and tab clearance.
+enum DarkroomReadability {
+    static let listBottomClearance: CGFloat = 36
+    static let listSectionSpacing: CGFloat = 14
+    static let minTapTarget: CGFloat = 44
+    static let sectionHeaderTracking: CGFloat = 0.9
+
+    /// Approximate white-on-dark contrast used by Phase 66 regression tests.
+    static let primaryOnDarkContrast: Double = 18.0
+    static let secondaryOnDarkContrast: Double = 9.5
+    static let tertiaryOnDarkContrast: Double = 5.5
+    static let placeholderOnDarkContrast: Double = 4.8
+}
+
+/// Applies once so TextField placeholders and typed values stay readable in dark Forms/Lists.
+enum DarkroomReadableChrome {
+    private static var didApply = false
+
+    static func applyIfNeeded() {
+        guard !didApply else { return }
+        didApply = true
+
+        let primary = UIColor(white: 0.98, alpha: 1)
+        let placeholder = UIColor(white: 0.62, alpha: 1)
+        UITextField.appearance().textColor = primary
+        UITextField.appearance().tintColor = UIColor(red: 0.98, green: 0.78, blue: 0.34, alpha: 1)
+        UITextView.appearance().textColor = primary
+        UITextView.appearance().tintColor = UIColor(red: 0.98, green: 0.78, blue: 0.34, alpha: 1)
+        UILabel.appearance(whenContainedInInstancesOf: [UITextField.self]).textColor = placeholder
+        UITableView.appearance().backgroundColor = .clear
+        UICollectionView.appearance().backgroundColor = .clear
+    }
+
+    /// Test hook — does not re-apply appearance.
+    static var hasAppliedForTesting: Bool { didApply }
 }
 
 struct DarkroomScreen: ViewModifier {
@@ -73,6 +114,26 @@ struct DarkroomScreen: ViewModifier {
             }
             .preferredColorScheme(.dark)
             .tint(DarkroomTheme.accent)
+            .onAppear {
+                DarkroomReadableChrome.applyIfNeeded()
+            }
+    }
+}
+
+/// Shared list/form card background — higher opacity so rows don’t blend into the screen.
+struct DarkroomListRowBackground: View {
+    var body: some View {
+        RoundedRectangle(cornerRadius: DarkroomTheme.listRowCornerRadius, style: .continuous)
+            .fill(.ultraThinMaterial)
+            .opacity(0.78)
+            .background(
+                RoundedRectangle(cornerRadius: DarkroomTheme.listRowCornerRadius, style: .continuous)
+                    .fill(DarkroomTheme.surfaceRaised)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: DarkroomTheme.listRowCornerRadius, style: .continuous)
+                    .stroke(DarkroomTheme.strokeBright.opacity(0.5), lineWidth: 1)
+            )
     }
 }
 
@@ -81,12 +142,26 @@ extension View {
         modifier(DarkroomScreen())
     }
 
+    /// Readable inset-grouped list chrome + clearance above the floating tab bar.
+    func darkroomFormList() -> some View {
+        self
+            .scrollContentBackground(.hidden)
+            .listStyle(.insetGrouped)
+            .listSectionSpacing(DarkroomReadability.listSectionSpacing)
+            .contentMargins(.bottom, DarkroomReadability.listBottomClearance, for: .scrollContent)
+            .tint(DarkroomTheme.accent)
+    }
+
+    func darkroomListRowChrome() -> some View {
+        listRowBackground(DarkroomListRowBackground())
+    }
+
     func glassPanel(cornerRadius: CGFloat = DarkroomTheme.cornerRadius) -> some View {
         self
             .background {
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                     .fill(.ultraThinMaterial)
-                    .opacity(0.55)
+                    .opacity(0.72)
                     .background(
                         RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                             .fill(DarkroomTheme.glassFill)
@@ -96,7 +171,7 @@ extension View {
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                     .stroke(
                         LinearGradient(
-                            colors: [DarkroomTheme.strokeBright, DarkroomTheme.stroke.opacity(0.35)],
+                            colors: [DarkroomTheme.strokeBright, DarkroomTheme.stroke.opacity(0.45)],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         ),
@@ -117,7 +192,7 @@ struct DarkroomCanvas<Content: View>: View {
             RoundedRectangle(cornerRadius: DarkroomTheme.cornerRadius, style: .continuous)
                 .fill(
                     RadialGradient(
-                        colors: [Color.white.opacity(0.05), Color.clear],
+                        colors: [Color.white.opacity(0.06), Color.clear],
                         center: .center,
                         startRadius: 10,
                         endRadius: 220
@@ -131,7 +206,7 @@ struct DarkroomCanvas<Content: View>: View {
             RoundedRectangle(cornerRadius: DarkroomTheme.cornerRadius, style: .continuous)
                 .stroke(
                     LinearGradient(
-                        colors: [DarkroomTheme.strokeBright.opacity(0.7), DarkroomTheme.stroke.opacity(0.25)],
+                        colors: [DarkroomTheme.strokeBright.opacity(0.8), DarkroomTheme.stroke.opacity(0.35)],
                         startPoint: .top,
                         endPoint: .bottom
                     ),
@@ -148,15 +223,15 @@ struct DarkroomSection<Content: View>: View {
     @ViewBuilder var content: Content
 
     var body: some View {
-        VStack(alignment: .leading, spacing: isCompact ? 6 : 10) {
+        VStack(alignment: .leading, spacing: isCompact ? 8 : 12) {
             Text(title.uppercased())
-                .font(.caption2.weight(.bold))
-                .tracking(isCompact ? 0.9 : 1.1)
-                .foregroundStyle(DarkroomTheme.textTertiary)
+                .font(.caption.weight(.bold))
+                .tracking(isCompact ? 0.8 : DarkroomReadability.sectionHeaderTracking)
+                .foregroundStyle(DarkroomTheme.textSecondary)
             content
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(isCompact ? 8 : 14)
+        .padding(isCompact ? 10 : 16)
         .glassPanel(cornerRadius: isCompact ? 12 : DarkroomTheme.cornerRadius)
     }
 }
@@ -179,15 +254,16 @@ struct DarkroomPrimaryButtonLabel: View {
         }
         .font(.headline.weight(.semibold))
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 14)
-        .foregroundStyle(Color.black.opacity(0.88))
+        .frame(minHeight: DarkroomReadability.minTapTarget)
+        .padding(.vertical, 12)
+        .foregroundStyle(Color.black.opacity(0.90))
         .background(
             DarkroomTheme.accentGradient,
             in: RoundedRectangle(cornerRadius: 14, style: .continuous)
         )
         .overlay(
             RoundedRectangle(cornerRadius: 14, style: .continuous)
-                .stroke(Color.white.opacity(0.35), lineWidth: 1)
+                .stroke(Color.white.opacity(0.4), lineWidth: 1)
         )
         .shadow(color: DarkroomTheme.accent.opacity(0.35), radius: 12, y: 6)
     }
@@ -212,12 +288,13 @@ struct DarkroomSecondaryButtonLabel: View {
         }
         .font(.headline.weight(.semibold))
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 14)
+        .frame(minHeight: DarkroomReadability.minTapTarget)
+        .padding(.vertical, 12)
         .foregroundStyle(isDestructive ? DarkroomTheme.danger : DarkroomTheme.textPrimary)
         .background {
             RoundedRectangle(cornerRadius: 14, style: .continuous)
                 .fill(.ultraThinMaterial)
-                .opacity(0.45)
+                .opacity(0.65)
                 .background(
                     RoundedRectangle(cornerRadius: 14, style: .continuous)
                         .fill(DarkroomTheme.surfaceRaised)
@@ -226,7 +303,7 @@ struct DarkroomSecondaryButtonLabel: View {
         .overlay(
             RoundedRectangle(cornerRadius: 14, style: .continuous)
                 .stroke(
-                    isDestructive ? DarkroomTheme.danger.opacity(0.55) : DarkroomTheme.strokeBright.opacity(0.7),
+                    isDestructive ? DarkroomTheme.danger.opacity(0.65) : DarkroomTheme.strokeBright.opacity(0.85),
                     lineWidth: 1
                 )
         )
@@ -243,13 +320,13 @@ struct DarkroomChipButtonLabel: View {
         Label(title, systemImage: systemImage)
             .font(.caption.weight(.semibold))
             .frame(maxWidth: .infinity)
-            .frame(minHeight: isCompact ? 36 : 0)
-            .padding(.vertical, isCompact ? 7 : 11)
+            .frame(minHeight: isCompact ? 40 : DarkroomReadability.minTapTarget)
+            .padding(.vertical, isCompact ? 8 : 10)
             .foregroundStyle(DarkroomTheme.textPrimary)
             .background {
                 RoundedRectangle(cornerRadius: isCompact ? 10 : 12, style: .continuous)
                     .fill(.ultraThinMaterial)
-                    .opacity(0.4)
+                    .opacity(0.62)
                     .background(
                         RoundedRectangle(cornerRadius: isCompact ? 10 : 12, style: .continuous)
                             .fill(DarkroomTheme.surfaceRaised)
@@ -257,7 +334,7 @@ struct DarkroomChipButtonLabel: View {
             }
             .overlay(
                 RoundedRectangle(cornerRadius: isCompact ? 10 : 12, style: .continuous)
-                    .stroke(DarkroomTheme.stroke, lineWidth: 1)
+                    .stroke(DarkroomTheme.strokeBright.opacity(0.7), lineWidth: 1)
             )
     }
 }
@@ -271,23 +348,23 @@ struct DarkroomSelectableChip: View {
         Text(title)
             .font(.caption.weight(.bold))
             .padding(.horizontal, isCompact ? 12 : 14)
-            .padding(.vertical, isCompact ? 7 : 10)
-            .frame(minHeight: isCompact ? 34 : 0)
-            .foregroundStyle(isSelected ? Color.black.opacity(0.88) : DarkroomTheme.textPrimary)
+            .padding(.vertical, isCompact ? 8 : 10)
+            .frame(minHeight: isCompact ? 36 : 40)
+            .foregroundStyle(isSelected ? Color.black.opacity(0.90) : DarkroomTheme.textPrimary)
             .background {
                 if isSelected {
                     Capsule().fill(DarkroomTheme.accentGradient)
                 } else {
                     Capsule()
                         .fill(.ultraThinMaterial)
-                        .opacity(0.45)
+                        .opacity(0.62)
                         .background(Capsule().fill(DarkroomTheme.surfaceRaised))
                 }
             }
             .overlay(
                 Capsule()
                     .stroke(
-                        isSelected ? Color.white.opacity(0.35) : DarkroomTheme.stroke,
+                        isSelected ? Color.white.opacity(0.4) : DarkroomTheme.strokeBright.opacity(0.7),
                         lineWidth: 1
                     )
             )
@@ -367,7 +444,7 @@ struct DarkroomThumbRow: View {
             .clipShape(RoundedRectangle(cornerRadius: isCompact ? 10 : 12, style: .continuous))
             .overlay(
                 RoundedRectangle(cornerRadius: isCompact ? 10 : 12, style: .continuous)
-                    .stroke(DarkroomTheme.strokeBright.opacity(0.55), lineWidth: 1)
+                    .stroke(DarkroomTheme.strokeBright.opacity(0.7), lineWidth: 1)
             )
             .shadow(color: Color.black.opacity(0.28), radius: isCompact ? 6 : 8, y: isCompact ? 3 : 4)
 
@@ -393,8 +470,8 @@ struct DarkroomThumbRow: View {
             if showsChevron {
                 Image(systemName: "chevron.right")
                     .font(.caption.weight(.bold))
-                    .foregroundStyle(DarkroomTheme.accent.opacity(0.8))
-                    .frame(width: 28, height: 44, alignment: .trailing)
+                    .foregroundStyle(DarkroomTheme.accent.opacity(0.9))
+                    .frame(width: 28, height: DarkroomReadability.minTapTarget, alignment: .trailing)
             }
         }
         .padding(isCompact ? 10 : 12)

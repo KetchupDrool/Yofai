@@ -43,9 +43,9 @@ struct SettingsView: View {
                     .accessibilityHint(FirstLaunchGuideCopy.replayFromSettingsDetail)
                 } header: {
                     Text("Help")
-                        .font(.caption2.weight(.bold))
-                        .tracking(1.0)
-                        .foregroundStyle(DarkroomTheme.textTertiary)
+                        .font(.caption.weight(.bold))
+                        .tracking(DarkroomReadability.sectionHeaderTracking)
+                        .foregroundStyle(DarkroomTheme.textSecondary)
                 }
                 .listRowBackground(settingsRowBackground)
 
@@ -54,9 +54,9 @@ struct SettingsView: View {
                     LabeledContent("Version", value: appVersion)
                 } header: {
                     Text("About")
-                        .font(.caption2.weight(.bold))
-                        .tracking(1.0)
-                        .foregroundStyle(DarkroomTheme.textTertiary)
+                        .font(.caption.weight(.bold))
+                        .tracking(DarkroomReadability.sectionHeaderTracking)
+                        .foregroundStyle(DarkroomTheme.textSecondary)
                 }
                 .listRowBackground(settingsRowBackground)
 
@@ -68,9 +68,9 @@ struct SettingsView: View {
                         .accessibilityLabel(AppStoreLaunchSupport.privacySummary)
                 } header: {
                     Text("Privacy")
-                        .font(.caption2.weight(.bold))
-                        .tracking(1.0)
-                        .foregroundStyle(DarkroomTheme.textTertiary)
+                        .font(.caption.weight(.bold))
+                        .tracking(DarkroomReadability.sectionHeaderTracking)
+                        .foregroundStyle(DarkroomTheme.textSecondary)
                 }
                 .listRowBackground(settingsRowBackground)
 
@@ -80,15 +80,13 @@ struct SettingsView: View {
                     Link("Terms of Use", destination: AppStoreLinks.termsOfUse)
                 } header: {
                     Text("Links")
-                        .font(.caption2.weight(.bold))
-                        .tracking(1.0)
-                        .foregroundStyle(DarkroomTheme.textTertiary)
+                        .font(.caption.weight(.bold))
+                        .tracking(DarkroomReadability.sectionHeaderTracking)
+                        .foregroundStyle(DarkroomTheme.textSecondary)
                 }
                 .listRowBackground(settingsRowBackground)
             }
-            .scrollContentBackground(.hidden)
-            .listStyle(.insetGrouped)
-            .tint(DarkroomTheme.accent)
+            .darkroomFormList()
             .darkroomScreen()
             .navigationTitle("Settings")
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
@@ -100,13 +98,7 @@ struct SettingsView: View {
     }
 
     private var settingsRowBackground: some View {
-        RoundedRectangle(cornerRadius: 12, style: .continuous)
-            .fill(.ultraThinMaterial)
-            .opacity(0.45)
-            .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(DarkroomTheme.surface)
-            )
+        DarkroomListRowBackground()
     }
 
     private var appVersion: String {

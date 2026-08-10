@@ -102,6 +102,8 @@ struct SellerDefaultsSettingsSection: View {
                 store.save(defaults)
                 statusMessage = "Defaults saved on this device."
             }
+            .font(.body.weight(.semibold))
+            .frame(minHeight: DarkroomReadability.minTapTarget, alignment: .leading)
             .foregroundStyle(DarkroomTheme.accent)
 
             Button("Clear All Defaults", role: .destructive) {
@@ -115,12 +117,12 @@ struct SellerDefaultsSettingsSection: View {
             }
         } header: {
             Text("Seller Defaults")
-                .font(.caption2.weight(.bold))
-                .tracking(1.0)
-                .foregroundStyle(DarkroomTheme.textTertiary)
+                .font(.caption.weight(.bold))
+                .tracking(DarkroomReadability.sectionHeaderTracking)
+                .foregroundStyle(DarkroomTheme.textSecondary)
         } footer: {
             Text("Applied only when creating a new Item Project with Use Seller Defaults. Existing projects are never overwritten. No Etsy credentials are stored here.")
-                .foregroundStyle(DarkroomTheme.textTertiary)
+                .foregroundStyle(DarkroomTheme.textSecondary)
         }
         .onAppear {
             defaults = store.load()

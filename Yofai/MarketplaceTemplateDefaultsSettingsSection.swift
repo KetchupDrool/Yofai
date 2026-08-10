@@ -57,12 +57,12 @@ struct MarketplaceTemplateDefaultsSettingsSection: View {
             }
         } header: {
             Text(MarketplaceTemplateDefaultsCopy.sectionTitle)
-                .font(.caption2.weight(.bold))
-                .tracking(1.0)
-                .foregroundStyle(DarkroomTheme.textTertiary)
+                .font(.caption.weight(.bold))
+                .tracking(DarkroomReadability.sectionHeaderTracking)
+                .foregroundStyle(DarkroomTheme.textSecondary)
         } footer: {
             Text(MarketplaceTemplateDefaultsCopy.settingsFooter)
-                .foregroundStyle(DarkroomTheme.textTertiary)
+                .foregroundStyle(DarkroomTheme.textSecondary)
         }
     }
 }
