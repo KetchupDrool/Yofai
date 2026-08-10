@@ -11,11 +11,11 @@ Repo: `/Volumes/CombatMedic/Yofai` · branch `main`
 ## Current baseline
 Latest commit on `main`:
 
-*(set after Phase 66 push — see `git log -1`)*
+`87f236e8b67fb26c46a20fdf892cb4ba718cab6e`
 
 Phase 66 commit message:
 
-*Phase 66 app readability cleanup*
+`Phase 66 app readability cleanup`
 
 Status:
 - Phase 66 complete (readability/navigation UI polish)
