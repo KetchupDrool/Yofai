@@ -36,6 +36,7 @@ struct ProjectDetailView: View {
     @State private var batchToDelete: ProjectExportBatch?
     @State private var recentlyExportedBatch: ProjectExportBatch?
     @State private var noteEditorBatch: ProjectExportBatch?
+    @State private var filesViewerBatch: ProjectExportBatch?
     @State private var showDuplicateSheet = false
     @State private var duplicateName = ""
     @State private var duplicateError: String?
@@ -259,6 +260,12 @@ struct ProjectDetailView: View {
         }
         .sheet(item: $noteEditorBatch) { batch in
             ExportBatchNoteEditor(batch: batch)
+        }
+        .sheet(item: $filesViewerBatch) { batch in
+            ExportedFilesViewer(batch: batch) { includeNote in
+                let caption = LocalExportShareSupport.shareCaption(for: batch, includeNote: includeNote)
+                shareBatchItem = ShareBatchItem(urls: batch.fileURLs, caption: caption)
+            }
         }
         } // ScrollViewReader
     }
@@ -502,59 +509,31 @@ struct ProjectDetailView: View {
             }
 
             if let recentlyExportedBatch, !exportStatusIsError {
-                if recentlyExportedBatch.hasShareableFiles {
-                    Button(LocalExportShareSupport.shareExportedPhotosTitle) {
-                        shareBatchItem = ShareBatchItem(urls: recentlyExportedBatch.fileURLs)
-                    }
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(DarkroomTheme.accent)
-                    .accessibilityLabel(LocalExportShareSupport.shareExportedPhotosTitle)
-
-                    Text(LocalExportShareSupport.packageSummaryLine(for: recentlyExportedBatch))
-                        .font(.caption2)
-                        .foregroundStyle(DarkroomTheme.textTertiary)
-                        .fixedSize(horizontal: false, vertical: true)
-
-                    if recentlyExportedBatch.hasSellerNote {
-                        Button(LocalExportShareSupport.shareWithNoteTitle) {
-                            let caption = LocalExportShareSupport.shareCaption(
-                                for: recentlyExportedBatch,
-                                includeNote: true
-                            )
-                            shareBatchItem = ShareBatchItem(
-                                urls: recentlyExportedBatch.fileURLs,
-                                caption: caption
-                            )
-                        }
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(DarkroomTheme.accent)
-                        .accessibilityLabel(LocalExportShareSupport.shareWithNoteTitle)
-
-                        Button(LocalExportShareSupport.copyExportNoteTitle) {
-                            if let text = LocalExportShareSupport.copyableNoteText(for: recentlyExportedBatch) {
-                                UIPasteboard.general.string = text
-                                exportStatusMessage = "Export note copied."
-                                exportStatusIsError = false
-                            }
-                        }
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(DarkroomTheme.accent)
-                        .accessibilityLabel(LocalExportShareSupport.copyExportNoteTitle)
-                    }
-                }
-
-                Button(recentlyExportedBatch.hasSellerNote ? "Edit Note" : "Add Note") {
-                    noteEditorBatch = recentlyExportedBatch
-                }
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(DarkroomTheme.accent)
-                .accessibilityLabel(recentlyExportedBatch.hasSellerNote ? "Edit Note" : "Add Note")
+                LocalExportNextStepActions(
+                    batch: recentlyExportedBatch,
+                    onViewFiles: { filesViewerBatch = recentlyExportedBatch },
+                    onShare: { includeNote in
+                        let caption = LocalExportShareSupport.shareCaption(
+                            for: recentlyExportedBatch,
+                            includeNote: includeNote
+                        )
+                        shareBatchItem = ShareBatchItem(
+                            urls: recentlyExportedBatch.fileURLs,
+                            caption: caption
+                        )
+                    },
+                    onNoteCopied: {
+                        exportStatusMessage = "Export note copied."
+                        exportStatusIsError = false
+                    },
+                    onEditNote: { noteEditorBatch = recentlyExportedBatch }
+                )
             }
         } header: {
             Text("Export")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
-            Text("Saves ordered local JPEGs under ExportBatches for manual upload. Does not change project photos, Originals, or edit History. Does not publish to a marketplace.")
+            Text("Saves ordered local JPEGs for manual upload. Does not change project photos, Originals, or edit History. Does not publish to a marketplace.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)

@@ -14,6 +14,7 @@ Yofai today:
 - Supports optional local export notes (`sellerNote`)
 - Shares files via the system Share sheet only (optional note may accompany as share text / Copy Export Note — not marketplace caption upload)
 - Can view and re-share existing ExportBatches JPEGs from export history when files remain on disk; missing files are handled safely (no path exposure)
+- After a successful export, offers View Exported Files as the primary next step for that batch
 - Does **not** authenticate live marketplace accounts for upload
 - Does **not** call marketplace upload APIs
 - Does **not** upload images or publish listings

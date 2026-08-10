@@ -311,6 +311,13 @@
 - Deleting a history row still removes only that ExportBatches folder — never product photos
 - No Direct Upload Mode, OAuth upload, publish status, or file-manager features
 
+## Phase 48 — Final Local Export Mode Polish (locked)
+- Post-export next step: View Exported Files for the just-created batch (plus Share / note actions when valid)
+- History action order: View + Share primary; More = Share with Note → Copy Note → Add/Edit Note → Use These → Export Again → Delete
+- Dynamic Type / accessibility pass on export summary, history, viewer, readiness (status not color-only)
+- Wording cleanup remains local JPEGs / exported for / manual upload — no publish/Direct Upload claims
+- No new product scope: no upload, OAuth, backend, AI, analytics, subscriptions, ads, or new presets
+
 ## Future capability (approved direction — not next work)
 May be added later where they support the product; core photo preparation remains local-first/on-device:
 - Backend services

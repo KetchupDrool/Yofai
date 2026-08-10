@@ -1,7 +1,7 @@
 # Tasks
 
 ## Status
-Phase 47 — Local Export File Access & UX Polish complete.
+Phase 48 — Final Local Export Mode Polish complete.
 App Store upload remains paused.
 
 ## Product direction
@@ -10,20 +10,20 @@ Local-first marketplace product photo preparation for online sellers.
 **Direct Upload Mode** is future-only (see `MARKETPLACE_UPLOAD_ROADMAP.md`).
 
 ## Current Phase
-Phase 47 — Local Export File Access & UX Polish. Complete.
+Phase 48 — Final Local Export Mode Polish. Complete.
 
 ## Done
-- MVP + Phases 4–46
-- Phase 47: View Exported Files, safe missing-file handling, re-share from history; Phase47LocalExportFileAccessTests (10); total 264
-- Build + unit tests succeeded on iPhone 16e (264 tests)
+- MVP + Phases 4–47
+- Phase 48: post-export View Exported Files next step, history action order, DT/a11y wording pass; Phase48FinalLocalExportPolishTests (6); total 270
+- Build + unit tests succeeded on iPhone 16e (270 tests)
 
 ## Remaining Polish
-- Edit tools may scroll with Export + watermark
+- Edit tools may scroll with Export + watermark (minor layout)
 
 ## Next (when explicitly approved)
-- Prefer further Local Export Mode polish, or a verified Etsy Direct Upload foundation phase only after manual OAuth/API confirmation
+- App Store prep / release checklist for Local Export Mode, **or**
+- Verified Etsy Direct Upload foundation only after manual OAuth/API confirmation
 - Do not treat unpaid browser automation or guessed APIs as next work
-- Named FB Marketplace / Mercari presets only if a first-party exact canvas is later verified
 
 ## Abandoned from the active near-term roadmap
 Inactive unless explicitly re-approved later:

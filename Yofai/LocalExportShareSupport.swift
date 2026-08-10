@@ -76,7 +76,10 @@ enum LocalExportShareSupport {
             "uploaded to",
             "direct upload",
             "send to marketplace",
+            "sent to marketplace",
             "marketplace accepted",
+            "marketplace compliant",
+            "connect marketplace",
             "compliant"
         ]
         return banned.contains { lower.contains($0) }

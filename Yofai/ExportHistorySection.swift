@@ -42,10 +42,11 @@ struct ExportHistorySection: View {
     var body: some View {
         Section {
             if allBatches.isEmpty {
-                Text("No exports yet.")
+                Text("No local exports yet.")
                     .font(.subheadline)
                     .foregroundStyle(DarkroomTheme.textSecondary)
                     .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityLabel("No local exports yet.")
             } else {
                 if availableFilters.count > 1 {
                     filterChips
@@ -176,12 +177,14 @@ struct ExportHistorySection: View {
     @ViewBuilder
     private func actionsRow(_ batch: ProjectExportBatch) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 12) {
+            // Primary: View + Share. Secondary actions live in More (seller-friendly order).
+            VStack(alignment: .leading, spacing: 10) {
                 Button(ExportBatchFileAccessSupport.viewExportedFilesTitle) {
                     batchForFiles = batch
                 }
-                .font(.caption.weight(.semibold))
+                .font(.subheadline.weight(.semibold))
                 .foregroundStyle(DarkroomTheme.accent)
+                .frame(minHeight: 44, alignment: .leading)
                 .accessibilityLabel(ExportBatchFileAccessSupport.viewExportedFilesTitle)
 
                 if let onShare, ExportBatchFileAccessSupport.canShare(batch) {
@@ -190,21 +193,11 @@ struct ExportHistorySection: View {
                     }
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(DarkroomTheme.accent)
+                    .frame(minHeight: 32, alignment: .leading)
                     .accessibilityLabel(LocalExportShareSupport.shareExportedPhotosTitle)
                 }
 
                 Menu {
-                    Button("Use These Export Settings") {
-                        onUseSettings(batch)
-                    }
-                    if let onExportAgain {
-                        Button("Export Again") {
-                            onExportAgain(batch)
-                        }
-                    }
-                    Button(batch.hasSellerNote ? "Edit Note" : "Add Note") {
-                        batchForNote = batch
-                    }
                     if let onShare, ExportBatchFileAccessSupport.canShare(batch),
                        ExportBatchFileAccessSupport.canOfferShareWithNote(batch) {
                         Button(LocalExportShareSupport.shareWithNoteTitle) {
@@ -219,6 +212,17 @@ struct ExportHistorySection: View {
                             }
                         }
                     }
+                    Button(batch.hasSellerNote ? "Edit Note" : "Add Note") {
+                        batchForNote = batch
+                    }
+                    Button("Use These Export Settings") {
+                        onUseSettings(batch)
+                    }
+                    if let onExportAgain {
+                        Button("Export Again") {
+                            onExportAgain(batch)
+                        }
+                    }
                     if let onDelete {
                         Button("Delete", role: .destructive) {
                             onDelete(batch)
@@ -228,6 +232,7 @@ struct ExportHistorySection: View {
                     Text("More")
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(DarkroomTheme.accent)
+                        .frame(minHeight: 32, alignment: .leading)
                 }
                 .accessibilityLabel("More export actions")
             }

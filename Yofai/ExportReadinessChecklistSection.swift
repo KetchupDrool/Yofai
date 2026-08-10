@@ -20,6 +20,8 @@ struct ExportReadinessChecklistSection: View {
             Text(summary.overallHeadline)
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(statusColor(summary.status))
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityLabel("\(summary.overallHeadline). Readiness status: \(summary.status.rawValue)")
 
             if style == .compact {
                 Text(compactSummaryLine)
@@ -77,6 +79,7 @@ struct ExportReadinessChecklistSection: View {
             Text(row.statusLine)
                 .font(.caption)
                 .foregroundStyle(rowLevelColor(row.level))
+                .fixedSize(horizontal: false, vertical: true)
             if let explanation = row.explanation {
                 Text(explanation)
                     .font(.caption2)
@@ -86,6 +89,16 @@ struct ExportReadinessChecklistSection: View {
         }
         .padding(.vertical, 2)
         .accessibilityElement(children: .combine)
+        .accessibilityLabel(
+            [
+                row.title,
+                row.statusLine,
+                row.explanation,
+                "Level: \(row.level.rawValue)"
+            ]
+            .compactMap { $0 }
+            .joined(separator: ". ")
+        )
     }
 
     private func statusColor(_ status: ExportReadinessStatus) -> Color {

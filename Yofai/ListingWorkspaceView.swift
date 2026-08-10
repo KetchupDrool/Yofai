@@ -23,6 +23,7 @@ struct ListingWorkspaceView: View {
     @State private var exportScrollTarget: String?
     @State private var recentlyExportedBatch: ProjectExportBatch?
     @State private var noteEditorBatch: ProjectExportBatch?
+    @State private var filesViewerBatch: ProjectExportBatch?
 
     private var queueEntry: ListingQueueEntry? {
         ListingQueueSupport.queueEntry(for: project, in: modelContext)
@@ -33,7 +34,7 @@ struct ListingWorkspaceView: View {
     }
 
     private var newestSuccessfulBatch: ProjectExportBatch? {
-        project.sortedExportBatches.first { $0.successCount > 0 && $0.hasShareableFiles }
+        project.sortedExportBatches.first { $0.successCount > 0 }
     }
 
     private var displayTitle: String {
@@ -120,6 +121,12 @@ struct ListingWorkspaceView: View {
         }
         .sheet(item: $noteEditorBatch) { batch in
             ExportBatchNoteEditor(batch: batch)
+        }
+        .sheet(item: $filesViewerBatch) { batch in
+            ExportedFilesViewer(batch: batch) { includeNote in
+                let caption = LocalExportShareSupport.shareCaption(for: batch, includeNote: includeNote)
+                shareBatchItem = ShareBatchItem(urls: batch.fileURLs, caption: caption)
+            }
         }
         .confirmationDialog(
             "Delete listing package?",
@@ -454,44 +461,6 @@ struct ListingWorkspaceView: View {
                 .foregroundStyle(DarkroomTheme.textTertiary)
                 .fixedSize(horizontal: false, vertical: true)
 
-            if let newestSuccessfulBatch, newestSuccessfulBatch.hasShareableFiles {
-                Button(LocalExportShareSupport.shareExportedPhotosTitle) {
-                    shareBatchItem = ShareBatchItem(urls: newestSuccessfulBatch.fileURLs)
-                }
-                .foregroundStyle(DarkroomTheme.accent)
-                .accessibilityLabel(LocalExportShareSupport.shareExportedPhotosTitle)
-
-                Text(LocalExportShareSupport.packageSummaryLine(for: newestSuccessfulBatch))
-                    .font(.caption2)
-                    .foregroundStyle(DarkroomTheme.textTertiary)
-                    .fixedSize(horizontal: false, vertical: true)
-
-                if newestSuccessfulBatch.hasSellerNote {
-                    Button(LocalExportShareSupport.shareWithNoteTitle) {
-                        let caption = LocalExportShareSupport.shareCaption(
-                            for: newestSuccessfulBatch,
-                            includeNote: true
-                        )
-                        shareBatchItem = ShareBatchItem(
-                            urls: newestSuccessfulBatch.fileURLs,
-                            caption: caption
-                        )
-                    }
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(DarkroomTheme.accent)
-
-                    Button(LocalExportShareSupport.copyExportNoteTitle) {
-                        if let text = LocalExportShareSupport.copyableNoteText(for: newestSuccessfulBatch) {
-                            UIPasteboard.general.string = text
-                            exportStatusMessage = "Export note copied."
-                            exportStatusIsError = false
-                        }
-                    }
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(DarkroomTheme.accent)
-                }
-            }
-
             if let exportStatusMessage {
                 Text(exportStatusMessage)
                     .font(.caption)
@@ -501,15 +470,52 @@ struct ListingWorkspaceView: View {
             }
 
             if let recentlyExportedBatch, !exportStatusIsError {
-                Button(recentlyExportedBatch.hasSellerNote ? "Edit Note" : "Add Note") {
-                    noteEditorBatch = recentlyExportedBatch
-                }
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(DarkroomTheme.accent)
-                .accessibilityLabel(recentlyExportedBatch.hasSellerNote ? "Edit Note" : "Add Note")
+                LocalExportNextStepActions(
+                    batch: recentlyExportedBatch,
+                    onViewFiles: { filesViewerBatch = recentlyExportedBatch },
+                    onShare: { includeNote in
+                        let caption = LocalExportShareSupport.shareCaption(
+                            for: recentlyExportedBatch,
+                            includeNote: includeNote
+                        )
+                        shareBatchItem = ShareBatchItem(
+                            urls: recentlyExportedBatch.fileURLs,
+                            caption: caption
+                        )
+                    },
+                    onNoteCopied: {
+                        exportStatusMessage = "Export note copied."
+                        exportStatusIsError = false
+                    },
+                    onEditNote: { noteEditorBatch = recentlyExportedBatch }
+                )
+            } else if let newestSuccessfulBatch {
+                // No fresh export this session — still allow view/share of newest local batch.
+                LocalExportNextStepActions(
+                    batch: newestSuccessfulBatch,
+                    onViewFiles: { filesViewerBatch = newestSuccessfulBatch },
+                    onShare: { includeNote in
+                        let caption = LocalExportShareSupport.shareCaption(
+                            for: newestSuccessfulBatch,
+                            includeNote: includeNote
+                        )
+                        shareBatchItem = ShareBatchItem(
+                            urls: newestSuccessfulBatch.fileURLs,
+                            caption: caption
+                        )
+                    },
+                    onNoteCopied: {
+                        exportStatusMessage = "Export note copied."
+                        exportStatusIsError = false
+                    },
+                    onEditNote: { noteEditorBatch = newestSuccessfulBatch }
+                )
             }
         } header: {
             Text("Export")
+                .foregroundStyle(DarkroomTheme.textTertiary)
+        } footer: {
+            Text("Local JPEGs for manual upload. Does not publish to a marketplace.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)

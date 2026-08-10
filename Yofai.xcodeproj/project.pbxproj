@@ -88,6 +88,9 @@
 		E9C47A41F0F0A7B18C901701 /* ExportBatchFileAccessSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C47A41F0F0A7B18C901701 /* ExportBatchFileAccessSupport.swift */; };
 		E9C47A42F0F0A7B18C901802 /* ExportedFilesViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C47A42F0F0A7B18C901802 /* ExportedFilesViewer.swift */; };
 		A9D47B4883F0A7B18C901903 /* Phase47LocalExportFileAccessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D47B4883F0A7B18C901903 /* Phase47LocalExportFileAccessTests.swift */; };
+		E9C48A43F1A1B8C29D012A04 /* LocalExportPostExportSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C48A43F1A1B8C29D012A04 /* LocalExportPostExportSupport.swift */; };
+		E9C48A44F1A1B8C29D012A05 /* LocalExportNextStepActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C48A44F1A1B8C29D012A05 /* LocalExportNextStepActions.swift */; };
+		A9D48B4994A1B8C29D012A06 /* Phase48FinalLocalExportPolishTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D48B4994A1B8C29D012A06 /* Phase48FinalLocalExportPolishTests.swift */; };
 		F544B5403F50164293B87F83 /* YofaiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013F0E7F2A74F2FCDBB01476 /* YofaiApp.swift */; };
 		F786C905F860BFCE15CD77F8 /* BulkEditSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B9C85A8EDD77D3B1F7922 /* BulkEditSupport.swift */; };
 		FADF9F3019C73426C062D788 /* ProjectBatchExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0FED065E54BEA3BC57F39B /* ProjectBatchExporter.swift */; };
@@ -141,6 +144,9 @@
 		F9C47A41F0F0A7B18C901701 /* ExportBatchFileAccessSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportBatchFileAccessSupport.swift; sourceTree = "<group>"; };
 		F9C47A42F0F0A7B18C901802 /* ExportedFilesViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportedFilesViewer.swift; sourceTree = "<group>"; };
 		B9D47B4883F0A7B18C901903 /* Phase47LocalExportFileAccessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase47LocalExportFileAccessTests.swift; sourceTree = "<group>"; };
+		F9C48A43F1A1B8C29D012A04 /* LocalExportPostExportSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalExportPostExportSupport.swift; sourceTree = "<group>"; };
+		F9C48A44F1A1B8C29D012A05 /* LocalExportNextStepActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalExportNextStepActions.swift; sourceTree = "<group>"; };
+		B9D48B4994A1B8C29D012A06 /* Phase48FinalLocalExportPolishTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase48FinalLocalExportPolishTests.swift; sourceTree = "<group>"; };
 		2A2F3F0328410ACBFCBFED4A /* SavedEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedEdit.swift; sourceTree = "<group>"; };
 		2B9C86933ACBA56343122F69 /* ImportedOriginal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportedOriginal.swift; sourceTree = "<group>"; };
 		2FE44C1F5D51637762E22557 /* ListingQueueEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingQueueEntry.swift; sourceTree = "<group>"; };
@@ -251,6 +257,8 @@
 				F9C46A40F9E9F6A07B8905 /* LocalExportShareSupport.swift */,
 				F9C47A41F0F0A7B18C901701 /* ExportBatchFileAccessSupport.swift */,
 				F9C47A42F0F0A7B18C901802 /* ExportedFilesViewer.swift */,
+				F9C48A43F1A1B8C29D012A04 /* LocalExportPostExportSupport.swift */,
+				F9C48A44F1A1B8C29D012A05 /* LocalExportNextStepActions.swift */,
 				D4EDC252ED2FD43DA3FF2FC2 /* HistoryDetailView.swift */,
 				A71AA6F7AE79A72B0BD6E5E4 /* HistoryView.swift */,
 				4AE9E95DE5571028873EC4AF /* HomeView.swift */,
@@ -329,6 +337,7 @@
 				B9D45B4661D8E5F6A07B8904 /* Phase45MarketplaceUploadRoadmapTests.swift */,
 				B9D46B4772E9F6A07B8906 /* Phase46LocalExportSharePolishTests.swift */,
 				B9D47B4883F0A7B18C901903 /* Phase47LocalExportFileAccessTests.swift */,
+				B9D48B4994A1B8C29D012A06 /* Phase48FinalLocalExportPolishTests.swift */,
 			);
 			path = YofaiTests;
 			sourceTree = "<group>";
@@ -448,6 +457,8 @@
 				E9C46A40F9E9F6A07B8905 /* LocalExportShareSupport.swift in Sources */,
 				E9C47A41F0F0A7B18C901701 /* ExportBatchFileAccessSupport.swift in Sources */,
 				E9C47A42F0F0A7B18C901802 /* ExportedFilesViewer.swift in Sources */,
+				E9C48A43F1A1B8C29D012A04 /* LocalExportPostExportSupport.swift in Sources */,
+				E9C48A44F1A1B8C29D012A05 /* LocalExportNextStepActions.swift in Sources */,
 				13BCC10E2C1CAA3689C3E672 /* HistoryDetailView.swift in Sources */,
 				20C0DB8564D9A4846982AD22 /* HistoryView.swift in Sources */,
 				42CB7915D48665E9ECD06B44 /* HomeView.swift in Sources */,
@@ -517,6 +528,7 @@
 				A9D45B4661D8E5F6A07B8904 /* Phase45MarketplaceUploadRoadmapTests.swift in Sources */,
 				A9D46B4772E9F6A07B8906 /* Phase46LocalExportSharePolishTests.swift in Sources */,
 				A9D47B4883F0A7B18C901903 /* Phase47LocalExportFileAccessTests.swift in Sources */,
+				A9D48B4994A1B8C29D012A06 /* Phase48FinalLocalExportPolishTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
