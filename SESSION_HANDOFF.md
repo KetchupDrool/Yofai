@@ -1,7 +1,7 @@
 # Session Handoff
 
 ## Status
-Phase 40 complete — Local Export Batch History & Marketplace Labeling. Build + unit tests succeeded on iPhone 16e (185 tests). App Store upload paused.
+Phase 41 complete — Export History Filters & Compare Polish. Build + unit tests succeeded on iPhone 16e (198 tests). App Store upload paused.
 
 ## Product purpose
 Local-first marketplace product photo preparation for online sellers.
@@ -10,13 +10,14 @@ Export targets only: Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and si
 
 ## Facts
 - Yofai / `com.shawnwright.yofai` / iPhone-only
-- Phase 40: `ProjectExportBatch` stores marketplace/size/fit history; “exported for” only — never publish status
-- Seven export preset raw values/sizes unchanged; Phases 37–39 preserved
-- Not marketplace compliance claims
+- Phase 41: transient marketplace filters + metadata-only compare of newest two exports; Export Again applies settings only (no auto-export)
+- Filter uses stored `marketplaceTargetRaw` only; legacy empty → Earlier export; never infer from canvas/folder/JPEG
+- Seven export preset raw values/sizes unchanged; Phases 37–40 preserved
+- Not marketplace compliance claims; not pixel comparison
 - Git: `/Volumes/CombatMedic/Yofai` on `main`
 
 ## Last Completed
-- Export history metadata on `ProjectExportBatch`; `ExportHistorySection`; Phase40ExportBatchHistoryTests (13); total 185
+- `ExportHistorySupport.swift`; filters/compare in `ExportHistorySection`; Phase41ExportHistoryFiltersCompareTests (13); total 198
 
 ## Abandoned from the active roadmap
 - Paid/live AI APIs

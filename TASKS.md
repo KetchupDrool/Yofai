@@ -1,7 +1,7 @@
 # Tasks
 
 ## Status
-Phase 40 — Local Export Batch History & Marketplace Labeling complete.
+Phase 41 — Export History Filters & Compare Polish complete.
 App Store upload remains paused.
 
 ## Product direction
@@ -10,12 +10,12 @@ Core functionality is local-first/on-device.
 Marketplaces (Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, similar) are **local export targets only**.
 
 ## Current Phase
-Phase 40 — Local Export Batch History & Marketplace Labeling. Complete.
+Phase 41 — Export History Filters & Compare Polish. Complete.
 
 ## Done
-- MVP + Phases 4–39
-- Phase 40: export-batch history metadata, seller labels, Use These Export Settings, result summary; tests
-- Build + unit tests succeeded on iPhone 16e (185 tests)
+- MVP + Phases 4–40
+- Phase 41: marketplace filters, metadata compare, Export Again, row polish; Phase41ExportHistoryFiltersCompareTests (13); total 198
+- Build + unit tests succeeded on iPhone 16e (198 tests)
 
 ## Remaining Polish
 - Edit tools may scroll with Export + watermark

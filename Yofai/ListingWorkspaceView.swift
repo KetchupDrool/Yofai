@@ -62,6 +62,11 @@ struct ListingWorkspaceView: View {
                     exportStatusMessage = "Export settings restored. Photo edits unchanged. Tap Export Photos when ready."
                     exportStatusIsError = false
                 },
+                onExportAgain: { batch in
+                    batch.applyExportSettings(to: project)
+                    exportStatusMessage = "Settings ready for Export Again. Photo edits unchanged — tap Export Photos to export."
+                    exportStatusIsError = false
+                },
                 onShare: { batch in
                     shareBatchItem = ShareBatchItem(urls: batch.fileURLs)
                 },

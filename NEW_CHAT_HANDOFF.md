@@ -13,27 +13,27 @@ Yofai
 - iPhone-only SwiftUI + SwiftData
 - **Product purpose:** local-first marketplace product photo preparation for online sellers
 - Core functionality is local-first/on-device
-- Phases 1–40 complete
-- Phase 40: local export-batch history with marketplace labels
-- Last build/tests: succeeded on iPhone 16e (185 tests)
+- Phases 1–41 complete
+- Phase 41: export-history marketplace filters + metadata compare + Export Again
+- Last build/tests: succeeded on iPhone 16e (198 tests)
 - App Store upload paused
 - Primary local path: `/Volumes/CombatMedic/Yofai`
 - GitHub Pages: https://ketchupdrool.github.io/Yofai/
 
-## 5. Completed phases 1–40
-1–39. Local listing prep, fit modes, reposition, marketplace target vs canvas
-40. Export history labeling (“exported for”) on existing ProjectExportBatch
+## 5. Completed phases 1–41
+1–40. Local listing prep, fit modes, reposition, marketplace target vs canvas, export history labels
+41. Export history filters (transient), metadata-only compare of newest two, Export Again (settings only)
 
-## 6. Phase 40 result
-**Local Export Batch History & Marketplace Labeling complete.** Successful exports record marketplace target, canvas size, fit, photo count, watermark, and date on `ProjectExportBatch`. Sellers can restore export settings without touching photo edits. “Exported for” only — not published. Build + 185 unit tests passed on iPhone 16e.
+## 6. Phase 41 result
+**Export History Filters & Compare Polish complete.** Sellers can filter history by stored marketplace target, compare the two newest completed exports (metadata only), and use Export Again to restore export-level settings without auto-exporting or changing photo edits. Build + 198 unit tests passed on iPhone 16e.
 
 ## 7. Current models/files
-**Export:** `ProjectExportBatch` (+ Phase 40 metadata), `ExportHistorySection.swift`
+**Export:** `ProjectExportBatch`, `ExportHistorySupport.swift`, `ExportHistorySection.swift`
 
-**Tests:** Phase22–40
+**Tests:** Phase22–41
 
 ## 8. Working features
-- Marketplace target switching, export readiness/preview, export history, Contain+Pad / Fill+Crop + reposition, verified eBay/Poshmark/Etsy canvases, FB Marketplace/Mercari guidance without fake sizes, listing prep, bulk edit, packages, defaults, queue, batch export
+- Marketplace filters on export history, recent-export metadata compare, Export Again / Use These Export Settings, marketplace target switching, Contain+Pad / Fill+Crop + reposition, verified eBay/Poshmark/Etsy canvases, FB Marketplace/Mercari guidance without fake sizes, listing prep, bulk edit, packages, defaults, queue, batch export
 
 ## 9. Rules/constraints
 - Core photo preparation: local-first/on-device
@@ -53,7 +53,7 @@ App: Yofai
 Bundle ID: com.shawnwright.yofai
 Purpose: local-first marketplace product photo preparation for online sellers.
 Core functionality is local-first/on-device.
-Status: Phases 1–40 done. Export history labels marketplace + canvas locally. Last build/tests succeeded on iPhone 16e (185 tests). App Store upload paused.
+Status: Phases 1–41 done. Export history has marketplace filters and metadata compare. Last build/tests succeeded on iPhone 16e (198 tests). App Store upload paused.
 Marketplaces are local export targets only. Do not invent new preset pixel sizes.
 Abandoned from active roadmap: paid/live AI APIs; OAuth marketplace publishing; direct marketplace uploads.
 Future capability (not next work): backend, accounts, cloud sync, subscriptions, ads.

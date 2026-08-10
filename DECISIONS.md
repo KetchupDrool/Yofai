@@ -238,6 +238,19 @@
 - Deleting a history row removes that ExportBatches folder only — not product photos, Originals, or edit History
 - Intentionally NOT tracked: marketplace upload status, compliance, cloud sync, accounts
 
+## Phase 41 — Export History Filters & Compare Polish (locked)
+- Local marketplace filters on export history: All + chips for targets present in that project’s history (+ Earlier export for empty `marketplaceTargetRaw`)
+- Selected filter is **transient UI state only** — not persisted; filtering does not mutate history
+- Filter matches stored `marketplaceTargetRaw` only — never infers marketplace from canvas size, folder name, or JPEG name
+- Legacy empty-target rows appear only under All / Earlier export — not guessed into named markets
+- Newest-first order preserved after filtering; empty filter copy e.g. “No eBay exports yet.”
+- Metadata-only compare of the two newest completed exports (marketplace, canvas, fit, photo count, watermark, date); changed fields only
+- Compare does **not** decode JPEG pixels, run AI, or claim quality/compliance differences
+- One export → “No previous export to compare.”
+- Row polish: primary marketplace + canvas; secondary date · count · fit (± watermark)
+- “Export Again” applies export-level settings and leaves the seller in the normal flow (must tap Export Photos); does not auto-export; does not change per-photo edits or Phase 38 offsets
+- Intentionally NOT added: pixel comparison, upload/publish status, new persistence for filters, new marketplace dimensions
+
 ## Future capability (approved direction — not next work)
 May be added later where they support the product; core photo preparation remains local-first/on-device:
 - Backend services

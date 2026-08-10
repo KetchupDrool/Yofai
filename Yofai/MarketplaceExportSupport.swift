@@ -3,7 +3,7 @@ import CoreGraphics
 import UIKit
 
 /// Phase 39 — where the listing is headed. Separate from pixel export canvas.
-enum MarketplaceTarget: String, CaseIterable, Identifiable, Equatable, Codable {
+enum MarketplaceTarget: String, CaseIterable, Identifiable, Equatable, Hashable, Codable {
     case etsy = "Etsy"
     case ebay = "eBay"
     case poshmark = "Poshmark"
