@@ -3,6 +3,8 @@ import SwiftData
 
 @main
 struct YofaiApp: App {
+    @StateObject private var firstLaunchGuide = FirstLaunchGuidePresenter()
+
     private let modelContainer: ModelContainer = {
         let schema = YofaiModelSchema.schema
         let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
@@ -16,6 +18,7 @@ struct YofaiApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(firstLaunchGuide)
                 .task {
                     PurchaseManager.shared.startListeningForTransactionsIfNeeded()
                     await PurchaseManager.shared.refreshEntitlementsAndProducts()

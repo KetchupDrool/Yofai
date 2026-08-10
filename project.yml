@@ -27,8 +27,8 @@ targets:
         UIApplicationSceneManifest_Generation: true
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
-        NSPhotoLibraryAddUsageDescription: Yofai saves a listing-ready photo copy to Photos only when you tap Save Listing Copy.
-        NSCameraUsageDescription: Yofai uses the camera to capture product photos into your local Item Project.
+        NSPhotoLibraryAddUsageDescription: Yofai saves a listing-ready photo copy to Photos only when you choose Save Listing Copy. Photos stay on your device.
+        NSCameraUsageDescription: Yofai uses the camera to capture product photos into your local Item Project for on-device prep and local JPEG export.
         CFBundleURLTypes:
           - CFBundleTypeRole: Editor
             CFBundleURLName: com.shawnwright.yofai.etsy-oauth

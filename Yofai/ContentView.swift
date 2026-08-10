@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    @EnvironmentObject private var firstLaunchGuide: FirstLaunchGuidePresenter
     @State private var selectedTab: YofaiAppTab = .defaultTab
     @State private var presentNewProduct = false
 
@@ -54,11 +55,20 @@ struct ContentView: View {
         .darkroomScreen()
         .toolbarBackground(.ultraThinMaterial, for: .tabBar)
         .toolbarBackground(.visible, for: .tabBar)
+        .fullScreenCover(isPresented: $firstLaunchGuide.isPresented) {
+            FirstLaunchGuideView {
+                firstLaunchGuide.dismissFinished()
+            }
+        }
+        .onAppear {
+            firstLaunchGuide.presentIfNeededOnLaunch()
+        }
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(FirstLaunchGuidePresenter(store: FirstLaunchGuideStore()))
         .modelContainer(previewContainer)
 }
 

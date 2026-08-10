@@ -1,19 +1,19 @@
 # Tasks
 
 ## Status
-Phase 58 — Connect IAP Setup & Screenshot Execution Guide complete.  
-Docs-only owner package. Manual Connect/screenshots/TestFlight/archive gates remain **Needs user action / Not started**.
+Phase 59 — First Launch Welcome & Walkthrough complete.  
+308 tests Passed; build Passed on iPhone 16e.
 
 ## Current Phase
-Phase 58 complete.
+Phase 59 complete.
 
 ## Done
-- Phases 1–57
-- Phase 58: expanded `SHAWN_NEXT_RELEASE_STEPS.md`; tightened `APP_STORE_PREP.md` + Connect checklist; honest gates
+- Phases 1–58
+- Phase 59: branded welcome after system launch screen; 7-step guide; Skip; Settings replay; offline/VoiceOver/Dynamic Type
 
 ## Next (Shawn)
-Follow `SHAWN_NEXT_RELEASE_STEPS.md` §A–B (Connect IAP), then §C (screenshots).  
-Do not ask the agent to mark Connect/TestFlight/archive Passed without proof.
+- Manual QA: cold launch shows guide once; Skip; replay from Settings → Help  
+- Continue release: `SHAWN_NEXT_RELEASE_STEPS.md` (Connect IAP / screenshots)
 
 ## Do Not Do
-- Fake gate Passes; new features; Direct Upload; AI; auto-bump version without approval
+- Fake gate Passes; Direct Upload; AI; auto-bump version without approval

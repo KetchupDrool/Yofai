@@ -8,6 +8,7 @@ enum AppStoreLinks {
 }
 
 struct SettingsView: View {
+    @EnvironmentObject private var firstLaunchGuide: FirstLaunchGuidePresenter
     @StateObject private var etsyConnection = StubEtsyConnectionService()
 
     var body: some View {
@@ -21,6 +22,29 @@ struct SettingsView: View {
 
                 SellerDefaultsSettingsSection()
                     .listRowBackground(settingsRowBackground)
+
+                Section {
+                    Button {
+                        firstLaunchGuide.presentReplay()
+                    } label: {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(FirstLaunchGuideCopy.replayFromSettingsTitle)
+                                .foregroundStyle(DarkroomTheme.textPrimary)
+                            Text(FirstLaunchGuideCopy.replayFromSettingsDetail)
+                                .font(.footnote)
+                                .foregroundStyle(DarkroomTheme.textSecondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                    .accessibilityLabel(FirstLaunchGuideCopy.replayFromSettingsTitle)
+                    .accessibilityHint(FirstLaunchGuideCopy.replayFromSettingsDetail)
+                } header: {
+                    Text("Help")
+                        .font(.caption2.weight(.bold))
+                        .tracking(1.0)
+                        .foregroundStyle(DarkroomTheme.textTertiary)
+                }
+                .listRowBackground(settingsRowBackground)
 
                 Section {
                     LabeledContent("App", value: "Yofai")
@@ -91,6 +115,7 @@ struct SettingsView: View {
 
 #Preview("Settings") {
     SettingsView()
+        .environmentObject(FirstLaunchGuidePresenter(store: FirstLaunchGuideStore()))
 }
 
 #Preview("Etsy Mock Connected") {

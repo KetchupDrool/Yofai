@@ -18,12 +18,25 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.shawnwright.yofai.etsy-oauth</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>yofai</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Yofai saves a listing-ready photo copy to Photos only when you choose Save Listing Copy. Photos stay on your device.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Yofai uses the camera to capture product photos into your local Item Project for on-device prep and local JPEG export.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Yofai saves a listing-ready photo copy to Photos only when you choose Save Listing Copy. Photos stay on your device.</string>
 	<key>UIApplicationSceneManifest_Generation</key>
 	<true/>
 	<key>UILaunchScreen</key>
@@ -38,19 +51,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>com.shawnwright.yofai.etsy-oauth</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>yofai</string>
-			</array>
-		</dict>
 	</array>
 </dict>
 </plist>

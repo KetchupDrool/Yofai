@@ -396,6 +396,14 @@
 - Version remains **1.0 (1)** — build bump still required before archive
 - No new product features; no Direct Upload; no AI; no StoreKit ID/price changes; no archive/upload
 
+## Phase 59 — First Launch Welcome & Walkthrough (locked)
+- System launch screen stays simple (`UILaunchScreen` + LaunchMark)
+- After open: branded welcome + short animation; Skip always; Get Started / Continue / Done
+- 7 guided steps: Start Product → Add Photos → Photo Check → Edit/Fit → Export Local JPEGs → Export History → Yofai Pro
+- First launch only (UserDefaults); replay from Settings → Help
+- Offline; VoiceOver + Dynamic Type; no AI / Direct Upload / fake Pro success / publish claims
+- Free core local export unchanged; StoreKit IDs / presets unchanged
+
 ## Future StoreKit follow-ups (manual / not claimed done)
 - Create/verify subscription group + products in App Store Connect (user sign-off)
 - Fill `TESTFLIGHT_PURCHASE_VERIFICATION.md` with real Pass results
