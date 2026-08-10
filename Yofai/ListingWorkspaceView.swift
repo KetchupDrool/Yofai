@@ -80,8 +80,9 @@ struct ListingWorkspaceView: View {
                     exportStatusMessage = "Settings ready for Export Again. Photo edits unchanged — tap Export Photos to export."
                     exportStatusIsError = false
                 },
-                onShare: { batch in
-                    shareBatchItem = ShareBatchItem(urls: batch.fileURLs)
+                onShare: { batch, includeNote in
+                    let caption = LocalExportShareSupport.shareCaption(for: batch, includeNote: includeNote)
+                    shareBatchItem = ShareBatchItem(urls: batch.fileURLs, caption: caption)
                 },
                 onDelete: { batch in
                     LocalEditStore.deleteExportBatchFolder(folderName: batch.batchFolderName)
@@ -112,10 +113,10 @@ struct ListingWorkspaceView: View {
             exportScrollTarget = nil
         }
         .sheet(item: $shareBatchItem) { item in
-            ActivityShareView(items: item.urls)
+            ActivityShareView(items: item.activityItems)
         }
         .sheet(item: $sharePackageItem) { item in
-            ActivityShareView(items: item.urls)
+            ActivityShareView(items: item.activityItems)
         }
         .sheet(item: $noteEditorBatch) { batch in
             ExportBatchNoteEditor(batch: batch)
@@ -406,11 +407,12 @@ struct ListingWorkspaceView: View {
                         .foregroundStyle(DarkroomTheme.textSecondary)
                     HStack(spacing: 16) {
                         if package.hasShareableFiles {
-                            Button("Share Package") {
+                            Button(LocalExportShareSupport.shareExportedPhotosTitle) {
                                 sharePackageItem = ShareBatchItem(urls: package.fileURLs)
                             }
                             .font(.caption.weight(.semibold))
                             .foregroundStyle(DarkroomTheme.accent)
+                            .accessibilityLabel(LocalExportShareSupport.shareExportedPhotosTitle)
                         }
                         Button("Delete Package", role: .destructive) {
                             packageToDelete = package
@@ -424,7 +426,7 @@ struct ListingWorkspaceView: View {
             Text("Listing Package")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
-            Text("Requires a successful Export Listing Images batch first. Packages are separate from export batches and source photos.")
+            Text("Requires a successful local export batch first. Packages are shareable local JPEGs for manual upload — separate from export batches and source photos.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)
@@ -453,10 +455,41 @@ struct ListingWorkspaceView: View {
                 .fixedSize(horizontal: false, vertical: true)
 
             if let newestSuccessfulBatch, newestSuccessfulBatch.hasShareableFiles {
-                Button("Share Newest Export") {
+                Button(LocalExportShareSupport.shareExportedPhotosTitle) {
                     shareBatchItem = ShareBatchItem(urls: newestSuccessfulBatch.fileURLs)
                 }
                 .foregroundStyle(DarkroomTheme.accent)
+                .accessibilityLabel(LocalExportShareSupport.shareExportedPhotosTitle)
+
+                Text(LocalExportShareSupport.packageSummaryLine(for: newestSuccessfulBatch))
+                    .font(.caption2)
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                if newestSuccessfulBatch.hasSellerNote {
+                    Button(LocalExportShareSupport.shareWithNoteTitle) {
+                        let caption = LocalExportShareSupport.shareCaption(
+                            for: newestSuccessfulBatch,
+                            includeNote: true
+                        )
+                        shareBatchItem = ShareBatchItem(
+                            urls: newestSuccessfulBatch.fileURLs,
+                            caption: caption
+                        )
+                    }
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(DarkroomTheme.accent)
+
+                    Button(LocalExportShareSupport.copyExportNoteTitle) {
+                        if let text = LocalExportShareSupport.copyableNoteText(for: newestSuccessfulBatch) {
+                            UIPasteboard.general.string = text
+                            exportStatusMessage = "Export note copied."
+                            exportStatusIsError = false
+                        }
+                    }
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(DarkroomTheme.accent)
+                }
             }
 
             if let exportStatusMessage {

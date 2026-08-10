@@ -108,23 +108,11 @@ final class ProjectExportBatch {
     }
 
     var exportedForLine: String {
-        if marketplaceTargetRaw.isEmpty {
-            return "Exported locally"
-        }
-        return "Exported for \(recordedMarketplaceTarget.displayTitle)"
+        LocalExportShareSupport.exportedForPhrase(for: self)
     }
 
     var resultSummaryText: String {
-        var lines = [
-            "Exported \(photoCountLabel)",
-            recordedMarketplaceTarget.displayTitle,
-            pixelSizeLabel,
-            recordedFitMode.displayTitle
-        ]
-        if watermarkEnabled {
-            lines.append("Watermark on")
-        }
-        return lines.joined(separator: "\n")
+        LocalExportShareSupport.resultSummaryText(for: self)
     }
 
     /// Creates a history row only for successful exports. Captures project export settings at export time.

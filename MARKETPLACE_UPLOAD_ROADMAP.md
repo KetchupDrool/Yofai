@@ -12,7 +12,7 @@ Yofai today:
 - Records local export history on `ProjectExportBatch` (“exported for”, never “published”)
 - Keeps marketplace **target** separate from export **canvas**
 - Supports optional local export notes (`sellerNote`)
-- Shares files via the system Share sheet only
+- Shares files via the system Share sheet only (optional note may accompany as share text / Copy Export Note — not marketplace caption upload)
 - Does **not** authenticate live marketplace accounts for upload
 - Does **not** call marketplace upload APIs
 - Does **not** upload images or publish listings

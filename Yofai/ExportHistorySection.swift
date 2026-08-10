@@ -1,15 +1,18 @@
 import SwiftUI
+import UIKit
 
-/// Phase 40/41/44 — local export history with marketplace filters, compare, and optional notes.
+/// Phase 40/41/44/46 — local export history with filters, compare, notes, and share polish.
 struct ExportHistorySection: View {
     @Bindable var project: ItemProject
     var onUseSettings: (ProjectExportBatch) -> Void
     var onExportAgain: ((ProjectExportBatch) -> Void)?
-    var onShare: ((ProjectExportBatch) -> Void)?
+    /// Second argument: include export note as optional share caption (off unless true).
+    var onShare: ((ProjectExportBatch, Bool) -> Void)?
     var onDelete: ((ProjectExportBatch) -> Void)?
 
     @State private var selectedFilter: ExportHistoryFilter = .all
     @State private var batchForNote: ProjectExportBatch?
+    @State private var noteCopiedMessage: String?
 
     private var allBatches: [ProjectExportBatch] {
         ExportHistorySupport.completedBatches(in: project)
@@ -66,12 +69,18 @@ struct ExportHistorySection: View {
                         historyRow(batch)
                     }
                 }
+
+                if let noteCopiedMessage {
+                    Text(noteCopiedMessage)
+                        .font(.caption2)
+                        .foregroundStyle(DarkroomTheme.accent)
+                }
             }
         } header: {
             Text("Export History")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
-            Text("Local only. Filter and compare use saved export details — not photo pixels, and not publish status. Notes are optional reminders. Deleting a row removes that export folder only, not your product photos.")
+            Text("Local only. Share local JPEGs for manual upload — not publish status. Filter and compare use saved export details. Notes are optional reminders. Deleting a row removes that export folder only, not your product photos.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .onChange(of: availableFilters) { _, filters in
@@ -129,21 +138,27 @@ struct ExportHistorySection: View {
             Text(batch.historyPrimaryLine)
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(DarkroomTheme.textPrimary)
-            Text(batch.exportedForLine)
+                .accessibilityLabel("\(batch.exportedForLine). \(batch.historyPrimaryLine)")
+            Text(batch.historySecondaryLine)
                 .font(.caption)
                 .foregroundStyle(DarkroomTheme.textSecondary)
-            Text(batch.historySecondaryLine)
-                .font(.caption2)
-                .foregroundStyle(DarkroomTheme.textTertiary)
 
-            if let note = batch.sellerNoteDisplayLine {
-                Text(note)
+            if let noteLine = batch.historyNoteLine {
+                Text(noteLine)
                     .font(.caption)
                     .foregroundStyle(DarkroomTheme.textTertiary)
                     .fixedSize(horizontal: false, vertical: true)
-                    .accessibilityLabel("Export note: \(note)")
+                    .accessibilityLabel(noteLine)
             }
 
+            actionsRow(batch)
+        }
+        .padding(.vertical, 2)
+    }
+
+    @ViewBuilder
+    private func actionsRow(_ batch: ProjectExportBatch) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 12) {
                 Button("Use These Export Settings") {
                     onUseSettings(batch)
@@ -165,13 +180,35 @@ struct ExportHistorySection: View {
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(DarkroomTheme.accent)
                 .accessibilityLabel(batch.hasSellerNote ? "Edit Note" : "Add Note")
+            }
 
+            HStack(spacing: 12) {
                 if let onShare, batch.hasShareableFiles {
-                    Button("Share") {
-                        onShare(batch)
+                    Button(LocalExportShareSupport.shareExportedPhotosTitle) {
+                        onShare(batch, false)
                     }
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(DarkroomTheme.accent)
+                    .accessibilityLabel(LocalExportShareSupport.shareExportedPhotosTitle)
+
+                    if batch.hasSellerNote {
+                        Button(LocalExportShareSupport.shareWithNoteTitle) {
+                            onShare(batch, true)
+                        }
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(DarkroomTheme.accent)
+                        .accessibilityLabel(LocalExportShareSupport.shareWithNoteTitle)
+
+                        Button(LocalExportShareSupport.copyExportNoteTitle) {
+                            if let text = LocalExportShareSupport.copyableNoteText(for: batch) {
+                                UIPasteboard.general.string = text
+                                noteCopiedMessage = "Export note copied."
+                            }
+                        }
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(DarkroomTheme.accent)
+                        .accessibilityLabel(LocalExportShareSupport.copyExportNoteTitle)
+                    }
                 }
 
                 if let onDelete {
@@ -182,6 +219,5 @@ struct ExportHistorySection: View {
                 }
             }
         }
-        .padding(.vertical, 2)
     }
 }

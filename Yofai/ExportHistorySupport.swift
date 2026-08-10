@@ -156,29 +156,28 @@ struct ExportHistoryComparison: Equatable {
 }
 
 extension ProjectExportBatch {
-    /// Primary history row line: marketplace + canvas (destination and size stay distinct).
+    /// Primary history row line: marketplace + canvas + count (destination and size stay distinct).
     var historyPrimaryLine: String {
-        let market: String
-        if marketplaceTargetRaw.isEmpty {
-            market = "Earlier export"
-        } else {
-            market = recordedMarketplaceTarget.displayTitle
-        }
-        return "\(market) • \(pixelSizeLabel)"
+        "\(LocalExportShareSupport.marketplaceLabel(for: self)) • \(pixelSizeLabel) • \(photoCountLabel)"
     }
 
     var historySecondaryLine: String {
         let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .short
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
         var parts = [
-            formatter.string(from: createdAt),
-            photoCountLabel,
+            "Exported \(formatter.string(from: createdAt))",
             recordedFitMode.displayTitle
         ]
         if watermarkEnabled {
             parts.append("Watermark")
         }
+        parts.append(LocalExportShareSupport.localJPEGsLabel)
         return parts.joined(separator: " · ")
+    }
+
+    var historyNoteLine: String? {
+        guard let note = sellerNoteDisplayLine else { return nil }
+        return "Note: \(note)"
     }
 }

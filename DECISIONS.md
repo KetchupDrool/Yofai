@@ -293,6 +293,15 @@
 - Minimal code: `YofaiProductMode.current == .localExport`; queue empty-state copy no longer implies “future Etsy upload”
 - UI language remains “exported for” / local export — not publish/upload status
 
+## Phase 46 — Local Export Share Polish (locked)
+- Seller-facing share/package wording: local JPEGs, exported for, manual upload — never published/uploaded/Direct Upload claims
+- Post-export summary: marketplace, canvas, fit, watermark, manual upload, optional note line
+- History rows: marketplace • canvas • count; Exported date · fit · Local JPEGs; Note when present
+- Optional Share with Note prepends note text to the system share sheet activity items (off by default); Copy Export Note for pasteboard
+- Does not embed notes into JPEG pixels; does not mutate export settings when sharing/copying note
+- ShareBatchItem gains optional `caption` only; sheet still uses ActivityShareView
+- No marketplace upload, OAuth, publish status, or Direct Upload Mode
+
 ## Future capability (approved direction — not next work)
 May be added later where they support the product; core photo preparation remains local-first/on-device:
 - Backend services

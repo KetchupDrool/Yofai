@@ -96,8 +96,9 @@ struct ProjectDetailView: View {
                     exportStatusMessage = "Settings ready for Export Again. Photo edits unchanged — tap Export Photos to export."
                     exportStatusIsError = false
                 },
-                onShare: { batch in
-                    shareBatchItem = ShareBatchItem(urls: batch.fileURLs)
+                onShare: { batch, includeNote in
+                    let caption = LocalExportShareSupport.shareCaption(for: batch, includeNote: includeNote)
+                    shareBatchItem = ShareBatchItem(urls: batch.fileURLs, caption: caption)
                 },
                 onDelete: { batch in
                     batchToDelete = batch
@@ -254,7 +255,7 @@ struct ProjectDetailView: View {
             Text("Removes only this export batch’s JPEG files. Project photos stay.")
         }
         .sheet(item: $shareBatchItem) { item in
-            ActivityShareView(items: item.urls)
+            ActivityShareView(items: item.activityItems)
         }
         .sheet(item: $noteEditorBatch) { batch in
             ExportBatchNoteEditor(batch: batch)
@@ -500,6 +501,47 @@ struct ProjectDetailView: View {
             }
 
             if let recentlyExportedBatch, !exportStatusIsError {
+                if recentlyExportedBatch.hasShareableFiles {
+                    Button(LocalExportShareSupport.shareExportedPhotosTitle) {
+                        shareBatchItem = ShareBatchItem(urls: recentlyExportedBatch.fileURLs)
+                    }
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(DarkroomTheme.accent)
+                    .accessibilityLabel(LocalExportShareSupport.shareExportedPhotosTitle)
+
+                    Text(LocalExportShareSupport.packageSummaryLine(for: recentlyExportedBatch))
+                        .font(.caption2)
+                        .foregroundStyle(DarkroomTheme.textTertiary)
+                        .fixedSize(horizontal: false, vertical: true)
+
+                    if recentlyExportedBatch.hasSellerNote {
+                        Button(LocalExportShareSupport.shareWithNoteTitle) {
+                            let caption = LocalExportShareSupport.shareCaption(
+                                for: recentlyExportedBatch,
+                                includeNote: true
+                            )
+                            shareBatchItem = ShareBatchItem(
+                                urls: recentlyExportedBatch.fileURLs,
+                                caption: caption
+                            )
+                        }
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(DarkroomTheme.accent)
+                        .accessibilityLabel(LocalExportShareSupport.shareWithNoteTitle)
+
+                        Button(LocalExportShareSupport.copyExportNoteTitle) {
+                            if let text = LocalExportShareSupport.copyableNoteText(for: recentlyExportedBatch) {
+                                UIPasteboard.general.string = text
+                                exportStatusMessage = "Export note copied."
+                                exportStatusIsError = false
+                            }
+                        }
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(DarkroomTheme.accent)
+                        .accessibilityLabel(LocalExportShareSupport.copyExportNoteTitle)
+                    }
+                }
+
                 Button(recentlyExportedBatch.hasSellerNote ? "Edit Note" : "Add Note") {
                     noteEditorBatch = recentlyExportedBatch
                 }
@@ -511,7 +553,7 @@ struct ProjectDetailView: View {
             Text("Export")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
-            Text("Saves ordered JPEGs under ExportBatches only. Does not change project photos, Originals, or edit History.")
+            Text("Saves ordered local JPEGs under ExportBatches for manual upload. Does not change project photos, Originals, or edit History. Does not publish to a marketplace.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)

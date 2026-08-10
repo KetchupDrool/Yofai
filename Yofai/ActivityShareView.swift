@@ -13,13 +13,30 @@ struct ShareFileItem: Identifiable, Equatable {
 }
 
 /// Multi-file share payload for export batches (actual JPEG file URLs).
+/// Optional caption is share text only — never embeds into image pixels or uploads to a marketplace.
 struct ShareBatchItem: Identifiable, Equatable {
     let id: UUID
     let urls: [URL]
+    /// Optional local reference text (e.g. export note). Off unless explicitly provided.
+    let caption: String?
 
-    init(urls: [URL]) {
+    init(urls: [URL], caption: String? = nil) {
         self.id = UUID()
         self.urls = urls
+        self.caption = {
+            guard let caption else { return nil }
+            let trimmed = caption.trimmingCharacters(in: .whitespacesAndNewlines)
+            return trimmed.isEmpty ? nil : trimmed
+        }()
+    }
+
+    var activityItems: [Any] {
+        var items: [Any] = []
+        if let caption {
+            items.append(caption)
+        }
+        items.append(contentsOf: urls)
+        return items
     }
 }
 
