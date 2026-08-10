@@ -80,7 +80,7 @@ Continue Yofai iOS work.
 
 Read NEW_CHAT_HANDOFF.md, DECISIONS.md (Phase 64 + “Why marketplace APIs are not being done yet”), and SESSION_HANDOFF.md first.
 
-Baseline: main after Phase 64. 354 tests. Local Export Mode only.
+Baseline: main @ 09c39dc (Phase 64). 354 tests. Local Export Mode only.
 Free primary ItemProject workflow + SellerDefaults intact. Pro multi-draft / copy / templates / polish via advancedMultiMarketTools.
 APIs / Direct Upload / OAuth / publish are not next unless explicitly approved.
 
