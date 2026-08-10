@@ -11,14 +11,11 @@ Repo: `/Volumes/CombatMedic/Yofai` · branch `main`
 ## Current baseline
 Latest commit on `main`:
 
-*(set after Phase 63 push — see `git log -1`)*
-
-Phase 63 implementation commit message:
-
-*Phase 63 marketplace templates defaults*
+`db43a4dec35a3f3f4d3672bb042807dcc40a8c3a` — *Phase 63 marketplace templates defaults*
 
 Status:
 - Phase 63 complete; APIs still later
+- `origin/main` up to date · working tree clean (verify with `git status`)
 - **341 tests passed** · build succeeded · iPhone 16e
 - Version **1.0 (1)** — do not auto-bump
 
@@ -53,7 +50,7 @@ Do **not** put Free primary workflow behind Pro.
 `af7879f` — draft listing-text copy/share; Free primary `ListingPackage` unchanged; 10 Phase 62 tests.
 
 ### Phase 63 — Marketplace Templates/Defaults
-`MarketplaceTemplateDefaults` UserDefaults store + draft Save/Apply blank/Clear + Settings status; Free SellerDefaults preserved; 11 Phase 63 tests; 341 total.
+`db43a4d` — `MarketplaceTemplateDefaults` UserDefaults store + draft Save/Apply blank/Clear + Settings status; Free SellerDefaults preserved; 11 Phase 63 tests; 341 total.
 
 ### API-later docs
 `4d31f8c` — locked why APIs wait; safe order 62→63→64→later one official API.
@@ -80,7 +77,7 @@ Continue Yofai iOS work.
 
 Read NEW_CHAT_HANDOFF.md, DECISIONS.md (Phase 63 + “Why marketplace APIs are not being done yet”), and SESSION_HANDOFF.md first.
 
-Baseline: main after Phase 63. 341 tests. Local Export Mode only.
+Baseline: main @ db43a4d (Phase 63). 341 tests. Local Export Mode only.
 Free primary ItemProject workflow + SellerDefaults intact. Pro multi-draft / copy / templates via advancedMultiMarketTools.
 APIs / Direct Upload / OAuth / publish are not next.
 
