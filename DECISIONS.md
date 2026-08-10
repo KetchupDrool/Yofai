@@ -426,6 +426,37 @@
 - Manual listing packages only — no Direct Upload / login / OAuth / publish / API / AI
 - Tests: Phase 61 suite + Phase 27 entry-point update for additive draft model
 
+## Why marketplace APIs are not being done yet (locked)
+**Short answer:** APIs are not next because Yofai must first be a strong **local** marketplace listing prep app. Phase 61 only added local drafts. Direct Upload / OAuth / publish stay future work until the local workflow is finished and a specific official API is approved.
+
+**Current state**
+- Local Export Mode only
+- Free: primary listing workflow on `ItemProject`
+- Pro: multiple local `MarketplaceListingDraft`s via `advancedMultiMarketTools`
+- No Direct Upload, login, OAuth, publish, or marketplace API code
+
+**Why API work is later**
+1. Local create → edit → copy → package → export → re-share must be reliable first
+2. Each marketplace has its own API (or none) — not one shared integration
+3. Official APIs need external setup (developer account, keys, OAuth redirects, privacy/terms, sandbox, review/partner approval)
+4. Do not assume Facebook Marketplace, Mercari, or Poshmark third-party upload exists until verified
+5. Wrong approaches (browser automation, scraping, password storage, unofficial APIs, fake upload) create App Store and account risk
+6. When an API phase is approved, walk Shawn through that marketplace’s setup **one step at a time**
+
+**Safe build order (local-first; each step needs approval)**
+- Phase 61: Local marketplace drafts — **complete**
+- Phase 62: Draft-aware listing packages and copy tools
+- Phase 63: Marketplace-specific templates/defaults
+- Phase 64: Pro multi-market workflow polish
+- Later API phase: pick **one** official marketplace (likely Etsy or eBay first), verify access, then implement only after approval
+
+**Do not start API integration until**
+- Exact marketplace is approved
+- Official API access is verified
+- Required external setup is done
+- Local workflow is stable
+- Integration needs no scraping, browser automation, password storage, or unofficial APIs
+
 ## Future StoreKit follow-ups (manual / not claimed done)
 - Create/verify subscription group + products in App Store Connect (user sign-off)
 - Fill `TESTFLIGHT_PURCHASE_VERIFICATION.md` with real Pass results

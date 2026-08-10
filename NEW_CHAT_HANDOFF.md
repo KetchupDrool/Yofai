@@ -2,29 +2,30 @@
 
 ## App
 Yofai · `com.shawnwright.yofai` · iPhone · `/Volumes/CombatMedic/Yofai` · `main`  
-Date: 2026-08-10 · HEAD after Phase 61 closeout
+Date: 2026-08-10 · after Phase 61 + API-later decision docs
 
 ## Baseline
-- Phase 61: additive marketplace listing drafts; Free primary workflow intact; Pro multi-draft gated
-- 320 tests Passed on iPhone 16e
-- Manual release gates still open
-- Version **1.0 (1)**
+- Phase 61: local `MarketplaceListingDraft`; Free primary intact; Pro multi-draft gated
+- **APIs not in progress** — local marketplace prep first (`DECISIONS.md`)
+- 320 tests Passed on iPhone 16e · Version **1.0 (1)**
+- Manual App Store gates still open
 
 ## Start here
-1. `DECISIONS.md` (Phase 60–61)  
+1. `DECISIONS.md` — Phase 60–61 + **Why marketplace APIs are not being done yet**  
 2. `SESSION_HANDOFF.md`  
-3. `SHAWN_NEXT_RELEASE_STEPS.md`
+3. `TASKS.md` / `SHAWN_NEXT_RELEASE_STEPS.md`
 
 ## First prompt
 
 ```text
 Continue Yofai iOS work.
 
-Read DECISIONS.md Phase 60–61 and SESSION_HANDOFF.md first.
+Read DECISIONS.md (Phase 61 + “Why marketplace APIs are not being done yet”) and SESSION_HANDOFF.md first.
 
-Status: Phase 61 done. MarketplaceListingDraft is additive/local-only. Free primary ItemProject listing workflow remains. Pro multi-draft uses advancedMultiMarketTools.
+Status: Phase 61 done. Local Export Mode only. No Direct Upload / OAuth / marketplace API work.
+Next local candidate when approved: Phase 62 draft-aware packages and copy tools.
 Work in /Volumes/CombatMedic/Yofai on main. Unit tests on iPhone 16e only.
 
-Do not add Direct Upload, login, OAuth, publish, AI, or invented FB/Mercari presets.
-Do not start a new phase unless approved.
+Do not start marketplace API integration unless the exact marketplace is approved and official access is verified.
+Do not use scraping, browser automation, password storage, or unofficial APIs.
 ```
