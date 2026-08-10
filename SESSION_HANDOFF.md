@@ -1,7 +1,7 @@
 # Session Handoff
 
 ## Status
-Phase 38 complete — Fill + Crop Reposition. Build + unit tests succeeded on iPhone 16e (153 tests). App Store upload paused.
+Phase 39 complete — Marketplace Export Expansion. Build + unit tests succeeded on iPhone 16e (172 tests). App Store upload paused.
 
 ## Product purpose
 Local-first marketplace product photo preparation for online sellers.
@@ -10,14 +10,14 @@ Export targets only: Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and si
 
 ## Facts
 - Yofai / `com.shawnwright.yofai` / iPhone-only
-- Phase 38: Fill + Crop supports per-photo drag reposition; default centered; Contain + Pad unchanged
-- Seven export preset raw values/sizes unchanged
+- Phase 39: Marketplace target ≠ export canvas; no new named FB Marketplace / Mercari pixel presets (research 2026-08-09)
+- Seven export preset raw values/sizes unchanged; Fill + Crop reposition preserved
 - Not marketplace compliance claims
 - Git: `/Volumes/CombatMedic/Yofai` on `main`
 
 ## Last Completed
-- `fillCropOffsetX` / `fillCropOffsetY` on PhotoEditState; `ListingExportFillCropPosition`; `FillCropRepositionView`
-- Phase38FillCropRepositionTests; Phases 1–37 still pass (153 total)
+- `MarketplaceTarget`, `ExportReadiness`, `MarketplaceExportSettingsBlock`, `ExportPreviewCard`
+- Phase39MarketplaceExportExpansionTests (19); total 172
 
 ## Abandoned from the active roadmap
 - Paid/live AI APIs
@@ -28,7 +28,7 @@ Export targets only: Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, and si
 Backend, accounts, cloud sync, subscriptions, ads may be added later where they support the product; core photo prep stays local-first/on-device.
 
 ## Next Recommended
-Facebook Marketplace / Mercari named presets only with verified canvases. Do not default to live AI, OAuth, or upload.
+Only add FB Marketplace / Mercari named presets if first-party exact canvases appear. Otherwise continue local seller polish. Do not default to live AI, OAuth, or upload.
 
 ## Rules
 - Core photo preparation: local-first/on-device

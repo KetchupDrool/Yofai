@@ -482,6 +482,18 @@ struct PhotoCheckView: View {
                     }()
                 )
                 labeled("Framing expectation", facts.framingExpectation ?? "Unavailable")
+                if facts.exportFitMode == .fillCrop {
+                    labeled(
+                        "Crop position",
+                        {
+                            switch facts.fillCropPositionAdjusted {
+                            case true: return "Adjusted"
+                            case false: return "Centered"
+                            case nil: return "Unavailable"
+                            }
+                        }()
+                    )
+                }
             } header: {
                 Text("Export Canvas (Local)")
             } footer: {

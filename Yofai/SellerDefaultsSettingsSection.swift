@@ -29,7 +29,26 @@ struct SellerDefaultsSettingsSection: View {
             TextField("Return policy text", text: $defaults.returnPolicy, axis: .vertical)
                 .lineLimit(2...5)
 
-            Picker("Export preset", selection: Binding(
+            Picker("Marketplace", selection: Binding(
+                get: { defaults.marketplaceTarget },
+                set: { newValue in
+                    defaults.marketplaceTarget = newValue
+                    if let recommended = newValue.recommendedExportPreset {
+                        defaults.exportPreset = recommended
+                    }
+                }
+            )) {
+                ForEach(MarketplaceTarget.allCases) { target in
+                    Text(target.displayTitle).tag(target)
+                }
+            }
+
+            Text(defaults.marketplaceTarget.canvasGuidance)
+                .font(.caption2)
+                .foregroundStyle(DarkroomTheme.textTertiary)
+                .fixedSize(horizontal: false, vertical: true)
+
+            Picker("Export size", selection: Binding(
                 get: { defaults.exportPreset },
                 set: { defaults.exportPreset = $0 }
             )) {

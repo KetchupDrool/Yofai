@@ -212,6 +212,21 @@
 - Bulk Edit may optionally copy “Fill crop position”; fit mode copy does not force positions
 - All 7 preset sizes/raw values unchanged
 
+## Phase 39 — Marketplace Export Expansion (locked)
+- Separates **Marketplace target** (where the listing is headed) from **Export size** (pixel canvas authority)
+- Marketplace targets: Etsy, eBay, Poshmark, Facebook Marketplace, Mercari, Other / General
+- Verified targets may recommend existing canvases only: Etsy → Etsy square; eBay → eBay 1600×1600; Poshmark → Poshmark 1000×1000
+- **No new named pixel presets added in Phase 39**
+- Research (checked 2026-08-09):
+  - **Facebook Marketplace:** Meta Ads Guide Marketplace image placement recommends ratio 1:1 and resolution “at least 1080 × 1080” for **ads** — a minimum, not an exact organic listing export canvas. No first-party exact seller-listing pixel canvas found → **no named FB Marketplace preset**
+  - **Mercari:** Mercari US Help does not publish an exact listing pixel size; third-party/community sizes conflict; JP Mercari column soft-suggests ~720×720 (“程度”) — not treated as a defensible US exact canvas → **no named Mercari preset**
+- Guidance layer explains when no fixed verified Yofai canvas exists; sellers choose general canvases (e.g. Square 1600 / Instagram square)
+- Persistence: `listingMarketplaceTargetRaw` on `ItemProject`; `marketplaceTargetRaw` on Seller Defaults; missing → Other / General; never stores Phase 38 offsets globally
+- Export readiness summary (Ready / Review / Needs Attention): deterministic local facts only; never blocks export; never claims compliance
+- Seller workspace: Marketplace → Export size → Fit → Photo check → Export readiness → Preview (`ImageEditing.renderPreview`) → Export Photos
+- Marketplace quick switch changes export-level settings only; preserves per-photo edits and Fill + Crop offsets
+- All existing 7 preset raw values and dimensions unchanged; Phase 37/38 behavior preserved
+
 ## Future capability (approved direction — not next work)
 May be added later where they support the product; core photo preparation remains local-first/on-device:
 - Backend services

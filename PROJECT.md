@@ -47,10 +47,11 @@ Home → Start / Continue Product → Item Project → Capture & Check Photos �
 Import, Originals, and History remain available as secondary tools.
 
 ## Status
-- Phases 1–38 technical history complete (see `DECISIONS.md`)
+- Phases 1–39 technical history complete (see `DECISIONS.md`)
+- Marketplace target (destination) is separate from export size (pixel canvas)
 - Export fit modes: Contain + Pad (default) and Fill + Crop with optional per-photo reposition
 - Verified local export canvases include Etsy sizes, eBay 1600×1600, Poshmark 1000×1000 (recommended; not compliance claims)
-- Facebook Marketplace and Mercari named pixel presets deferred until verified
+- Facebook Marketplace and Mercari intentionally have no named Yofai pixel presets until an exact first-party canvas is verified
 - App Store upload remains paused
 - Old framing (“general photo editor MVP within 6 days”) is no longer the main goal
 

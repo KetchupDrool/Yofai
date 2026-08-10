@@ -151,6 +151,8 @@ struct PhotoTechnicalFacts: Equatable {
     var sourceAspectDiffersFromCanvas: Bool?
     /// Local framing expectation when aspect differs (nil if unavailable or aspect matches).
     var framingExpectation: String?
+    /// Phase 39 — Fill + Crop position differs from center (nil when not Fill + Crop / unavailable).
+    var fillCropPositionAdjusted: Bool?
 }
 
 enum PhotoTechnicalCheck {
@@ -193,6 +195,14 @@ enum PhotoTechnicalCheck {
             framingExpectation = nil
         }
 
+        let fillCropAdjusted: Bool?
+        if fitMode == .fillCrop {
+            let offsets = photo.savedEditState
+            fillCropAdjusted = offsets?.hasFillCropReposition ?? false
+        } else {
+            fillCropAdjusted = nil
+        }
+
         return PhotoTechnicalFacts(
             pixelWidth: width,
             pixelHeight: height,
@@ -208,7 +218,8 @@ enum PhotoTechnicalCheck {
             exportFitMode: fitMode,
             sourceSmallerThanExportCanvas: canvasCompare?.sourceSmaller,
             sourceAspectDiffersFromCanvas: canvasCompare?.aspectDiffers,
-            framingExpectation: framingExpectation
+            framingExpectation: framingExpectation,
+            fillCropPositionAdjusted: fillCropAdjusted
         )
     }
 

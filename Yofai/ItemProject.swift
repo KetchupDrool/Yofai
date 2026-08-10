@@ -65,6 +65,8 @@ final class ItemProject {
     var listingExportBackgroundRaw: String = ListingExportBackground.white.rawValue
     /// Phase 37 — missing/unknown values resolve to Contain + Pad.
     var listingExportFitModeRaw: String = ListingExportFitMode.containPad.rawValue
+    /// Phase 39 — marketplace destination (separate from pixel canvas). Missing → Other / General.
+    var listingMarketplaceTargetRaw: String = MarketplaceTarget.other.rawValue
     var listingWatermarkEnabled: Bool = false
     var listingWatermarkText: String = ""
 
@@ -96,6 +98,11 @@ final class ItemProject {
     var listingExportFitMode: ListingExportFitMode {
         get { ListingExportFitMode.resolved(rawValue: listingExportFitModeRaw) }
         set { listingExportFitModeRaw = newValue.rawValue }
+    }
+
+    var listingMarketplaceTarget: MarketplaceTarget {
+        get { MarketplaceTarget.resolved(rawValue: listingMarketplaceTargetRaw) }
+        set { listingMarketplaceTargetRaw = newValue.rawValue }
     }
 
     var sortedExportBatches: [ProjectExportBatch] {

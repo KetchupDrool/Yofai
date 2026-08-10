@@ -9,6 +9,7 @@ struct SellerDefaults: Equatable {
     var exportPresetRaw: String = ListingExportPreset.etsySquare.rawValue
     var exportBackgroundRaw: String = ListingExportBackground.white.rawValue
     var exportFitModeRaw: String = ListingExportFitMode.containPad.rawValue
+    var marketplaceTargetRaw: String = MarketplaceTarget.other.rawValue
     var watermarkText: String = ""
 
     // Phase 30 — safe reusable listing-information defaults only.
@@ -33,6 +34,11 @@ struct SellerDefaults: Equatable {
         set { exportFitModeRaw = newValue.rawValue }
     }
 
+    var marketplaceTarget: MarketplaceTarget {
+        get { MarketplaceTarget.resolved(rawValue: marketplaceTargetRaw) }
+        set { marketplaceTargetRaw = newValue.rawValue }
+    }
+
     var itemType: ListingItemType? {
         get { ListingItemType(rawValue: itemTypeRaw) }
         set { itemTypeRaw = newValue?.rawValue ?? "" }
@@ -50,6 +56,7 @@ struct SellerDefaults: Equatable {
             && exportPreset == .etsySquare
             && exportBackground == .white
             && exportFitMode == .containPad
+            && marketplaceTarget == .other
             && trimmedWatermarkText.isEmpty
             && itemTypeRaw.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
             && condition.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
@@ -67,6 +74,7 @@ struct SellerDefaults: Equatable {
         project.listingExportPreset = exportPreset
         project.listingExportBackground = exportBackground
         project.listingExportFitMode = exportFitMode
+        project.listingMarketplaceTarget = marketplaceTarget
         project.listingWatermarkText = String(trimmedWatermarkText.prefix(PhotoEditState.watermarkMaxLength))
         project.listingWatermarkEnabled = !project.listingWatermarkText.isEmpty
 
@@ -100,7 +108,7 @@ struct SellerDefaults: Equatable {
 extension SellerDefaults: Codable {
     enum CodingKeys: String, CodingKey {
         case category, materials, shippingProfile, processingTime
-        case exportPresetRaw, exportBackgroundRaw, exportFitModeRaw, watermarkText
+        case exportPresetRaw, exportBackgroundRaw, exportFitModeRaw, marketplaceTargetRaw, watermarkText
         case itemTypeRaw, condition, whoMadeIt, whenMade, returnPolicy
     }
 
@@ -116,6 +124,8 @@ extension SellerDefaults: Codable {
             ?? ListingExportBackground.white.rawValue
         exportFitModeRaw = try container.decodeIfPresent(String.self, forKey: .exportFitModeRaw)
             ?? ListingExportFitMode.containPad.rawValue
+        marketplaceTargetRaw = try container.decodeIfPresent(String.self, forKey: .marketplaceTargetRaw)
+            ?? MarketplaceTarget.other.rawValue
         watermarkText = try container.decodeIfPresent(String.self, forKey: .watermarkText) ?? ""
         itemTypeRaw = try container.decodeIfPresent(String.self, forKey: .itemTypeRaw) ?? ""
         condition = try container.decodeIfPresent(String.self, forKey: .condition) ?? ""
@@ -133,6 +143,7 @@ extension SellerDefaults: Codable {
         try container.encode(exportPresetRaw, forKey: .exportPresetRaw)
         try container.encode(exportBackgroundRaw, forKey: .exportBackgroundRaw)
         try container.encode(exportFitModeRaw, forKey: .exportFitModeRaw)
+        try container.encode(marketplaceTargetRaw, forKey: .marketplaceTargetRaw)
         try container.encode(watermarkText, forKey: .watermarkText)
         try container.encode(itemTypeRaw, forKey: .itemTypeRaw)
         try container.encode(condition, forKey: .condition)
@@ -191,6 +202,7 @@ extension ItemProject {
         copy.listingExportPresetRaw = listingExportPresetRaw
         copy.listingExportBackgroundRaw = listingExportBackgroundRaw
         copy.listingExportFitModeRaw = listingExportFitModeRaw
+        copy.listingMarketplaceTargetRaw = listingMarketplaceTargetRaw
         copy.listingWatermarkEnabled = listingWatermarkEnabled
         copy.listingWatermarkText = listingWatermarkText
 

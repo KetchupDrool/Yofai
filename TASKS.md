@@ -1,7 +1,7 @@
 # Tasks
 
 ## Status
-Phase 38 — Fill + Crop Reposition complete.
+Phase 39 — Marketplace Export Expansion complete.
 App Store upload remains paused.
 
 ## Product direction
@@ -10,18 +10,18 @@ Core functionality is local-first/on-device.
 Marketplaces (Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, similar) are **local export targets only**.
 
 ## Current Phase
-Phase 38 — Fill + Crop Reposition. Complete.
+Phase 39 — Marketplace Export Expansion. Complete.
 
 ## Done
-- MVP + Phases 4–37
-- Phase 38: per-photo Fill + Crop drag reposition (-1…1 offsets); Edit Reposition UI; tests
-- Build + unit tests succeeded on iPhone 16e (153 tests)
+- MVP + Phases 4–38
+- Phase 39: marketplace target vs export canvas; readiness; preview; FB/Mercari guidance without invented presets; tests
+- Build + unit tests succeeded on iPhone 16e (172 tests)
 
 ## Remaining Polish
 - Edit tools may scroll with Export + watermark
 
 ## Next (when explicitly approved)
-- Facebook Marketplace / Mercari named presets only after verified specific canvases are supplied
+- Named FB Marketplace / Mercari presets only if a first-party exact canvas is later verified
 - Do not treat live AI, OAuth, or marketplace upload as the default next step
 
 ## Abandoned from the active roadmap

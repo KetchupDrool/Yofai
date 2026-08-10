@@ -57,6 +57,7 @@ struct ListingWorkspaceView: View {
             aiAssistantSection
             productIntakeSection
             photosSection
+            MarketplaceExportSettingsBlock(project: project, showPreview: true)
             exportSection
             packageSection
             queueSection
@@ -411,11 +412,23 @@ struct ListingWorkspaceView: View {
                         Text("Exporting \(exportProgressCompleted)/\(max(exportProgressTotal, 1))…")
                     }
                 } else {
-                    Text("Export Listing Images")
+                    Text("Export Photos")
                         .foregroundStyle(DarkroomTheme.accent)
                 }
             }
             .disabled(isExporting || project.photoCount == 0)
+
+            if project.listingMarketplaceTarget.hasVerifiedYofaiCanvas == false {
+                Text("After this export, switch Marketplace above and Export Photos again for another target — photo edits stay.")
+                    .font(.caption2)
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+                    .fixedSize(horizontal: false, vertical: true)
+            } else {
+                Text("Need another marketplace? Switch Marketplace above, then Export Photos again. Photo edits stay.")
+                    .font(.caption2)
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
 
             if let newestSuccessfulBatch, newestSuccessfulBatch.hasShareableFiles {
                 Button("Share Newest Export Batch") {
@@ -430,7 +443,7 @@ struct ListingWorkspaceView: View {
                     .foregroundStyle(exportStatusIsError ? DarkroomTheme.danger : DarkroomTheme.accent)
             }
         } header: {
-            Text("Export Batch")
+            Text("Export")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)

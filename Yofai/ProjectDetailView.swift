@@ -420,82 +420,7 @@ struct ProjectDetailView: View {
 
     @ViewBuilder
     private var projectExportSettingsSection: some View {
-        Section {
-            Picker("Preset", selection: Binding(
-                get: { project.listingExportPreset },
-                set: {
-                    project.listingExportPreset = $0
-                    project.touchModified()
-                }
-            )) {
-                ForEach(ListingExportPresetGroup.allCases) { group in
-                    Section(group.rawValue) {
-                        ForEach(ListingExportPreset.presets(in: group)) { preset in
-                            Text(preset.pickerLabel).tag(preset)
-                        }
-                    }
-                }
-            }
-
-            Text(project.listingExportPreset.displaySubtitle)
-                .font(.caption)
-                .foregroundStyle(DarkroomTheme.textTertiary)
-
-            Picker("Fit mode", selection: Binding(
-                get: { project.listingExportFitMode },
-                set: {
-                    project.listingExportFitMode = $0
-                    project.touchModified()
-                }
-            )) {
-                ForEach(ListingExportFitMode.allCases) { mode in
-                    Text(mode.displayTitle).tag(mode)
-                }
-            }
-
-            Text(project.listingExportFitMode.sellerExplanation)
-                .font(.caption)
-                .foregroundStyle(DarkroomTheme.textTertiary)
-                .fixedSize(horizontal: false, vertical: true)
-
-            Picker("Background", selection: Binding(
-                get: { project.listingExportBackground },
-                set: {
-                    project.listingExportBackground = $0
-                    project.touchModified()
-                }
-            )) {
-                ForEach(ListingExportBackground.allCases) { background in
-                    Text(background.rawValue).tag(background)
-                }
-            }
-
-            Toggle("Watermark", isOn: Binding(
-                get: { project.listingWatermarkEnabled },
-                set: {
-                    project.listingWatermarkEnabled = $0
-                    project.touchModified()
-                }
-            ))
-            .tint(DarkroomTheme.accent)
-
-            if project.listingWatermarkEnabled {
-                TextField("Watermark text", text: Binding(
-                    get: { project.listingWatermarkText },
-                    set: {
-                        project.listingWatermarkText = String($0.prefix(PhotoEditState.watermarkMaxLength))
-                        project.touchModified()
-                    }
-                ))
-            }
-        } header: {
-            Text("Listing Export")
-                .foregroundStyle(DarkroomTheme.textTertiary)
-        } footer: {
-            Text("Used when exporting listing images for this project. Per-photo edits apply when saved from Edit. \(ListingExportPreset.localExportDisclaimer)")
-                .foregroundStyle(DarkroomTheme.textTertiary)
-        }
-        .listRowBackground(sectionBackground)
+        MarketplaceExportSettingsBlock(project: project, showPreview: true)
     }
 
     @ViewBuilder
@@ -510,11 +435,16 @@ struct ProjectDetailView: View {
                         Text("Exporting \(exportProgressCompleted)/\(max(exportProgressTotal, 1))…")
                     }
                 } else {
-                    Text("Export Listing Images")
+                    Text("Export Photos")
                         .foregroundStyle(DarkroomTheme.accent)
                 }
             }
             .disabled(isExportingBatch || sortedPhotos.isEmpty)
+
+            Text("Switch Marketplace above, then Export Photos again for another target without redoing photo edits.")
+                .font(.caption2)
+                .foregroundStyle(DarkroomTheme.textTertiary)
+                .fixedSize(horizontal: false, vertical: true)
 
             if let exportStatusMessage {
                 Text(exportStatusMessage)
