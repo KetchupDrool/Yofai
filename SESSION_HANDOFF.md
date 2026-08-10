@@ -22,7 +22,7 @@ Local listing prep must be stable first. APIs are marketplace-specific, need ext
 
 ## Owner next steps
 Release: **`SHAWN_NEXT_RELEASE_STEPS.md`**.  
-Product: approve Phase 62 before any draft-package coding; do not start API work.
+Product: approve **Phase 62 — Draft-Aware Listing Packages & Copy Tools** before coding; do not start API work.
 
 ## Rules
 - Freemium-first; Free keeps core local export; no AI / Direct Upload  
