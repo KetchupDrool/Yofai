@@ -1,39 +1,40 @@
 # Session Handoff
 
 ## Status
-Phase 51 complete on `main` @ `e84b52b` — Remove AI References & Final No-AI Positioning Cleanup.  
-**275 tests passed; build succeeded on iPhone 16e; working tree clean after push.**
+Phase 52 complete on `main` — App Store Submit Path (preparation only).  
+**279 tests passed; build succeeded on iPhone 16e.**  
+Metadata package, privacy answers, screenshot plan, TestFlight smoke script, and release checklist are ready.  
+**No archive/upload performed in this phase.** No new product features. No StoreKit. No Direct Upload. No AI.
 
-Phases 48–51 all complete:
-- 48 `febeb38` — Final Local Export Mode polish
-- 49 `4aa6204` — Freemium foundation (Free limit 12; Pro placeholder; no StoreKit)
-- 50 `f7223c3` — App Store prep docs + review-safe copy
-- 51 `e84b52b` — No-AI cleanup
-
-Local Export Mode + freemium-first remain. Yofai is a **no-AI** app. Direct Upload not implemented. App Store upload paused until you run `RELEASE_CHECKLIST.md` and submit.
+Prior: Phase 50 `f7223c3` (prep), Phase 51 `e84b52b` (no-AI), handoff `54ed5fb`.
 
 ## Product purpose
 Marketplace product photo prep → local JPEG export for manual upload.  
 Free keeps core workflow. Pro planned only (no purchase charged).  
 Photo Check, Export Readiness, and Prep Tips are deterministic/local — not AI.
 
+## Submit-path docs
+- `APP_STORE_METADATA.md` — Connect metadata + App Review notes
+- `APP_STORE_CONNECT_PRIVACY.md` — privacy questionnaire answers
+- `APP_STORE_PREP.md` — positioning + 8-screen screenshot plan
+- `TESTFLIGHT_SMOKE.md` — manual smoke script
+- `RELEASE_CHECKLIST.md` — archive → upload → TestFlight → review
+
 ## Facts
 - Path: `/Volumes/CombatMedic/Yofai` on `main`
-- AI Listing Assistant UI + providers removed; dormant `AIPreparationRecord` shell only for store compatibility
-- App Store docs: `APP_STORE_PREP.md`, `APP_STORE_METADATA.md`, `RELEASE_CHECKLIST.md`
-- Etsy Shop Connect button removed while OAuth incomplete
-- 7 export presets unchanged; marketplace target ≠ canvas
-- No backend / accounts / Direct Upload / StoreKit charges
+- Version 1.0 (1); bump before each Connect upload if needed
+- Etsy Shop: connection not available (no Connect)
+- 7 presets unchanged; marketplace target ≠ canvas
 
 ## Last Completed
-- Phase 51 no-AI cleanup + Phase51NoAICleanupTests (4)
+- Phase 52 App Store submit-path package + Phase52AppStoreSubmitPathTests
 
 ## Next Recommended
-Do not re-run Phases 50–51.  
-Follow `RELEASE_CHECKLIST.md` (screenshots → App Store Connect → TestFlight → submit), **or** explicitly approve StoreKit Pro payments / verified Direct Upload foundation.
+Follow `RELEASE_CHECKLIST.md`: screenshots → bump build if needed → archive → App Store Connect → TestFlight smoke → submit.  
+Or explicitly approve StoreKit / Direct Upload foundation.
 
 ## Rules
 - Freemium-first; no fake purchases; Local Export Mode only
-- Yofai does not use AI — do not add AI APIs or AI features
+- Yofai does not use AI
 - No Direct Upload / OAuth upload / browser automation unless re-approved
-- One simulator: iPhone 16e
+- One simulator for unit tests: iPhone 16e

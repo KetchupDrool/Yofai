@@ -1,10 +1,10 @@
 # Tasks
 
 ## Status
-Phase 51 — Remove AI References & Final No-AI Positioning Cleanup complete.
-App Store upload remains paused until you run the release checklist and submit.
+Phase 52 — App Store Submit Path complete (docs + review-safe helpers only).
+App Store archive/upload still paused until you run `RELEASE_CHECKLIST.md` and submit manually.
 StoreKit purchases not implemented.
-Yofai is a no-AI app.
+Yofai is a no-AI app. Local Export Mode only.
 
 ## Product direction
 Local-first marketplace product photo preparation for online sellers.
@@ -13,15 +13,16 @@ Local-first marketplace product photo preparation for online sellers.
 Photo Check / Export Readiness / Prep Tips remain deterministic/local.
 
 ## Current Phase
-Phase 51 — No-AI cleanup. Complete.
+Phase 52 — App Store submit path. Complete.
 
 ## Done
-- MVP + Phases 4–50
-- Phase 51: removed AI Listing Assistant UI/providers; neutralized docs/rules/App Store AI language; dormant `AIPreparationRecord` shell retained for store compatibility; Phase51NoAICleanupTests (4); total 275
-- Build + unit tests succeeded on iPhone 16e (275 tests)
+- MVP + Phases 4–51
+- Phase 52: metadata package, App Review notes, privacy answers, screenshot plan, TestFlight smoke script, release checklist; Phase52AppStoreSubmitPathTests (4); total 279
+- Build + unit tests succeeded on iPhone 16e (279 tests)
+- No new product features; no StoreKit; no Direct Upload; no AI
 
 ## Next (when explicitly approved)
-- Capture screenshots + App Store Connect submit / TestFlight
+- Capture screenshots + bump version/build if needed + Xcode archive → App Store Connect → TestFlight → submit
 - StoreKit / Yofai Pro payments phase
 - Verified Etsy Direct Upload foundation after manual OAuth/API confirmation
 
@@ -32,3 +33,4 @@ Phase 51 — No-AI cleanup. Complete.
 - Browser automation, unofficial APIs, marketplace password storage
 - Ads / analytics SDKs
 - Any AI APIs, AI listing assistant, AI photo analysis, or “future AI” roadmap language
+- Renumber Phases 50–51

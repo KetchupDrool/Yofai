@@ -63,7 +63,8 @@ Home → Start / Continue Product → Item Project → Capture & Check Photos �
 Import, Originals, and History remain available as secondary tools.
 
 ## Status
-- Phases 1–51 technical history complete (see `DECISIONS.md`, `APP_STORE_PREP.md`)
+- Phases 1–52 technical history complete (see `DECISIONS.md`, `APP_STORE_PREP.md`)
+- **Phase 52:** App Store submit-path package (metadata, privacy answers, screenshots plan, TestFlight smoke, release checklist) — no archive/upload in-phase
 - **Phase 51:** no-AI positioning cleanup — AI Listing Assistant UI/providers removed; dormant `AIPreparationRecord` shell kept for store compatibility only
 - Freemium-first if monetized: Free keeps core local export; Pro is additive (Phase 49). No StoreKit purchases yet.
 - App Store prep docs and review-safe copy for Local Export Mode launch (Phase 50)

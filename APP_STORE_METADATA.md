@@ -1,6 +1,8 @@
 # App Store Metadata — Yofai
 
-**Phase 50/51 — freemium Local Export Mode launch draft**  
+**Phase 52 — App Store submit-path package**  
+(Builds on Phase 50 prep + Phase 51 no-AI cleanup.)
+
 Do not claim Direct Upload, Pro purchases, AI features, compliance, or marketplace partnership.
 
 ## App Name
@@ -21,8 +23,11 @@ Yofai
 Photo & Video  
 Secondary (optional): Shopping
 
-## Promotional Text / Short Pitch
+## Promotional Text (≤170 characters, draft)
 Prepare marketplace product photos on your iPhone. Export local JPEGs sized for sellers, then upload them yourself in the marketplace app or website.
+
+## Short Description (one sentence)
+Yofai helps online sellers prepare marketplace product photos as local JPEG exports for manual upload.
 
 ## Full Description (draft)
 
@@ -59,11 +64,19 @@ Photos, projects, edits, export history, and notes stay on your device. No ads. 
 ## Keywords (≤100 characters, draft)
 marketplace,photo,seller,export,etsy,ebay,listing,jpeg,product,local,prep,crop
 
-## Support URL
-https://ketchupdrool.github.io/Yofai/support.html
+Character count check when pasting into App Store Connect (must be ≤100).
 
-## Privacy Policy URL
-https://ketchupdrool.github.io/Yofai/privacy-policy.html
+## Support URL checklist
+- [ ] URL: https://ketchupdrool.github.io/Yofai/support.html
+- [ ] Opens in Safari without login
+- [ ] Mentions local export / support contact accurately
+- [ ] Does not claim AI, Direct Upload, or live marketplace connection
+
+## Privacy Policy URL checklist
+- [ ] URL: https://ketchupdrool.github.io/Yofai/privacy-policy.html
+- [ ] Opens in Safari without login
+- [ ] Matches `PRIVACY_NOTES.md` / `APP_STORE_CONNECT_PRIVACY.md`
+- [ ] States photos stay on device; no AI service; no marketplace upload
 
 ## EULA
 https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
@@ -72,16 +85,43 @@ https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 © 2026 Shawn Wright
 
 ## Age Rating Notes
-Utility for product photo prep. No public UGC feed, no social network, no ads.
+Utility for product photo prep. No public UGC feed, no social network, no ads. No unrestricted web browsing. Camera/Photos used only for seller product photo prep and optional Save Listing Copy.
 
 ## What’s New (1.0 release notes draft)
 Yofai 1.0 helps sellers prepare marketplace product photos on device and export local JPEGs for manual upload. Free includes the core Capture → Edit → Local Export workflow. No account required.
 
-## Build settings
-- Display name: Yofai  
-- Bundle ID: com.shawnwright.yofai  
-- iPhone only  
-- Version: 1.0 (1) — bump before each upload if needed  
-- Camera + Photos add usage strings: seller photo capture / optional Save Listing Copy  
+## App Review Notes (paste into App Store Connect)
 
-See also: `APP_STORE_PREP.md`, `RELEASE_CHECKLIST.md`, `PRIVACY_NOTES.md`.
+```text
+Yofai does not require a login or account.
+
+Purchases: Yofai Pro is a planned placeholder only in this build. No in-app purchase products are offered. No purchase is charged. There is no Subscribe, Buy Pro, or Restore Purchases button.
+
+What the app does: sellers capture/import product photos, check and edit them on device, then export local JPEG files for manual upload in marketplace apps/websites (Etsy, eBay, etc.).
+
+What the app does not do:
+- Does not upload or publish to marketplaces
+- Direct Upload Mode is not implemented
+- No marketplace account connection is required
+- Live Etsy OAuth/upload is disabled and not part of this release (Settings shows “Etsy connection not available”; no Connect button)
+- No AI features are included (Photo Check / Export Readiness / Prep Tips are deterministic local tools)
+- Photos, projects, edits, export history, and notes remain on device
+
+Demo path: create a product → add a photo → Photo Check → Edit → Prepare Listing & Export → Export Photos → View Exported Files / Share. No special credentials needed.
+```
+
+## Build settings (current project)
+- Display name: Yofai  
+- Bundle ID: `com.shawnwright.yofai`  
+- iPhone only (portrait)  
+- Marketing version: **1.0**  
+- Build: **1** — bump before each App Store Connect upload if needed  
+- Camera usage: product photo capture into local Item Project  
+- Photos add usage: optional Save Listing Copy only  
+
+## Related docs
+- `APP_STORE_PREP.md` — positioning + screenshot plan  
+- `APP_STORE_CONNECT_PRIVACY.md` — App Store Connect privacy answers  
+- `TESTFLIGHT_SMOKE.md` — manual smoke script  
+- `RELEASE_CHECKLIST.md` — archive / upload / submit  
+- `PRIVACY_NOTES.md` + hosted `docs/privacy-policy.html` / `docs/support.html`

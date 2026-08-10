@@ -1,6 +1,7 @@
 # Privacy Notes — Yofai
 
-Basis for the public privacy policy. Host at the Privacy Policy URL before App Store review.
+Basis for the public privacy policy. Host at the Privacy Policy URL before App Store review.  
+App Store Connect questionnaire answers: `APP_STORE_CONNECT_PRIVACY.md`.
 
 **Last updated:** 2026-08-10
 

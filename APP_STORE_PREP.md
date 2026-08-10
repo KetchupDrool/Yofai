@@ -1,17 +1,19 @@
-# App Store Prep — Yofai (Phase 50)
+# App Store Prep — Yofai
 
-Freemium-first **Local Export Mode** launch readiness.  
-**StoreKit is not implemented. Direct Upload Mode is not implemented.**
+**Phase 50** created initial prep. **Phase 52** finalizes the submit path (metadata package, privacy answers, screenshots, TestFlight smoke, release checklist).
+
+Freemium-first **Local Export Mode**.  
+**StoreKit is not implemented. Direct Upload Mode is not implemented. No AI.**
 
 ## Positioning
-Yofai is a marketplace product photo prep app that helps sellers prepare **local JPEG exports for manual upload**.
+Yofai helps online sellers prepare marketplace product photos as **local JPEG exports for manual upload**.
 
 One-line: *Marketplace product photo prep that exports local JPEGs for manual upload.*
 
 ## Freemium / Pro wording
 - Free keeps Capture → Organize → Photo Check → Edit → Prepare → Local Export
 - Pro is planned / additive only
-- Settings → Yofai Pro: current plan Free; Pro not available yet; **no purchase is charged**
+- Settings → Yofai Pro: Free; Pro not available yet; **no purchase is charged**
 - No fake pricing, Subscribe, Buy Pro, or Restore Purchases UI
 
 ## Privacy / data (current)
@@ -22,41 +24,39 @@ One-line: *Marketplace product photo prep that exports local JPEGs for manual up
 - No marketplace upload / publish
 - No live marketplace login
 - Camera: capture product photos into a local Item Project
-- Photos add: optional Save Listing Copy to the Photos library
-- System photo picker: choose existing photos without claiming cloud backup
+- Photos add: optional Save Listing Copy
+- System photo picker: choose existing photos (no cloud-backup claim)
 
 ## App Review risks & mitigations
 
 | Risk | Mitigation |
 |---|---|
-| Pro placeholder without purchases | Explicit “not available yet / no purchase is charged” |
-| Marketplace names | Framed as local export targets + manual upload |
+| Pro placeholder without purchases | “Not available yet / no purchase is charged” |
+| Marketplace names | Local export targets + manual upload |
 | Compliance / partnership claims | Forbidden in Local Export Mode helpers |
-| Etsy OAuth stub | Connect button removed; status “not available” |
-| AI claims | No AI UI; positioning states Yofai does not use AI |
-| Photos permission | Usage strings describe seller photo prep / Save Listing Copy |
+| Etsy OAuth stub | Connect removed; “not available” |
+| AI claims | No AI UI; docs state no AI |
+| Photos permission | Usage strings for seller prep / Save Listing Copy |
 
-## Screenshot plan
-Document only — do not generate fake screens here.
+## Screenshot capture plan
+Document only — **do not generate fake screenshots.**
 
-Capture on iPhone (6.7" required set + 6.1" as needed):
+Capture on required App Store sizes (e.g. 6.7" + 6.1" as needed). Use a sample product with 1–3 clear product photos.
 
-1. **Start a product** — Products empty or New Product sheet  
-   Message: “Start a product photo set on your iPhone”
-2. **Capture & check** — Product Intake / Photo Check  
-   Message: “Capture and check product photos”
-3. **Edit & fit** — Edit / Fill+Crop or Contain+Pad  
-   Message: “Edit and fit for export”
-4. **Prepare for marketplace** — Marketplace target + export size (destination ≠ canvas)  
-   Message: “Prepare for your marketplace”
-5. **Export local JPEGs** — Export success summary with View Exported Files  
-   Message: “Export local JPEGs for manual upload”
-6. **History view/share** — Export History + View Exported Files  
-   Message: “Review and share exported files”
-
-Avoid screenshots that imply live upload, Pro purchase, AI features, or marketplace approval.
+| # | Screen | State / data needed | Overlay / title suggestion | Avoid |
+|---|---|---|---|---|
+| 1 | Home / Start Product | Empty products or New Product sheet | “Start a product photo set on your iPhone” | Pro paywall, AI badges |
+| 2 | Product Intake / Capture & Check | Product with photo; Photo Check visible | “Capture and check product photos” | Compliance / “Etsy ready” |
+| 3 | Edit / Fit / Reposition | Edit open; Contain+Pad or Fill+Crop (+ reposition if useful) | “Edit and fit for export” | Auto-crop / AI labels |
+| 4 | Listing Workspace — Marketplace + Export Size | Target set; canvas size visible and distinct | “Prepare for your marketplace” | Upload / Connect / publish |
+| 5 | Export Readiness / Prep Tips | Checklist + tips on a real project | “Check readiness before export” | Marketplace approved |
+| 6 | Export Summary | Successful local export; View Exported Files | “Export local JPEGs for manual upload” | “Published” / Direct Upload |
+| 7 | Export History / View Exported Files | History row + viewer with files | “Review and share exported files” | Upload status |
+| 8 | Settings / Yofai Pro *(optional)* | Free plan; placeholder sheet | Only if copy clearly says Pro not available / no purchase charged | Fake prices, Buy, Subscribe |
 
 ## Related docs
-- `APP_STORE_METADATA.md` — subtitle, description, keywords, release notes  
-- `RELEASE_CHECKLIST.md` — ship steps  
+- `APP_STORE_METADATA.md` — metadata + App Review notes  
+- `APP_STORE_CONNECT_PRIVACY.md` — privacy questionnaire answers  
+- `TESTFLIGHT_SMOKE.md` — manual smoke script  
+- `RELEASE_CHECKLIST.md` — archive / upload / submit  
 - `PRIVACY_NOTES.md` + `docs/privacy-policy.html` / `docs/support.html`

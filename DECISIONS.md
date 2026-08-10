@@ -336,6 +336,16 @@
 - App Store / privacy / handoff / Cursor rules updated: no AI-powered claims; no OpenAI; no AI roadmap
 - Preferred privacy wording: no account, cloud, or AI service required for the core local export workflow
 
+## Phase 52 — App Store Submit Path (locked)
+- Submission preparation only — no new product features, no StoreKit, no Direct Upload, no AI, no phase renumbering
+- Finalized metadata package: `APP_STORE_METADATA.md` (subtitle, descriptions, keywords, review notes, URL checklists)
+- Privacy answers sheet: `APP_STORE_CONNECT_PRIVACY.md`
+- Screenshot capture plan expanded in `APP_STORE_PREP.md` (8 screens; no fake screenshots)
+- TestFlight smoke script: `TESTFLIGHT_SMOKE.md`
+- Release checklist expanded for archive → upload → TestFlight → App Review (`RELEASE_CHECKLIST.md`)
+- `AppStoreLaunchSupport` carries version/build, short description, review-note lines for tests
+- Does **not** archive or upload to App Store Connect in this phase
+
 ## Future StoreKit phase requirements (not started)
 - Choose subscription vs lifetime (or both) and App Store Connect product IDs
 - StoreKit 2 purchase + restore + transaction verification
