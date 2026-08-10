@@ -15,12 +15,15 @@ Do **not** archive/upload in automation unless explicitly requested. Check boxes
 - [ ] Launch screen shows correctly
 - [ ] Camera + Photos Add usage strings accurate (`Info.plist`)
 - [ ] Settings → Privacy matches local-only behavior
-- [ ] Settings → Yofai Pro: Free; not available; **no purchase charged**; no Buy/Subscribe/Restore
+- [ ] Settings → Yofai Pro: plan shown; Upgrade/Manage + Restore Purchases
+- [ ] Paywall: StoreKit prices when loaded, or purchases-unavailable copy (Free still works)
+- [ ] App Store Connect subscription products created per `APP_STORE_CONNECT_SUBSCRIPTIONS.md` before relying on live purchase
 - [ ] Settings → Etsy Shop: connection not available (no Connect button)
 - [ ] No AI assistant / AI-powered claims in active UI
 - [ ] No Direct Upload / publish / compliance claims in active UI
 - [ ] Support + Privacy Policy URLs open (GitHub Pages)
 - [ ] `APP_STORE_METADATA.md` claims still factual
+- [ ] No fake purchase success path
 
 ## B. Automated verification
 - [ ] Full unit suite on **iPhone 16e**

@@ -337,7 +337,7 @@
 - Preferred privacy wording: no account, cloud, or AI service required for the core local export workflow
 
 ## Phase 52 — App Store Submit Path (locked)
-- Submission preparation only — no new product features, no StoreKit, no Direct Upload, no AI, no phase renumbering
+- Submission preparation only — no new product features at the time; no Direct Upload, no AI, no phase renumbering
 - Finalized metadata package: `APP_STORE_METADATA.md` (subtitle, descriptions, keywords, review notes, URL checklists)
 - Privacy answers sheet: `APP_STORE_CONNECT_PRIVACY.md`
 - Screenshot capture plan expanded in `APP_STORE_PREP.md` (8 screens; no fake screenshots)
@@ -346,21 +346,31 @@
 - `AppStoreLaunchSupport` carries version/build, short description, review-note lines for tests
 - Does **not** archive or upload to App Store Connect in this phase
 
-## Future StoreKit phase requirements (not started)
-- Choose subscription vs lifetime (or both) and App Store Connect product IDs
-- StoreKit 2 purchase + restore + transaction verification
-- Wire `EntitlementStore` only after a real successful transaction
-- Paywall copy, privacy/legal updates, StoreKit Configuration file for tests
-- No backend required for basic StoreKit 2 on-device entitlements unless multi-device account sync is later approved
+## Phase 53 — StoreKit / Yofai Pro Payments (locked)
+- Freemium-first: Free keeps core local export; Pro is additive via StoreKit 2 subscriptions
+- Product IDs: `com.shawnwright.yofai.pro.monthly`, `com.shawnwright.yofai.pro.yearly`
+- Intended Connect prices (docs only): $4.99/month, $39.99/year — live UI prices from StoreKit
+- Architecture: `YofaiProductIDs`, `PurchaseServicing`, `StoreKitPurchaseService`, `MockPurchaseService`, `StoreEntitlementResolver`, `PurchaseManager`
+- `EntitlementPolicy` remains Free vs Pro feature access; StoreKit only applies verified plan
+- Paywall (`YofaiProPaywallView`): load products, purchase, restore; unavailable if products fail; no fake success
+- Local config: `Yofai.storekit`; Connect checklist: `APP_STORE_CONNECT_SUBSCRIPTIONS.md` (manual; not claimed complete)
+- No lifetime SKU this phase; no backend; no Direct Upload; no AI; no data deletion on Free demotion
+- Over-limit Free products remain viewable/editable; create blocked until under limit or Pro restored
+
+## Future StoreKit follow-ups (manual / not claimed done)
+- Create/verify subscription group + products in App Store Connect
+- Sandbox / TestFlight purchase verification
+- Optional lifetime product if later approved
+- Paid-apps privacy nutrition label updates when IAP goes live
 
 ## Future capability (approved direction — not next work)
 May be added later where they support the product; core photo preparation remains local-first/on-device:
 - Backend services
 - User accounts
 - Cloud sync
-- Subscriptions
 - Ads
 - Direct Upload Mode for verified marketplaces only
+- Yofai Pro StoreKit subscriptions are implemented in-app (Phase 53); Connect product creation still required before live charges
 
 ## Not on the product roadmap
 - AI listing assistant / OpenAI / paid AI APIs / AI caption or photo evaluation / AI auto-crop

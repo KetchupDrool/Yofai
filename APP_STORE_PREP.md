@@ -12,9 +12,11 @@ One-line: *Marketplace product photo prep that exports local JPEGs for manual up
 
 ## Freemium / Pro wording
 - Free keeps Capture → Organize → Photo Check → Edit → Prepare → Local Export
-- Pro is planned / additive only
-- Settings → Yofai Pro: Free; Pro not available yet; **no purchase is charged**
-- No fake pricing, Subscribe, Buy Pro, or Restore Purchases UI
+- Pro is additive via StoreKit 2 (monthly/yearly) when App Store Connect products exist
+- Settings → Yofai Pro: current plan, Upgrade/Manage, Restore Purchases
+- If products cannot load: “Purchases are not available right now.” — Free stays usable
+- Do not show fake prices when StoreKit products fail to load
+- See `APP_STORE_CONNECT_SUBSCRIPTIONS.md`
 
 ## Privacy / data (current)
 - Photos, projects, edits, export batches, history, and notes stay on device
@@ -52,7 +54,7 @@ Capture on required App Store sizes (e.g. 6.7" + 6.1" as needed). Use a sample p
 | 5 | Export Readiness / Prep Tips | Checklist + tips on a real project | “Check readiness before export” | Marketplace approved |
 | 6 | Export Summary | Successful local export; View Exported Files | “Export local JPEGs for manual upload” | “Published” / Direct Upload |
 | 7 | Export History / View Exported Files | History row + viewer with files | “Review and share exported files” | Upload status |
-| 8 | Settings / Yofai Pro *(optional)* | Free plan; placeholder sheet | Only if copy clearly says Pro not available / no purchase charged | Fake prices, Buy, Subscribe |
+| 8 | Settings / Yofai Pro | Free plan; paywall with StoreKit prices **or** unavailable message | “Optional Yofai Pro” | Fake success, AI, Direct Upload available |
 
 ## Related docs
 - `APP_STORE_METADATA.md` — metadata + App Review notes  

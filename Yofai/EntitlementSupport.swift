@@ -94,7 +94,7 @@ enum FeatureAccess: Equatable {
     }
 }
 
-/// Testable entitlement snapshot. Default shipping state is Free. No StoreKit / network.
+/// Testable entitlement snapshot. Default shipping state is Free.
 struct EntitlementState: Equatable {
     var plan: EntitlementPlan
     var limits: FreemiumLimits
@@ -124,7 +124,7 @@ enum EntitlementPolicy {
             return .limited(
                 current: activeProductCount,
                 limit: limit,
-                message: "Free includes up to \(limit) products. Existing products stay available. Yofai Pro (planned) would unlock unlimited products."
+                message: "Free includes up to \(limit) products. Existing products stay available. Yofai Pro unlocks unlimited products."
             )
 
         case .unlimitedProducts:
@@ -154,15 +154,26 @@ enum EntitlementPolicy {
 
 enum FreemiumCopy {
     static let proTitle = "Yofai Pro"
-    static let plannedProFeature = "Planned Pro Feature"
+    static let plannedProFeature = "Pro Feature"
     static let plannedFutureProFeature = "Coming soon — planned Pro Feature"
     static let keepUsingFree = "Keep using Free"
+    /// Legacy placeholder string — do not show when live StoreKit purchase buttons are visible.
     static let proNotAvailableYet = "Yofai Pro is not available yet. No purchase is charged."
+    static let purchasesUnavailable = "Purchases are not available right now."
+    static let purchaseVerificationFailed = "Purchase could not be verified. You were not charged for Pro."
+    static let purchaseCancelled = "Purchase cancelled."
+    static let purchasePending = "Purchase is pending approval. Pro unlocks after it completes."
+    static let purchaseSuccessPro = "Yofai Pro is active."
+    static let restoreNoPurchases = "No active Pro subscription found."
     static let currentPlanFree = "Current plan: Free"
-    static let proPlannedSummary = "Pro will add unlimited products and future extras. Free keeps Capture → Organize → Photo Check → Edit → Prepare → Local Export."
+    static let currentPlanPro = "Current plan: Yofai Pro"
+    static let proPlannedSummary = "Pro adds unlimited products and additive extras. Free keeps Capture → Organize → Photo Check → Edit → Prepare → Local Export."
+    static let proBenefitsIntro = "Yofai Pro is additive. Free keeps the core local export workflow."
+    static let manageSubscriptionsHint = "Manage or cancel subscriptions in your Apple ID App Store settings."
+    static let restorePurchases = "Restore Purchases"
 }
 
-/// In-memory / UserDefaults plan override for tests and future StoreKit. Never fakes a successful purchase.
+/// Plan store. Shipping app writes `.pro` only after verified StoreKit entitlement.
 @MainActor
 final class EntitlementStore {
     static let shared = EntitlementStore()
@@ -185,15 +196,20 @@ final class EntitlementStore {
         return .free
     }
 
-    /// Test / future StoreKit hook only. Does not charge users.
+    /// Test hook only.
     func setPlanForTesting(_ plan: EntitlementPlan?) {
         overridePlan = plan
     }
 
-    /// Persists plan for future StoreKit restore. Shipping app should only write `.pro` after a real purchase.
+    /// Persists plan after verified StoreKit entitlement (or explicit Free when none).
     func persistPlan(_ plan: EntitlementPlan) {
         UserDefaults.standard.set(plan.rawValue, forKey: planKey)
         overridePlan = nil
+    }
+
+    /// Call only after `StoreEntitlementResolver` / StoreKit verification — never from a fake success path.
+    func applyVerifiedStoreKitPlan(_ plan: EntitlementPlan) {
+        persistPlan(plan)
     }
 
     func resetToLaunchFree() {

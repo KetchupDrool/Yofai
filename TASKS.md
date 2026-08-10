@@ -1,36 +1,34 @@
 # Tasks
 
 ## Status
-Phase 52 — App Store Submit Path complete (docs + review-safe helpers only).
-App Store archive/upload still paused until you run `RELEASE_CHECKLIST.md` and submit manually.
-StoreKit purchases not implemented.
-Yofai is a no-AI app. Local Export Mode only.
+Phase 53 — StoreKit / Yofai Pro Payments complete (in-app foundation).
+App Store Connect subscription products still must be created manually before live charges.
+App Store archive/upload still paused until you finish Connect IAP + `RELEASE_CHECKLIST.md`.
+Yofai is freemium-first, no-AI, Local Export Mode only. Direct Upload not implemented.
 
 ## Product direction
 Local-first marketplace product photo preparation for online sellers.
-**Local Export Mode** is current production behavior.
-**Freemium-first if monetized.** Pro planned/additive only; no purchase charged yet.
-Photo Check / Export Readiness / Prep Tips remain deterministic/local.
+**Free** keeps Capture → Organize → Photo Check → Edit → Prepare → Local Export.
+**Yofai Pro** (StoreKit 2 monthly/yearly) is additive — unlimited products + planned extras.
 
 ## Current Phase
-Phase 52 — App Store submit path. Complete.
+Phase 53 — StoreKit Pro payments. Complete (in-app).
 
 ## Done
-- MVP + Phases 4–51
-- Phase 52: metadata package, App Review notes, privacy answers, screenshot plan, TestFlight smoke script, release checklist; Phase52AppStoreSubmitPathTests (4); total 279
-- Build + unit tests succeeded on iPhone 16e (279 tests)
-- No new product features; no StoreKit; no Direct Upload; no AI
+- Phases 1–52
+- Phase 53: StoreKit 2 purchase manager, paywall, entitlement wiring, `Yofai.storekit`, Connect subscriptions doc; Phase53StoreKitProPaymentsTests (16); total 295
+- Build + unit tests on iPhone 16e
 
 ## Next (when explicitly approved)
-- Capture screenshots + bump version/build if needed + Xcode archive → App Store Connect → TestFlight → submit
-- StoreKit / Yofai Pro payments phase
-- Verified Etsy Direct Upload foundation after manual OAuth/API confirmation
+- Create Yofai Pro subscription products in App Store Connect (`APP_STORE_CONNECT_SUBSCRIPTIONS.md`)
+- Sandbox / TestFlight purchase smoke
+- Screenshots/archive/submit per `RELEASE_CHECKLIST.md`
+- Or verified Direct Upload foundation
 
 ## Do Not Do (unless newly / re-approved)
 - Fake StoreKit purchase success
-- Lock core Free local-export workflow behind Pro later
+- Lock core Free local-export workflow behind Pro
 - Direct marketplace upload without verified official API/OAuth + explicit phase approval
 - Browser automation, unofficial APIs, marketplace password storage
-- Ads / analytics SDKs
-- Any AI APIs, AI listing assistant, AI photo analysis, or “future AI” roadmap language
-- Renumber Phases 50–51
+- Ads / analytics SDKs / AI
+- Lifetime SKU unless separately approved

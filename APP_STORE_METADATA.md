@@ -49,14 +49,14 @@ Capture → Organize → Photo Check → Edit → Prepare → Local Export
 Yofai prepares listing-ready JPEGs on your device. You upload those files yourself in Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, or similar — using each marketplace’s own app or website.
 
 **Free core workflow**
-The Free plan keeps the core local export workflow. Yofai Pro is planned for later additive extras and is not available for purchase in this version.
+The Free plan keeps the core local export workflow. Yofai Pro is an optional subscription (monthly/yearly via Apple) for additive extras such as unlimited products. Purchases use StoreKit when products are available in App Store Connect.
 
 **What Yofai does not do**
 • Does not upload or publish listings to marketplaces  
 • Does not claim marketplace compliance or official approval  
 • Does not require an account or cloud sync for local export  
 • Does not use AI — Photo Check and readiness tips are deterministic local tools  
-• Does not charge for Pro in this version  
+• Does not require Pro for the core Capture → Edit → Local Export workflow  
 
 **Privacy**
 Photos, projects, edits, export history, and notes stay on your device. No ads. No tracking SDKs. No AI service receives your photos or listing data.
@@ -95,21 +95,30 @@ Yofai 1.0 helps sellers prepare marketplace product photos on device and export 
 ```text
 Yofai does not require a login or account.
 
-Purchases: Yofai Pro is a planned placeholder only in this build. No in-app purchase products are offered. No purchase is charged. There is no Subscribe, Buy Pro, or Restore Purchases button.
+Purchases: Yofai Pro is an optional auto-renewable subscription (monthly and yearly) via StoreKit 2. Free users keep the full core local export workflow without purchasing. Restore Purchases is available in Settings → Yofai Pro and on the paywall.
 
-What the app does: sellers capture/import product photos, check and edit them on device, then export local JPEG files for manual upload in marketplace apps/websites (Etsy, eBay, etc.).
+Product IDs:
+- com.shawnwright.yofai.pro.monthly
+- com.shawnwright.yofai.pro.yearly
+
+If subscription products are not yet available in this build’s environment, the paywall shows “Purchases are not available right now.” and Free remains fully usable. Do not treat that state as a broken app.
+
+What the app does: sellers capture/import product photos, check and edit them on device, then export local JPEG files for manual upload in marketplace apps/websites.
 
 What the app does not do:
 - Does not upload or publish to marketplaces
 - Direct Upload Mode is not implemented
 - No marketplace account connection is required
-- Live Etsy OAuth/upload is disabled and not part of this release (Settings shows “Etsy connection not available”; no Connect button)
-- No AI features are included (Photo Check / Export Readiness / Prep Tips are deterministic local tools)
-- Photos, projects, edits, export history, and notes remain on device
+- Live Etsy OAuth/upload is disabled (Settings shows “Etsy connection not available”; no Connect button)
+- No AI features are included
+- Photos remain local on device
 
-Demo path: create a product → add a photo → Photo Check → Edit → Prepare Listing & Export → Export Photos → View Exported Files / Share. No special credentials needed.
+Demo path (Free): create a product → add a photo → Photo Check → Edit → Prepare Listing & Export → Export Photos → View Exported Files / Share.
+Demo path (Pro): Settings → Yofai Pro → purchase or Restore Purchases (sandbox), then confirm unlimited product create.
 ```
 
+## Subscriptions / IAP
+See `APP_STORE_CONNECT_SUBSCRIPTIONS.md` for manual Connect setup. Intended tiers: $4.99/month, $39.99/year (live price from StoreKit).
 ## Build settings (current project)
 - Display name: Yofai  
 - Bundle ID: `com.shawnwright.yofai`  

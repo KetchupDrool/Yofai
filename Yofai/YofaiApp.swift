@@ -16,6 +16,10 @@ struct YofaiApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .task {
+                    PurchaseManager.shared.startListeningForTransactionsIfNeeded()
+                    await PurchaseManager.shared.refreshEntitlementsAndProducts()
+                }
         }
         .modelContainer(modelContainer)
     }

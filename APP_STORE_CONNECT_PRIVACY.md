@@ -25,7 +25,7 @@ Yofai does **not** collect data off-device for analytics, advertising, or develo
 | Account / login | Not required; no account system |
 | Contact info collected by app | No |
 | Health / fitness | No |
-| Financial info / purchases | No (Pro not for sale; no StoreKit products) |
+| Financial info / purchases | Optional Yofai Pro subscriptions via Apple (StoreKit). Free workflow needs no purchase. |
 | Location | No |
 | Sensitive info | No |
 | Contacts | No |

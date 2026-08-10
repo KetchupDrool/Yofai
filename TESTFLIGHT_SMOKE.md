@@ -80,11 +80,13 @@ Do not expect: login, Pro purchase, Direct Upload, AI assistant, marketplace Con
 1. Use Export Again from history.
 2. Confirm settings restore; photo edits unchanged; new export still local-only.
 
-### 16. Yofai Pro placeholder
+### 16. Yofai Pro / StoreKit
 1. Settings → Yofai Pro.
-2. Confirm Free plan.
-3. Confirm “not available yet” / **no purchase is charged**.
-4. Confirm no Buy / Subscribe / Restore Purchases.
+2. Confirm current plan Free or Pro.
+3. Open Upgrade/Manage paywall.
+4. If products load: prices from StoreKit; purchase buttons; Restore Purchases.
+5. If products unavailable: “Purchases are not available right now.” Free still works.
+6. Confirm no fake purchase success without StoreKit.
 
 ### 17. Etsy Shop
 1. Settings → Etsy Shop.

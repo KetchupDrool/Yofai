@@ -20,7 +20,7 @@ alwaysApply: true
 - Export preset pixel sizes must not be invented; use verified sizes only.
 - **Freemium-first if monetized:** Free keeps the core local export workflow from launch; Pro must be additive. Do not launch fully free and later lock existing core Free features behind payment.
 - Do not delete seller data to enforce Free limits; over-limit existing products remain viewable/editable.
-- Real StoreKit purchases are not implemented until an approved payments phase; do not fake purchase success.
+- StoreKit 2 powers Yofai Pro subscriptions when App Store Connect products exist; never fake a successful purchase. Core Free local export must remain available without purchase.
 - App Store launch claims must stay factual: local JPEG export for manual upload; no Direct Upload / compliance / partnership / AI claims.
 - Keep changes small.
 - Inspect files before editing.

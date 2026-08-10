@@ -63,11 +63,11 @@ Home → Start / Continue Product → Item Project → Capture & Check Photos �
 Import, Originals, and History remain available as secondary tools.
 
 ## Status
-- Phases 1–52 technical history complete (see `DECISIONS.md`, `APP_STORE_PREP.md`)
-- **Phase 52:** App Store submit-path package (metadata, privacy answers, screenshots plan, TestFlight smoke, release checklist) — no archive/upload in-phase
-- **Phase 51:** no-AI positioning cleanup — AI Listing Assistant UI/providers removed; dormant `AIPreparationRecord` shell kept for store compatibility only
-- Freemium-first if monetized: Free keeps core local export; Pro is additive (Phase 49). No StoreKit purchases yet.
-- App Store prep docs and review-safe copy for Local Export Mode launch (Phase 50)
+- Phases 1–53 technical history complete (see `DECISIONS.md`, `APP_STORE_CONNECT_SUBSCRIPTIONS.md`)
+- **Phase 53:** StoreKit 2 Yofai Pro monthly/yearly foundation — Connect product creation still manual
+- **Phase 52:** App Store submit-path package (metadata, privacy answers, screenshots plan, TestFlight smoke, release checklist)
+- **Phase 51:** no-AI positioning cleanup — dormant `AIPreparationRecord` shell for store compatibility only
+- Freemium-first: Free keeps core local export; Pro additive via StoreKit when products exist. No Direct Upload.
 - Marketplace target (destination) is separate from export size (pixel canvas)
 - Local export history records what was **exported for** a marketplace — never publish/upload status
 - Optional local seller notes on export batches are reminders only — not publish status; may optionally accompany share as text/reference or Copy Export Note

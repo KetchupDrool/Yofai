@@ -1,0 +1,88 @@
+{
+  "identifier" : "Yofai",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "214A9C01",
+      "localizations" : [
+
+      ],
+      "name" : "Yofai Pro",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "4.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "214A9C02",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Unlimited products and additive Pro extras for Yofai.",
+              "displayName" : "Yofai Pro Monthly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.shawnwright.yofai.pro.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Yofai Pro Monthly",
+          "subscriptionGroupID" : "214A9C01",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "39.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "214A9C03",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Unlimited products and additive Pro extras for Yofai.",
+              "displayName" : "Yofai Pro Yearly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.shawnwright.yofai.pro.yearly",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Yofai Pro Yearly",
+          "subscriptionGroupID" : "214A9C01",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

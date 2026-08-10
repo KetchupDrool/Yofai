@@ -42,7 +42,7 @@ final class Phase52AppStoreSubmitPathTests: XCTestCase {
             XCTAssertFalse(AppStoreLaunchSupport.containsRiskyAppStoreClaim(line), line)
             XCTAssertFalse(AppStoreLaunchSupport.containsActiveAIProductClaim(line), line)
         }
-        XCTAssertTrue(AppStoreLaunchSupport.appReviewNotesLines.contains { $0.lowercased().contains("no purchase is charged") })
+        XCTAssertTrue(AppStoreLaunchSupport.appReviewNotesLines.contains { $0.lowercased().contains("storekit subscription") })
         XCTAssertTrue(AppStoreLaunchSupport.appReviewNotesLines.contains { $0.lowercased().contains("direct upload mode is not implemented") })
         XCTAssertTrue(AppStoreLaunchSupport.appReviewNotesLines.contains { $0.lowercased().contains("no ai features") })
         XCTAssertFalse(EtsyOAuthConfig.isConfigurationComplete)

@@ -1,6 +1,6 @@
 import Foundation
 
-/// Phase 50–52 — App Store launch positioning and review-safe claim checks.
+/// Phase 50–53 — App Store launch positioning and review-safe claim checks.
 /// Yofai is a no-AI, local-first marketplace photo-prep app.
 enum AppStoreLaunchSupport {
     static let displayName = "Yofai"
@@ -17,7 +17,7 @@ enum AppStoreLaunchSupport {
         "Photos, projects, edits, export history, and notes stay on your device. No account, no backend, no ads, no analytics SDK, no marketplace upload, and no AI service."
 
     static let freemiumLaunchNote =
-        "Free keeps the core local export workflow. Yofai Pro is planned and not available yet. No purchase is charged."
+        "Free keeps the core local export workflow. Yofai Pro is an optional StoreKit subscription for additive extras."
 
     static let supportURLString = "https://ketchupdrool.github.io/Yofai/support.html"
     static let privacyPolicyURLString = "https://ketchupdrool.github.io/Yofai/privacy-policy.html"
@@ -26,14 +26,14 @@ enum AppStoreLaunchSupport {
         "Does not upload or publish to marketplaces",
         "Does not claim marketplace compliance or approval",
         "Does not require an account or network for local export",
-        "Does not charge for Pro in this version",
+        "Does not require Pro for core local export",
         "Does not use AI"
     ]
 
     /// Paste-ready bullets for App Review (also mirrored in APP_STORE_METADATA.md).
     static let appReviewNotesLines: [String] = [
         "Yofai does not require a login or account.",
-        "Yofai Pro is a planned placeholder only. No purchase is charged.",
+        "Yofai Pro is an optional StoreKit subscription. Free keeps the core local export workflow.",
         "App exports local JPEGs only. Seller manually uploads files to marketplaces.",
         "No marketplace account connection is required.",
         "Direct Upload Mode is not implemented.",

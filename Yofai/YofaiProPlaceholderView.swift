@@ -1,8 +1,10 @@
 import SwiftUI
 
-/// Phase 49 — factual Pro placeholder. No pricing, no StoreKit purchase, no fake unlock.
-struct YofaiProPlaceholderSheet: View {
+/// Phase 53 — StoreKit-backed Yofai Pro paywall. Prices come from StoreKit when loaded.
+struct YofaiProPaywallView: View {
     @Environment(\.dismiss) private var dismiss
+    @ObservedObject private var purchases = PurchaseManager.shared
+    private var state: EntitlementState { EntitlementStore.shared.state }
 
     var body: some View {
         NavigationStack {
@@ -11,12 +13,13 @@ struct YofaiProPlaceholderSheet: View {
                     Text(FreemiumCopy.proTitle)
                         .font(.title3.weight(.semibold))
                         .foregroundStyle(DarkroomTheme.textPrimary)
-                        .fixedSize(horizontal: false, vertical: true)
-                    Text(FreemiumCopy.proNotAvailableYet)
+                    Text(state.isPro ? FreemiumCopy.currentPlanPro : FreemiumCopy.currentPlanFree)
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(DarkroomTheme.accent)
+                    Text(FreemiumCopy.proBenefitsIntro)
                         .font(.subheadline)
                         .foregroundStyle(DarkroomTheme.textSecondary)
                         .fixedSize(horizontal: false, vertical: true)
-                        .accessibilityLabel(FreemiumCopy.proNotAvailableYet)
                     Text(FreemiumCopy.proPlannedSummary)
                         .font(.caption)
                         .foregroundStyle(DarkroomTheme.textTertiary)
@@ -24,27 +27,75 @@ struct YofaiProPlaceholderSheet: View {
                 }
 
                 Section {
-                    ForEach(proPreviewFeatures, id: \.self) { title in
-                        Label {
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(title)
-                                    .fixedSize(horizontal: false, vertical: true)
-                                Text(FreemiumCopy.plannedProFeature)
-                                    .font(.caption2)
-                                    .foregroundStyle(DarkroomTheme.textTertiary)
-                            }
-                        } icon: {
-                            Image(systemName: "lock.fill")
-                                .foregroundStyle(DarkroomTheme.textTertiary)
-                        }
-                        .accessibilityLabel("\(title). \(FreemiumCopy.plannedProFeature)")
-                    }
+                    benefitRow(FreemiumFeature.unlimitedProducts.displayTitle, detail: "Available with Pro")
+                    benefitRow(FreemiumFeature.advancedHistoryTools.displayTitle, detail: FreemiumCopy.plannedProFeature)
+                    benefitRow(FreemiumFeature.advancedMultiMarketTools.displayTitle, detail: "Planned additive workflow")
+                    benefitRow(
+                        FreemiumFeature.cloudBackupSync.displayTitle,
+                        detail: FreemiumCopy.plannedFutureProFeature
+                    )
+                    benefitRow(
+                        FreemiumFeature.directUploadMode.displayTitle,
+                        detail: "Not implemented — only if verified later"
+                    )
                 } header: {
-                    Text("Planned Pro extras")
+                    Text("Pro benefits")
                         .foregroundStyle(DarkroomTheme.textTertiary)
                 } footer: {
-                    Text("Free keeps the core local export workflow. Pro features are additive. Direct Upload Mode is not implemented.")
+                    Text("Direct Upload Mode and cloud backup are not available in this version. No AI features.")
                         .foregroundStyle(DarkroomTheme.textTertiary)
+                }
+
+                Section {
+                    if purchases.productsLoadState == .loading || purchases.isBusy {
+                        ProgressView("Loading…")
+                    }
+
+                    if purchases.productsLoadState == .unavailable {
+                        Text(FreemiumCopy.purchasesUnavailable)
+                            .font(.subheadline)
+                            .foregroundStyle(DarkroomTheme.textSecondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .accessibilityLabel(FreemiumCopy.purchasesUnavailable)
+                    }
+
+                    ForEach(purchases.products) { product in
+                        Button {
+                            Task { _ = await purchases.purchase(productID: product.id) }
+                        } label: {
+                            Text(product.purchaseButtonTitle)
+                                .foregroundStyle(DarkroomTheme.accent)
+                        }
+                        .disabled(purchases.isBusy || state.isPro)
+                        .accessibilityLabel("Subscribe \(product.periodLabel) for \(product.displayPrice)")
+                    }
+
+                    Button {
+                        Task { _ = await purchases.restorePurchases() }
+                    } label: {
+                        Text(FreemiumCopy.restorePurchases)
+                            .foregroundStyle(DarkroomTheme.accent)
+                    }
+                    .disabled(purchases.isBusy)
+                    .accessibilityLabel(FreemiumCopy.restorePurchases)
+
+                    if let status = purchases.statusMessage, !status.isEmpty {
+                        Text(status)
+                            .font(.caption)
+                            .foregroundStyle(DarkroomTheme.textTertiary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                } header: {
+                    Text("Subscribe")
+                        .foregroundStyle(DarkroomTheme.textTertiary)
+                } footer: {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(FreemiumCopy.manageSubscriptionsHint)
+                        Text("Payment is charged to your Apple ID. Intended tiers (App Store Connect): \(YofaiProductIDs.intendedMonthlyPriceNote), \(YofaiProductIDs.intendedYearlyPriceNote). Live price shown by StoreKit when available.")
+                        Link("Privacy Policy", destination: AppStoreLinks.privacyPolicy)
+                        Link("Support", destination: AppStoreLinks.support)
+                    }
+                    .foregroundStyle(DarkroomTheme.textTertiary)
                 }
             }
             .navigationTitle(FreemiumCopy.proTitle)
@@ -55,29 +106,40 @@ struct YofaiProPlaceholderSheet: View {
                         .accessibilityLabel(FreemiumCopy.keepUsingFree)
                 }
             }
+            .task {
+                purchases.startListeningForTransactionsIfNeeded()
+                await purchases.refreshEntitlementsAndProducts()
+            }
         }
     }
 
-    private var proPreviewFeatures: [String] {
-        [
-            FreemiumFeature.unlimitedProducts.displayTitle,
-            FreemiumFeature.advancedHistoryTools.displayTitle,
-            FreemiumFeature.advancedMultiMarketTools.displayTitle,
-            FreemiumFeature.cloudBackupSync.displayTitle,
-            FreemiumFeature.directUploadMode.displayTitle
-        ]
+    private func benefitRow(_ title: String, detail: String) -> some View {
+        Label {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .fixedSize(horizontal: false, vertical: true)
+                Text(detail)
+                    .font(.caption2)
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+            }
+        } icon: {
+            Image(systemName: "checkmark.circle.fill")
+                .foregroundStyle(DarkroomTheme.accent)
+        }
+        .accessibilityLabel("\(title). \(detail)")
     }
 }
 
-/// Settings section: current Free plan + planned Pro preview.
+/// Settings → Yofai Pro
 struct YofaiProSettingsSection: View {
-    @State private var showPlaceholder = false
+    @State private var showPaywall = false
+    @ObservedObject private var purchases = PurchaseManager.shared
     private var state: EntitlementState { EntitlementStore.shared.state }
 
     var body: some View {
         Section {
             LabeledContent("Plan", value: state.plan.displayTitle)
-                .accessibilityLabel("\(FreemiumCopy.currentPlanFree)")
+                .accessibilityLabel(state.isPro ? FreemiumCopy.currentPlanPro : FreemiumCopy.currentPlanFree)
 
             Text(FreemiumCopy.proPlannedSummary)
                 .font(.caption)
@@ -90,23 +152,45 @@ struct YofaiProSettingsSection: View {
                 .fixedSize(horizontal: false, vertical: true)
 
             Button {
-                showPlaceholder = true
+                showPaywall = true
             } label: {
-                Text("Preview \(FreemiumCopy.proTitle)")
+                Text(state.isPro ? "Manage \(FreemiumCopy.proTitle)" : "Upgrade to \(FreemiumCopy.proTitle)")
                     .foregroundStyle(DarkroomTheme.accent)
             }
-            .accessibilityLabel("Preview \(FreemiumCopy.proTitle). \(FreemiumCopy.proNotAvailableYet)")
+            .accessibilityLabel(state.isPro ? "Manage Yofai Pro" : "Upgrade to Yofai Pro")
+
+            Button {
+                Task { _ = await purchases.restorePurchases() }
+            } label: {
+                Text(FreemiumCopy.restorePurchases)
+                    .foregroundStyle(DarkroomTheme.accent)
+            }
+            .disabled(purchases.isBusy)
+            .accessibilityLabel(FreemiumCopy.restorePurchases)
+
+            if purchases.productsLoadState == .unavailable {
+                Text(FreemiumCopy.purchasesUnavailable)
+                    .font(.caption2)
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
         } header: {
             Text(FreemiumCopy.proTitle)
                 .font(.caption2.weight(.bold))
                 .tracking(1.0)
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
-            Text("No purchase is available in this version. StoreKit will be required before Pro can charge.")
+            Text(FreemiumCopy.manageSubscriptionsHint)
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
-        .sheet(isPresented: $showPlaceholder) {
-            YofaiProPlaceholderSheet()
+        .sheet(isPresented: $showPaywall) {
+            YofaiProPaywallView()
+        }
+        .task {
+            await purchases.refreshEntitlementsAndProducts()
         }
     }
 }
+
+/// Compatibility alias for older call sites during Phase 53.
+typealias YofaiProPlaceholderSheet = YofaiProPaywallView
