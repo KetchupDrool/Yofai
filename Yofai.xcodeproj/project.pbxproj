@@ -67,6 +67,8 @@
 		A9D47B4883F0A7B18C901903 /* Phase47LocalExportFileAccessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D47B4883F0A7B18C901903 /* Phase47LocalExportFileAccessTests.swift */; };
 		A9D48B4994A1B8C29D012A06 /* Phase48FinalLocalExportPolishTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D48B4994A1B8C29D012A06 /* Phase48FinalLocalExportPolishTests.swift */; };
 		A9D49B50A5B2C9D30E123B09 /* Phase49FreemiumFoundationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D49B50A5B2C9D30E123B09 /* Phase49FreemiumFoundationTests.swift */; };
+		A9D50B51B6C3D0E41F234C0A /* Phase50AppStorePrepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D50B51B6C3D0E41F234C0A /* Phase50AppStorePrepTests.swift */; };
+		E9C50A47F3C3D0E41F234C0B /* AppStoreLaunchSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C50A47F3C3D0E41F234C0B /* AppStoreLaunchSupport.swift */; };
 		AD9AE07102BD7F5E5CDC19F0 /* OriginalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B8427BE901DB4798F39B72 /* OriginalDetailView.swift */; };
 		B2C36D4E9F6A1243B8C07E57 /* Phase36VerifiedMarketplaceExportPresetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C36D4E9F6A1243B8C07E57 /* Phase36VerifiedMarketplaceExportPresetsTests.swift */; };
 		B492C2E931E3CA51E4936D28 /* MockEtsyConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C102A8BE99576F4E682AB5 /* MockEtsyConnectionService.swift */; };
@@ -174,6 +176,8 @@
 		B9D47B4883F0A7B18C901903 /* Phase47LocalExportFileAccessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase47LocalExportFileAccessTests.swift; sourceTree = "<group>"; };
 		B9D48B4994A1B8C29D012A06 /* Phase48FinalLocalExportPolishTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase48FinalLocalExportPolishTests.swift; sourceTree = "<group>"; };
 		B9D49B50A5B2C9D30E123B09 /* Phase49FreemiumFoundationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase49FreemiumFoundationTests.swift; sourceTree = "<group>"; };
+		B9D50B51B6C3D0E41F234C0A /* Phase50AppStorePrepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase50AppStorePrepTests.swift; sourceTree = "<group>"; };
+		F9C50A47F3C3D0E41F234C0B /* AppStoreLaunchSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreLaunchSupport.swift; sourceTree = "<group>"; };
 		BA1B330994CDA7B6764522D4 /* PhotoPlanSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPlanSupport.swift; sourceTree = "<group>"; };
 		BA91391F1DC702D2DEE14F4A /* Yofai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yofai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFBCC2E77ABF1EFB4C8F41FE /* SellerDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerDefaults.swift; sourceTree = "<group>"; };
@@ -267,6 +271,7 @@
 				F9C48A44F1A1B8C29D012A05 /* LocalExportNextStepActions.swift */,
 				F9C49A45F2B2C9D30E123B07 /* EntitlementSupport.swift */,
 				F9C49A46F2B2C9D30E123B08 /* YofaiProPlaceholderView.swift */,
+				F9C50A47F3C3D0E41F234C0B /* AppStoreLaunchSupport.swift */,
 				D4EDC252ED2FD43DA3FF2FC2 /* HistoryDetailView.swift */,
 				A71AA6F7AE79A72B0BD6E5E4 /* HistoryView.swift */,
 				4AE9E95DE5571028873EC4AF /* HomeView.swift */,
@@ -347,6 +352,7 @@
 				B9D47B4883F0A7B18C901903 /* Phase47LocalExportFileAccessTests.swift */,
 				B9D48B4994A1B8C29D012A06 /* Phase48FinalLocalExportPolishTests.swift */,
 				B9D49B50A5B2C9D30E123B09 /* Phase49FreemiumFoundationTests.swift */,
+				B9D50B51B6C3D0E41F234C0A /* Phase50AppStorePrepTests.swift */,
 			);
 			path = YofaiTests;
 			sourceTree = "<group>";
@@ -468,6 +474,7 @@
 				E9C48A44F1A1B8C29D012A05 /* LocalExportNextStepActions.swift in Sources */,
 				E9C49A45F2B2C9D30E123B07 /* EntitlementSupport.swift in Sources */,
 				E9C49A46F2B2C9D30E123B08 /* YofaiProPlaceholderView.swift in Sources */,
+				E9C50A47F3C3D0E41F234C0B /* AppStoreLaunchSupport.swift in Sources */,
 				13BCC10E2C1CAA3689C3E672 /* HistoryDetailView.swift in Sources */,
 				20C0DB8564D9A4846982AD22 /* HistoryView.swift in Sources */,
 				42CB7915D48665E9ECD06B44 /* HomeView.swift in Sources */,
@@ -539,6 +546,7 @@
 				A9D47B4883F0A7B18C901903 /* Phase47LocalExportFileAccessTests.swift in Sources */,
 				A9D48B4994A1B8C29D012A06 /* Phase48FinalLocalExportPolishTests.swift in Sources */,
 				A9D49B50A5B2C9D30E123B09 /* Phase49FreemiumFoundationTests.swift in Sources */,
+				A9D50B51B6C3D0E41F234C0A /* Phase50AppStorePrepTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

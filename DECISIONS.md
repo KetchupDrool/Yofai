@@ -328,6 +328,13 @@
 - Settings: Yofai Pro section + factual placeholder sheet (“Pro is not available yet. No purchase is charged.”) — no fake pricing or StoreKit buy button
 - StoreKit not implemented; future payments phase needs product IDs, StoreKit 2, restore, App Store Connect, legal/privacy, paywall copy, configuration tests
 
+## Phase 50 — App Store Prep for Freemium Local Export Launch (locked)
+- Launch positioning: marketplace product photo prep + local JPEG export for manual upload
+- Docs: `APP_STORE_PREP.md`, updated `APP_STORE_METADATA.md`, `RELEASE_CHECKLIST.md`, privacy/support pages aligned to Local Export Mode
+- Review mitigations: Etsy Connect button removed while OAuth incomplete; Listing Assistant labeled Not Available / offline
+- Freemium copy remains Free-core + Pro planned / no purchase charged; no StoreKit
+- No Direct Upload, no fake paywall, no compliance claims
+
 ## Future StoreKit phase requirements (not started)
 - Choose subscription vs lifetime (or both) and App Store Connect product IDs
 - StoreKit 2 purchase + restore + transaction verification

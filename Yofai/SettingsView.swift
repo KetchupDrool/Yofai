@@ -32,10 +32,11 @@ struct SettingsView: View {
                 .listRowBackground(settingsRowBackground)
 
                 Section {
-                    Text("Yofai keeps photos and listing drafts on your device. No ads or tracking in this version. Save Listing Copy writes a framed export to Photos only when you choose. An optional Etsy Shop connection stores tokens in Keychain only; live Etsy OAuth is not enabled yet. Deleting History, Originals, or Projects removes app files only.")
+                    Text("Yofai keeps product photos, edits, listing drafts, export history, and notes on this device. Local JPEG export is for manual marketplace upload. No ads, no tracking SDKs, no account, no backend, and no marketplace upload in this version. Camera is used to capture product photos. Photos permission is used when you choose photos or save a listing copy. Live Etsy OAuth is not enabled. Yofai Pro is planned and does not charge yet.")
                         .font(.subheadline)
                         .foregroundStyle(DarkroomTheme.textSecondary)
                         .fixedSize(horizontal: false, vertical: true)
+                        .accessibilityLabel(AppStoreLaunchSupport.privacySummary)
                 } header: {
                     Text("Privacy")
                         .font(.caption2.weight(.bold))

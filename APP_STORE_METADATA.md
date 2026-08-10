@@ -1,51 +1,63 @@
 # App Store Metadata — Yofai
 
-Deadline: upload by **2026-08-13**.
+**Phase 50 — freemium Local Export Mode launch draft**  
+Do not claim Direct Upload, Pro purchases, AI APIs, compliance, or marketplace partnership.
 
 ## App Name
 Yofai
 
-## Subtitle
-(30 characters max)
-Simple local photo edits
+## Subtitle options (≤30 characters)
+1. **Marketplace photo prep** (recommended)
+2. Local listing photo export
+3. Seller photo prep, local
 
 ## Bundle ID
-com.shawnwright.yofai
+`com.shawnwright.yofai`
 
 ## SKU
-yofai-ios
+`yofai-ios`
 
 ## Category
-Photo & Video
+Photo & Video  
+Secondary (optional): Shopping
 
-## Short Description
-(promotional text / quick pitch)
-Edit photos on your iPhone with rotate, simple filters, and Save Copy — all local, no account.
+## Promotional Text / Short Pitch
+Prepare marketplace product photos on your iPhone. Export local JPEGs sized for sellers, then upload them yourself in the marketplace app or website.
 
-## Full Description
-Yofai is a simple, local-only photo editor for iPhone.
+## Full Description (draft)
 
-Import a photo from your library, rotate it, try a few clean filters, and tap Save Copy to keep an edited version in Photos. Your edit history stays on your device.
+Yofai helps online sellers prepare product photos for marketplaces — on your iPhone, without an account.
 
-What you can do:
-• Import a photo from your library
-• Rotate left or right
-• Apply Original, Mono, Sepia, or Vivid filters
-• Save a copy to Photos when you choose
-• Review recent saves in History
+**What Yofai does**
+• Start a product and organize photo sets  
+• Capture and check product photos  
+• Edit, crop, and fit photos for export  
+• Prepare for marketplace targets with verified export sizes  
+• Export local JPEGs for manual upload  
+• Keep export history and optional notes on device  
+• View and share exported files from history  
 
-What Yofai does not do:
-• No account or login
-• No cloud sync or backend
-• No ads
-• No tracking
-• No AI features in this version
+**Seller workflow**
+Capture → Organize → Photo Check → Edit → Prepare → Local Export
 
-Yofai is built for quick, private edits on your device.
+**Local Export Mode**
+Yofai prepares listing-ready JPEGs on your device. You upload those files yourself in Etsy, eBay, Facebook Marketplace, Poshmark, Mercari, or similar — using each marketplace’s own app or website.
 
-## Keywords
-(100 characters max, comma-separated, no spaces after commas preferred in App Store Connect)
-photo,editor,filter,rotate,local,privacy,simple,edit,mono,sepia
+**Free core workflow**
+The Free plan keeps the core local export workflow. Yofai Pro is planned for later additive extras and is not available for purchase in this version.
+
+**What Yofai does not do**
+• Does not upload or publish listings to marketplaces  
+• Does not claim marketplace compliance or official approval  
+• Does not require an account or cloud sync for local export  
+• Does not include live AI features in this version  
+• Does not charge for Pro in this version  
+
+**Privacy**
+Photos, projects, edits, export history, and notes stay on your device. No ads. No tracking SDKs.
+
+## Keywords (≤100 characters, draft)
+marketplace,photo,seller,export,etsy,ebay,listing,jpeg,product,local,prep,crop
 
 ## Support URL
 https://ketchupdrool.github.io/Yofai/support.html
@@ -56,33 +68,20 @@ https://ketchupdrool.github.io/Yofai/privacy-policy.html
 ## EULA
 https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 
-Legal pages live in `docs/` (GitHub Pages). See also: `PRIVACY_NOTES.md`.
-
 ## Copyright
 © 2026 Shawn Wright
 
 ## Age Rating Notes
-Photo editing utility. No user-generated public content, no social features, no ads.
+Utility for product photo prep. No public UGC feed, no social network, no ads.
 
-## Screenshot Checklist
-Capture on real device or simulator; use App Store required sizes.
+## What’s New (1.0 release notes draft)
+Yofai 1.0 helps sellers prepare marketplace product photos on device and export local JPEGs for manual upload. Free includes the core Capture → Edit → Local Export workflow. No account required.
 
-- [ ] iPhone 6.7" (e.g. iPhone 15 Pro Max / 16 Plus) — Home empty state
-- [ ] iPhone 6.7" — Import with selected photo
-- [ ] iPhone 6.7" — Edit with filters visible
-- [ ] iPhone 6.7" — History with at least one saved edit
-- [ ] iPhone 6.1" (e.g. iPhone 15 / 16) — same 4 screens (or scale if allowed)
-- [ ] Optional: Settings showing local-only privacy note
+## Build settings
+- Display name: Yofai  
+- Bundle ID: com.shawnwright.yofai  
+- iPhone only  
+- Version: 1.0 (1) — bump before each upload if needed  
+- Camera + Photos add usage strings: seller photo capture / optional Save Listing Copy  
 
-Suggested order in App Store Connect:
-1. Edit screen (hero)
-2. Import screen
-3. Home
-4. History
-
-## Build Settings Confirmed in Project
-- Display name: Yofai
-- Bundle ID: com.shawnwright.yofai
-- Devices: iPhone only (`TARGETED_DEVICE_FAMILY = 1`)
-- Photos add permission: clear Save Copy wording
-- Version: 1.0 (1)
+See also: `APP_STORE_PREP.md`, `RELEASE_CHECKLIST.md`, `PRIVACY_NOTES.md`.

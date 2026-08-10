@@ -1,29 +1,24 @@
 # Session Handoff
 
 ## Status
-Phase 49 complete — Freemium Foundation & Entitlement Planning. Build + unit tests succeeded on iPhone 16e (278 tests; 8 Phase 49). Local Export Mode remains current. Direct Upload Mode not implemented. StoreKit purchases not implemented. App Store upload paused.
-
-Note: Phase 48 (Final Local Export Mode Polish) already shipped at `febeb38`. This freemium work is Phase 49 (brief titled “Phase 48” arrived after that commit).
+Phase 50 complete — App Store Prep for Freemium Local Export Launch. Build + unit tests succeeded on iPhone 16e (282 tests; 4 Phase 50). Local Export Mode + freemium-first remain. StoreKit not implemented. Direct Upload not implemented. App Store upload still paused until you submit.
 
 ## Product purpose
-Local-first marketplace product photo preparation for online sellers.
-**Local Export Mode** = current. **Direct Upload Mode** = future only.
-**Freemium-first if monetized** — Free keeps core workflow; Pro additive.
+Marketplace product photo prep → local JPEG export for manual upload.
+Free keeps core workflow. Pro planned only (no purchase charged).
 
 ## Facts
-- Default entitlement: Free
-- Free active-product limit: 12 (centralized in `FreemiumLimits`); existing over-limit products stay usable
-- Core Free: Photo Check, edit/fit, local export, notes, view/re-share, history
-- Pro placeholder in Settings — no pricing, no charge
+- Docs: `APP_STORE_PREP.md`, `APP_STORE_METADATA.md`, `RELEASE_CHECKLIST.md`, updated privacy/support pages
+- Etsy Shop Connect button removed while OAuth incomplete
+- Listing Assistant labeled Not Available / offline
 - Git: `/Volumes/CombatMedic/Yofai` on `main`
 
 ## Last Completed
-- Phase 49: `EntitlementSupport`, `YofaiProPlaceholderView`, product-create gating, Settings Pro section, Phase49 tests
+- Phase 50 App Store prep + review mitigations + Phase50 tests
 
 ## Next Recommended
-App Store prep for Free Local Export Mode launch, or approved StoreKit Pro payments phase, or verified Etsy upload foundation. Do not start the next phase unprompted.
+Follow `RELEASE_CHECKLIST.md`: screenshots, App Store Connect metadata, TestFlight smoke, then submit. Or approve StoreKit Pro payments / upload foundation phases explicitly.
 
 ## Rules
-- Freemium-first; no bait-and-switch locking of core Free features
-- No fake purchases; no data deletion for limits
+- Freemium-first; no fake purchases; Local Export Mode only
 - No Direct Upload / OAuth upload / browser automation / AI API unless re-approved

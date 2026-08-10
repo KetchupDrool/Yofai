@@ -279,7 +279,7 @@ struct ListingWorkspaceView: View {
             Text(DisconnectedAIListingProvider.shared.statusMessage)
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(DarkroomTheme.accent)
-            Text("No photos or listing data leave this device in this phase.")
+            Text(AppStoreLaunchSupport.listingAssistantUnavailableDetail)
                 .font(.caption)
                 .foregroundStyle(DarkroomTheme.textSecondary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -290,14 +290,15 @@ struct ListingWorkspaceView: View {
             NavigationLink {
                 AIListingAssistantView(project: project)
             } label: {
-                Text("Open AI Listing Assistant")
+                Text("Open Offline Listing Assistant")
                     .foregroundStyle(DarkroomTheme.accent)
             }
+            .accessibilityLabel("Open Offline Listing Assistant. AI is not connected.")
         } header: {
-            Text("AI Listing Assistant")
+            Text(AppStoreLaunchSupport.listingAssistantUnavailableTitle)
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
-            Text("Local preparation and suggestion review only. AI is not connected yet.")
+            Text("Offline suggestion review only. No AI API. No network. Local Export Mode is unchanged.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)

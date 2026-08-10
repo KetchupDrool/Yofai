@@ -14,5 +14,5 @@ enum EtsyOAuthConfig {
     static let isConfigurationComplete = false
 
     static let incompleteConfigurationMessage =
-        "Incomplete development configuration. Redirect URI is a placeholder; live Etsy OAuth is not enabled."
+        "Live Etsy OAuth is not enabled. Connection is not available in this version."
 }

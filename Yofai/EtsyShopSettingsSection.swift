@@ -1,113 +1,47 @@
 import SwiftUI
 
+/// Phase 50 — Etsy shop stub is informational only. No live Connect button while OAuth is disabled.
 struct EtsyShopSettingsSection: View {
     @ObservedObject var connection: StubEtsyConnectionService
-    @State private var showDisconnectConfirm = false
 
     var body: some View {
         Section {
-            statusRow
-
-            if let detail = connection.state.detailMessage {
-                Text(detail)
-                    .font(.caption)
-                    .foregroundStyle(detailColor(for: connection.state))
+            HStack(alignment: .top) {
+                Text("Status")
+                    .foregroundStyle(DarkroomTheme.textPrimary)
+                Spacer()
+                Text(AppStoreLaunchSupport.etsyConnectionUnavailableTitle)
+                    .foregroundStyle(DarkroomTheme.textSecondary)
+                    .multilineTextAlignment(.trailing)
                     .fixedSize(horizontal: false, vertical: true)
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("Etsy status. \(AppStoreLaunchSupport.etsyConnectionUnavailableTitle)")
+
+            Text(AppStoreLaunchSupport.etsyConnectionUnavailableDetail)
+                .font(.caption)
+                .foregroundStyle(DarkroomTheme.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
 
             Text(EtsyOAuthConfig.incompleteConfigurationMessage)
                 .font(.caption2)
                 .foregroundStyle(DarkroomTheme.textTertiary)
                 .fixedSize(horizontal: false, vertical: true)
 
-            actions
+            // Keep stub refreshed so status stays accurate, but do not offer Connect.
+            Color.clear
+                .frame(height: 0)
+                .onAppear { connection.refreshStatus() }
+                .accessibilityHidden(true)
         } header: {
             Text("Etsy Shop")
                 .font(.caption2.weight(.bold))
                 .tracking(1.0)
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
-            Text("Tokens are stored in Keychain only when a connection exists. No live Etsy requests in this build. Local projects and listing drafts are unchanged.")
+            Text("Not a live marketplace connection. Local Export Mode only — prepare JPEGs here, upload manually in Etsy’s website or app. No marketplace passwords are stored.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
-    }
-
-    private var statusRow: some View {
-        HStack {
-            Text("Status")
-                .foregroundStyle(DarkroomTheme.textPrimary)
-            Spacer()
-            Text(connection.state.statusLabel)
-                .foregroundStyle(statusColor)
-                .multilineTextAlignment(.trailing)
-        }
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("Etsy status \(connection.state.statusLabel)")
-    }
-
-    @ViewBuilder
-    private var actions: some View {
-        switch connection.state {
-        case .connecting:
-            ProgressView("Connecting…")
-                .tint(DarkroomTheme.accent)
-
-        case .connected, .connectionExpired:
-            Button("Disconnect", role: .destructive) {
-                showDisconnectConfirm = true
-            }
-            .confirmationDialog(
-                "Disconnect Etsy shop?",
-                isPresented: $showDisconnectConfirm,
-                titleVisibility: .visible
-            ) {
-                Button("Disconnect", role: .destructive) {
-                    Task { await connection.disconnect() }
-                }
-                Button("Cancel", role: .cancel) {}
-            } message: {
-                Text("Removes locally stored Etsy credentials from Keychain. Projects, drafts, photos, History, and Originals stay on this device.")
-            }
-
-            if case .connectionExpired = connection.state {
-                Button("Connect Etsy Shop") {
-                    Task { await connection.connect() }
-                }
-                .foregroundStyle(DarkroomTheme.accent)
-            }
-
-        case .notConnected, .error:
-            Button("Connect Etsy Shop") {
-                Task { await connection.connect() }
-            }
-            .foregroundStyle(DarkroomTheme.accent)
-
-            if case .error = connection.state {
-                Button("Disconnect", role: .destructive) {
-                    Task { await connection.disconnect() }
-                }
-            }
-        }
-    }
-
-    private var statusColor: Color {
-        switch connection.state {
-        case .connected:
-            return DarkroomTheme.accent
-        case .connecting:
-            return DarkroomTheme.textSecondary
-        case .connectionExpired, .error:
-            return DarkroomTheme.danger
-        case .notConnected:
-            return DarkroomTheme.textSecondary
-        }
-    }
-
-    private func detailColor(for state: EtsyConnectionState) -> Color {
-        if case .error = state {
-            return DarkroomTheme.danger
-        }
-        return DarkroomTheme.textSecondary
     }
 }
 

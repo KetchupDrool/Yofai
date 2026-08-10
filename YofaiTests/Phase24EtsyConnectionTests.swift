@@ -18,7 +18,8 @@ final class Phase24EtsyConnectionTests: XCTestCase {
         XCTAssertEqual(EtsyOAuthConfig.redirectURIString, "yofai://etsy-oauth-callback")
         XCTAssertEqual(EtsyOAuthConfig.redirectURI.absoluteString, "yofai://etsy-oauth-callback")
         XCTAssertFalse(EtsyOAuthConfig.isConfigurationComplete)
-        XCTAssertTrue(EtsyOAuthConfig.incompleteConfigurationMessage.contains("Incomplete"))
+        XCTAssertTrue(EtsyOAuthConfig.incompleteConfigurationMessage.lowercased().contains("not enabled"))
+        XCTAssertTrue(AppStoreLaunchSupport.etsyConnectionUnavailableTitle.lowercased().contains("not available"))
     }
 
     func testMockSuccessfulConnectionReachesConnected() async throws {
@@ -127,7 +128,7 @@ final class Phase24EtsyConnectionTests: XCTestCase {
         guard case .error(let message) = stub.state else {
             return XCTFail("Expected error state")
         }
-        XCTAssertTrue(message.contains("Incomplete"))
+        XCTAssertTrue(message.lowercased().contains("not enabled"))
         XCTAssertNil(try? store.load())
     }
 
