@@ -11,7 +11,7 @@ Repo: `/Volumes/CombatMedic/Yofai` · branch `main`
 ## Current baseline
 Latest commit on `main`:
 
-*(set after Phase 67 push — see `git log -1`)*
+`4522461c6636ffada52115f693b9520814997a80`
 
 Phase 67 commit message:
 
