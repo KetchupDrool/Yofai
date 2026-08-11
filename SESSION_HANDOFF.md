@@ -1,14 +1,13 @@
 # Session Handoff
 
 ## Status
-Phase 67 complete — post-readability UI QA polish.  
-**370 tests Passed; build Passed on iPhone 16e.**  
-Version **1.0 (1)** — not bumped.
+Tip on `main`: **134a962** — App Icon / Launch Mark artwork updated.  
+Phase 67 post-readability UI QA polish complete at **4522461** (370 tests).  
+Version **1.0 (1)** — not bumped. Not archived.
 
-## UI (Phase 67)
-- Eyes-on QA after Phase 66  
-- Stronger tab clearance + brighter placeholders  
-- Products/Listing Queue **Add** text labels  
+## Pending next (approved)
+Phase 68 — Pre-Archive Paywall & Walkthrough Clarity  
+(see `NEW_CHAT_HANDOFF.md`)
 
 ## Still open (manual release)
 - Connect IAP §B  
@@ -18,8 +17,9 @@ Version **1.0 (1)** — not bumped.
 - Marketing: **1.0** · Build: **1** · Bundle: `com.shawnwright.yofai`
 
 ## Owner next step
-Continue **`SHAWN_NEXT_RELEASE_STEPS.md` §B** (Connect products) unless another phase is approved.
+Either Phase 68 paywall/walkthrough clarity, or Connect §B in `SHAWN_NEXT_RELEASE_STEPS.md`.
 
 ## Rules
 - Freemium-first; Free keeps core local export; no AI / Direct Upload  
 - Unit tests: iPhone 16e  
+- No archive/upload/submit without approval  

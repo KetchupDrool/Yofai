@@ -1,24 +1,24 @@
 # Tasks
 
 ## Status
-Phase 67 — Post-Readability UI QA Pass complete.  
-370 tests Passed; build Passed on iPhone 16e. Version **1.0** build **1**.
+Phase 67 post-readability UI QA complete; icon artwork updated on tip `134a962`.  
+Next: Phase 68 — Pre-Archive Paywall & Walkthrough Clarity (approved, not started).  
+Version **1.0** build **1**. Not archived.
 
 ## Current Phase
-Phase 67 complete (QA polish after Phase 66).  
-App Store Connect §B and remaining release gates still manual — `SHAWN_NEXT_RELEASE_STEPS.md`.
+Ready for Phase 68 paywall/walkthrough clarity, or Connect §B manual release work.
 
 ## Done
-- Phases 1–67
-- Local multi-market arc + release gate docs + readability cleanup + post-QA polish
+- Phases 1–67 (Phase 67 = post-readability UI QA)
+- App Icon / Launch Mark artwork update
 
 ## Next (Shawn / approval)
-1. Finish Connect Yofai Pro products (§B) if not done  
-2. Screenshots · build bump · archive/upload · TestFlight purchase Pass  
-3. Or other approved product work  
+1. Phase 68 — paywall prices + walkthrough clarity (recommended before archive)  
+2. Or Connect Yofai Pro products (§B) / screenshots / bump / archive  
 
 ## Do Not Do
-- Mark Connect / TestFlight / archive Passed without evidence  
 - Archive/upload/submit without approval  
+- Mark Connect / TestFlight / archive Passed without evidence  
 - Marketplace API / Direct Upload / OAuth / publish unless newly approved  
 - Invent FB/Mercari fixed presets; AI; weaken Free core  
+- Show Cloud backup / Direct Upload Mode as current Pro benefits  
