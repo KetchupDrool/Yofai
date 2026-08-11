@@ -11,15 +11,15 @@ Repo: `/Volumes/CombatMedic/Yofai` · branch `main`
 ## Current baseline
 Latest commit on `main`:
 
-`87f236e8b67fb26c46a20fdf892cb4ba718cab6e`
+*(set after Phase 67 push — see `git log -1`)*
 
-Phase 66 commit message:
+Phase 67 commit message:
 
-`Phase 66 app readability cleanup`
+`Phase 67 post-readability UI QA polish`
 
 Status:
-- Phase 66 complete (readability/navigation UI polish)
-- **363 tests passed** · build succeeded · iPhone 16e
+- Phase 67 complete (post-Phase 66 eyes-on QA + small targeted polish)
+- **370 tests passed** · build succeeded · iPhone 16e
 - Version **1.0** · Build **1** — not bumped
 - App Store Connect / screenshots / TestFlight / archive still manual
 
@@ -35,6 +35,7 @@ Do **not** archive/upload/submit or mark Connect/TestFlight Passed without Shawn
 - Phase 61–64: local multi-market  
 - Phase 65: release gate docs  
 - Phase 66: Darkroom readability + form/tab clearance  
+- Phase 67: post-readability UI QA polish  
 
 ## Recommended next
 Shawn: `SHAWN_NEXT_RELEASE_STEPS.md` §B (Connect products)  
@@ -47,7 +48,7 @@ Continue Yofai iOS work.
 
 Read NEW_CHAT_HANDOFF.md, SESSION_HANDOFF.md, and SHAWN_NEXT_RELEASE_STEPS.md first.
 
-Baseline: main after Phase 66. 363 tests. Version 1.0 (1).
+Baseline: main after Phase 67. 370 tests. Version 1.0 (1).
 Local Export Mode only. Release gates still manual for Connect/screenshots/TestFlight/archive.
 
 Work in /Volumes/CombatMedic/Yofai on main. Unit tests on iPhone 16e only.

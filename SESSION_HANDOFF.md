@@ -1,14 +1,14 @@
 # Session Handoff
 
 ## Status
-Phase 66 complete — app-wide readability & navigation cleanup.  
-**363 tests Passed; build Passed on iPhone 16e.**  
+Phase 67 complete — post-readability UI QA polish.  
+**370 tests Passed; build Passed on iPhone 16e.**  
 Version **1.0 (1)** — not bumped.
 
-## UI (Phase 66)
-- Brighter text tokens + clearer list/form cards  
-- Bottom clearance so content clears the tab bar  
-- Shared `darkroomFormList` / `DarkroomListRowBackground` / TextField chrome  
+## UI (Phase 67)
+- Eyes-on QA after Phase 66  
+- Stronger tab clearance + brighter placeholders  
+- Products/Listing Queue **Add** text labels  
 
 ## Still open (manual release)
 - Connect IAP §B  

@@ -17,7 +17,8 @@ enum DarkroomTheme {
     /// Secondary labels must remain readable on dark glass cards.
     static let textSecondary = Color.white.opacity(0.78)
     static let textTertiary = Color.white.opacity(0.60)
-    static let textPlaceholder = Color.white.opacity(0.55)
+    /// Placeholders must stay visibly readable on dark form cards (Phase 67 QA).
+    static let textPlaceholder = Color.white.opacity(0.68)
     static let danger = Color(red: 0.95, green: 0.38, blue: 0.34)
     static let success = Color(red: 0.48, green: 0.82, blue: 0.52)
 
@@ -68,16 +69,19 @@ enum DarkroomTheme {
 
 /// Phase 66 — shared readability metrics for forms and tab clearance.
 enum DarkroomReadability {
-    static let listBottomClearance: CGFloat = 36
+    /// Extra scroll padding so last rows clear the floating tab bar (Phase 67 QA).
+    static let listBottomClearance: CGFloat = 72
+    /// Additional safe-area lift for list/form screens under the tab bar.
+    static let tabBarSafeAreaBoost: CGFloat = 56
     static let listSectionSpacing: CGFloat = 14
     static let minTapTarget: CGFloat = 44
     static let sectionHeaderTracking: CGFloat = 0.9
 
-    /// Approximate white-on-dark contrast used by Phase 66 regression tests.
+    /// Approximate white-on-dark contrast used by Phase 66/67 regression tests.
     static let primaryOnDarkContrast: Double = 18.0
     static let secondaryOnDarkContrast: Double = 9.5
     static let tertiaryOnDarkContrast: Double = 5.5
-    static let placeholderOnDarkContrast: Double = 4.8
+    static let placeholderOnDarkContrast: Double = 5.8
 }
 
 /// Applies once so TextField placeholders and typed values stay readable in dark Forms/Lists.
@@ -89,7 +93,7 @@ enum DarkroomReadableChrome {
         didApply = true
 
         let primary = UIColor(white: 0.98, alpha: 1)
-        let placeholder = UIColor(white: 0.62, alpha: 1)
+        let placeholder = UIColor(white: 0.72, alpha: 1)
         UITextField.appearance().textColor = primary
         UITextField.appearance().tintColor = UIColor(red: 0.98, green: 0.78, blue: 0.34, alpha: 1)
         UITextView.appearance().textColor = primary
@@ -148,8 +152,15 @@ extension View {
             .scrollContentBackground(.hidden)
             .listStyle(.insetGrouped)
             .listSectionSpacing(DarkroomReadability.listSectionSpacing)
-            .contentMargins(.bottom, DarkroomReadability.listBottomClearance, for: .scrollContent)
+            .darkroomTabBarScrollClearance()
             .tint(DarkroomTheme.accent)
+    }
+
+    /// Shared bottom clearance for ScrollView/List/Form under the floating tab bar.
+    func darkroomTabBarScrollClearance() -> some View {
+        self
+            .contentMargins(.bottom, DarkroomReadability.listBottomClearance, for: .scrollContent)
+            .safeAreaPadding(.bottom, DarkroomReadability.tabBarSafeAreaBoost)
     }
 
     func darkroomListRowChrome() -> some View {

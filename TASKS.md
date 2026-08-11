@@ -1,16 +1,16 @@
 # Tasks
 
 ## Status
-Phase 66 — App-Wide Readability & Navigation Cleanup complete.  
-363 tests Passed; build Passed on iPhone 16e. Version **1.0** build **1**.
+Phase 67 — Post-Readability UI QA Pass complete.  
+370 tests Passed; build Passed on iPhone 16e. Version **1.0** build **1**.
 
 ## Current Phase
-Phase 66 complete (UI polish).  
+Phase 67 complete (QA polish after Phase 66).  
 App Store Connect §B and remaining release gates still manual — `SHAWN_NEXT_RELEASE_STEPS.md`.
 
 ## Done
-- Phases 1–66
-- Local multi-market arc + release gate docs + readability/navigation cleanup
+- Phases 1–67
+- Local multi-market arc + release gate docs + readability cleanup + post-QA polish
 
 ## Next (Shawn / approval)
 1. Finish Connect Yofai Pro products (§B) if not done  

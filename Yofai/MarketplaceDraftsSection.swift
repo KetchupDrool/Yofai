@@ -311,7 +311,7 @@ struct MarketplaceListingDraftEditorView: View {
             }
         }
         .scrollContentBackground(.hidden)
-        .contentMargins(.bottom, DarkroomReadability.listBottomClearance, for: .scrollContent)
+        .darkroomTabBarScrollClearance()
         .tint(DarkroomTheme.accent)
         .darkroomScreen()
         .navigationTitle(draft.displayTitle)

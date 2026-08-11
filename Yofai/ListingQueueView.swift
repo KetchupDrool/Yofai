@@ -64,11 +64,10 @@ struct ListingQueueView: View {
                 EditButton()
             }
             ToolbarItem(placement: .primaryAction) {
-                Button {
+                Button("Add") {
                     showAddSheet = true
-                } label: {
-                    Image(systemName: "plus")
                 }
+                .font(.body.weight(.semibold))
                 .accessibilityLabel("Add to Queue")
             }
             ToolbarItem(placement: .bottomBar) {

@@ -52,7 +52,7 @@ struct HistoryView: View {
                     }
                     .listStyle(.plain)
                     .scrollContentBackground(.hidden)
-                    .contentMargins(.bottom, DarkroomReadability.listBottomClearance, for: .scrollContent)
+                    .darkroomTabBarScrollClearance()
                 }
             }
             .darkroomScreen()

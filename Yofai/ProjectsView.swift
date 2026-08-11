@@ -85,7 +85,7 @@ struct ProjectsView: View {
                     }
                     .listStyle(.plain)
                     .scrollContentBackground(.hidden)
-                    .contentMargins(.bottom, DarkroomReadability.listBottomClearance, for: .scrollContent)
+                    .darkroomTabBarScrollClearance()
                 }
             }
             .darkroomScreen()
@@ -102,11 +102,10 @@ struct ProjectsView: View {
                     .accessibilityLabel(SellerNavigationSupport.listingQueueAccessibilityLabel)
                 }
                 ToolbarItem(placement: .primaryAction) {
-                    Button {
+                    Button("Add") {
                         beginCreateProduct()
-                    } label: {
-                        Image(systemName: "plus")
                     }
+                    .font(.body.weight(.semibold))
                     .accessibilityLabel(SellerNavigationSupport.newProductAccessibilityLabel)
                 }
             }

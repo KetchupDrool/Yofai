@@ -63,7 +63,8 @@ Home → Start / Continue Product → Item Project → Capture & Check Photos �
 Import, Originals, and History remain available as secondary tools.
 
 ## Status
-- Phases 1–66 technical history complete (see `DECISIONS.md`, `APP_STORE_SUBMIT_GATES.md`, `SHAWN_NEXT_RELEASE_STEPS.md`)
+- Phases 1–67 technical history complete (see `DECISIONS.md`, `APP_STORE_SUBMIT_GATES.md`, `SHAWN_NEXT_RELEASE_STEPS.md`)
+- **Phase 67:** post-readability UI QA polish (placeholder contrast, tab clearance boost, Add labels); no product-feature change; no Direct Upload
 - **Phase 66:** app-wide readability/navigation cleanup (DarkroomTheme contrast, form cards, tab clearance); no product-feature change; no Direct Upload
 - **Phase 65:** App Store release gate prep (docs/verification); version **1.0** build **1** unchanged; Connect/TestFlight/screenshots/archive still manual
 - **Phase 64:** Pro multi-market workflow polish; Free primary + local export stay available; no Direct Upload

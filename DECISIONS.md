@@ -475,6 +475,15 @@
 - No Direct Upload / login / OAuth / publish / API / AI; presets unchanged; FB/Mercari recommended still nil
 - Tests: Phase 66 suite; full suite 363 Passed; build Passed on iPhone 16e
 
+## Phase 67 — Post-Readability UI QA Pass (locked)
+- Eyes-on iPhone 16e pass after Phase 66; small targeted polish only (no redesign, no product features)
+- Raised placeholder visibility (`textPlaceholder` + UITextField chrome)
+- Stronger shared tab clearance: `listBottomClearance` 72 + `tabBarSafeAreaBoost` 56 via `darkroomTabBarScrollClearance()`
+- Products / Listing Queue toolbar **Add** text labels (not icon-only)
+- Screens checked: welcome guide, Home, Products, Originals, History, Settings (incl. Seller Defaults / Marketplace Defaults), New Product sheet; Listing Workspace / Product Detail / Draft editor share same form chrome (photo-seeded deep nav limited in sim automation)
+- No Direct Upload / login / OAuth / publish / API / AI; presets unchanged; FB/Mercari recommended still nil
+- Tests: Phase 67 suite (7); full suite 370 Passed; build Passed on iPhone 16e
+
 ## Why marketplace APIs are not being done yet (locked)
 **Short answer:** APIs are not next because Yofai must first be a strong **local** marketplace listing prep app. Phase 61 only added local drafts. Direct Upload / OAuth / publish stay future work until the local workflow is finished and a specific official API is approved.
 
@@ -499,6 +508,7 @@
 - Phase 64: Pro multi-market workflow polish — **complete**
 - Phase 65: App Store release gate prep — **complete** (manual Connect/TestFlight/screenshots/archive still open)
 - Phase 66: App-wide readability & navigation cleanup — **complete**
+- Phase 67: Post-readability UI QA polish — **complete**
 - Later API phase: pick **one** official marketplace (likely Etsy or eBay first), verify access, then implement only after approval
 
 **Do not start API integration until**
