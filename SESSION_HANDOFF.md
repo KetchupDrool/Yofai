@@ -1,7 +1,7 @@
 # Session Handoff
 
 ## Status
-Phase 68 pre-archive paywall & walkthrough clarity complete.  
+Tip on `main`: **5c0a462** — Phase 68 paywall & walkthrough clarity.  
 **382 tests** on iPhone 16e. Version **1.0 (1)** — not bumped. Not archived.
 
 ## Pending next

@@ -9,10 +9,14 @@ Simulator: **iPhone 16e only** unless approved
 Repo: `/Volumes/CombatMedic/Yofai` · branch `main`
 
 ## Current baseline
-Latest commit on `main`: *(set after Phase 68 commit)*
+Latest commit on `main`:
+
+`5c0a462e6de908bce31efa013c41d9aa9d422145`
+
+Message: `Phase 68 paywall and walkthrough clarity.`
 
 Status:
-- Working tree clean after Phase 68; `main` = `origin/main`
+- Working tree clean after Phase 68; `main` = `origin/main` after push
 - Phase 68 paywall & walkthrough clarity complete
 - **382 tests** last verified on iPhone 16e
 - Version **1.0** · Build **1** — not bumped
