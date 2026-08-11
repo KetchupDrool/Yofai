@@ -167,8 +167,34 @@ enum FreemiumCopy {
     static let restoreNoPurchases = "No active Pro subscription found."
     static let currentPlanFree = "Current plan: Free"
     static let currentPlanPro = "Current plan: Yofai Pro"
-    static let proPlannedSummary = "Pro adds unlimited products and additive extras. Free keeps Capture → Organize → Photo Check → Edit → Prepare → Local Export."
-    static let proBenefitsIntro = "Yofai Pro is additive. Free keeps the core local export workflow."
+    /// Phase 68 — short Free vs Pro blurb for paywall / Settings.
+    static let proPlannedSummary =
+        "Free keeps Create → Photos → Photo Check → Edit → Export JPEGs. Pro adds unlimited products and marketplace tools."
+    static let proBenefitsIntro =
+        "Yofai Pro is optional and additive. Free keeps the core local export workflow."
+    static let freeIncludesTitle = "Free includes"
+    static let proAddsTitle = "Pro adds"
+    static let bestValueLabel = "Best value"
+    /// Intended Connect tiers — shown as live StoreKit prices when loaded, otherwise as fallback labels.
+    static let intendedMonthlyPriceLabel = "Monthly — $4.99"
+    static let intendedYearlyPriceLabel = "Yearly — $39.99"
+    static let freeIncludesItems: [String] = [
+        "Create products",
+        "Edit photos",
+        "Photo Check",
+        "Export JPEGs"
+    ]
+    static let proAddsItems: [String] = [
+        "Unlimited products",
+        "Advanced export history",
+        "Marketplace Drafts",
+        "Marketplace templates"
+    ]
+    /// Must not appear as marketed main paywall benefits (policy enums may remain).
+    static let paywallExcludedFutureBenefitTitles: [String] = [
+        FreemiumFeature.cloudBackupSync.displayTitle,
+        FreemiumFeature.directUploadMode.displayTitle
+    ]
     static let manageSubscriptionsHint = "Manage or cancel subscriptions in your Apple ID App Store settings."
     static let restorePurchases = "Restore Purchases"
     static let termsOfUseTitle = "Terms of Use"

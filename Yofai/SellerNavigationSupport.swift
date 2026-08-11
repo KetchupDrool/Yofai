@@ -62,9 +62,9 @@ enum SellerNavigationSupport {
     static let newProductAccessibilityLabel = "New Product"
     static let listingQueueAccessibilityLabel = "Listing Queue"
 
-    static let projectIntakeLinkTitle = "Capture & Check Photos"
-    static let projectWorkspaceLinkTitle = "Prepare Listing & Export"
+    static let projectIntakeLinkTitle = "Photos"
+    static let projectWorkspaceLinkTitle = "Export JPEGs"
 
     static let homeWorkflowHint =
-        "Primary path: Start or continue a product → capture & check → edit → prepare listing → local export."
+        "Primary path: Start or continue a product → photos → Photo Check → edit → Export JPEGs."
 }

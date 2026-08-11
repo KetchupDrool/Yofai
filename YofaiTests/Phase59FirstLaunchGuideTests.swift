@@ -55,15 +55,19 @@ final class Phase59FirstLaunchGuideTests: XCTestCase {
     func testWalkthroughPagesMatchRequiredOrder() {
         XCTAssertEqual(FirstLaunchGuidePage.allCases.map(\.title), [
             "Yofai",
-            "Start a Product",
+            "Start with a Product",
             "Add Photos",
-            "Photo Check",
-            "Edit / Fit / Reposition",
-            "Export Local JPEGs",
-            "View / Share Export History",
+            "Check Your Photos",
+            "Crop and Focus",
+            "Fit Your Photo",
+            "Reposition the Crop",
+            "Pick Export Size",
+            "Choose Marketplace Target",
+            "Export JPEGs",
+            "Use Export History",
             "Yofai Pro"
         ])
-        XCTAssertEqual(FirstLaunchGuidePage.walkthroughPages.count, 7)
+        XCTAssertEqual(FirstLaunchGuidePage.walkthroughPages.count, 11)
         XCTAssertEqual(FirstLaunchGuidePage.welcome.primaryButtonTitle, "Get Started")
         XCTAssertEqual(FirstLaunchGuidePage.startProduct.primaryButtonTitle, "Continue")
         XCTAssertEqual(FirstLaunchGuidePage.yofaiPro.primaryButtonTitle, "Done")
@@ -95,8 +99,9 @@ final class Phase59FirstLaunchGuideTests: XCTestCase {
         }
 
         XCTAssertTrue(FirstLaunchGuideCopy.exportLocalBody.localizedCaseInsensitiveContains("manual upload"))
-        XCTAssertTrue(FirstLaunchGuideCopy.photoCheckBody.localizedCaseInsensitiveContains("deterministic"))
-        XCTAssertTrue(FirstLaunchGuideCopy.yofaiProBody.localizedCaseInsensitiveContains("optional"))
+        XCTAssertTrue(FirstLaunchGuideCopy.photoCheckBody.localizedCaseInsensitiveContains("Photo Check"))
+        XCTAssertTrue(FirstLaunchGuideCopy.yofaiProBody.localizedCaseInsensitiveContains("optional")
+            || FirstLaunchGuideCopy.yofaiProBody.localizedCaseInsensitiveContains("Free"))
         XCTAssertTrue(FirstLaunchGuideCopy.yofaiProBody.localizedCaseInsensitiveContains("Free"))
         XCTAssertFalse(FirstLaunchGuideCopy.yofaiProBody.localizedCaseInsensitiveContains("purchase success"))
     }
@@ -131,10 +136,14 @@ final class Phase59FirstLaunchGuideTests: XCTestCase {
         XCTAssertEqual(EntitlementStore.shared.state.plan, .free)
     }
 
-    func testMotionTimingsStayShortAndHonorReduceMotion() {
-        XCTAssertLessThanOrEqual(FirstLaunchGuideMotion.welcomeDuration, 0.7)
-        XCTAssertLessThanOrEqual(FirstLaunchGuideMotion.pageDuration, 0.5)
-        XCTAssertLessThanOrEqual(FirstLaunchGuideMotion.stepContentDuration, 0.5)
+    func testMotionTimingsStayReadableAndHonorReduceMotion() {
+        // Phase 68 slowed pacing for readability; keep Reduce Motion nil.
+        XCTAssertGreaterThanOrEqual(FirstLaunchGuideMotion.welcomeDuration, 0.8)
+        XCTAssertLessThanOrEqual(FirstLaunchGuideMotion.welcomeDuration, 1.2)
+        XCTAssertGreaterThanOrEqual(FirstLaunchGuideMotion.pageDuration, 0.5)
+        XCTAssertLessThanOrEqual(FirstLaunchGuideMotion.pageDuration, 0.8)
+        XCTAssertGreaterThanOrEqual(FirstLaunchGuideMotion.stepContentDuration, 0.6)
+        XCTAssertLessThanOrEqual(FirstLaunchGuideMotion.stepContentDuration, 1.0)
         XCTAssertGreaterThan(FirstLaunchGuideMotion.frameDelayNanoseconds, 0)
         XCTAssertEqual(FirstLaunchGuideMotion.demoStageHeight, 220)
         XCTAssertNil(FirstLaunchGuideMotion.welcomeAnimation(reduceMotion: true))

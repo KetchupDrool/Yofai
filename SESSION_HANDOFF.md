@@ -1,13 +1,11 @@
 # Session Handoff
 
 ## Status
-Tip on `main`: **134a962** — App Icon / Launch Mark artwork updated.  
-Phase 67 post-readability UI QA polish complete at **4522461** (370 tests).  
-Version **1.0 (1)** — not bumped. Not archived.
+Phase 68 pre-archive paywall & walkthrough clarity complete.  
+**382 tests** on iPhone 16e. Version **1.0 (1)** — not bumped. Not archived.
 
-## Pending next (approved)
-Phase 68 — Pre-Archive Paywall & Walkthrough Clarity  
-(see `NEW_CHAT_HANDOFF.md`)
+## Pending next
+Shawn manual release gates: Connect IAP §B → screenshots → bump → archive (only when approved).
 
 ## Still open (manual release)
 - Connect IAP §B  
@@ -17,7 +15,7 @@ Phase 68 — Pre-Archive Paywall & Walkthrough Clarity
 - Marketing: **1.0** · Build: **1** · Bundle: `com.shawnwright.yofai`
 
 ## Owner next step
-Either Phase 68 paywall/walkthrough clarity, or Connect §B in `SHAWN_NEXT_RELEASE_STEPS.md`.
+`SHAWN_NEXT_RELEASE_STEPS.md` §B (Create Yofai Pro in App Store Connect).
 
 ## Rules
 - Freemium-first; Free keeps core local export; no AI / Direct Upload  

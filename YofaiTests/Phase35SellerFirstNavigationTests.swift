@@ -19,8 +19,8 @@ final class Phase35SellerFirstNavigationTests: XCTestCase {
     func testSellerFacingLabels() {
         XCTAssertEqual(SellerNavigationSupport.startProductTitle, "Start Product")
         XCTAssertEqual(SellerNavigationSupport.productsListTitle, "Products")
-        XCTAssertEqual(SellerNavigationSupport.projectIntakeLinkTitle, "Capture & Check Photos")
-        XCTAssertEqual(SellerNavigationSupport.projectWorkspaceLinkTitle, "Prepare Listing & Export")
+        XCTAssertEqual(SellerNavigationSupport.projectIntakeLinkTitle, "Photos")
+        XCTAssertEqual(SellerNavigationSupport.projectWorkspaceLinkTitle, "Export JPEGs")
         XCTAssertEqual(SellerNavigationSupport.quickImportTitle, "Import Single Photo")
         XCTAssertTrue(SellerNavigationSupport.homeWorkflowHint.lowercased().contains("export"))
     }

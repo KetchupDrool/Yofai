@@ -43,8 +43,16 @@ struct FirstLaunchGuideDemoStage: View {
             AddPhotosScene(phase: phase)
         case .photoCheck:
             PhotoCheckScene(phase: phase)
-        case .editFit:
-            EditFitScene(phase: phase)
+        case .crop:
+            CropScene(phase: phase)
+        case .fitModes:
+            FitModesScene(phase: phase)
+        case .reposition:
+            RepositionScene(phase: phase)
+        case .exportSize:
+            ExportSizeScene(phase: phase)
+        case .marketplaceTarget:
+            MarketplaceTargetScene(phase: phase)
         case .exportLocal:
             ExportLocalScene(phase: phase)
         case .exportHistory:
@@ -207,7 +215,7 @@ private struct StartProductScene: View {
             .opacity(phase.hasEntered ? (phase.hasActed ? 0 : 1) : 0)
 
             // Filled product card from top
-            DemoCard(title: "Vintage Lamp", subtitle: "Item Project ready")
+            DemoCard(title: "Vintage Lamp", subtitle: "Product ready")
                 .frame(width: 220)
                 .offset(y: phase.hasActed ? 10 : -160)
                 .rotationEffect(.degrees(phase.hasActed ? 0 : -8))
@@ -317,19 +325,17 @@ private struct PhotoCheckScene: View {
     }
 }
 
-// MARK: - Edit / Fit
+// MARK: - Crop
 
-private struct EditFitScene: View {
+private struct CropScene: View {
     let phase: FirstLaunchGuideScenePhase
 
     var body: some View {
         ZStack {
-            // Outer canvas
             RoundedRectangle(cornerRadius: 12, style: .continuous)
                 .stroke(DarkroomTheme.strokeBright, lineWidth: 1)
                 .frame(width: 170, height: 140)
 
-            // Image block easing into fit
             RoundedRectangle(cornerRadius: 8, style: .continuous)
                 .fill(
                     LinearGradient(
@@ -339,41 +345,221 @@ private struct EditFitScene: View {
                     )
                 )
                 .frame(
-                    width: phase.hasActed ? 120 : 150,
-                    height: phase.hasActed ? 100 : 70
+                    width: phase.hasActed ? 110 : 150,
+                    height: phase.hasActed ? 110 : 130
                 )
-                .offset(
-                    x: phase.hasEntered ? (phase.hasActed ? 0 : 18) : -100,
-                    y: phase.hasEntered ? (phase.hasActed ? 0 : -12) : 60
-                )
+                .offset(y: phase.hasEntered ? 0 : 50)
                 .opacity(phase.hasEntered ? 1 : 0)
 
-            // Crop handles
             ForEach(0..<4, id: \.self) { corner in
                 Circle()
                     .fill(DarkroomTheme.accent)
                     .frame(width: 10, height: 10)
-                    .offset(handleOffset(corner))
+                    .offset(cropHandleOffset(corner))
                     .opacity(phase.hasActed ? 1 : 0)
                     .scaleEffect(phase.hasActed ? 1 : 0.3)
             }
 
-            // Reposition nudge
-            Image(systemName: "arrow.up.and.down.and.arrow.left.and.right")
+            Text("Crop")
                 .font(.caption.weight(.bold))
-                .foregroundStyle(DarkroomTheme.textPrimary)
-                .padding(8)
-                .background(.ultraThinMaterial, in: Circle())
-                .offset(x: phase.hasSettled ? 48 : 70, y: phase.hasSettled ? 36 : 10)
+                .foregroundStyle(DarkroomTheme.textTertiary)
+                .offset(y: 72)
                 .opacity(phase.hasSettled ? 1 : 0)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
-    private func handleOffset(_ corner: Int) -> CGSize {
-        let x: CGFloat = (corner == 0 || corner == 3) ? -78 : 78
-        let y: CGFloat = (corner == 0 || corner == 1) ? -62 : 62
+    private func cropHandleOffset(_ corner: Int) -> CGSize {
+        let x: CGFloat = (corner == 0 || corner == 3) ? -58 : 58
+        let y: CGFloat = (corner == 0 || corner == 1) ? -58 : 58
         return CGSize(width: x, height: y)
+    }
+}
+
+// MARK: - Fit modes
+
+private struct FitModesScene: View {
+    let phase: FirstLaunchGuideScenePhase
+
+    var body: some View {
+        HStack(spacing: 16) {
+            fitCard(
+                title: "Contain + Pad",
+                imageSize: CGSize(width: 54, height: 40),
+                showPad: true,
+                visible: phase.hasEntered
+            )
+            fitCard(
+                title: "Fill + Crop",
+                imageSize: CGSize(width: 78, height: 78),
+                showPad: false,
+                visible: phase.hasActed
+            )
+        }
+        .opacity(phase.hasSettled || phase.hasActed || phase.hasEntered ? 1 : 0)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    private func fitCard(title: String, imageSize: CGSize, showPad: Bool, visible: Bool) -> some View {
+        VStack(spacing: 8) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .stroke(DarkroomTheme.strokeBright, lineWidth: 1)
+                    .frame(width: 88, height: 88)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .fill(showPad ? DarkroomTheme.surfaceRaised : Color.clear)
+                    )
+
+                RoundedRectangle(cornerRadius: 6, style: .continuous)
+                    .fill(
+                        LinearGradient(
+                            colors: [Color.teal.opacity(0.55), Color.blue.opacity(0.35)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .frame(width: imageSize.width, height: imageSize.height)
+                    .clipped()
+            }
+            .scaleEffect(visible ? 1 : 0.85)
+            .opacity(visible ? 1 : 0)
+
+            Text(title)
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(DarkroomTheme.textSecondary)
+                .opacity(phase.hasSettled ? 1 : (visible ? 0.7 : 0))
+        }
+    }
+}
+
+// MARK: - Reposition
+
+private struct RepositionScene: View {
+    let phase: FirstLaunchGuideScenePhase
+
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .stroke(DarkroomTheme.accent, lineWidth: 2)
+                .frame(width: 120, height: 120)
+
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .fill(
+                    LinearGradient(
+                        colors: [Color.orange.opacity(0.6), Color.pink.opacity(0.4)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .frame(width: 160, height: 160)
+                .offset(
+                    x: phase.hasActed ? (phase.hasSettled ? 0 : 18) : -28,
+                    y: phase.hasActed ? (phase.hasSettled ? 0 : -12) : 22
+                )
+                .opacity(phase.hasEntered ? 1 : 0)
+
+            Image(systemName: "arrow.up.and.down.and.arrow.left.and.right")
+                .font(.caption.weight(.bold))
+                .foregroundStyle(DarkroomTheme.textPrimary)
+                .padding(8)
+                .background(.ultraThinMaterial, in: Circle())
+                .offset(x: 52, y: 48)
+                .opacity(phase.hasSettled ? 1 : 0)
+                .scaleEffect(phase.hasSettled ? 1 : 0.4)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .clipped()
+    }
+}
+
+// MARK: - Export size
+
+private struct ExportSizeScene: View {
+    let phase: FirstLaunchGuideScenePhase
+
+    private let sizes = ["2000×2000", "1600×1600", "1000×1000"]
+
+    var body: some View {
+        VStack(spacing: 10) {
+            ForEach(Array(sizes.enumerated()), id: \.offset) { index, label in
+                HStack {
+                    Image(systemName: "square.dashed")
+                        .foregroundStyle(DarkroomTheme.accent)
+                    Text(label)
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(DarkroomTheme.textPrimary)
+                    Spacer(minLength: 0)
+                    if index == 0 {
+                        Text("Selected")
+                            .font(.caption2.weight(.bold))
+                            .foregroundStyle(DarkroomTheme.accent)
+                            .opacity(phase.hasSettled ? 1 : 0)
+                    }
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 10)
+                .background(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(DarkroomTheme.surfaceRaised)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .stroke(
+                            index == 0 && phase.hasActed ? DarkroomTheme.accent.opacity(0.8) : DarkroomTheme.stroke,
+                            lineWidth: 1
+                        )
+                )
+                .offset(x: rowVisible(index) ? 0 : 80)
+                .opacity(rowVisible(index) ? 1 : 0)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    private func rowVisible(_ index: Int) -> Bool {
+        if phase.hasSettled { return true }
+        if phase.hasActed { return index <= 1 }
+        if phase.hasEntered { return index == 0 }
+        return false
+    }
+}
+
+// MARK: - Marketplace target
+
+private struct MarketplaceTargetScene: View {
+    let phase: FirstLaunchGuideScenePhase
+
+    private let markets = ["Etsy", "eBay", "Poshmark"]
+
+    var body: some View {
+        VStack(spacing: 12) {
+            HStack(spacing: 8) {
+                ForEach(Array(markets.enumerated()), id: \.offset) { index, name in
+                    Text(name)
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(index == 0 && phase.hasActed ? Color.black.opacity(0.85) : DarkroomTheme.textSecondary)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background {
+                            if index == 0 && phase.hasActed {
+                                Capsule().fill(DarkroomTheme.accentGradient)
+                            } else {
+                                Capsule().fill(DarkroomTheme.surfaceRaised)
+                            }
+                        }
+                        .offset(y: phase.hasEntered ? 0 : 40)
+                        .opacity(phase.hasEntered ? 1 : 0)
+                }
+            }
+
+            Text("Label only · no upload")
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(DarkroomTheme.textTertiary)
+                .opacity(phase.hasSettled ? 1 : 0)
+                .offset(y: phase.hasSettled ? 0 : 10)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

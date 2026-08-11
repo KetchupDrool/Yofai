@@ -9,21 +9,12 @@ Simulator: **iPhone 16e only** unless approved
 Repo: `/Volumes/CombatMedic/Yofai` · branch `main`
 
 ## Current baseline
-Latest commit on `main`:
-
-`134a962445e451a32140236830301fdf5bc02b38`
-
-Message: `Update App Icon and Launch Mark artwork.`
-
-Prior Phase 67 (post-readability UI QA):
-
-`4522461c6636ffada52115f693b9520814997a80`
+Latest commit on `main`: *(set after Phase 68 commit)*
 
 Status:
-- Working tree clean; `main` = `origin/main`
-- Phase 66 readability cleanup + Phase 67 post-readability UI QA polish complete
-- App Icon / Launch Mark artwork updated (`134a962`)
-- **370 tests** last verified after Phase 67 QA polish; re-run if starting new code work
+- Working tree clean after Phase 68; `main` = `origin/main`
+- Phase 68 paywall & walkthrough clarity complete
+- **382 tests** last verified on iPhone 16e
 - Version **1.0** · Build **1** — not bumped
 - **Not archived / not uploaded / not submitted**
 
@@ -44,21 +35,12 @@ Do **not** change StoreKit product IDs:
 - Phase 66: Darkroom readability + form/tab clearance  
 - Phase 67: post-readability UI QA polish  
 - Icon/Launch Mark artwork update  
+- **Phase 68:** paywall prices + Free/Pro lists; remove Cloud backup / Direct Upload from main paywall; slower first-run mini tutorial; focused seller CTAs  
 
-## Recommended next (approved direction — not started)
-**Pre-archive Paywall & Walkthrough Clarity** (call it **Phase 68** to avoid colliding with Phase 67 QA):
+## Recommended next
+Continue Connect §B in `SHAWN_NEXT_RELEASE_STEPS.md` (IAP products), then screenshots → bump → archive when Shawn approves.
 
-1. Clarify Yofai Pro paywall:
-   - Show **Monthly — $4.99**, **Yearly — $39.99**, **Best value**
-   - Short Free vs Pro copy
-   - Remove/hide coming-soon items from main paywall (especially Cloud backup, Direct Upload Mode)
-   - Keep “Keep using Free”; no fake purchase success; product IDs unchanged
-2. Upgrade first-run walkthrough into premium animated mini tutorial (Reduce Motion respected; slow enough to read)
-   - Explain Photo Check, Crop, Contain + Pad, Fill + Crop, Reposition, Export size, Marketplace target, Local JPEG export, Export history
-3. Simplify seller-facing labels where safe: Product, Photos, Listing Info, Photo Check, Export JPEGs, Marketplace Drafts, Copy Listing Text
-4. Do **not** archive/upload/submit
-
-Or continue Connect §B in `SHAWN_NEXT_RELEASE_STEPS.md` if Shawn prefers release gates first.
+Or optional polish Shawn requests before archive.
 
 ## First prompt
 
@@ -67,19 +49,11 @@ Continue Yofai iOS work.
 
 Read NEW_CHAT_HANDOFF.md, SESSION_HANDOFF.md, and SHAWN_NEXT_RELEASE_STEPS.md first.
 
-Baseline tip on main: 134a962 (App Icon / Launch Mark update).
-Prior Phase 67 QA polish: 4522461. 370 tests last verified. Version 1.0 (1).
+Baseline: Phase 68 paywall/walkthrough clarity on main. 382 tests. Version 1.0 (1).
 Working tree was clean. Local Export Mode only. Not archived.
 
-Next approved work: Phase 68 — Pre-Archive Paywall & Walkthrough Clarity.
-- Show paywall prices Monthly $4.99 / Yearly $39.99 / Best value
-- Remove Cloud backup + Direct Upload Mode from main paywall benefits
-- Upgrade first-run walkthrough with slower premium animations + clear photo option explanations
-- Simplify seller wording where safe
-- Do not archive/upload/submit
-- No Direct Upload / OAuth / API / AI
-- StoreKit IDs unchanged
-- iPhone 16e only
+Next: Shawn manual release gates (Connect IAP §B) — do not archive/upload/submit unless approved.
+No Direct Upload / OAuth / API / AI. StoreKit IDs unchanged. iPhone 16e only.
 
 Work in /Volumes/CombatMedic/Yofai on main.
 ```

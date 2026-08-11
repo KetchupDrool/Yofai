@@ -59,11 +59,12 @@ Core photo preparation stays local-first/on-device even if some of these arrive 
 **Not on the roadmap:** AI listing assistant, OpenAI integration, paid AI APIs, AI caption generation, AI photo evaluation, AI auto-crop.
 
 ## Primary workflow
-Home → Start / Continue Product → Item Project → Capture & Check Photos → Prepare Listing & Export → local export.
+Home → Start / Continue Product → Product → Photos → Photo Check → Edit → Export JPEGs (local export).
 Import, Originals, and History remain available as secondary tools.
 
 ## Status
-- Phases 1–67 technical history complete (see `DECISIONS.md`, `APP_STORE_SUBMIT_GATES.md`, `SHAWN_NEXT_RELEASE_STEPS.md`)
+- Phases 1–68 technical history complete (see `DECISIONS.md`, `APP_STORE_SUBMIT_GATES.md`, `SHAWN_NEXT_RELEASE_STEPS.md`)
+- **Phase 68:** pre-archive paywall & walkthrough clarity (prices, Free/Pro lists, remove future paywall marketing, slower mini tutorial); no Direct Upload; no archive
 - **Phase 67:** post-readability UI QA polish (placeholder contrast, tab clearance boost, Add labels); no product-feature change; no Direct Upload
 - **Phase 66:** app-wide readability/navigation cleanup (DarkroomTheme contrast, form cards, tab clearance); no product-feature change; no Direct Upload
 - **Phase 65:** App Store release gate prep (docs/verification); version **1.0** build **1** unchanged; Connect/TestFlight/screenshots/archive still manual

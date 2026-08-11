@@ -89,14 +89,23 @@ struct FirstLaunchGuideView: View {
                     .offset(y: copyVisible ? 0 : 16)
                     .accessibilityAddTraits(.isHeader)
 
-                Text(step.bodyText)
-                    .font(.body)
-                    .foregroundStyle(DarkroomTheme.textSecondary)
-                    .multilineTextAlignment(.center)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .padding(.horizontal, 8)
-                    .opacity(copyVisible ? 1 : 0)
-                    .offset(y: copyVisible ? 0 : 12)
+                VStack(alignment: .leading, spacing: 10) {
+                    ForEach(Array(step.bullets.enumerated()), id: \.offset) { _, bullet in
+                        HStack(alignment: .top, spacing: 10) {
+                            Text("•")
+                                .font(.body.weight(.semibold))
+                                .foregroundStyle(DarkroomTheme.accent)
+                            Text(bullet)
+                                .font(.body)
+                                .foregroundStyle(DarkroomTheme.textSecondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                    }
+                }
+                .padding(.horizontal, 8)
+                .opacity(copyVisible ? 1 : 0)
+                .offset(y: copyVisible ? 0 : 12)
 
                 if step.isWelcome {
                     Text(AppStoreLaunchSupport.freemiumLaunchNote)

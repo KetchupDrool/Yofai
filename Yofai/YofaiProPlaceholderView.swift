@@ -1,6 +1,7 @@
 import SwiftUI
 
-/// Phase 53/54 — StoreKit-backed Yofai Pro paywall. Prices come from StoreKit when loaded.
+/// Phase 53/54/68 — StoreKit-backed Yofai Pro paywall. Live prices from StoreKit when loaded;
+/// intended Monthly $4.99 / Yearly $39.99 shown as fallback when unavailable.
 struct YofaiProPaywallView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject private var purchases = PurchaseManager.shared
@@ -27,22 +28,23 @@ struct YofaiProPaywallView: View {
                 }
 
                 Section {
-                    benefitRow(FreemiumFeature.unlimitedProducts.displayTitle, detail: "Available with Pro")
-                    benefitRow(FreemiumFeature.advancedHistoryTools.displayTitle, detail: FreemiumCopy.plannedProFeature)
-                    benefitRow(FreemiumFeature.advancedMultiMarketTools.displayTitle, detail: "Multiple marketplace drafts and marketplace defaults per product")
-                    benefitRow(
-                        FreemiumFeature.cloudBackupSync.displayTitle,
-                        detail: FreemiumCopy.plannedFutureProFeature
-                    )
-                    benefitRow(
-                        FreemiumFeature.directUploadMode.displayTitle,
-                        detail: "Not implemented — only if verified later"
-                    )
+                    ForEach(FreemiumCopy.freeIncludesItems, id: \.self) { item in
+                        benefitRow(item, detail: nil)
+                    }
                 } header: {
-                    Text("Pro benefits")
+                    Text(FreemiumCopy.freeIncludesTitle)
+                        .foregroundStyle(DarkroomTheme.textTertiary)
+                }
+
+                Section {
+                    ForEach(FreemiumCopy.proAddsItems, id: \.self) { item in
+                        benefitRow(item, detail: nil)
+                    }
+                } header: {
+                    Text(FreemiumCopy.proAddsTitle)
                         .foregroundStyle(DarkroomTheme.textTertiary)
                 } footer: {
-                    Text("Direct Upload Mode and cloud backup are not available in this version. No AI features.")
+                    Text("No AI features. Free keeps the core local export workflow.")
                         .foregroundStyle(DarkroomTheme.textTertiary)
                 }
 
@@ -57,17 +59,41 @@ struct YofaiProPaywallView: View {
                             .foregroundStyle(DarkroomTheme.textSecondary)
                             .fixedSize(horizontal: false, vertical: true)
                             .accessibilityLabel(FreemiumCopy.purchasesUnavailable)
+
+                        priceFallbackRow(
+                            title: FreemiumCopy.intendedMonthlyPriceLabel,
+                            showBestValue: false
+                        )
+                        priceFallbackRow(
+                            title: FreemiumCopy.intendedYearlyPriceLabel,
+                            showBestValue: true
+                        )
                     }
 
                     ForEach(purchases.products) { product in
                         Button {
                             Task { _ = await purchases.purchase(productID: product.id) }
                         } label: {
-                            Text(product.purchaseButtonTitle)
-                                .foregroundStyle(DarkroomTheme.accent)
+                            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                                Text(product.purchaseButtonTitle)
+                                    .foregroundStyle(DarkroomTheme.accent)
+                                if product.isBestValue {
+                                    Text(FreemiumCopy.bestValueLabel)
+                                        .font(.caption2.weight(.bold))
+                                        .foregroundStyle(DarkroomTheme.textPrimary)
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 4)
+                                        .background(DarkroomTheme.accent.opacity(0.28), in: Capsule())
+                                }
+                                Spacer(minLength: 0)
+                            }
                         }
                         .disabled(purchases.isBusy || state.isPro)
-                        .accessibilityLabel("Subscribe \(product.periodLabel) for \(product.displayPrice)")
+                        .accessibilityLabel(
+                            product.isBestValue
+                                ? "Subscribe \(product.periodLabel) for \(product.displayPrice). \(FreemiumCopy.bestValueLabel)"
+                                : "Subscribe \(product.periodLabel) for \(product.displayPrice)"
+                        )
                     }
 
                     Button {
@@ -89,7 +115,7 @@ struct YofaiProPaywallView: View {
                     Text("Subscribe")
                         .foregroundStyle(DarkroomTheme.textTertiary)
                 } footer: {
-                    Text("Payment is charged to your Apple ID when a subscription product loads and you purchase. Live price comes from StoreKit. Intended App Store Connect tiers: \(YofaiProductIDs.intendedMonthlyPriceNote), \(YofaiProductIDs.intendedYearlyPriceNote).")
+                    Text("Payment is charged to your Apple ID when a subscription product loads and you purchase. Live price comes from StoreKit when available. Intended App Store Connect tiers: \(YofaiProductIDs.intendedMonthlyPriceNote), \(YofaiProductIDs.intendedYearlyPriceNote).")
                         .foregroundStyle(DarkroomTheme.textTertiary)
                 }
 
@@ -124,20 +150,42 @@ struct YofaiProPaywallView: View {
         }
     }
 
-    private func benefitRow(_ title: String, detail: String) -> some View {
+    private func benefitRow(_ title: String, detail: String?) -> some View {
         Label {
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .fixedSize(horizontal: false, vertical: true)
-                Text(detail)
-                    .font(.caption2)
-                    .foregroundStyle(DarkroomTheme.textTertiary)
+                if let detail, !detail.isEmpty {
+                    Text(detail)
+                        .font(.caption2)
+                        .foregroundStyle(DarkroomTheme.textTertiary)
+                }
             }
         } icon: {
             Image(systemName: "checkmark.circle.fill")
                 .foregroundStyle(DarkroomTheme.accent)
         }
-        .accessibilityLabel("\(title). \(detail)")
+        .accessibilityLabel(detail.map { "\(title). \($0)" } ?? title)
+    }
+
+    private func priceFallbackRow(title: String, showBestValue: Bool) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: 8) {
+            Text(title)
+                .font(.body.weight(.semibold))
+                .foregroundStyle(DarkroomTheme.textPrimary)
+            if showBestValue {
+                Text(FreemiumCopy.bestValueLabel)
+                    .font(.caption2.weight(.bold))
+                    .foregroundStyle(DarkroomTheme.textPrimary)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(DarkroomTheme.accent.opacity(0.28), in: Capsule())
+            }
+            Spacer(minLength: 0)
+        }
+        .accessibilityLabel(
+            showBestValue ? "\(title). \(FreemiumCopy.bestValueLabel)" : title
+        )
     }
 }
 

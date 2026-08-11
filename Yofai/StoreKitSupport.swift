@@ -31,6 +31,11 @@ struct YofaiStoreProduct: Identifiable, Equatable, Hashable {
     var purchaseButtonTitle: String {
         "\(periodLabel) — \(displayPrice)"
     }
+
+    /// Yearly is the Best value plan on the paywall.
+    var isBestValue: Bool {
+        id == YofaiProductIDs.yearly
+    }
 }
 
 enum PurchaseOutcome: Equatable {

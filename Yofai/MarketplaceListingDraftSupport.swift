@@ -19,7 +19,7 @@ enum MarketplaceListingDraftCopy {
         "This product already has a draft for that marketplace."
     static let manualPackageReminder =
         "Drafts are for manual listing packages — Local JPEGs you upload yourself."
-    static let openPrimaryWorkspace = "Open Prepare Listing & Export"
+    static let openPrimaryWorkspace = "Open Export JPEGs"
     static let editDraft = "Edit draft"
     static let draftSaved = "Draft saved"
     /// Phase 62 — draft-aware copy / share (text package; JPEG package files remain primary-workflow).
