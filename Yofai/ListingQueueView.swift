@@ -135,7 +135,7 @@ struct ListingQueueView: View {
                 NavigationLink {
                     ListingWorkspaceView(project: project)
                 } label: {
-                    Text("Open Listing Workspace")
+                    Text("Open \(SellerNavigationSupport.projectWorkspaceLinkTitle)")
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(DarkroomTheme.accent)
                 }

@@ -122,6 +122,7 @@
 		F37541F4B0D0AE123620B14F /* OriginalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68E38A2BCFD243B657D1D5 /* OriginalsView.swift */; };
 		F3F30DE5B9C50F815D7B60AF /* FreeformCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C1784212753AA8E4F70C92 /* FreeformCropView.swift */; };
 		F544B5403F50164293B87F83 /* YofaiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013F0E7F2A74F2FCDBB01476 /* YofaiApp.swift */; };
+		F6F7AD21FB3944669A4A882B /* Phase69WorkspaceSectionGroupingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A2BDB60F127CA156CF8A6C /* Phase69WorkspaceSectionGroupingTests.swift */; };
 		F786C905F860BFCE15CD77F8 /* BulkEditSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B9C85A8EDD77D3B1F7922 /* BulkEditSupport.swift */; };
 		F96B7069A02F6DAEBFC95AA0 /* Phase37ExportFitModeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC865ECFD5D03F55F57F593 /* Phase37ExportFitModeTests.swift */; };
 		FADF9F3019C73426C062D788 /* ProjectBatchExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0FED065E54BEA3BC57F39B /* ProjectBatchExporter.swift */; };
@@ -173,7 +174,7 @@
 		3F6ABA106A756DE3D40BB52A /* Phase35SellerFirstNavigationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase35SellerFirstNavigationTests.swift; sourceTree = "<group>"; };
 		4338F332750DE97EA2351B1B /* AppStoreLaunchSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreLaunchSupport.swift; sourceTree = "<group>"; };
 		4555F1CFD7C74FAF6F43A358 /* Phase52AppStoreSubmitPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase52AppStoreSubmitPathTests.swift; sourceTree = "<group>"; };
-		461B5C0363C0B71D425B76A5 /* Yofai.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Yofai.storekit; sourceTree = "<group>"; };
+		461B5C0363C0B71D425B76A5 /* Yofai.storekit */ = {isa = PBXFileReference; path = Yofai.storekit; sourceTree = "<group>"; };
 		4AE9E95DE5571028873EC4AF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		4BC865ECFD5D03F55F57F593 /* Phase37ExportFitModeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase37ExportFitModeTests.swift; sourceTree = "<group>"; };
 		4D025FC7582EFEB659911A2C /* Phase50AppStorePrepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase50AppStorePrepTests.swift; sourceTree = "<group>"; };
@@ -187,6 +188,7 @@
 		5D78441D87AC5BB31B58B368 /* EtsyShopSettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtsyShopSettingsSection.swift; sourceTree = "<group>"; };
 		60678C8A0E19EFB9ED12A39B /* Phase26BatchExportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase26BatchExportTests.swift; sourceTree = "<group>"; };
 		6485F76F5CDD0A11BF183D6D /* ListingPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingPackage.swift; sourceTree = "<group>"; };
+		66A2BDB60F127CA156CF8A6C /* Phase69WorkspaceSectionGroupingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase69WorkspaceSectionGroupingTests.swift; sourceTree = "<group>"; };
 		71A94BD4FA56A0BA330EAC11 /* ProjectCameraCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCameraCaptureView.swift; sourceTree = "<group>"; };
 		728D83CF127DBD9697EB878B /* ExportHistorySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportHistorySection.swift; sourceTree = "<group>"; };
 		73CCB463D9F8954A41B30389 /* KeychainEtsyCredentialStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainEtsyCredentialStore.swift; sourceTree = "<group>"; };
@@ -227,7 +229,7 @@
 		ACF84D49672B068C0B6DCB6C /* ListingExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingExport.swift; sourceTree = "<group>"; };
 		B4095D5EF864EE140DE18B49 /* FirstLaunchGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchGuideView.swift; sourceTree = "<group>"; };
 		BA1B330994CDA7B6764522D4 /* PhotoPlanSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPlanSupport.swift; sourceTree = "<group>"; };
-		BA91391F1DC702D2DEE14F4A /* Yofai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yofai.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA91391F1DC702D2DEE14F4A /* Yofai.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Yofai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC20F077F3701711B458EA10 /* Phase61MarketplaceListingDraftsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase61MarketplaceListingDraftsTests.swift; sourceTree = "<group>"; };
 		BFBCC2E77ABF1EFB4C8F41FE /* SellerDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerDefaults.swift; sourceTree = "<group>"; };
 		C0B8427BE901DB4798F39B72 /* OriginalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginalDetailView.swift; sourceTree = "<group>"; };
@@ -413,6 +415,7 @@
 				82737878BD4A870C733D12B8 /* Phase66AppReadabilityCleanupTests.swift */,
 				861022EA7421FDF20D414150 /* Phase67PostReadabilityUIQATests.swift */,
 				DFB033EB9DD868249D0864F3 /* Phase68PaywallWalkthroughClarityTests.swift */,
+				66A2BDB60F127CA156CF8A6C /* Phase69WorkspaceSectionGroupingTests.swift */,
 			);
 			path = YofaiTests;
 			sourceTree = "<group>";
@@ -464,6 +467,12 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					CC5163075503A5D923422B41 = {
+						DevelopmentTeam = 4JM5UWQ777;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = 856E9F0154ED701493521DFB /* Build configuration list for PBXProject "Yofai" */;
 			developmentRegion = en;
@@ -627,6 +636,7 @@
 				75886EE324E0B497895399F1 /* Phase66AppReadabilityCleanupTests.swift in Sources */,
 				2D248AFBFAE2A87064D6ECCB /* Phase67PostReadabilityUIQATests.swift in Sources */,
 				7CD2B28DFA63118EF57C01DB /* Phase68PaywallWalkthroughClarityTests.swift in Sources */,
+				F6F7AD21FB3944669A4A882B /* Phase69WorkspaceSectionGroupingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,6 +657,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4JM5UWQ777;
 				ENABLE_TESTABILITY = YES;
@@ -673,6 +684,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4JM5UWQ777;
 				ENABLE_TESTABILITY = YES;

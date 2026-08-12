@@ -84,7 +84,37 @@ struct ProjectDetailView: View {
 
             listingDetailsSection
 
-            projectExportSettingsSection
+            MarketplaceExportSettingsBlock(
+                project: project,
+                parts: [.marketplace],
+                showPreview: false,
+                readinessStyle: .compact,
+                showWorkspaceLinkInReadiness: false,
+                prepTipsStyle: nil
+            )
+            MarketplaceExportSettingsBlock(
+                project: project,
+                parts: [.exportSetup, .preview],
+                showPreview: true,
+                readinessStyle: .compact,
+                showWorkspaceLinkInReadiness: false,
+                prepTipsStyle: nil,
+                onFocusAnchor: { anchor in
+                    exportScrollTarget = anchor.rawValue
+                }
+            )
+            MarketplaceExportSettingsBlock(
+                project: project,
+                parts: [.readiness],
+                showPreview: false,
+                readinessStyle: .compact,
+                showWorkspaceLinkInReadiness: true,
+                prepTipsStyle: .compact,
+                showWorkspaceLinkInPrepTips: true,
+                onFocusAnchor: { anchor in
+                    exportScrollTarget = anchor.rawValue
+                }
+            )
 
             batchExportSection
 
@@ -459,21 +489,6 @@ struct ProjectDetailView: View {
     }
 
     @ViewBuilder
-    private var projectExportSettingsSection: some View {
-        MarketplaceExportSettingsBlock(
-            project: project,
-            showPreview: true,
-            readinessStyle: .compact,
-            showWorkspaceLinkInReadiness: true,
-            prepTipsStyle: .compact,
-            showWorkspaceLinkInPrepTips: true,
-            onFocusAnchor: { anchor in
-                exportScrollTarget = anchor.rawValue
-            }
-        )
-    }
-
-    @ViewBuilder
     private var batchExportSection: some View {
         Section {
             Button {
@@ -526,7 +541,7 @@ struct ProjectDetailView: View {
                 )
             }
         } header: {
-            Text("Export")
+            Text("Export JPEGs")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
             Text("Saves ordered local JPEGs for manual upload. Does not change project photos, Originals, or edit History. Does not publish to a marketplace.")

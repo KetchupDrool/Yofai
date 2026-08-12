@@ -52,16 +52,36 @@ struct ListingWorkspaceView: View {
     var body: some View {
         ScrollViewReader { proxy in
             List {
+            // Phase 69 order: Listing → Photos → Marketplace → Export setup → Readiness → Export → History → Queue
             overviewSection
-            MarketplaceDraftsSection(project: project)
-                .listRowBackground(sectionBackground)
-            readinessSection
             listingInformationSection
             productIntakeSection
             photosSection
+            MarketplaceDraftsSection(project: project)
+                .listRowBackground(sectionBackground)
             MarketplaceExportSettingsBlock(
                 project: project,
+                parts: [.marketplace],
+                showPreview: false,
+                readinessStyle: .full,
+                prepTipsStyle: nil,
+                showWorkspaceLinkInPrepTips: false
+            )
+            MarketplaceExportSettingsBlock(
+                project: project,
+                parts: [.exportSetup, .preview],
                 showPreview: true,
+                readinessStyle: .full,
+                prepTipsStyle: nil,
+                showWorkspaceLinkInPrepTips: false,
+                onFocusAnchor: { anchor in
+                    exportScrollTarget = anchor.rawValue
+                }
+            )
+            MarketplaceExportSettingsBlock(
+                project: project,
+                parts: [.readiness],
+                showPreview: false,
                 readinessStyle: .full,
                 prepTipsStyle: .full,
                 showWorkspaceLinkInPrepTips: false,
@@ -70,6 +90,7 @@ struct ListingWorkspaceView: View {
                 }
             )
             exportSection
+            packageSection
             ExportHistorySection(
                 project: project,
                 onUseSettings: { batch in
@@ -93,13 +114,12 @@ struct ListingWorkspaceView: View {
                 }
             )
             .listRowBackground(sectionBackground)
-            packageSection
+            readinessSection
             queueSection
-            actionsSection
         }
         .darkroomFormList()
         .darkroomScreen()
-        .navigationTitle("Listing Workspace")
+        .navigationTitle(ListingWorkspaceSectionOrder.navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
@@ -235,10 +255,10 @@ struct ListingWorkspaceView: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
         } header: {
-            Text("Readiness")
+            Text("Queue readiness")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
-            Text("Uses Phase 25 rules only: photo file, title, price, quantity, ≤13 tags.")
+            Text("Uses Phase 25 rules only: photo file, title, price, quantity, ≤13 tags. Separate from Export Readiness above.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)
@@ -255,11 +275,18 @@ struct ListingWorkspaceView: View {
             NavigationLink {
                 ListingInformationView(project: project)
             } label: {
-                Text("Open Listing Information")
+                Text("Open Listing Info")
+                    .foregroundStyle(DarkroomTheme.accent)
+            }
+
+            NavigationLink {
+                ProjectDetailView(project: project)
+            } label: {
+                Text("Review / Edit Listing Details")
                     .foregroundStyle(DarkroomTheme.accent)
             }
         } header: {
-            Text("Listing Information")
+            Text("Listing Info")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
             Text("Local listing fields and review only. Does not invent Etsy-ready status or change queue readiness.")
@@ -477,7 +504,7 @@ struct ListingWorkspaceView: View {
                 )
             }
         } header: {
-            Text("Export")
+            Text("Export JPEGs")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         } footer: {
             Text("Local JPEGs for manual upload. Does not publish to a marketplace.")
@@ -510,21 +537,6 @@ struct ListingWorkspaceView: View {
             }
         } header: {
             Text("Listing Queue")
-                .foregroundStyle(DarkroomTheme.textTertiary)
-        }
-        .listRowBackground(sectionBackground)
-    }
-
-    private var actionsSection: some View {
-        Section {
-            NavigationLink {
-                ProjectDetailView(project: project)
-            } label: {
-                Text("Review / Edit Listing Details")
-                    .foregroundStyle(DarkroomTheme.accent)
-            }
-        } header: {
-            Text("Actions")
                 .foregroundStyle(DarkroomTheme.textTertiary)
         }
         .listRowBackground(sectionBackground)

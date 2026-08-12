@@ -60,9 +60,19 @@ struct ExportPreviewCard: View {
     }
 }
 
-/// Shared Phase 39/42/43 marketplace → canvas → fit controls for Project Detail / Listing Workspace.
+/// Phase 69 — composable parts so Listing Workspace / Product Detail can group like controls.
+enum MarketplaceExportSettingsPart: String, CaseIterable, Equatable {
+    case marketplace
+    case exportSetup
+    case readiness
+    case preview
+}
+
+/// Shared Phase 39/42/43/69 marketplace → canvas → fit → readiness → preview controls.
 struct MarketplaceExportSettingsBlock: View {
     @Bindable var project: ItemProject
+    /// Which section clusters to emit. Call sites compose order by stacking blocks with different parts.
+    var parts: Set<MarketplaceExportSettingsPart> = Set(MarketplaceExportSettingsPart.allCases)
     var showPreview: Bool = true
     /// Compact on Project Detail; full checklist on Listing Workspace.
     var readinessStyle: ExportReadinessChecklistSection.Style = .full
@@ -87,31 +97,40 @@ struct MarketplaceExportSettingsBlock: View {
         }
     }
 
+    private var includesPreview: Bool {
+        showPreview && parts.contains(.preview)
+    }
+
     var body: some View {
         Group {
-            marketplaceSection
-            canvasSection
-            fitSection
-            photoCheckSummarySection
-            ExportReadinessChecklistSection(
-                project: project,
-                style: readinessStyle,
-                showWorkspaceLink: showWorkspaceLinkInReadiness
-            )
-            .listRowBackground(sectionBackground)
-            .id(ExportPrepScrollAnchor.readiness.rawValue)
-
-            if let prepTipsStyle {
-                ExportPrepTipsSection(
+            if parts.contains(.marketplace) {
+                marketplaceSection
+            }
+            if parts.contains(.exportSetup) {
+                canvasSection
+                fitSection
+                photoCheckSummarySection
+            }
+            if parts.contains(.readiness) {
+                ExportReadinessChecklistSection(
                     project: project,
-                    style: prepTipsStyle,
-                    onFocus: onFocusAnchor,
-                    showWorkspaceLinkActions: showWorkspaceLinkInPrepTips
+                    style: readinessStyle,
+                    showWorkspaceLink: showWorkspaceLinkInReadiness
                 )
                 .listRowBackground(sectionBackground)
-            }
+                .id(ExportPrepScrollAnchor.readiness.rawValue)
 
-            if showPreview, let photo = previewPhoto, let source = photo.fullLocalImage, let state = previewState {
+                if let prepTipsStyle {
+                    ExportPrepTipsSection(
+                        project: project,
+                        style: prepTipsStyle,
+                        onFocus: onFocusAnchor,
+                        showWorkspaceLinkActions: showWorkspaceLinkInPrepTips
+                    )
+                    .listRowBackground(sectionBackground)
+                }
+            }
+            if includesPreview, let photo = previewPhoto, let source = photo.fullLocalImage, let state = previewState {
                 Section {
                     ExportPreviewCard(sourceImage: source, state: state)
                 } header: {
@@ -313,4 +332,38 @@ struct MarketplaceExportSettingsBlock: View {
                 .multilineTextAlignment(.trailing)
         }
     }
+}
+
+/// Phase 69 — documented seller section order on Export JPEGs (Listing Workspace).
+enum ListingWorkspaceSectionOrder {
+    static let navigationTitle = "Export JPEGs"
+
+    /// High-level group headers in scroll order (testable).
+    static let groupHeaders: [String] = [
+        "Overview",
+        "Listing Info",
+        "Product Intake",
+        "Photos (current order)",
+        MarketplaceListingDraftCopy.sectionTitle,
+        "Marketplace",
+        "Export size",
+        "Fit",
+        "Photo check",
+        "Preview",
+        "Export Readiness",
+        "Prep Tips",
+        "Export JPEGs",
+        "Listing Package",
+        "Export History",
+        "Queue readiness",
+        "Listing Queue"
+    ]
+
+    /// Contiguous export-settings part order used when stacking `MarketplaceExportSettingsBlock`.
+    static let exportSettingsPartOrder: [MarketplaceExportSettingsPart] = [
+        .marketplace,
+        .exportSetup,
+        .preview,
+        .readiness
+    ]
 }

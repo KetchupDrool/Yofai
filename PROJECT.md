@@ -63,7 +63,8 @@ Home → Start / Continue Product → Product → Photos → Photo Check → Edi
 Import, Originals, and History remain available as secondary tools.
 
 ## Status
-- Phases 1–68 technical history complete (see `DECISIONS.md`, `APP_STORE_SUBMIT_GATES.md`, `SHAWN_NEXT_RELEASE_STEPS.md`)
+- Phases 1–69 technical history complete (see `DECISIONS.md`, `APP_STORE_SUBMIT_GATES.md`, `SHAWN_NEXT_RELEASE_STEPS.md`)
+- **Phase 69:** regroup Listing/Export sections (Listing → Photos → Marketplace → Size/Fit → Readiness → Export → History → Queue); no Direct Upload; no archive
 - **Phase 68:** pre-archive paywall & walkthrough clarity (prices, Free/Pro lists, remove future paywall marketing, slower mini tutorial); no Direct Upload; no archive
 - **Phase 67:** post-readability UI QA polish (placeholder contrast, tab clearance boost, Add labels); no product-feature change; no Direct Upload
 - **Phase 66:** app-wide readability/navigation cleanup (DarkroomTheme contrast, form cards, tab clearance); no product-feature change; no Direct Upload
