@@ -173,7 +173,7 @@
 		3F6ABA106A756DE3D40BB52A /* Phase35SellerFirstNavigationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase35SellerFirstNavigationTests.swift; sourceTree = "<group>"; };
 		4338F332750DE97EA2351B1B /* AppStoreLaunchSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreLaunchSupport.swift; sourceTree = "<group>"; };
 		4555F1CFD7C74FAF6F43A358 /* Phase52AppStoreSubmitPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase52AppStoreSubmitPathTests.swift; sourceTree = "<group>"; };
-		461B5C0363C0B71D425B76A5 /* Yofai.storekit */ = {isa = PBXFileReference; path = Yofai.storekit; sourceTree = "<group>"; };
+		461B5C0363C0B71D425B76A5 /* Yofai.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Yofai.storekit; sourceTree = "<group>"; };
 		4AE9E95DE5571028873EC4AF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		4BC865ECFD5D03F55F57F593 /* Phase37ExportFitModeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase37ExportFitModeTests.swift; sourceTree = "<group>"; };
 		4D025FC7582EFEB659911A2C /* Phase50AppStorePrepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase50AppStorePrepTests.swift; sourceTree = "<group>"; };
@@ -227,7 +227,7 @@
 		ACF84D49672B068C0B6DCB6C /* ListingExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingExport.swift; sourceTree = "<group>"; };
 		B4095D5EF864EE140DE18B49 /* FirstLaunchGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchGuideView.swift; sourceTree = "<group>"; };
 		BA1B330994CDA7B6764522D4 /* PhotoPlanSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPlanSupport.swift; sourceTree = "<group>"; };
-		BA91391F1DC702D2DEE14F4A /* Yofai.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Yofai.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA91391F1DC702D2DEE14F4A /* Yofai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yofai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC20F077F3701711B458EA10 /* Phase61MarketplaceListingDraftsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase61MarketplaceListingDraftsTests.swift; sourceTree = "<group>"; };
 		BFBCC2E77ABF1EFB4C8F41FE /* SellerDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerDefaults.swift; sourceTree = "<group>"; };
 		C0B8427BE901DB4798F39B72 /* OriginalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginalDetailView.swift; sourceTree = "<group>"; };
@@ -464,8 +464,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = 856E9F0154ED701493521DFB /* Build configuration list for PBXProject "Yofai" */;
 			developmentRegion = en;
@@ -650,6 +648,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4JM5UWQ777;
 				ENABLE_TESTABILITY = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Yofai/Info.plist;
@@ -675,6 +674,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4JM5UWQ777;
 				ENABLE_TESTABILITY = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Yofai/Info.plist;
