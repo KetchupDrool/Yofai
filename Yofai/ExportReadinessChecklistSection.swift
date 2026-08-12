@@ -5,6 +5,7 @@ struct ExportReadinessChecklistSection: View {
     @Bindable var project: ItemProject
     var style: Style = .full
     var showWorkspaceLink: Bool = false
+    var showHeader: Bool = true
 
     enum Style {
         case compact
@@ -54,8 +55,10 @@ struct ExportReadinessChecklistSection: View {
                 }
             }
         } header: {
-            Text("Export Readiness")
-                .foregroundStyle(DarkroomTheme.textTertiary)
+            if showHeader {
+                Text("Export Readiness")
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+            }
         } footer: {
             Text("Local export checklist only. Does not block Export Photos and is not marketplace compliance.")
                 .foregroundStyle(DarkroomTheme.textTertiary)

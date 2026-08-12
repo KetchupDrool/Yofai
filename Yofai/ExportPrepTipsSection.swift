@@ -7,6 +7,7 @@ struct ExportPrepTipsSection: View {
     var onFocus: ((ExportPrepScrollAnchor) -> Void)? = nil
     /// When false (Listing Workspace), listing-details tip focuses readiness instead of pushing another workspace.
     var showWorkspaceLinkActions: Bool = true
+    var showHeader: Bool = true
 
     enum Style {
         case full
@@ -39,8 +40,10 @@ struct ExportPrepTipsSection: View {
                         tipRow(tip)
                     }
                 } header: {
-                    Text(style == .compact ? "Prep Tip" : "Prep Tips")
-                        .foregroundStyle(DarkroomTheme.textTertiary)
+                    if showHeader {
+                        Text(style == .compact ? "Prep Tip" : "Prep Tips")
+                            .foregroundStyle(DarkroomTheme.textTertiary)
+                    }
                 } footer: {
                     Text("Local tips only. They never change fit, crop, or export size for you.")
                         .foregroundStyle(DarkroomTheme.textTertiary)

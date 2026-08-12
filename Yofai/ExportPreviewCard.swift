@@ -74,6 +74,8 @@ struct MarketplaceExportSettingsBlock: View {
     /// Which section clusters to emit. Call sites compose order by stacking blocks with different parts.
     var parts: Set<MarketplaceExportSettingsPart> = Set(MarketplaceExportSettingsPart.allCases)
     var showPreview: Bool = true
+    /// When false, section titles are omitted (parent collapsible group supplies the header).
+    var showSectionHeaders: Bool = true
     /// Compact on Project Detail; full checklist on Listing Workspace.
     var readinessStyle: ExportReadinessChecklistSection.Style = .full
     var showWorkspaceLinkInReadiness: Bool = false
@@ -115,7 +117,8 @@ struct MarketplaceExportSettingsBlock: View {
                 ExportReadinessChecklistSection(
                     project: project,
                     style: readinessStyle,
-                    showWorkspaceLink: showWorkspaceLinkInReadiness
+                    showWorkspaceLink: showWorkspaceLinkInReadiness,
+                    showHeader: showSectionHeaders
                 )
                 .listRowBackground(sectionBackground)
                 .id(ExportPrepScrollAnchor.readiness.rawValue)
@@ -125,7 +128,8 @@ struct MarketplaceExportSettingsBlock: View {
                         project: project,
                         style: prepTipsStyle,
                         onFocus: onFocusAnchor,
-                        showWorkspaceLinkActions: showWorkspaceLinkInPrepTips
+                        showWorkspaceLinkActions: showWorkspaceLinkInPrepTips,
+                        showHeader: showSectionHeaders
                     )
                     .listRowBackground(sectionBackground)
                 }
@@ -134,8 +138,10 @@ struct MarketplaceExportSettingsBlock: View {
                 Section {
                     ExportPreviewCard(sourceImage: source, state: state)
                 } header: {
-                    Text("Preview")
-                        .foregroundStyle(DarkroomTheme.textTertiary)
+                    if showSectionHeaders {
+                        Text("Preview")
+                            .foregroundStyle(DarkroomTheme.textTertiary)
+                    }
                 } footer: {
                     Text("Uses the same framing as Export Photos. First project photo shown.")
                         .foregroundStyle(DarkroomTheme.textTertiary)
@@ -182,8 +188,10 @@ struct MarketplaceExportSettingsBlock: View {
                 .foregroundStyle(DarkroomTheme.accent)
             }
         } header: {
-            Text("Marketplace")
-                .foregroundStyle(DarkroomTheme.textTertiary)
+            if showSectionHeaders {
+                Text("Marketplace")
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+            }
         } footer: {
             Text("Switching marketplace changes export settings only — photo edits and crop positions stay.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
@@ -217,8 +225,10 @@ struct MarketplaceExportSettingsBlock: View {
                 .foregroundStyle(DarkroomTheme.textTertiary)
                 .fixedSize(horizontal: false, vertical: true)
         } header: {
-            Text("Export size")
-                .foregroundStyle(DarkroomTheme.textTertiary)
+            if showSectionHeaders {
+                Text("Export size")
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+            }
         } footer: {
             Text(ListingExportPreset.localExportDisclaimer)
                 .foregroundStyle(DarkroomTheme.textTertiary)
@@ -288,8 +298,10 @@ struct MarketplaceExportSettingsBlock: View {
                 ))
             }
         } header: {
-            Text("Fit")
-                .foregroundStyle(DarkroomTheme.textTertiary)
+            if showSectionHeaders {
+                Text("Fit")
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+            }
         }
         .listRowBackground(sectionBackground)
         .id(ExportPrepScrollAnchor.fit.rawValue)
@@ -310,8 +322,10 @@ struct MarketplaceExportSettingsBlock: View {
                 labeled("Crop position", anyFillCropAdjusted ? "Adjusted" : "Centered")
             }
         } header: {
-            Text("Photo check")
-                .foregroundStyle(DarkroomTheme.textTertiary)
+            if showSectionHeaders {
+                Text("Photo check")
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+            }
         } footer: {
             Text("Local facts only. Padding or cropping can be intentional.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
@@ -365,5 +379,17 @@ enum ListingWorkspaceSectionOrder {
         .exportSetup,
         .preview,
         .readiness
+    ]
+
+    /// Phase 70 — collapsible groups in scroll order (Overview stays always visible).
+    static let collapsibleGroups: [ExportJPEGCollapseGroup] = [
+        .listingInfo,
+        .photos,
+        .marketplace,
+        .exportSetup,
+        .exportReadiness,
+        .exportJPEGs,
+        .exportHistory,
+        .queue
     ]
 }

@@ -28,6 +28,8 @@ struct MarketplaceDraftsSection: View {
         MarketplaceListingDraftSupport.availableTargetsForNewDraft(on: project)
     }
 
+    var showHeader: Bool = true
+
     var body: some View {
         Section {
             Text(MarketplaceListingDraftCopy.preparePackagesLine)
@@ -107,10 +109,12 @@ struct MarketplaceDraftsSection: View {
                 .foregroundStyle(DarkroomTheme.textTertiary)
                 .fixedSize(horizontal: false, vertical: true)
         } header: {
-            Text(MarketplaceListingDraftCopy.sectionTitle)
-                .font(.caption.weight(.bold))
-                .tracking(DarkroomReadability.sectionHeaderTracking)
-                .foregroundStyle(DarkroomTheme.textSecondary)
+            if showHeader {
+                Text(MarketplaceListingDraftCopy.sectionTitle)
+                    .font(.caption.weight(.bold))
+                    .tracking(DarkroomReadability.sectionHeaderTracking)
+                    .foregroundStyle(DarkroomTheme.textSecondary)
+            }
         } footer: {
             if let createError {
                 Text(createError)

@@ -41,6 +41,7 @@ struct ProjectDetailView: View {
     @State private var duplicateName = ""
     @State private var duplicateError: String?
     @State private var exportScrollTarget: String?
+    @State private var expandedGroups: Set<ExportJPEGCollapseGroup> = ExportJPEGCollapseGroup.defaultExpanded
 
     private var sortedPhotos: [ItemProjectPhoto] {
         project.sortedPhotos
@@ -79,66 +80,86 @@ struct ProjectDetailView: View {
             }
             .listRowBackground(sectionBackground)
 
-            MarketplaceDraftsSection(project: project)
-                .listRowBackground(sectionBackground)
-
             listingDetailsSection
 
-            MarketplaceExportSettingsBlock(
-                project: project,
-                parts: [.marketplace],
-                showPreview: false,
-                readinessStyle: .compact,
-                showWorkspaceLinkInReadiness: false,
-                prepTipsStyle: nil
-            )
-            MarketplaceExportSettingsBlock(
-                project: project,
-                parts: [.exportSetup, .preview],
-                showPreview: true,
-                readinessStyle: .compact,
-                showWorkspaceLinkInReadiness: false,
-                prepTipsStyle: nil,
-                onFocusAnchor: { anchor in
-                    exportScrollTarget = anchor.rawValue
-                }
-            )
-            MarketplaceExportSettingsBlock(
-                project: project,
-                parts: [.readiness],
-                showPreview: false,
-                readinessStyle: .compact,
-                showWorkspaceLinkInReadiness: true,
-                prepTipsStyle: .compact,
-                showWorkspaceLinkInPrepTips: true,
-                onFocusAnchor: { anchor in
-                    exportScrollTarget = anchor.rawValue
-                }
-            )
+            collapseHeader(.marketplace)
+            if expandedGroups.contains(.marketplace) {
+                MarketplaceDraftsSection(project: project, showHeader: false)
+                    .listRowBackground(sectionBackground)
+                MarketplaceExportSettingsBlock(
+                    project: project,
+                    parts: [.marketplace],
+                    showPreview: false,
+                    showSectionHeaders: false,
+                    readinessStyle: .compact,
+                    showWorkspaceLinkInReadiness: false,
+                    prepTipsStyle: nil
+                )
+            }
 
-            batchExportSection
+            collapseHeader(.exportSetup)
+            if expandedGroups.contains(.exportSetup) {
+                MarketplaceExportSettingsBlock(
+                    project: project,
+                    parts: [.exportSetup, .preview],
+                    showPreview: true,
+                    showSectionHeaders: true,
+                    readinessStyle: .compact,
+                    showWorkspaceLinkInReadiness: false,
+                    prepTipsStyle: nil,
+                    onFocusAnchor: { anchor in
+                        exportScrollTarget = anchor.rawValue
+                    }
+                )
+            }
 
-            ExportHistorySection(
-                project: project,
-                onUseSettings: { batch in
-                    batch.applyExportSettings(to: project)
-                    exportStatusMessage = "Export settings restored. Photo edits unchanged. Tap Export Photos when ready."
-                    exportStatusIsError = false
-                },
-                onExportAgain: { batch in
-                    batch.applyExportSettings(to: project)
-                    exportStatusMessage = "Settings ready for Export Again. Photo edits unchanged — tap Export Photos to export."
-                    exportStatusIsError = false
-                },
-                onShare: { batch, includeNote in
-                    let caption = LocalExportShareSupport.shareCaption(for: batch, includeNote: includeNote)
-                    shareBatchItem = ShareBatchItem(urls: batch.fileURLs, caption: caption)
-                },
-                onDelete: { batch in
-                    batchToDelete = batch
-                }
-            )
-            .listRowBackground(sectionBackground)
+            collapseHeader(.exportReadiness)
+            if expandedGroups.contains(.exportReadiness) {
+                MarketplaceExportSettingsBlock(
+                    project: project,
+                    parts: [.readiness],
+                    showPreview: false,
+                    showSectionHeaders: true,
+                    readinessStyle: .compact,
+                    showWorkspaceLinkInReadiness: true,
+                    prepTipsStyle: .compact,
+                    showWorkspaceLinkInPrepTips: true,
+                    onFocusAnchor: { anchor in
+                        exportScrollTarget = anchor.rawValue
+                    }
+                )
+            }
+
+            collapseHeader(.exportJPEGs)
+            if expandedGroups.contains(.exportJPEGs) {
+                batchExportSection(showHeader: false)
+            }
+
+            collapseHeader(.exportHistory)
+            if expandedGroups.contains(.exportHistory) {
+                ExportHistorySection(
+                    project: project,
+                    onUseSettings: { batch in
+                        batch.applyExportSettings(to: project)
+                        exportStatusMessage = "Export settings restored. Photo edits unchanged. Tap Export Photos when ready."
+                        exportStatusIsError = false
+                    },
+                    onExportAgain: { batch in
+                        batch.applyExportSettings(to: project)
+                        exportStatusMessage = "Settings ready for Export Again. Photo edits unchanged — tap Export Photos to export."
+                        exportStatusIsError = false
+                    },
+                    onShare: { batch, includeNote in
+                        let caption = LocalExportShareSupport.shareCaption(for: batch, includeNote: includeNote)
+                        shareBatchItem = ShareBatchItem(urls: batch.fileURLs, caption: caption)
+                    },
+                    onDelete: { batch in
+                        batchToDelete = batch
+                    },
+                    showHeader: false
+                )
+                .listRowBackground(sectionBackground)
+            }
 
             Section {
                 if sortedPhotos.isEmpty {
@@ -219,6 +240,12 @@ struct ProjectDetailView: View {
         .toolbarBackground(.visible, for: .navigationBar)
         .onChange(of: exportScrollTarget) { _, target in
             guard let target else { return }
+            if let anchor = ExportPrepScrollAnchor(rawValue: target) {
+                ExportJPEGCollapseSupport.ensureExpanded(
+                    &expandedGroups,
+                    group: ExportJPEGCollapseGroup.group(forScrollAnchor: anchor)
+                )
+            }
             withAnimation {
                 proxy.scrollTo(target, anchor: .top)
             }
@@ -304,6 +331,14 @@ struct ProjectDetailView: View {
 
     private var sectionBackground: some View {
         DarkroomListRowBackground()
+    }
+
+    @ViewBuilder
+    private func collapseHeader(_ group: ExportJPEGCollapseGroup) -> some View {
+        Section {
+            ExportJPEGCollapseHeader(group: group, expanded: $expandedGroups)
+        }
+        .listRowBackground(sectionBackground)
     }
 
     @ViewBuilder
@@ -488,8 +523,7 @@ struct ProjectDetailView: View {
         showDuplicateSheet = false
     }
 
-    @ViewBuilder
-    private var batchExportSection: some View {
+    private func batchExportSection(showHeader: Bool) -> some View {
         Section {
             Button {
                 Task { await exportListingImages() }
@@ -541,8 +575,10 @@ struct ProjectDetailView: View {
                 )
             }
         } header: {
-            Text("Export JPEGs")
-                .foregroundStyle(DarkroomTheme.textTertiary)
+            if showHeader {
+                Text("Export JPEGs")
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+            }
         } footer: {
             Text("Saves ordered local JPEGs for manual upload. Does not change project photos, Originals, or edit History. Does not publish to a marketplace.")
                 .foregroundStyle(DarkroomTheme.textTertiary)

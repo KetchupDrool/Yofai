@@ -9,6 +9,7 @@ struct ExportHistorySection: View {
     /// Second argument: include export note as optional share caption (off unless true).
     var onShare: ((ProjectExportBatch, Bool) -> Void)?
     var onDelete: ((ProjectExportBatch) -> Void)?
+    var showHeader: Bool = true
 
     @State private var selectedFilter: ExportHistoryFilter = .all
     @State private var batchForNote: ProjectExportBatch?
@@ -80,8 +81,10 @@ struct ExportHistorySection: View {
                 }
             }
         } header: {
-            Text("Export History")
-                .foregroundStyle(DarkroomTheme.textTertiary)
+            if showHeader {
+                Text("Export History")
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+            }
         } footer: {
             Text("Local only. View or share local JPEGs for manual upload — not publish status. Filter and compare use saved export details. Notes are optional reminders. Deleting a row removes that export folder only, not your product photos.")
                 .foregroundStyle(DarkroomTheme.textTertiary)

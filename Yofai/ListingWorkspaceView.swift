@@ -24,6 +24,7 @@ struct ListingWorkspaceView: View {
     @State private var recentlyExportedBatch: ProjectExportBatch?
     @State private var noteEditorBatch: ProjectExportBatch?
     @State private var filesViewerBatch: ProjectExportBatch?
+    @State private var expandedGroups: Set<ExportJPEGCollapseGroup> = ExportJPEGCollapseGroup.defaultExpanded
 
     private var queueEntry: ListingQueueEntry? {
         ListingQueueSupport.queueEntry(for: project, in: modelContext)
@@ -52,70 +53,106 @@ struct ListingWorkspaceView: View {
     var body: some View {
         ScrollViewReader { proxy in
             List {
-            // Phase 69 order: Listing → Photos → Marketplace → Export setup → Readiness → Export → History → Queue
+            // Phase 69 order + Phase 70 collapsible groups
             overviewSection
-            listingInformationSection
-            productIntakeSection
-            photosSection
-            MarketplaceDraftsSection(project: project)
+
+            collapseHeader(.listingInfo)
+            if expandedGroups.contains(.listingInfo) {
+                listingInformationSection(showHeader: false)
+            }
+
+            collapseHeader(.photos)
+            if expandedGroups.contains(.photos) {
+                productIntakeSection
+                photosSection
+            }
+
+            collapseHeader(.marketplace)
+            if expandedGroups.contains(.marketplace) {
+                MarketplaceDraftsSection(project: project, showHeader: false)
+                    .listRowBackground(sectionBackground)
+                MarketplaceExportSettingsBlock(
+                    project: project,
+                    parts: [.marketplace],
+                    showPreview: false,
+                    showSectionHeaders: false,
+                    readinessStyle: .full,
+                    prepTipsStyle: nil,
+                    showWorkspaceLinkInPrepTips: false
+                )
+            }
+
+            collapseHeader(.exportSetup)
+            if expandedGroups.contains(.exportSetup) {
+                MarketplaceExportSettingsBlock(
+                    project: project,
+                    parts: [.exportSetup, .preview],
+                    showPreview: true,
+                    showSectionHeaders: true,
+                    readinessStyle: .full,
+                    prepTipsStyle: nil,
+                    showWorkspaceLinkInPrepTips: false,
+                    onFocusAnchor: { anchor in
+                        exportScrollTarget = anchor.rawValue
+                    }
+                )
+            }
+
+            collapseHeader(.exportReadiness)
+            if expandedGroups.contains(.exportReadiness) {
+                MarketplaceExportSettingsBlock(
+                    project: project,
+                    parts: [.readiness],
+                    showPreview: false,
+                    showSectionHeaders: true,
+                    readinessStyle: .full,
+                    prepTipsStyle: .full,
+                    showWorkspaceLinkInPrepTips: false,
+                    onFocusAnchor: { anchor in
+                        exportScrollTarget = anchor.rawValue
+                    }
+                )
+            }
+
+            collapseHeader(.exportJPEGs)
+            if expandedGroups.contains(.exportJPEGs) {
+                exportSection(showHeader: false)
+                packageSection
+            }
+
+            collapseHeader(.exportHistory)
+            if expandedGroups.contains(.exportHistory) {
+                ExportHistorySection(
+                    project: project,
+                    onUseSettings: { batch in
+                        batch.applyExportSettings(to: project)
+                        exportStatusMessage = "Export settings restored. Photo edits unchanged. Tap Export Photos when ready."
+                        exportStatusIsError = false
+                    },
+                    onExportAgain: { batch in
+                        batch.applyExportSettings(to: project)
+                        exportStatusMessage = "Settings ready for Export Again. Photo edits unchanged — tap Export Photos to export."
+                        exportStatusIsError = false
+                    },
+                    onShare: { batch, includeNote in
+                        let caption = LocalExportShareSupport.shareCaption(for: batch, includeNote: includeNote)
+                        shareBatchItem = ShareBatchItem(urls: batch.fileURLs, caption: caption)
+                    },
+                    onDelete: { batch in
+                        LocalEditStore.deleteExportBatchFolder(folderName: batch.batchFolderName)
+                        modelContext.delete(batch)
+                        project.touchModified()
+                    },
+                    showHeader: false
+                )
                 .listRowBackground(sectionBackground)
-            MarketplaceExportSettingsBlock(
-                project: project,
-                parts: [.marketplace],
-                showPreview: false,
-                readinessStyle: .full,
-                prepTipsStyle: nil,
-                showWorkspaceLinkInPrepTips: false
-            )
-            MarketplaceExportSettingsBlock(
-                project: project,
-                parts: [.exportSetup, .preview],
-                showPreview: true,
-                readinessStyle: .full,
-                prepTipsStyle: nil,
-                showWorkspaceLinkInPrepTips: false,
-                onFocusAnchor: { anchor in
-                    exportScrollTarget = anchor.rawValue
-                }
-            )
-            MarketplaceExportSettingsBlock(
-                project: project,
-                parts: [.readiness],
-                showPreview: false,
-                readinessStyle: .full,
-                prepTipsStyle: .full,
-                showWorkspaceLinkInPrepTips: false,
-                onFocusAnchor: { anchor in
-                    exportScrollTarget = anchor.rawValue
-                }
-            )
-            exportSection
-            packageSection
-            ExportHistorySection(
-                project: project,
-                onUseSettings: { batch in
-                    batch.applyExportSettings(to: project)
-                    exportStatusMessage = "Export settings restored. Photo edits unchanged. Tap Export Photos when ready."
-                    exportStatusIsError = false
-                },
-                onExportAgain: { batch in
-                    batch.applyExportSettings(to: project)
-                    exportStatusMessage = "Settings ready for Export Again. Photo edits unchanged — tap Export Photos to export."
-                    exportStatusIsError = false
-                },
-                onShare: { batch, includeNote in
-                    let caption = LocalExportShareSupport.shareCaption(for: batch, includeNote: includeNote)
-                    shareBatchItem = ShareBatchItem(urls: batch.fileURLs, caption: caption)
-                },
-                onDelete: { batch in
-                    LocalEditStore.deleteExportBatchFolder(folderName: batch.batchFolderName)
-                    modelContext.delete(batch)
-                    project.touchModified()
-                }
-            )
-            .listRowBackground(sectionBackground)
-            readinessSection
-            queueSection
+            }
+
+            collapseHeader(.queue)
+            if expandedGroups.contains(.queue) {
+                readinessSection(showHeader: true)
+                queueSection(showHeader: false)
+            }
         }
         .darkroomFormList()
         .darkroomScreen()
@@ -128,6 +165,12 @@ struct ListingWorkspaceView: View {
         }
         .onChange(of: exportScrollTarget) { _, target in
             guard let target else { return }
+            if let anchor = ExportPrepScrollAnchor(rawValue: target) {
+                ExportJPEGCollapseSupport.ensureExpanded(
+                    &expandedGroups,
+                    group: ExportJPEGCollapseGroup.group(forScrollAnchor: anchor)
+                )
+            }
             withAnimation {
                 proxy.scrollTo(target, anchor: .top)
             }
@@ -173,6 +216,14 @@ struct ListingWorkspaceView: View {
 
     private var sectionBackground: some View {
         DarkroomListRowBackground()
+    }
+
+    @ViewBuilder
+    private func collapseHeader(_ group: ExportJPEGCollapseGroup) -> some View {
+        Section {
+            ExportJPEGCollapseHeader(group: group, expanded: $expandedGroups)
+        }
+        .listRowBackground(sectionBackground)
     }
 
     private var overviewSection: some View {
@@ -229,6 +280,10 @@ struct ListingWorkspaceView: View {
     }
 
     private var readinessSection: some View {
+        readinessSection(showHeader: true)
+    }
+
+    private func readinessSection(showHeader: Bool) -> some View {
         Section {
             Text("Missing: \(ListingQueueSupport.missingRequiredSummary(for: project))")
                 .font(.subheadline)
@@ -255,8 +310,10 @@ struct ListingWorkspaceView: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
         } header: {
-            Text("Queue readiness")
-                .foregroundStyle(DarkroomTheme.textTertiary)
+            if showHeader {
+                Text("Queue readiness")
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+            }
         } footer: {
             Text("Uses Phase 25 rules only: photo file, title, price, quantity, ≤13 tags. Separate from Export Readiness above.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
@@ -265,6 +322,10 @@ struct ListingWorkspaceView: View {
     }
 
     private var listingInformationSection: some View {
+        listingInformationSection(showHeader: true)
+    }
+
+    private func listingInformationSection(showHeader: Bool) -> some View {
         Section {
             let review = project.listingInformationReview
             Text(review.summaryLine)
@@ -286,8 +347,10 @@ struct ListingWorkspaceView: View {
                     .foregroundStyle(DarkroomTheme.accent)
             }
         } header: {
-            Text("Listing Info")
-                .foregroundStyle(DarkroomTheme.textTertiary)
+            if showHeader {
+                Text("Listing Info")
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+            }
         } footer: {
             Text("Local listing fields and review only. Does not invent Etsy-ready status or change queue readiness.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
@@ -431,7 +494,7 @@ struct ListingWorkspaceView: View {
         .listRowBackground(sectionBackground)
     }
 
-    private var exportSection: some View {
+    private func exportSection(showHeader: Bool) -> some View {
         Section {
             Button {
                 Task { await exportListingImages() }
@@ -504,8 +567,10 @@ struct ListingWorkspaceView: View {
                 )
             }
         } header: {
-            Text("Export JPEGs")
-                .foregroundStyle(DarkroomTheme.textTertiary)
+            if showHeader {
+                Text("Export JPEGs")
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+            }
         } footer: {
             Text("Local JPEGs for manual upload. Does not publish to a marketplace.")
                 .foregroundStyle(DarkroomTheme.textTertiary)
@@ -513,7 +578,7 @@ struct ListingWorkspaceView: View {
         .listRowBackground(sectionBackground)
     }
 
-    private var queueSection: some View {
+    private func queueSection(showHeader: Bool) -> some View {
         Section {
             Text(queueStatusLabel)
                 .font(.subheadline.weight(.semibold))
@@ -536,8 +601,10 @@ struct ListingWorkspaceView: View {
                     .foregroundStyle(DarkroomTheme.textSecondary)
             }
         } header: {
-            Text("Listing Queue")
-                .foregroundStyle(DarkroomTheme.textTertiary)
+            if showHeader {
+                Text("Listing Queue")
+                    .foregroundStyle(DarkroomTheme.textTertiary)
+            }
         }
         .listRowBackground(sectionBackground)
     }
