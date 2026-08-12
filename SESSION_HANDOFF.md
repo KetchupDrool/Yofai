@@ -1,8 +1,9 @@
 # Session Handoff
 
 ## Status
-Tip on `main`: **5c0a462** — Phase 68 paywall & walkthrough clarity.  
-**382 tests** on iPhone 16e. Version **1.0 (1)** — not bumped. Not archived.
+Tip on `main`: **7af774c** — LaunchMark sized to 160pt so full logo shows on splash.  
+Phases 68–71 complete. Working tree clean.  
+Version **1.0 (1)** — not bumped. Not archived.
 
 ## Pending next
 Shawn manual release gates: Connect IAP §B → screenshots → bump → archive (only when approved).
@@ -10,6 +11,7 @@ Shawn manual release gates: Connect IAP §B → screenshots → bump → archive
 ## Still open (manual release)
 - Connect IAP §B  
 - Screenshots · bump · archive · TestFlight Pass · submit  
+- Device splash check: delete app + reinstall after LaunchMark fix  
 
 ## Version / build
 - Marketing: **1.0** · Build: **1** · Bundle: `com.shawnwright.yofai`
@@ -21,3 +23,4 @@ Shawn manual release gates: Connect IAP §B → screenshots → bump → archive
 - Freemium-first; Free keeps core local export; no AI / Direct Upload  
 - Unit tests: iPhone 16e  
 - No archive/upload/submit without approval  
+- LaunchMark must stay ~160pt (1x/2x/3x); never ship 1024@1x as launch image  
