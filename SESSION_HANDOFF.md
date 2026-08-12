@@ -1,7 +1,7 @@
 # Session Handoff
 
 ## Status
-Tip on `main`: **7af774c** — LaunchMark sized to 160pt so full logo shows on splash.  
+Tip on `main`: **4fcbfb5** — handoff after Phases 68–71. Product tip **7af774c** (LaunchMark 160pt).  
 Phases 68–71 complete. Working tree clean.  
 Version **1.0 (1)** — not bumped. Not archived.
 

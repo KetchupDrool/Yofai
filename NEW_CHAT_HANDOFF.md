@@ -11,9 +11,13 @@ Repo: `/Volumes/CombatMedic/Yofai` · branch `main`
 ## Current baseline
 Latest commit on `main`:
 
-`7af774cb66db4efd79447c4f3ce573afcb7ae77a`
+`4fcbfb5786103869907a7a268d3e64f5b7ad5656`
 
-Message: `Fix launch mark sizing so the full logo is visible.`
+Message: `Point handoff at tip after Phase 68–71 work.`
+
+Prior product tip:
+
+`7af774cb66db4efd79447c4f3ce573afcb7ae77a` — LaunchMark 160pt sizing.
 
 Status:
 - Working tree clean; `main` = `origin/main`
@@ -53,7 +57,7 @@ Continue Yofai iOS work.
 
 Read NEW_CHAT_HANDOFF.md, SESSION_HANDOFF.md, and SHAWN_NEXT_RELEASE_STEPS.md first.
 
-Baseline tip on main: 7af774c (LaunchMark 160pt sizing). Phases 68–71 done.
+Baseline tip on main: 4fcbfb5 (handoff). Product tip 7af774c (LaunchMark 160pt). Phases 68–71 done.
 ~397 tests. Version 1.0 (1). Working tree clean. Local Export Mode only. Not archived.
 
 Next: Shawn manual release gates (Connect IAP §B) unless Shawn asks for more polish.
